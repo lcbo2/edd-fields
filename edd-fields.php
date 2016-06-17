@@ -90,6 +90,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
             // Add Our Fields Metabox
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+            
+            // Output on Frontend
+            add_shortcode( 'edd_fields', array( $this, 'output' ) );
+            
+            // Force our Shortcode on Download Singles
+            // Priority of 9 puts it above the purchase button
+            add_filter( 'the_content', array( $this, 'inject_shortcode' ), 9 );
 
             // Handle licensing
             if ( class_exists( 'EDD_License' ) ) {
@@ -174,6 +181,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
         }
         
+        /**
+         * Include RBM Field Helpers if not already defined elsewhere (Such as mu-plugins)
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
         public function include_rbm_field_helpers() {
             
             if ( ! class_exists( 'RBM_FieldHelpers' ) ) {
@@ -234,6 +248,74 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                 ),
             ) );
 
+        }
+        
+        /**
+         * Outputs Download Fields as a table via Shortcode
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      HTML
+         */
+        public function output( $atts, $content ) {
+            
+            $atts = shortcode_atts( 
+                array(
+                    'class' => '',
+                    'post_id' => get_the_ID(),
+                ), 
+                $atts,
+                'edd_fields'
+            );
+            
+            ob_start();
+            
+            $repeater = rbm_get_field( 'edd_fields', $atts['post_id'] );
+            
+            if ( count( $repeater ) > 0 ) : ?>
+
+                <table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
+
+                <?php foreach ( $repeater as $row ) : ?>
+            
+                    <tr>
+                    
+                        <td>
+                            <?php echo $row['label']; ?>
+                        </td>
+
+                        <td>
+                            <?php echo $row['content']; ?>
+                        </td>
+                        
+                    </tr>
+
+                <?php endforeach; ?>
+                    
+                </table>
+            
+            <?php endif;
+            
+            $output = ob_get_contents();
+            ob_get_clean();
+            
+            return $output;
+            
+        }
+        
+        /**
+         * Force our Shortcode to load on Single Downloads
+         * @param  string $content The Content
+         * @return string The Content
+         */
+        public function inject_shortcode( $content ) {
+            
+            if ( is_single() && get_post_type() == 'download' ) {
+                $content .= '[edd_fields]';
+            }
+            
+            return $content;
+            
         }
 
     }
