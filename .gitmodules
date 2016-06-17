@@ -1,0 +1,4 @@
+[submodule "includes/rbm-field-helpers"]
+	path = includes/rbm-field-helpers
+	url = https://github.com/d4mation/rbm-field-helpers.git
+	branch = wysiwyg-repeater

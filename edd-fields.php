@@ -78,12 +78,18 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @return      void
          */
         private function hooks() {
+            
+            // Conditionally include RBM Field Helpers from our Sub-Module
+            add_action( 'init', array( $this, 'include_rbm_field_helpers' ) );
 
             // Register Settings Section
             add_filter( 'edd_settings_sections_extensions', array( $this, 'settings_section' ) );
 
             // Register Settings
             add_filter( 'edd_settings_extensions', array( $this, 'settings' ) );
+
+            // Add Our Fields Metabox
+            add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
             // Handle licensing
             if ( class_exists( 'EDD_License' ) ) {
@@ -95,7 +101,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         /**
          * Internationalization
          *
-         * @access      public
+         * @access      public 
          * @since       1.0.0
          * @return      void
          */
@@ -165,6 +171,68 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             }
 
             return array_merge( $settings, $efields_settings );
+
+        }
+        
+        public function include_rbm_field_helpers() {
+            
+            if ( ! class_exists( 'RBM_FieldHelpers' ) ) {
+                
+                require_once( plugin_dir_path( __FILE__ ) . '/includes/rbm-field-helpers/rbm-field-helpers.php' );
+                
+            }
+            
+        }
+
+        /**
+         * Add our mutatable Meta Box for EDD Fields
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
+        public function add_meta_boxes() {
+
+            $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+
+            foreach ( $post_types as $post_type ) {
+
+                add_meta_box(
+                    'edd_fields_meta_box', // Metabox ID
+                    sprintf( __( '%1$s Fields', 'easy-digital-downloads' ), edd_get_label_singular(), edd_get_label_plural() ), // Metabox Label
+                    array( $this, 'fields' ), // Callback function to populate Meta Box
+                    $post_type,
+                    'normal', // Position
+                    'high' // Priority
+                );
+
+            }
+
+        }
+
+        /**
+         * Our mutable Meta Box content_edit_pre
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
+        public function fields() {
+
+            rbm_do_field_repeater( 'edd_fields', false, array(
+                'label' => array(
+                    'type' => 'text',
+                    'label' => __( 'Label', 'efields' ),
+                ),
+                'content' => array( 
+                    'type' => 'wysiwyg',
+                    'label' => __( 'Content', 'efields' ),
+                    'wysiwyg_args' => array(
+                        'tinymce' => true,
+                        'quicktags' => true,
+                    ),
+                ),
+            ) );
 
         }
 
