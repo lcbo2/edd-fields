@@ -11,38 +11,46 @@ var pkg           = JSON.parse(fs.readFileSync('./package.json'));
 
 gulp.task('front-sass', function() {
 
-  return gulp.src(config.front.src)
-    .pipe($.sourcemaps.init())
-    .pipe($.sass()
-      .on('error', $.sass.logError))
-    .pipe(concat('style.css'))
-    .pipe(autoprefixer(config.compatibility))
-    .pipe($.cssnano())
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(config.dest.root))
-    .pipe(notify( {
-      title: pkg.name,
-      message: 'SASS Complete'
+    return gulp.src(config.front.src)
+        .pipe($.sourcemaps.init())
+        .pipe($.sass()
+          .on( 'error', notify.onError( {
+                title: pkg.name,
+                message: "<%= error.message %>",
+            } )
+         ) )
+        .pipe(concat('style.css'))
+        .pipe(autoprefixer(config.compatibility))
+        .pipe($.cssnano())
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest(config.dest.root))
+        .pipe(notify( {
+        title: pkg.name,
+        message: 'SASS Complete'
     }));
-    
+
 });
 
 gulp.task('admin-sass', function() {
 
-  return gulp.src(config.admin.src)
-    .pipe($.sourcemaps.init())
-    .pipe($.sass()
-      .on('error', $.sass.logError))
-    .pipe(concat('admin.css'))
-    .pipe(autoprefixer(config.compatibility))
-    .pipe($.cssnano())
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(config.dest.root))
-    .pipe(notify( {
-      title: pkg.name,
-      message: 'Admin SASS Complete'
+    return gulp.src(config.admin.src)
+        .pipe($.sourcemaps.init())
+        .pipe($.sass()
+          .on( 'error', notify.onError( {
+                title: pkg.name,
+                message: "<%= error.message %>",
+            } )
+         ) )
+        .pipe(concat('admin.css'))
+        .pipe(autoprefixer(config.compatibility))
+        .pipe($.cssnano())
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest(config.dest.root))
+        .pipe(notify( {
+        title: pkg.name,
+        message: 'Admin SASS Complete'
     }));
-    
+
 });
 
 gulp.task('sass', function(done) {
