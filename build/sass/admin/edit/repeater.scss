@@ -1,0 +1,25 @@
+#edd-fields-repeater {
+    
+    th {
+        padding-left: 12px;
+    }
+    
+    .edd-fields-field-handle {
+        
+        width: 0.5em;
+        
+    }
+    
+    input.regular-text {
+        width: 100%;
+    }
+    
+    span.handle {
+        
+        &:hover {
+            cursor: move,
+        }
+        
+    }
+    
+}

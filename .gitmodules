@@ -1,4 +1,0 @@
-[submodule "includes/rbm-field-helpers"]
-	path = includes/rbm-field-helpers
-	url = https://github.com/realbig/rbm-field-helpers.git
-	branch = develop

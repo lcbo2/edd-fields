@@ -4,7 +4,7 @@ Plugin Name: Easy Digital Downloads - Fields
 Plugin URL: http://easydigitaldownloads.com/downloads/fields
 Description: Easily create custom attributes or meta for your Downloads
 Version: 1.0.0
-Text Domain: efields
+Text Domain: edd-fields
 Author: Real Big Plugins
 Author URI: http://realbigplugins.com
 Contributors: d4mation
@@ -27,6 +27,12 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @since       1.0.0
          */
         private static $instance;
+        
+        /**
+         * @var         Plugin ID used for Localization, script names, etc.
+         * @since       1.0.0
+         */
+        public static $plugin_id = 'edd-fields';
 
         /**
          * Get active instance
@@ -58,6 +64,8 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @return      void
          */
         private function setup_constants() {
+            
+            //$plugin_data = get_plugin_data( __FILE__, false );
 
             // Plugin version
             define( 'EDD_Fields_VER', '1.0.0' );
@@ -78,9 +86,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @return      void
          */
         private function hooks() {
-            
-            // Conditionally include RBM Field Helpers from our Sub-Module
-            add_action( 'init', array( $this, 'include_rbm_field_helpers' ) );
 
             // Register Settings Section
             add_filter( 'edd_settings_sections_extensions', array( $this, 'settings_section' ) );
@@ -90,6 +95,15 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
             // Add Our Fields Metabox
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+            
+            // Save our Metabox Data
+            add_action( 'save_post', array( $this, 'save_post' ) );
+            
+            // Register our CSS/JS
+            add_action( 'init', array( $this, 'register_scripts' ) );
+            
+            // Enqueue CSS/JS on the Admin Side
+            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
             
             // Output on Frontend
             add_shortcode( 'edd_fields', array( $this, 'output' ) );
@@ -180,23 +194,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             return array_merge( $settings, $efields_settings );
 
         }
-        
-        /**
-         * Include RBM Field Helpers if not already defined elsewhere (Such as mu-plugins)
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function include_rbm_field_helpers() {
-            
-            if ( ! class_exists( 'RBM_FieldHelpers' ) ) {
-                
-                require_once( plugin_dir_path( __FILE__ ) . '/includes/rbm-field-helpers/rbm-field-helpers.php' );
-                
-            }
-            
-        }
 
         /**
          * Add our mutatable Meta Box for EDD Fields
@@ -225,29 +222,141 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         }
 
         /**
-         * Our mutable Meta Box content_edit_pre
+         * Our mutable Meta Box content
          * 
          * @access      public
          * @since       1.0.0
          * @return      void
          */
         public function fields() {
+            
+            $fields = get_post_meta( get_the_ID(), 'edd_fields', true );
 
-            rbm_do_field_repeater( 'edd_fields', false, array(
-                'label' => array(
-                    'type' => 'text',
-                    'label' => __( 'Label', 'efields' ),
-                ),
-                'content' => array( 
-                    'type' => 'wysiwyg',
-                    'label' => __( 'Content', 'efields' ),
-                    'wysiwyg_args' => array(
-                        'tinymce' => true,
-                        'quicktags' => true,
-                    ),
-                ),
-            ) );
+            ob_start(); ?>
 
+            <table id="edd-fields-repeater" class="wp-list-table widefat fixed posts">
+
+                <thead>
+                    <tr>
+                        <th scope="col" class="edd-fields-field-handle"></th>
+                        <th scope="col" class="edd-fields"><?php _e( 'Label', EDD_Fields::$plugin_id ); ?></th>
+                        <th scope="col" class="edd-fields-field-label"><?php _e( 'Value', EDD_Fields::$plugin_id ); ?></th>
+                        <th scope="col"><?php _e( 'Remove', EDD_Fields::$plugin_id ); ?></th>
+                    </tr>
+                </thead>
+            
+            <?php if ( count( $fields ) > 0 ) : 
+            
+                for ( $index = 0; $index < count( $fields ); $index++ ) : ?>
+
+                        <tr>
+                            <td><span class="handle dashicons dashicons-sort"></span></td>
+                            <td class="edd-fields-key">
+                                <?php echo EDD()->html->text( array(
+                                    'name' => "edd_fields[$index][key]",
+                                    'value' => $fields[$index]['key']
+                                ) ); ?>
+                            </td>
+                            <td class="edd-fields-value">
+                                <?php echo EDD()->html->text( array(
+                                    'name' => "edd_fields[$index][value]",
+                                    'value' => $fields[$index]['value']
+                                ) ); ?>
+                            </td>
+                            <td>
+                                <span class="edd-remove-row button-secondary"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span>
+                            </td>
+                        </tr>
+
+                    <?php 
+
+                endfor;
+            
+            else : ?>
+
+                <tr>
+                    <td><span class="handle dashicons dashicons-sort"></span></td>
+                    <td class="edd-fields-key">
+                        <?php echo EDD()->html->text( array(
+                            'name' => 'butts[0][key]'
+                        ) ); ?>
+                    </td>
+                    <td class="edd-fields-value">
+                        <?php echo EDD()->html->text( array(
+                            'name' => 'edd_fields[0][value]'
+                        ) ); ?>
+                    </td>
+                    <td>
+                        <span class="edd-remove-row button-secondary"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span>
+                    </td>
+                </tr>
+            
+            <?php endif; ?>
+
+            </table>
+
+            <p>
+                <span id="edd-fields-add-row" class="button-secondary" ><?php _e( 'Add Field', EDD_Fields::$plugin_id ); ?></span>
+            </p>
+            
+            <?php echo ob_get_clean();
+            
+        }
+        
+        public function save_post( $post_id ) {
+            
+            $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+            
+            if ( in_array( get_post_type(), $post_types ) ) {
+
+                $new_fields = ! empty( $_POST['edd_fields'] ) ? array_values( $_POST['edd_fields'] ) : array();
+                
+                update_post_meta( $post_id, 'edd_fields', $new_fields );
+                
+            }
+            
+        }
+        
+        public function register_scripts() {
+            
+            wp_register_style(
+                EDD_Fields::$plugin_id . '-admin',
+                EDD_Fields_URL . '/admin.css',
+                null,
+                defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
+            );
+            
+            wp_register_script(
+                EDD_Fields::$plugin_id . '-admin',
+                EDD_Fields_URL . '/admin.js',
+                array( 'jquery' ),
+                defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
+                true
+            );
+            
+        }
+        
+        /**
+         * Enqueue our CSS/JS on the Admin Side
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
+        public function admin_enqueue_scripts() {
+            
+            $current_screen = get_current_screen();
+            global $pagenow;
+            
+            $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+            
+            if ( ( in_array( $current_screen->post_type, $post_types ) ) && ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) ) {
+            
+                wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
+                wp_enqueue_script( EDD_Fields::$plugin_id . '-admin' );
+                
+            }
+            
         }
         
         /**
@@ -270,7 +379,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
             ob_start();
             
-            $repeater = rbm_get_field( 'edd_fields', $atts['post_id'] );
+            $repeater = get_post_meta( $atts['post_id'], 'edd_fields', true );
             
             if ( count( $repeater ) > 0 ) : ?>
 
@@ -281,11 +390,11 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                     <tr>
                     
                         <td>
-                            <?php echo $row['label']; ?>
+                            <?php echo $row['key']; ?>
                         </td>
 
                         <td>
-                            <?php echo $row['content']; ?>
+                            <?php echo $row['value']; ?>
                         </td>
                         
                     </tr>
