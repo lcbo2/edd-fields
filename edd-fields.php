@@ -64,8 +64,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @return      void
          */
         private function setup_constants() {
-            
-            //$plugin_data = get_plugin_data( __FILE__, false );
 
             // Plugin version
             define( 'EDD_Fields_VER', '1.0.0' );
@@ -106,7 +104,10 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
             
             // Output on Frontend
-            add_shortcode( 'edd_fields', array( $this, 'output' ) );
+            add_shortcode( 'edd_fields_table', array( $this, 'table_output' ) );
+            
+            // Grab inividual value via Shortcode
+            add_shortcode( 'edd_field', array( $this, 'edd_field_shortcode' ) );
             
             // Force our Shortcode on Download Singles
             // Priority of 9 puts it above the purchase button
@@ -304,6 +305,15 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
         }
         
+        /**
+         * Save Our Custom Post Meta
+         * 
+         * @param       integer $post_id Current Post ID
+         *                                      
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
         public function save_post( $post_id ) {
             
             $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
@@ -324,6 +334,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
         }
         
+        /**
+         * Register our CSS/JS to use later
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
         public function register_scripts() {
             
             wp_register_style(
@@ -373,7 +390,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @since       1.0.0
          * @return      HTML
          */
-        public function output( $atts, $content ) {
+        public function table_output( $atts, $content ) {
             
             $atts = shortcode_atts( 
                 array(
@@ -381,7 +398,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                     'post_id' => get_the_ID(),
                 ), 
                 $atts,
-                'edd_fields'
+                'edd_fields_table'
             );
             
             ob_start();
@@ -420,6 +437,58 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         }
         
         /**
+         * Shortcode to grab individual EDD Fields Values
+         * 
+         * @param       array  $atts    Shortcode Attributes
+         * @param       string $content We're not actually using this, but I like to have it there for completeness
+         *                                                                                             
+         * @access      public
+         * @since       1.0.0
+         * @return      string
+         */
+        public function edd_field_shortcode( $atts, $content ) {
+            
+            $atts = shortcode_atts( 
+                array(
+                    'name' => '',
+                    'post_id' => get_the_ID(),
+                ), 
+                $atts,
+                'edd_field'
+            );
+            
+            if ( $atts['name'] == '' ) {
+                return __( 'You must specify a Field Name. Example: [edd_field name="test"]', EDD_Fields::$plugin_id );
+            }
+            
+            return EDD_Fields::get_field( $atts['post_id'], $atts['name'] );
+            
+        }
+        
+        /**
+         * Static Function to grab an individual EDD Fields value. Useful for Theme Template Files.
+         * 
+         * @param       integer $post_id    Post ID
+         * @param       string  $key        Key 
+         *                           
+         * @access      public
+         * since        1.0.0
+         * @return      string Value
+         */
+        public static function get_field( $post_id, $key ) {
+            
+            $edd_fields = get_post_meta( $post_id, 'edd_fields', true );
+            
+            // Collapse into a one-dimensional array of the Keys to find our Index
+            $key_list = array_map( function( $array ) {
+                return $array['key'];
+            }, $edd_fields );
+            
+            return $edd_fields[ array_search( $key, $key_list ) ]['value'];
+            
+        }
+        
+        /**
          * Force our Shortcode to load on Single Downloads
          * @param  string $content The Content
          * @return string The Content
@@ -427,7 +496,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         public function inject_shortcode( $content ) {
             
             if ( is_single() && get_post_type() == 'download' ) {
-                $content .= '[edd_fields]';
+                $content .= '[edd_fields_table]';
             }
             
             return $content;
