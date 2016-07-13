@@ -231,6 +231,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         public function fields() {
             
             $fields = get_post_meta( get_the_ID(), 'edd_fields', true );
+            var_dump( $fields );
 
             ob_start(); ?>
 
@@ -245,7 +246,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                     </tr>
                 </thead>
             
-            <?php if ( count( $fields ) > 0 ) : 
+            <?php if ( count( $fields ) > 0 && $fields !== '' ) : 
             
                 for ( $index = 0; $index < count( $fields ); $index++ ) : ?>
 
@@ -278,7 +279,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                     <td><span class="handle dashicons dashicons-sort"></span></td>
                     <td class="edd-fields-key">
                         <?php echo EDD()->html->text( array(
-                            'name' => 'butts[0][key]'
+                            'name' => 'edd_fields[0][key]'
                         ) ); ?>
                     </td>
                     <td class="edd-fields-value">
@@ -311,7 +312,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
                 $new_fields = ! empty( $_POST['edd_fields'] ) ? array_values( $_POST['edd_fields'] ) : array();
                 
-                update_post_meta( $post_id, 'edd_fields', $new_fields );
+                if ( ( count( $new_fields ) == 1 ) &&
+                    ( empty( $new_fields[0]['key'] ) && empty( $new_fields[0]['value'] ) ) ) {
+                    delete_post_meta( $post_id, 'edd_fields' );
+                }
+                else {
+                    update_post_meta( $post_id, 'edd_fields', $new_fields );
+                }
                 
             }
             
@@ -381,7 +388,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
             $repeater = get_post_meta( $atts['post_id'], 'edd_fields', true );
             
-            if ( count( $repeater ) > 0 ) : ?>
+            if ( count( $repeater ) > 0 && $repeater !== '' ) : ?>
 
                 <table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
 
