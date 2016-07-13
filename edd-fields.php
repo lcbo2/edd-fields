@@ -133,25 +133,25 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             $lang_dir = apply_filters( 'EDD_Fields_languages_directory', $lang_dir );
 
             // Traditional WordPress plugin locale filter
-            $locale = apply_filters( 'plugin_locale', get_locale(), 'efields' );
-            $mofile = sprintf( '%1$s-%2$s.mo', 'efields', $locale );
+            $locale = apply_filters( 'plugin_locale', get_locale(), EDD_Fields::$plugin_id );
+            $mofile = sprintf( '%1$s-%2$s.mo', EDD_Fields::$plugin_id, $locale );
 
             // Setup paths to current locale file
             $mofile_local   = $lang_dir . $mofile;
-            $mofile_global  = WP_LANG_DIR . '/efields/' . $mofile;
+            $mofile_global  = WP_LANG_DIR . '/' . EDD_Fields::$plugin_id . '/' . $mofile;
 
             if ( file_exists( $mofile_global ) ) {
-                // Look in global /wp-content/languages/efields/ folder
+                // Look in global /wp-content/languages/edd-fields/ folder
                 // This way translations can be overridden via the Theme/Child Theme
-                load_textdomain( 'efields', $mofile_global );
+                load_textdomain( EDD_Fields::$plugin_id, $mofile_global );
             }
             else if ( file_exists( $mofile_local ) ) {
-                // Look in local /wp-content/plugins/efields/languages/ folder
-                load_textdomain( 'efields', $mofile_local );
+                // Look in local /wp-content/plugins/edd-fields/languages/ folder
+                load_textdomain( EDD_Fields::$plugin_id, $mofile_local );
             }
             else {
                 // Load the default language files
-                load_plugin_textdomain( 'efields', false, $lang_dir );
+                load_plugin_textdomain( EDD_Fields::$plugin_id, false, $lang_dir );
             }
 
         }
@@ -166,7 +166,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         */
         public function settings_section( $sections ) {
 
-            $sections['efields-settings'] = __( 'Fields', 'efields' );
+            $sections['edd-fields-settings'] = __( 'Fields', EDD_Fields::$plugin_id );
 
             return $sections;
 
@@ -182,16 +182,16 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         */
         public function settings( $settings ) {
 
-            $efields_settings = array(
+            $edd_fields_settings = array(
             );
 
             // If EDD is at version 2.5 or later...
             if ( version_compare( EDD_VERSION, 2.5, '>=' ) ) {
                 // Place the Settings in our Settings Section
-                $efields_settings = array( 'efields-settings' => $efields_settings );
+                $edd_fields_settings = array( 'edd-fields-settings' => $edd_fields_settings );
             }
 
-            return array_merge( $settings, $efields_settings );
+            return array_merge( $settings, $edd_fields_settings );
 
         }
 
