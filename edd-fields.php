@@ -205,7 +205,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          */
         public function add_meta_boxes() {
 
-            $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 
             foreach ( $post_types as $post_type ) {
 
@@ -316,7 +316,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          */
         public function save_post( $post_id ) {
             
-            $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
             
             if ( in_array( get_post_type(), $post_types ) ) {
 
@@ -372,7 +372,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             $current_screen = get_current_screen();
             global $pagenow;
             
-            $post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
             
             if ( ( in_array( $current_screen->post_type, $post_types ) ) && ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) ) {
             
