@@ -94,8 +94,11 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             // Add Our Fields Metabox
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
             
+            // Add Rows to our Repeater
+            add_action( 'edd_fields_render_row', array( $this, 'edd_fields_render_row' ), 10, 4 );
+            
             // Save our Metabox Data
-            add_action( 'save_post', array( $this, 'save_post' ) );
+            add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
             
             // Register our CSS/JS
             add_action( 'init', array( $this, 'register_scripts' ) );
@@ -208,10 +211,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 
             foreach ( $post_types as $post_type ) {
+                
+                $post_type_labels = get_post_type_object( $post_type );
+                $post_type_labels = $post_type_labels->labels;
 
                 add_meta_box(
                     'edd_fields_meta_box', // Metabox ID
-                    sprintf( __( '%1$s Fields', 'easy-digital-downloads' ), edd_get_label_singular(), edd_get_label_plural() ), // Metabox Label
+                    sprintf( __( '%1$s Fields', EDD_Fields::$plugin_id ), $post_type_labels->singular_name, $post_type_labels->name ), // Metabox Label
                     array( $this, 'fields' ), // Callback function to populate Meta Box
                     $post_type,
                     'normal', // Position
@@ -229,79 +235,105 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @since       1.0.0
          * @return      void
          */
-        public function fields() {
+        public function fields( $post ) {
             
             $fields = get_post_meta( get_the_ID(), 'edd_fields', true );
-            var_dump( $fields );
-
+            
             ob_start(); ?>
 
-            <table id="edd-fields-repeater" class="wp-list-table widefat fixed posts">
+            <div class="edd_meta_table_wrap">
 
-                <thead>
-                    <tr>
-                        <th scope="col" class="edd-fields-field-handle"></th>
-                        <th scope="col" class="edd-fields"><?php _e( 'Label', EDD_Fields::$plugin_id ); ?></th>
-                        <th scope="col" class="edd-fields-field-label"><?php _e( 'Value', EDD_Fields::$plugin_id ); ?></th>
-                        <th scope="col"><?php _e( 'Remove', EDD_Fields::$plugin_id ); ?></th>
-                    </tr>
-                </thead>
-            
-            <?php if ( count( $fields ) > 0 && $fields !== '' ) : 
-            
-                for ( $index = 0; $index < count( $fields ); $index++ ) : ?>
+                <table id="edd-fields-repeater" class="widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
 
+                    <thead>
                         <tr>
-                            <td><span class="handle dashicons dashicons-sort"></span></td>
-                            <td class="edd-fields-key">
-                                <?php echo EDD()->html->text( array(
-                                    'name' => "edd_fields[$index][key]",
-                                    'value' => $fields[$index]['key']
-                                ) ); ?>
-                            </td>
-                            <td class="edd-fields-value">
-                                <?php echo EDD()->html->text( array(
-                                    'name' => "edd_fields[$index][value]",
-                                    'value' => $fields[$index]['value']
-                                ) ); ?>
-                            </td>
-                            <td>
-                                <span class="edd-remove-row button-secondary"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span>
-                            </td>
+                            <th scope="col" class="edd-fields-field-handle"></th>
+                            <th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields::$plugin_id ); ?></th>
+                            <th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields::$plugin_id ); ?></th>
+                            <th scope="col"></th>
                         </tr>
+                    </thead>
 
-                    <?php 
+                <?php if ( ! empty( $fields ) ) : 
 
-                endfor;
+                    foreach ( $fields as $key => $value ) : 
             
-            else : ?>
+                            $name = isset( $value['key'] ) ? $value['key'] : '';
+                            $value = isset( $value['value'] ) ? $value['value'] : '';
+                            $args = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
 
-                <tr>
-                    <td><span class="handle dashicons dashicons-sort"></span></td>
-                    <td class="edd-fields-key">
-                        <?php echo EDD()->html->text( array(
-                            'name' => 'edd_fields[0][key]'
-                        ) ); ?>
-                    </td>
-                    <td class="edd-fields-value">
-                        <?php echo EDD()->html->text( array(
-                            'name' => 'edd_fields[0][value]'
-                        ) ); ?>
-                    </td>
-                    <td>
-                        <span class="edd-remove-row button-secondary"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span>
-                    </td>
-                </tr>
-            
-            <?php endif; ?>
+                            do_action( 'edd_fields_render_row', $key, $args );
 
-            </table>
+                    endforeach;
 
-            <p>
-                <span id="edd-fields-add-row" class="button-secondary" ><?php _e( 'Add Field', EDD_Fields::$plugin_id ); ?></span>
-            </p>
+                else :
+
+                    do_action( 'edd_fields_render_row', 0, array(), $post->ID, 0 );
+
+                endif; ?>
+
+                    <tr>
+                        <td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
+                            <button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields::$plugin_id ); ?></button>
+                        </td>
+                    </tr>
+
+                </table>
+                
+            </div>
+
+            <?php wp_nonce_field( basename( __FILE__ ), 'edd_fields_meta_box_nonce' ); ?>
             
             <?php echo ob_get_clean();
+            
+        }
+        
+        /**
+         * Function to render each row of our Repeater in the Metabox
+         * 
+         * @param       integer $key Array Key
+         * @param       array $args Holds HTML Name and Value
+         *                          
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
+        public function edd_fields_render_row( $key, $args ) {
+            
+            $defaults = array(
+                'name' => '',
+                'value' => '',
+            );
+            
+            $args = wp_parse_args( $args, $defaults );
+            
+            ?>
+            
+            <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="<?php echo esc_attr( $key ); ?>">
+                <td>
+                    <span class="edd_draghandle"></span>
+                    <input type="hidden" name="edd_fields[<?php echo $key; ?>][index]" class="edd_repeatable_index" value="<?php echo $key; ?>"/>
+                </td>
+                <td class="edd-fields-key">
+                    <?php echo EDD()->html->text( array(
+                        'name' => "edd_fields[$key][key]",
+                        'value' => $args['name'],
+                    ) ); ?>
+                </td>
+                <td class="edd-fields-value">
+                    <?php echo EDD()->html->text( array(
+                        'name' => "edd_fields[$key][value]",
+                        'value' => $args['value'],
+                    ) ); ?>
+                </td>
+                <td>
+                    <button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
+                        <span class="screen-reader-text"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span><span aria-hidden="true">&times;</span>
+                    </button>
+                </td>
+            </tr>
+            
+            <?php
             
         }
         
@@ -314,20 +346,41 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @since       1.0.0
          * @return      void
          */
-        public function save_post( $post_id ) {
+        public function save_post( $post_id, $post ) {
+            
+            if ( ! isset( $_POST['edd_fields_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['edd_fields_meta_box_nonce'], basename( __FILE__ ) ) ) {
+                return;
+            }
+            
+            if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX') && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) {
+                return;
+            }
+            
+            if ( isset( $post->post_type ) && 'revision' == $post->post_type ) {
+                return;
+            }
+            
+            if ( ! current_user_can( 'edit_product', $post_id ) ) {
+                return;
+            }
             
             $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
             
-            if ( in_array( get_post_type(), $post_types ) ) {
+            if ( in_array( $post->post_type, $post_types ) ) {
 
-                $new_fields = ! empty( $_POST['edd_fields'] ) ? array_values( $_POST['edd_fields'] ) : array();
-                
-                if ( ( count( $new_fields ) == 1 ) &&
-                    ( empty( $new_fields[0]['key'] ) && empty( $new_fields[0]['value'] ) ) ) {
-                    delete_post_meta( $post_id, 'edd_fields' );
-                }
-                else {
-                    update_post_meta( $post_id, 'edd_fields', $new_fields );
+                if ( ! empty( $_POST['edd_fields'] ) ) {
+                    
+                    // Sanitization Filter. Values are already forced to re-index on Save.
+                    $new_fields = apply_filters( 'edd_metabox_save_fields', array_values( $_POST['edd_fields'] ) );
+
+                    if ( ( count( $new_fields ) == 1 ) &&
+                        ( empty( $new_fields[0]['key'] ) ) ) {
+                        delete_post_meta( $post_id, 'edd_fields' );
+                    }
+                    else {
+                        update_post_meta( $post_id, 'edd_fields', $new_fields );
+                    }
+                    
                 }
                 
             }
@@ -350,14 +403,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                 defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
             );
             
-            wp_register_script(
-                EDD_Fields::$plugin_id . '-admin',
-                EDD_Fields_URL . '/admin.js',
-                array( 'jquery' ),
-                defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
-                true
-            );
-            
         }
         
         /**
@@ -377,7 +422,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             if ( ( in_array( $current_screen->post_type, $post_types ) ) && ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) ) {
             
                 wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
-                wp_enqueue_script( EDD_Fields::$plugin_id . '-admin' );
                 
             }
             
