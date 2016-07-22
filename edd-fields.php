@@ -435,7 +435,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         
         public function force_after_tiny_mce() {
             
-            printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . '/admin.js' );
+            printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . '/tinymce/tinymce-select.js' );
             
         }
         

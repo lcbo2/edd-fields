@@ -1,0 +1,90 @@
+tinymce.ui.Select = tinymce.ui.TextBox.extend( {
+
+    init: function(settings) {
+
+        var self = this;
+        self._super(settings);
+        settings = self.settings;
+
+    },
+
+    /**
+     * Renders the control as a HTML string.
+     *
+     * @method renderHtml
+     * @return {String} HTML representing the control.
+     */
+    renderHtml: function() {
+        var self = this, settings = self.settings, attrs, element;
+
+        attrs = {
+            id: self._id,
+            hidefocus: '1',
+            class: 'mce-textbox mce-abs-layout-item mce-last',
+        };
+
+        tinymce.util.Tools.each([
+            'required',
+        ], function(name) {
+            attrs[name] = settings[name];
+        });
+
+        if (self.disabled()) {
+            attrs.disabled = 'disabled';
+        }
+
+        if (settings.subtype) {
+            attrs.type = settings.subtype;
+        }
+
+        element = document.createElement('select');
+        for ( var id in attrs ) {
+            element.setAttribute( id, attrs[id] );
+        }
+
+        for ( var index = 0; index < settings.values.length; index++ ) {
+
+            var text = settings.values[index].text;
+            var value = settings.values[index].value;
+
+            element.innerHTML += self.renderInnerHtml( value, text );
+
+        }
+
+        return element.outerHTML;
+
+    },
+
+    /**
+     * Renders the InnerHTML Recursively
+     *
+     * @method renderInnerHtml
+     * @return {String} HTML representing the control.
+     */
+    renderInnerHtml: function( value, text ) {
+        var self = this;
+
+        // key is the value of our HTML object. Yes, it is confusing.
+        if ( typeof value == 'object' ) {
+
+            var output = '';
+
+            for ( var index = 0; index < value.length; index++ ) {
+
+                // This will technically grab nested optgroups too. Most browsers just don't handle that well.
+                output += self.renderInnerHtml( value[index].value, value[index].text );
+
+            }
+
+            return '<optgroup label="' + text + '">' + output + '</optgroup>';
+
+        }
+        else {
+            return '<option value="' + value + '">' + text + '</option>';
+        }
+
+        return true;
+
+    }
+
+} );
