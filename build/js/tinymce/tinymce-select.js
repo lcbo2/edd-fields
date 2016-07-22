@@ -64,7 +64,6 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
     renderInnerHtml: function( value, text ) {
         var self = this;
 
-        // key is the value of our HTML object. Yes, it is confusing.
         if ( typeof value == 'object' ) {
 
             var output = '';
