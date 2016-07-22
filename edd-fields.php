@@ -106,11 +106,17 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             // Enqueue CSS/JS on the Admin Side
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
             
+            // Force script load after TinyMCE. WP Doesn't Enqueue TinyMCE correctly, so neither will we
+            add_action( 'after_wp_tiny_mce', array( $this, 'force_after_tiny_mce' ) );
+            
             // Output on Frontend
             add_shortcode( 'edd_fields_table', array( $this, 'table_output' ) );
             
             // Grab inividual value via Shortcode
             add_shortcode( 'edd_field', array( $this, 'edd_field_shortcode' ) );
+            
+            // Add Shortcodes to TinyMCE
+            add_action( 'admin_init', array( $this, 'tinymce_shortcodes' ) );
             
             // Force our Shortcode on Download Singles
             // Priority of 9 puts it above the purchase button
@@ -427,6 +433,12 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
         }
         
+        public function force_after_tiny_mce() {
+            
+            printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . '/admin.js' );
+            
+        }
+        
         /**
          * Outputs Download Fields as a table via Shortcode
          * 
@@ -529,6 +541,25 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             }, $edd_fields );
             
             return $edd_fields[ array_search( $key, $key_list ) ]['value'];
+            
+        }
+        
+        public function tinymce_shortcodes() {
+            
+            if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
+        
+                add_filter( 'mce_buttons', function( $buttons ) {
+                    array_push( $buttons, 'edd_fields_shortcodes' );
+                    return $buttons;
+                } );
+
+                // Attach script to the button rather than enqueueing it
+                add_filter( 'mce_external_plugins', function( $plugin_array ) {
+                    $plugin_array['edd_fields_shortcodes_script'] = EDD_Fields_URL . 'tinymce/edd-fields-shortcodes.js';
+                    return $plugin_array;
+                } );
+
+            }
             
         }
         

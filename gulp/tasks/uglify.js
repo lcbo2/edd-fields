@@ -50,14 +50,14 @@ gulp.task( 'admin-uglify', function() {
 gulp.task( 'tinymce-uglify', function() {
 
     return gulp.src( config.tinymce.src )
-        .pipe( $.plumber( { errorHandler: onError } ) )
         .pipe( foreach( function( stream, file ) {
             return stream
+                .pipe( $.plumber( { errorHandler: onError } ) )
                 .pipe( $.babel() )
                 .pipe( $.uglify() )
                 .pipe( gulp.dest( config.tinymce.dest ) )
+                .pipe( $.plumber.stop() )
         } ) )
-        .pipe( $.plumber.stop() )
         .pipe( notify( {
             title: pkg.name,
             message: 'TinyMCE JS Complete'
