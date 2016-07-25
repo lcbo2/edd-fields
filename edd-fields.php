@@ -571,13 +571,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         }
         
         /**
-         * Grabs all the Post Data for our Dropdown
+         * Grabs all the Post IDs for our Dropdown
          * 
          * @access      public
          * @since       1.0.0
          * @return      JSON
          */
-        public static function tinymce_shortcode_ajax() {
+        public static function tinymce_shortcode_post_id_ajax() {
             
             $current_post_type = $_POST['current_post_type'];
             
@@ -591,7 +591,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                 $plural = $post_type_object->labels->name;
             }
             
-            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
+            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download', 'post' ) );
             
             $args = array(
                 'numberposts' => -1,
@@ -650,6 +650,40 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         }
         
         /**
+         * Grabs all the Field Names for our Dropdown
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      JSON
+         */
+        public static function tinymce_shortcode_field_name_ajax() {
+            
+            $post_id = $_POST['post_id'];
+            
+            $edd_fields = get_post_meta( $post_id, 'edd_fields', true );
+            
+            // Collapse into a one-dimensional array of the Keys to find our Index
+            $key_list = array_map( function( $array ) {
+                return $array['key'];
+            }, $edd_fields );
+            
+            $result = array(
+                array( 'text' => sprintf( __( 'Choose a Field Name', EDD_Fields::$plugin_id ), $singular ), 'value' => '' )
+            );
+            
+            foreach ( $key_list as $name ) {
+                
+                $result[] = array( 'text' => $name, 'value' => $name );
+                
+            }
+            
+            echo json_encode( $result );
+            
+            die();
+            
+        }
+        
+        /**
          * Force our Shortcode to load on Single Downloads
          * @param  string $content The Content
          * @return string The Content
@@ -690,7 +724,8 @@ function EDD_Fields_load() {
     }
     else {
         
-        add_action( 'wp_ajax_edd_fields_get_posts', array( 'EDD_Fields', 'tinymce_shortcode_ajax' ) );
+        add_action( 'wp_ajax_edd_fields_get_posts', array( 'EDD_Fields', 'tinymce_shortcode_post_id_ajax' ) );
+        add_action( 'wp_ajax_edd_fields_get_names', array( 'EDD_Fields', 'tinymce_shortcode_field_name_ajax' ) );
         
         return EDD_Fields::instance();
         

@@ -29,12 +29,16 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
             attrs[name] = settings[name];
         } );
 
-        if (self.disabled()) {
+        if ( self.disabled() ) {
             attrs.disabled = 'disabled';
         }
 
-        if (settings.subtype) {
+        if ( settings.subtype ) {
             attrs.type = settings.subtype;
+        }
+        
+        if ( settings.classes ) {
+            attrs.class = attrs.class + ' ' + settings.classes;
         }
 
         element = document.createElement('select');
