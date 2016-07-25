@@ -103,3 +103,6 @@ if ( tinymce.ui.Select === undefined ) {
     } );
     
 }
+else {
+    console.warn( 'TinyMCE already has a Select Control that is taking precedence over the one included in EDD Fields. This may cause issues.' );
+}
