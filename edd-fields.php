@@ -591,7 +591,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                 $plural = $post_type_object->labels->name;
             }
             
-            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download', 'post' ) );
+            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' );
             
             $args = array(
                 'numberposts' => -1,
