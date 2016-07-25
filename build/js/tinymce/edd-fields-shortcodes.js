@@ -149,7 +149,7 @@ jQuery( function( $ ) {
                                 onsubmit: function( e ) {
                                     editor.insertContent( '[edd_field' + 
                                                             ( e.data.id !== undefined ? ' post_id="' + e.data.id + '"' : '' ) + 
-                                                            ( e.data.name !== undefined ? ' class="' + e.data.name + '"' : '' ) + 
+                                                            ( e.data.name !== undefined ? ' name="' + e.data.name + '"' : '' ) + 
                                                          ']' );
                                 }
 
