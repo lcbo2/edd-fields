@@ -544,6 +544,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
         }
         
+        /**
+         * Add Our TinyMCE Shortcodes to the Content Editor via a few Filters
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
         public function tinymce_shortcodes() {
             
             if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
@@ -560,6 +567,85 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                 } );
 
             }
+            
+        }
+        
+        /**
+         * Grabs all the Post Data for our Dropdown
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      JSON
+         */
+        public static function tinymce_shortcode_ajax() {
+            
+            $current_post_type = $_POST['current_post_type'];
+            
+            if ( $current_post_type == 'download' ) { // EDD Allows Users to Filter this. Some other plugins do too, but we're targeting EDD
+                $singular = edd_get_label_singular();
+                $plural = edd_get_label_plural();
+            }
+            else {
+                $post_type_object = get_post_type_object( $current_post_type );
+                $singular = $post_type_object->labels->singular_name;
+                $plural = $post_type_object->labels->name;
+            }
+            
+            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
+            
+            $args = array(
+                'numberposts' => -1,
+                'orderby' => 'name',
+                'order' => 'ASC',
+                'post_status' => 'publish',
+            );
+            
+            $result = array(
+                array( 'text' => sprintf( __( 'Current %s', EDD_Fields::$plugin_id ), $singular ), 'value' => '' )
+            );
+            
+            foreach ( $post_types as $post_type ) {
+                
+                $args['post_type'] = $post_type;
+                $query = new WP_Query( $args );
+                
+                if ( $query->have_posts() ) : 
+                
+                    $grouped_posts = array();
+                    while ( $query->have_posts() ) : $query->the_post();
+                
+                        if ( count( $post_types ) > 1 ) {
+                            // Store later for a <optgroup>
+                            $grouped_posts[] = array( 'text' => get_the_title(), 'value' => get_the_ID() );
+                        }
+                        else {
+                            $result[] = array( 'text' => get_the_title(), 'value' => get_the_ID() );
+                        }
+                
+                    endwhile;
+                
+                    wp_reset_postdata();
+                
+                    if ( count( $post_types ) > 1 ) {
+                        
+                        $post_type_object = get_post_type_object( $post_type );
+                        $plural = $post_type_object->labels->name;
+                        
+                        // Create <optgroup>
+                        $result[] = array(
+                            'text' => $plural,
+                            'value' => $grouped_posts,
+                        );
+                        
+                    }
+                
+                endif;
+                
+            }
+            
+            echo json_encode( $result );
+            
+            die();
             
         }
         
@@ -589,6 +675,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
  * @since       1.0.0
  * @return      \EDD_Fields The one true EDD_Fields
  */
+add_action( 'plugins_loaded', 'EDD_Fields_load' );
 function EDD_Fields_load() {
 
     if ( ! class_exists( 'Easy_Digital_Downloads' ) ) {
@@ -602,8 +689,11 @@ function EDD_Fields_load() {
 
     }
     else {
+        
+        add_action( 'wp_ajax_edd_fields_get_posts', array( 'EDD_Fields', 'tinymce_shortcode_ajax' ) );
+        
         return EDD_Fields::instance();
+        
     }
 
 }
-add_action( 'plugins_loaded', 'EDD_Fields_load' );

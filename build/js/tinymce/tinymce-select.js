@@ -23,11 +23,11 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
             class: 'mce-textbox mce-abs-layout-item mce-last',
         };
 
-        tinymce.util.Tools.each([
+        tinymce.util.Tools.each( [
             'required',
         ], function(name) {
             attrs[name] = settings[name];
-        });
+        } );
 
         if (self.disabled()) {
             attrs.disabled = 'disabled';
@@ -46,8 +46,9 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
 
             var text = settings.values[index].text;
             var value = settings.values[index].value;
+            var selected = settings.value;
 
-            element.innerHTML += self.renderInnerHtml( value, text );
+            element.innerHTML += self.renderInnerHtml( value, text, selected );
 
         }
 
@@ -61,7 +62,7 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
      * @method renderInnerHtml
      * @return {String} HTML representing the control.
      */
-    renderInnerHtml: function( value, text ) {
+    renderInnerHtml: function( value, text, selected ) {
         var self = this;
 
         if ( typeof value == 'object' ) {
@@ -71,7 +72,7 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
             for ( var index = 0; index < value.length; index++ ) {
 
                 // This will technically grab nested optgroups too. Most browsers just don't handle that well.
-                output += self.renderInnerHtml( value[index].value, value[index].text );
+                output += self.renderInnerHtml( value[index].value, value[index].text, selected );
 
             }
 
@@ -79,7 +80,14 @@ tinymce.ui.Select = tinymce.ui.TextBox.extend( {
 
         }
         else {
-            return '<option value="' + value + '">' + text + '</option>';
+            
+            if ( selected == value ) {
+                return '<option value="' + value + '" selected>' + text + '</option>';
+            }
+            else {
+                return '<option value="' + value + '">' + text + '</option>';
+            }
+            
         }
 
         return true;

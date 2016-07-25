@@ -1,19 +1,47 @@
-function some_function() {
-    
-    var array = [
-        { text: 'test', value: 1 },
-        { text: 'test 2', value: 2 },
-        { text: 'Group', value: [
-            { text: 'test 4', value: 4 },
-            { text: 'test 5', value: 5 },
-        ] },
-    ];
-    
-    return array;
-    
-}
-
 jQuery( function( $ ) {
+    
+    function edd_fields_get_posts() {
+    
+        var posts = [],
+            url;
+        
+        if ( ! location.origin )
+            location.origin = location.protocol + '//' + location.host;
+        
+        url = location.origin + ajaxurl; // This is globally available from the WP Backend
+        
+        var no_async = function() {
+            
+            var temp;
+            $.ajax( {
+
+                async: false,
+                type: 'POST',
+                url: url,
+                data: {
+                    action: 'edd_fields_get_posts',
+                    current_post_type: typenow, // This is globally available from the WP Backend
+                },
+                success: function( response ) {
+                    temp = $.parseJSON( response );
+                },
+                error: function ( error ) {
+                    temp = [ { 'text': 'Error. See Browser Console.', 'value': '' } ];
+                    console.error( error );
+                }
+
+            } );
+            
+            return temp;
+            
+        }();
+        
+        // Assign to result of our non-async AJAX
+        posts = no_async;
+        
+        return posts;
+    
+    }
 
     $( document ).ready( function() {
 
@@ -79,8 +107,8 @@ jQuery( function( $ ) {
                                     {
                                         type: 'select',
                                         name: 'id',
-                                        label: 'Post ID (Select "None" to use the Current Post)',
-                                        values: some_function()
+                                        label: "Using This Post's Data:",
+                                        values: edd_fields_get_posts(),
                                     },
                                     {
                                         type: 'textbox',
@@ -88,19 +116,6 @@ jQuery( function( $ ) {
                                         label: 'Wrapper Class (Optional)'
                                     },
                                 ],
-                                onPostRender: function() {
-                                    for( var index = 0; index < this.items()[0].items().length; index++ ) {
-            
-                                        var id = this.items()[0].items()[index].items()[1]._id;
-
-                                        if ( $( '#' + id ).hasClass( 'mce-listbox' ) ) {
-
-                                            console.log( id );
-
-                                        }
-
-                                    }
-                                },
                                 onsubmit: function( e ) {
                                     editor.insertContent( '[edd_fields_table' + 
                                                             ( e.data.id !== undefined ? ' post_id="' + e.data.id + '"' : '' ) + 
@@ -120,9 +135,10 @@ jQuery( function( $ ) {
                                 title: "Retrieve a Field's Value by Name",
                                 body: [
                                     {
-                                        type: 'textbox',
+                                        type: 'select',
                                         name: 'id',
-                                        label: 'Post ID (Select "None" to use the Current Post)'
+                                        label: "Using This Post's Data:",
+                                        values: edd_fields_get_posts(),
                                     },
                                     {
                                         type: 'textbox',
