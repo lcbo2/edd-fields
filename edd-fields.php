@@ -21,12 +21,30 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
      * @since       1.0.0
      */
     class EDD_Fields {
-
+        
         /**
-         * @var         EDD_Fields $instance The one true EDD_Fields
+         * @var         EDD_Fields $plugin_data Holds Plugin Header Info
          * @since       1.0.0
          */
-        private static $instance;
+        private $plugin_data;
+        
+        /**
+         * @var         EDD_Fields $admin Admin Settings
+         * @since       1.0.0
+         */
+        private $admin;
+        
+        /**
+         * @var         EDD_Fields $post_edit Post Edit Screen Additions
+         * @since       1.0.0
+         */
+        private $post_edit;
+        
+        /**
+         * @var         EDD_Fields $shortcodes Shortcodes
+         * @since       1.0.0
+         */
+        private $shortcodes;
         
         /**
          * @var         Plugin ID used for Localization, script names, etc.
@@ -42,18 +60,31 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @return      object self::$instance The one true EDD_Fields
          */
         public static function instance() {
-
-            if( ! self::$instance ) {
-
-                self::$instance = new EDD_Fields();
-                self::$instance->setup_constants();
-                self::$instance->load_textdomain();
-                self::$instance->hooks();
-
+            
+            static $instance = null;
+            
+            if ( null === $instance ) {
+                $instance = new static();
             }
+            
+            return $instance;
 
-            return self::$instance;
-
+        }
+        
+        protected function __construct() {
+            
+            $this->setup_constants();
+            $this->load_textdomain();
+            $this->require_necessities();
+            
+            // Register our CSS/JS for the whole plugin
+            add_action( 'init', array( $this, 'register_scripts' ) );
+            
+            // Handle licensing
+            if ( class_exists( 'EDD_License' ) ) {
+                $license = new EDD_License( __FILE__, $this->plugin_data['Name'], EDD_Fields_VER, $this->plugin_data['Author'] );
+            }
+            
         }
 
         /**
@@ -64,70 +95,28 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
          * @return      void
          */
         private function setup_constants() {
+            
+            // WP Loads things so weird. I really want this function.
+            if ( ! function_exists( 'get_plugin_data' ) ) {
+                require_once ABSPATH . '/wp-admin/includes/plugin.php';
+            }
+            
+            // Only call this once, accessible always
+            $this->plugin_data = get_plugin_data( __FILE__ );
 
-            // Plugin version
-            define( 'EDD_Fields_VER', '1.0.0' );
+            if ( ! defined( 'EDD_Fields_VER' ) ) {
+                // Plugin version
+                define( 'EDD_Fields_VER', $this->plugin_data['Version'] );
+            }
 
-            // Plugin path
-            define( 'EDD_Fields_DIR', plugin_dir_path( __FILE__ ) );
+            if ( ! defined( 'EDD_Fields_DIR' ) ) {
+                // Plugin path
+                define( 'EDD_Fields_DIR', plugin_dir_path( __FILE__ ) );
+            }
 
-            // Plugin URL
-            define( 'EDD_Fields_URL', plugin_dir_url( __FILE__ ) );
-
-        }
-
-        /**
-         * Run action and filter hooks
-         *
-         * @access      private
-         * @since       1.0.0
-         * @return      void
-         */
-        private function hooks() {
-
-            // Register Settings Section
-            add_filter( 'edd_settings_sections_extensions', array( $this, 'settings_section' ) );
-
-            // Register Settings
-            add_filter( 'edd_settings_extensions', array( $this, 'settings' ) );
-
-            // Add Our Fields Metabox
-            add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-            
-            // Add Rows to our Repeater
-            add_action( 'edd_fields_render_row', array( $this, 'edd_fields_render_row' ), 10, 4 );
-            
-            // Save our Metabox Data
-            add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
-            
-            // Register our CSS/JS
-            add_action( 'init', array( $this, 'register_scripts' ) );
-            
-            // Enqueue CSS/JS on the Admin Side
-            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-            
-            // Enqueue CSS/JS on our Admin Settings Tab
-            add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
-            
-            // Force script load after TinyMCE. WP Doesn't Enqueue TinyMCE correctly, so neither will we
-            add_action( 'after_wp_tiny_mce', array( $this, 'force_after_tiny_mce' ) );
-            
-            // Output on Frontend
-            add_shortcode( 'edd_fields_table', array( $this, 'table_output' ) );
-            
-            // Grab inividual value via Shortcode
-            add_shortcode( 'edd_field', array( $this, 'edd_field_shortcode' ) );
-            
-            // Add Shortcodes to TinyMCE
-            add_action( 'admin_init', array( $this, 'tinymce_shortcodes' ) );
-            
-            // Force our Shortcode on Download Singles
-            // Priority of 9 puts it above the purchase button
-            add_filter( 'the_content', array( $this, 'inject_shortcode' ), 9 );
-
-            // Handle licensing
-            if ( class_exists( 'EDD_License' ) ) {
-                $license = new EDD_License( __FILE__, 'Easy Digital Downloads - Fields', EDD_Fields_VER, 'Real Big Plugins' );
+            if ( ! defined( 'EDD_Fields_URL' ) ) {
+                // Plugin URL
+                define( 'EDD_Fields_URL', plugin_dir_url( __FILE__ ) );
             }
 
         }
@@ -135,11 +124,11 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         /**
          * Internationalization
          *
-         * @access      public 
+         * @access      private 
          * @since       1.0.0
          * @return      void
          */
-        public function load_textdomain() {
+        private function load_textdomain() {
 
             // Set filter for language directory
             $lang_dir = EDD_Fields_DIR . '/languages/';
@@ -168,260 +157,29 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             }
 
         }
-
-        /**
-        * Register Our Settings Section
-        * 
-        * @access       public
-        * @since        1.0.0
-        * @param        array $sections EDD Settings Sections
-        * @return       array Modified EDD Settings Sections
-        */
-        public function settings_section( $sections ) {
-
-            $sections['edd-fields-settings'] = __( 'Fields', EDD_Fields::$plugin_id );
-
-            return $sections;
-
-        }
-
-        /**
-        * Adds new Settings Section under "Extensions". Throws it under Misc if EDD is lower than v2.5
-        * 
-        * @access      public
-        * @since       1.0.0
-        * @param       array $settings The existing EDD settings array
-        * @return      array The modified EDD settings array
-        */
-        public function settings( $settings ) {
-
-            $edd_fields_settings = array(
-                array(
-                    'id'   => 'edd_fields_template_settings',
-                    'name' => __( 'Field Template Groups', EDD_Fields::$plugin_id ),
-                    'type' => 'repeater',
-                    'classes' => array( 'edd-fields-settings-repeater' ),
-                    'add_item_text' => __( 'Add Field Template Group', EDD_Fields::$plugin_id ),
-                    'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields::$plugin_id ),
-                    'fields' => array(
-                        'field_template_group_name' => array(
-                            'type'  => 'text',
-                            'label' => __( 'Field Template Group Name', EDD_Fields::$plugin_id ),
-                        ),
-                        'test'    => array(
-                            'type'  => 'text',
-                            'label' => __( 'Another Field', EDD_Fields::$plugin_id ),
-                        ),
-                        'fields' => array(
-                            'test' => true,
-                            'type' => 'repeater',
-                            'label' => __( 'Fields', EDD_Fields::$plugin_id ),
-                            'add_item_text' => __( 'Add Field', EDD_Fields::$plugin_id ),
-                            'delete_item_text' => __( 'Remove Field', EDD_Fields::$plugin_id ),
-                            'fields' => array(
-                                'field_name' => array( 
-                                    'type'  => 'text',
-                                    'label' => __( 'Field Name', EDD_Fields::$plugin_id ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            );
-
-            // If EDD is at version 2.5 or later...
-            if ( version_compare( EDD_VERSION, 2.5, '>=' ) ) {
-                // Place the Settings in our Settings Section
-                $edd_fields_settings = array( 'edd-fields-settings' => $edd_fields_settings );
-            }
-
-            return array_merge( $settings, $edd_fields_settings );
-
-        }
-
-        /**
-         * Add our mutatable Meta Box for EDD Fields
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function add_meta_boxes() {
-
-            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
-
-            foreach ( $post_types as $post_type ) {
-                
-                $post_type_labels = get_post_type_object( $post_type );
-                $post_type_labels = $post_type_labels->labels;
-
-                add_meta_box(
-                    'edd_fields_meta_box', // Metabox ID
-                    sprintf( __( '%1$s Fields', EDD_Fields::$plugin_id ), $post_type_labels->singular_name, $post_type_labels->name ), // Metabox Label
-                    array( $this, 'fields' ), // Callback function to populate Meta Box
-                    $post_type,
-                    'normal', // Position
-                    'high' // Priority
-                );
-
-            }
-
-        }
-
-        /**
-         * Our mutable Meta Box content
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function fields( $post ) {
-            
-            $fields = get_post_meta( get_the_ID(), 'edd_fields', true );
-            
-            ob_start(); ?>
-
-            <div class="edd_meta_table_wrap">
-
-                <table id="edd-fields-repeater" class="widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
-
-                    <thead>
-                        <tr>
-                            <th scope="col" class="edd-fields-field-handle"></th>
-                            <th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields::$plugin_id ); ?></th>
-                            <th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields::$plugin_id ); ?></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-
-                <?php if ( ! empty( $fields ) ) : 
-
-                    foreach ( $fields as $key => $value ) : 
-            
-                            $name = isset( $value['key'] ) ? $value['key'] : '';
-                            $value = isset( $value['value'] ) ? $value['value'] : '';
-                            $args = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
-
-                            do_action( 'edd_fields_render_row', $key, $args );
-
-                    endforeach;
-
-                else :
-
-                    do_action( 'edd_fields_render_row', 0, array() );
-
-                endif; ?>
-
-                    <tr>
-                        <td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-                            <button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields::$plugin_id ); ?></button>
-                        </td>
-                    </tr>
-
-                </table>
-                
-            </div>
-
-            <?php wp_nonce_field( basename( __FILE__ ), 'edd_fields_meta_box_nonce' ); ?>
-            
-            <?php echo ob_get_clean();
-            
-        }
         
         /**
-         * Function to render each row of our Repeater in the Metabox
+         * Include different aspects of the Plugin
          * 
-         * @param       integer $key Array Key
-         * @param       array $args Holds HTML Name and Value
-         *                          
-         * @access      public
+         * @access      private
          * @since       1.0.0
          * @return      void
          */
-        public function edd_fields_render_row( $key, $args ) {
+        private function require_necessities() {
             
-            $defaults = array(
-                'name' => '',
-                'value' => '',
-            );
-            
-            $args = wp_parse_args( $args, $defaults );
-            
-            ?>
-            
-            <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="<?php echo esc_attr( $key ); ?>">
-                <td>
-                    <span class="edd_draghandle"></span>
-                    <input type="hidden" name="edd_fields[<?php echo $key; ?>][index]" class="edd_repeatable_index" value="<?php echo $key; ?>"/>
-                </td>
-                <td class="edd-fields-key">
-                    <?php echo EDD()->html->text( array(
-                        'name' => "edd_fields[$key][key]",
-                        'value' => $args['name'],
-                    ) ); ?>
-                </td>
-                <td class="edd-fields-value">
-                    <?php echo EDD()->html->text( array(
-                        'name' => "edd_fields[$key][value]",
-                        'value' => $args['value'],
-                    ) ); ?>
-                </td>
-                <td>
-                    <button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
-                        <span class="screen-reader-text"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span><span aria-hidden="true">&times;</span>
-                    </button>
-                </td>
-            </tr>
-            
-            <?php
-            
-        }
-        
-        /**
-         * Save Our Custom Post Meta
-         * 
-         * @param       integer $post_id Current Post ID
-         *                                      
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function save_post( $post_id, $post ) {
-            
-            if ( ! isset( $_POST['edd_fields_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['edd_fields_meta_box_nonce'], basename( __FILE__ ) ) ) {
-                return;
+            if ( is_admin() ) {
+                
+                require_once EDD_Fields_DIR . '/core/admin/class-edd-fields-admin.php';
+                $this->admin = new EDD_Fields_Admin();
+                
+                require_once EDD_Fields_DIR . '/core/admin/class-edd-fields-post-edit.php';
+                $this->post_edit = new EDD_Fields_Post_Edit();
+                
             }
-            
-            if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX') && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) {
-                return;
-            }
-            
-            if ( isset( $post->post_type ) && 'revision' == $post->post_type ) {
-                return;
-            }
-            
-            if ( ! current_user_can( 'edit_product', $post_id ) ) {
-                return;
-            }
-            
-            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
-            
-            if ( in_array( $post->post_type, $post_types ) ) {
-
-                if ( ! empty( $_POST['edd_fields'] ) ) {
-                    
-                    // Sanitization Filter. Values are already forced to re-index on Save.
-                    $new_fields = apply_filters( 'edd_metabox_save_fields', array_values( $_POST['edd_fields'] ) );
-
-                    if ( ( count( $new_fields ) == 1 ) &&
-                        ( empty( $new_fields[0]['key'] ) ) ) {
-                        delete_post_meta( $post_id, 'edd_fields' );
-                    }
-                    else {
-                        update_post_meta( $post_id, 'edd_fields', $new_fields );
-                    }
-                    
-                }
+            else {
+                
+                require_once EDD_Fields_DIR . '/core/front/class-edd-fields-shortcodes.php';
+                $this->shortcodes = new EDD_Fields_Shortcodes();
                 
             }
             
@@ -452,461 +210,10 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             );
             
         }
-        
-        /**
-         * Enqueue our CSS/JS on the Admin Side
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function admin_enqueue_scripts() {
-            
-            $current_screen = get_current_screen();
-            global $pagenow;
-            
-            $post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
-            
-            if ( ( in_array( $current_screen->post_type, $post_types ) ) && ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) ) {
-            
-                wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
-                
-            }
-            
-        }
-        
-        /**
-         * Enqueue our CSS/JS on our Admin Settings Tab
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function admin_settings_scripts() {
-            
-            wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
-            wp_enqueue_script( EDD_Fields::$plugin_id . '-admin' );
-            
-        }
-        
-        /**
-         * You can't enqueue here. It is upsetting.
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function force_after_tiny_mce() {
-            
-            printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . '/tinymce/tinymce-select.js' );
-            
-        }
-        
-        /**
-         * Outputs Download Fields as a table via Shortcode
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      HTML
-         */
-        public function table_output( $atts, $content ) {
-            
-            $atts = shortcode_atts( 
-                array(
-                    'class' => '',
-                    'post_id' => get_the_ID(),
-                ), 
-                $atts,
-                'edd_fields_table'
-            );
-            
-            ob_start();
-            
-            $repeater = get_post_meta( $atts['post_id'], 'edd_fields', true );
-            
-            if ( count( $repeater ) > 0 && $repeater !== '' ) : ?>
-
-                <table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
-
-                <?php foreach ( $repeater as $row ) : ?>
-            
-                    <tr>
-                    
-                        <td>
-                            <?php echo $row['key']; ?>
-                        </td>
-
-                        <td>
-                            <?php echo $row['value']; ?>
-                        </td>
-                        
-                    </tr>
-
-                <?php endforeach; ?>
-                    
-                </table>
-            
-            <?php endif;
-            
-            $output = ob_get_contents();
-            ob_get_clean();
-            
-            return $output;
-            
-        }
-        
-        /**
-         * Shortcode to grab individual EDD Fields Values
-         * 
-         * @param       array  $atts    Shortcode Attributes
-         * @param       string $content We're not actually using this, but I like to have it there for completeness
-         *                                                                                             
-         * @access      public
-         * @since       1.0.0
-         * @return      string
-         */
-        public function edd_field_shortcode( $atts, $content ) {
-            
-            $atts = shortcode_atts( 
-                array(
-                    'name' => '',
-                    'post_id' => get_the_ID(),
-                ), 
-                $atts,
-                'edd_field'
-            );
-            
-            if ( $atts['name'] == '' ) {
-                return __( 'You must specify a Field Name. Example: [edd_field name="test"]', EDD_Fields::$plugin_id );
-            }
-            
-            return EDD_Fields::get_field( $atts['post_id'], $atts['name'] );
-            
-        }
-        
-        /**
-         * Static Function to grab an individual EDD Fields value. Useful for Theme Template Files.
-         * 
-         * @param       integer $post_id    Post ID
-         * @param       string  $key        Key 
-         *                           
-         * @access      public
-         * since        1.0.0
-         * @return      string Value
-         */
-        public static function get_field( $post_id, $key ) {
-            
-            $edd_fields = get_post_meta( $post_id, 'edd_fields', true );
-            
-            // Collapse into a one-dimensional array of the Keys to find our Index
-            $key_list = array_map( function( $array ) {
-                return $array['key'];
-            }, $edd_fields );
-            
-            return $edd_fields[ array_search( $key, $key_list ) ]['value'];
-            
-        }
-        
-        /**
-         * Add Our TinyMCE Shortcodes to the Content Editor via a few Filters
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      void
-         */
-        public function tinymce_shortcodes() {
-            
-            if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
-        
-                add_filter( 'mce_buttons', function( $buttons ) {
-                    array_push( $buttons, 'edd_fields_shortcodes' );
-                    return $buttons;
-                } );
-
-                // Attach script to the button rather than enqueueing it
-                add_filter( 'mce_external_plugins', function( $plugin_array ) {
-                    $plugin_array['edd_fields_shortcodes_script'] = EDD_Fields_URL . 'tinymce/edd-fields-shortcodes.js';
-                    return $plugin_array;
-                } );
-
-            }
-            
-        }
-        
-        /**
-         * Grabs all the Post IDs for our Dropdown
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      JSON
-         */
-        public static function tinymce_shortcode_post_id_ajax() {
-            
-            $current_post_type = $_POST['current_post_type'];
-            
-            if ( $current_post_type == 'download' ) { // EDD Allows Users to Filter this. Some other plugins do too, but we're targeting EDD
-                $singular = edd_get_label_singular();
-                $plural = edd_get_label_plural();
-            }
-            else {
-                $post_type_object = get_post_type_object( $current_post_type );
-                $singular = $post_type_object->labels->singular_name;
-                $plural = $post_type_object->labels->name;
-            }
-            
-            $post_types = apply_filters( 'edd_fields_metabox_post_types', array( 'download' ) );
-            
-            $args = array(
-                'numberposts' => -1,
-                'orderby' => 'name',
-                'order' => 'ASC',
-                'post_status' => 'publish',
-            );
-            
-            $result = array(
-                array( 'text' => sprintf( __( 'Current %s', EDD_Fields::$plugin_id ), $singular ), 'value' => '' )
-            );
-            
-            foreach ( $post_types as $post_type ) {
-                
-                $args['post_type'] = $post_type;
-                $query = new WP_Query( $args );
-                
-                if ( $query->have_posts() ) : 
-                
-                    $grouped_posts = array();
-                    while ( $query->have_posts() ) : $query->the_post();
-                
-                        if ( count( $post_types ) > 1 ) {
-                            // Store later for a <optgroup>
-                            $grouped_posts[] = array( 'text' => get_the_title(), 'value' => get_the_ID() );
-                        }
-                        else {
-                            $result[] = array( 'text' => get_the_title(), 'value' => get_the_ID() );
-                        }
-                
-                    endwhile;
-                
-                    wp_reset_postdata();
-                
-                    if ( count( $post_types ) > 1 ) {
-                        
-                        $post_type_object = get_post_type_object( $post_type );
-                        $plural = $post_type_object->labels->name;
-                        
-                        // Create <optgroup>
-                        $result[] = array(
-                            'text' => $plural,
-                            'value' => $grouped_posts,
-                        );
-                        
-                    }
-                
-                endif;
-                
-            }
-            
-            echo json_encode( $result );
-            
-            die();
-            
-        }
-        
-        /**
-         * Grabs all the Field Names for our Dropdown
-         * 
-         * @access      public
-         * @since       1.0.0
-         * @return      JSON
-         */
-        public static function tinymce_shortcode_field_name_ajax() {
-            
-            $post_id = $_POST['post_id'];
-            
-            $edd_fields = get_post_meta( $post_id, 'edd_fields', true );
-            
-            // Collapse into a one-dimensional array of the Keys to find our Index
-            $key_list = array_map( function( $array ) {
-                return $array['key'];
-            }, $edd_fields );
-            
-            $result = array(
-                array( 'text' => sprintf( __( 'Choose a Field Name', EDD_Fields::$plugin_id ), $singular ), 'value' => '' )
-            );
-            
-            foreach ( $key_list as $name ) {
-                
-                $result[] = array( 'text' => $name, 'value' => $name );
-                
-            }
-            
-            echo json_encode( $result );
-            
-            die();
-            
-        }
-        
-        /**
-         * Force our Shortcode to load on Single Downloads
-         * @param  string $content The Content
-         * @return string The Content
-         */
-        public function inject_shortcode( $content ) {
-            
-            if ( is_single() && get_post_type() == 'download' ) {
-                $content .= '[edd_fields_table]';
-            }
-            
-            return $content;
-            
-        }
 
     }
 
 } // End Class Exists Check
-
-if ( ! function_exists( 'edd_repeater_callback' ) ) {
-    
-    function edd_repeater_callback( $args ) {
-        
-        global $edd_options;
-        
-        // We need to grab values this way to ensure Nested Repeaters work
-        $edd_option = $edd_options[ $args['id'] ];
-
-        $args = wp_parse_args( $args, array(
-            'id' => '',
-            'std' => '',
-            'classes' => array(),
-            'desc' => false,
-            'fields' => array(),
-            'add_item_text' => __( 'Add Row', EDD_Fields::$plugin_id ),
-            'delete_item_text' => __( 'Delete Row', EDD_Fields::$plugin_id ),
-        ) );
-        
-        ?>
-
-        <div class="edd_meta_table_wrap">
-
-            <table class="widefat edd_repeatable_table<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>" width="100%" cellpadding="0" cellspacing="0">
-
-                <thead>
-                    <tr>
-                        <th scope="col" class="edd-fields-field-handle"></th>
-                        
-                        <?php foreach ( $args['fields'] as $field_id => $field ) : ?>
-                            <th scope="col"><?php echo $field['label']; ?></th>
-                        <?php endforeach; ?>
-                        
-                        <th scope="col"></th>
-                        
-                    </tr>
-                </thead>
-                
-                <?php if ( ! empty( $edd_option ) ) : 
-                
-                    $index = 0;
-                    foreach ( $edd_option as $value ) : echo '<pre>'; var_dump( $edd_option ); echo '</pre><br /><br />'; ?>
-                
-                        <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="<?php echo esc_attr( $index ); ?>">
-
-                            <td>
-                                <span class="edd_draghandle"></span>
-                                <input type="hidden" name="<?php echo "{$args['id']}[$index][index]"; ?>" class="edd_repeatable_index" value="<?php echo $index; ?>"/>
-                            </td>
-
-                        <?php foreach ( $args['fields'] as $field_id => $field ) : 
-
-                            if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
-
-                                <td>
-
-                                    <?php
-                                        // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-                                        $field['id'] = $args['id'] . '][' . $index . '][' . $field_id;
-                                        $field['std'] = $value[ $field_id ];
-        
-                                        if ( $field['type'] == 'repeater' ) $field['classes'][] = 'nested-repeater';
-        
-                                        call_user_func( "edd_{$field['type']}_callback", $field ); 
-                                    ?>
-
-                                </td>
-
-                            <?php endif;
-
-                        endforeach; ?>
-                            
-                            <td>
-                                <button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
-                                    <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span><span aria-hidden="true">&times;</span>
-                                </button>
-                            </td>
-
-                        </tr>
-                
-                    <?php 
-        
-                    $index++;
-        
-                    endforeach;
-        
-                else : // This case only hits if no changes have ever been made. Even erasing Settings will leave a non-empty array behind ?>
-        
-                    <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="0">
-
-                        <td>
-                            <span class="edd_draghandle"></span>
-                            <input type="hidden" name="<?php echo "{$args['id']}[0][index]"; ?>" class="edd_repeatable_index" value="0"/>
-                        </td>
-
-                    <?php foreach ( $args['fields'] as $field_id => $field ) : 
-
-                        if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
-
-                            <td>
-
-                                <?php
-                                    // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-                                    $field['id'] = $args['id'] . '][0][' . $field_id;
-        
-                                    if ( $field['type'] == 'repeater' ) $field['classes'][] = 'nested-repeater';
-        
-                                    call_user_func( "edd_{$field['type']}_callback", $field ); 
-                                ?>
-
-                            </td>
-
-                        <?php endif;
-
-                    endforeach; ?>
-                        
-                        <td>
-                            <button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
-                                <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span><span aria-hidden="true">&times;</span>
-                            </button>
-                        </td>
-
-                    </tr>
-        
-                <?php endif; ?>
-            
-                <tr>
-                    <td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-                        <button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php echo $args['add_item_text']; ?></button>
-                    </td>
-                </tr>
-
-            </table>
-
-        </div>
-
-        
-        <?php
-        
-    }
-    
-}
 
 /**
  * The main function responsible for returning the one true EDD_Fields
@@ -930,10 +237,11 @@ function EDD_Fields_load() {
     }
     else {
         
-        add_action( 'wp_ajax_edd_fields_get_posts', array( 'EDD_Fields', 'tinymce_shortcode_post_id_ajax' ) );
-        add_action( 'wp_ajax_edd_fields_get_names', array( 'EDD_Fields', 'tinymce_shortcode_field_name_ajax' ) );
+        add_action( 'wp_ajax_edd_fields_get_posts', array( 'EDD_Fields_Post_Edit', 'tinymce_shortcode_post_id_ajax' ) );
+        add_action( 'wp_ajax_edd_fields_get_names', array( 'EDD_Fields_Post_Edit', 'tinymce_shortcode_field_name_ajax' ) );
         
-        return EDD_Fields::instance();
+        require_once __DIR__ . '/core/edd-fields-functions.php';
+		EDDFIELDS();
         
     }
 
