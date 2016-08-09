@@ -106,6 +106,9 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             // Enqueue CSS/JS on the Admin Side
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
             
+            // Enqueue CSS/JS on our Admin Settings Tab
+            add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
+            
             // Force script load after TinyMCE. WP Doesn't Enqueue TinyMCE correctly, so neither will we
             add_action( 'after_wp_tiny_mce', array( $this, 'force_after_tiny_mce' ) );
             
@@ -193,6 +196,37 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
         public function settings( $settings ) {
 
             $edd_fields_settings = array(
+                array(
+                    'id'   => 'edd_fields_template_settings',
+                    'name' => __( 'Field Template Groups', EDD_Fields::$plugin_id ),
+                    'type' => 'repeater',
+                    'classes' => array( 'edd-fields-settings-repeater' ),
+                    'add_item_text' => __( 'Add Field Template Group', EDD_Fields::$plugin_id ),
+                    'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields::$plugin_id ),
+                    'fields' => array(
+                        'field_template_group_name' => array(
+                            'type'  => 'text',
+                            'label' => __( 'Field Template Group Name', EDD_Fields::$plugin_id ),
+                        ),
+                        'test'    => array(
+                            'type'  => 'text',
+                            'label' => __( 'Another Field', EDD_Fields::$plugin_id ),
+                        ),
+                        'fields' => array(
+                            'test' => true,
+                            'type' => 'repeater',
+                            'label' => __( 'Fields', EDD_Fields::$plugin_id ),
+                            'add_item_text' => __( 'Add Field', EDD_Fields::$plugin_id ),
+                            'delete_item_text' => __( 'Remove Field', EDD_Fields::$plugin_id ),
+                            'fields' => array(
+                                'field_name' => array( 
+                                    'type'  => 'text',
+                                    'label' => __( 'Field Name', EDD_Fields::$plugin_id ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             );
 
             // If EDD is at version 2.5 or later...
@@ -274,7 +308,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
                 else :
 
-                    do_action( 'edd_fields_render_row', 0, array(), $post->ID, 0 );
+                    do_action( 'edd_fields_render_row', 0, array() );
 
                 endif; ?>
 
@@ -409,6 +443,14 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
                 defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
             );
             
+            wp_register_script(
+                EDD_Fields::$plugin_id . '-admin',
+                EDD_Fields_URL . '/admin.js',
+                array( 'jquery' ),
+                defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
+                true
+            );
+            
         }
         
         /**
@@ -433,6 +475,27 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
             
         }
         
+        /**
+         * Enqueue our CSS/JS on our Admin Settings Tab
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
+        public function admin_settings_scripts() {
+            
+            wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
+            wp_enqueue_script( EDD_Fields::$plugin_id . '-admin' );
+            
+        }
+        
+        /**
+         * You can't enqueue here. It is upsetting.
+         * 
+         * @access      public
+         * @since       1.0.0
+         * @return      void
+         */
         public function force_after_tiny_mce() {
             
             printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . '/tinymce/tinymce-select.js' );
@@ -701,6 +764,149 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
     }
 
 } // End Class Exists Check
+
+if ( ! function_exists( 'edd_repeater_callback' ) ) {
+    
+    function edd_repeater_callback( $args ) {
+        
+        global $edd_options;
+        
+        // We need to grab values this way to ensure Nested Repeaters work
+        $edd_option = $edd_options[ $args['id'] ];
+
+        $args = wp_parse_args( $args, array(
+            'id' => '',
+            'std' => '',
+            'classes' => array(),
+            'desc' => false,
+            'fields' => array(),
+            'add_item_text' => __( 'Add Row', EDD_Fields::$plugin_id ),
+            'delete_item_text' => __( 'Delete Row', EDD_Fields::$plugin_id ),
+        ) );
+        
+        ?>
+
+        <div class="edd_meta_table_wrap">
+
+            <table class="widefat edd_repeatable_table<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>" width="100%" cellpadding="0" cellspacing="0">
+
+                <thead>
+                    <tr>
+                        <th scope="col" class="edd-fields-field-handle"></th>
+                        
+                        <?php foreach ( $args['fields'] as $field_id => $field ) : ?>
+                            <th scope="col"><?php echo $field['label']; ?></th>
+                        <?php endforeach; ?>
+                        
+                        <th scope="col"></th>
+                        
+                    </tr>
+                </thead>
+                
+                <?php if ( ! empty( $edd_option ) ) : 
+                
+                    $index = 0;
+                    foreach ( $edd_option as $value ) : echo '<pre>'; var_dump( $edd_option ); echo '</pre><br /><br />'; ?>
+                
+                        <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="<?php echo esc_attr( $index ); ?>">
+
+                            <td>
+                                <span class="edd_draghandle"></span>
+                                <input type="hidden" name="<?php echo "{$args['id']}[$index][index]"; ?>" class="edd_repeatable_index" value="<?php echo $index; ?>"/>
+                            </td>
+
+                        <?php foreach ( $args['fields'] as $field_id => $field ) : 
+
+                            if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
+
+                                <td>
+
+                                    <?php
+                                        // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+                                        $field['id'] = $args['id'] . '][' . $index . '][' . $field_id;
+                                        $field['std'] = $value[ $field_id ];
+        
+                                        if ( $field['type'] == 'repeater' ) $field['classes'][] = 'nested-repeater';
+        
+                                        call_user_func( "edd_{$field['type']}_callback", $field ); 
+                                    ?>
+
+                                </td>
+
+                            <?php endif;
+
+                        endforeach; ?>
+                            
+                            <td>
+                                <button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
+                                    <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span><span aria-hidden="true">&times;</span>
+                                </button>
+                            </td>
+
+                        </tr>
+                
+                    <?php 
+        
+                    $index++;
+        
+                    endforeach;
+        
+                else : // This case only hits if no changes have ever been made. Even erasing Settings will leave a non-empty array behind ?>
+        
+                    <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="0">
+
+                        <td>
+                            <span class="edd_draghandle"></span>
+                            <input type="hidden" name="<?php echo "{$args['id']}[0][index]"; ?>" class="edd_repeatable_index" value="0"/>
+                        </td>
+
+                    <?php foreach ( $args['fields'] as $field_id => $field ) : 
+
+                        if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
+
+                            <td>
+
+                                <?php
+                                    // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+                                    $field['id'] = $args['id'] . '][0][' . $field_id;
+        
+                                    if ( $field['type'] == 'repeater' ) $field['classes'][] = 'nested-repeater';
+        
+                                    call_user_func( "edd_{$field['type']}_callback", $field ); 
+                                ?>
+
+                            </td>
+
+                        <?php endif;
+
+                    endforeach; ?>
+                        
+                        <td>
+                            <button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
+                                <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span><span aria-hidden="true">&times;</span>
+                            </button>
+                        </td>
+
+                    </tr>
+        
+                <?php endif; ?>
+            
+                <tr>
+                    <td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
+                        <button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php echo $args['add_item_text']; ?></button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        
+        <?php
+        
+    }
+    
+}
 
 /**
  * The main function responsible for returning the one true EDD_Fields
