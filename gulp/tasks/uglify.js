@@ -31,7 +31,7 @@ gulp.task( 'front-uglify', function() {
 
 gulp.task( 'admin-uglify', function() {
 
-    return gulp.src( config.admin.src )
+    return gulp.src( config.admin.bowerPaths.concat( config.admin.src ) )
         .pipe( $.plumber( { errorHandler: onError } ) )
         .pipe( $.sourcemaps.init() )
         .pipe( $.babel() )

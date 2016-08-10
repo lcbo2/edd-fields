@@ -13,6 +13,8 @@ javascript:
       - "!build/js/admin/**/*.js"
       - "!build/js/tinymce/**/*.js"
   admin:
+    bowerPaths:
+      - "bower_components/jquery.repeater/jquery.repeater.min.js"
     filename: "admin.js"
     notification: "Running Admin JavaScript"
     src:
