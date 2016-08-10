@@ -60,6 +60,8 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             'fields' => array(),
             'add_item_text' => __( 'Add Row', EDD_Fields::$plugin_id ),
             'delete_item_text' => __( 'Delete Row', EDD_Fields::$plugin_id ),
+            'sortable' => true,
+            'collapsable' => false,
         ) );
         
         // We need to grab values this way to ensure Nested Repeaters work
@@ -72,13 +74,15 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
         
         ?>
 
-        <div<?php echo ( ! in_array( 'nested-repeater', $args['classes'] ) ) ? ' data-edd-repeater' : ''; ?> class="edd-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
+        <div<?php echo ( ! in_array( 'nested-repeater', $args['classes'] ) ) ? ' data-edd-repeater' : ''; ?><?php echo ( $args['sortable'] ) ? ' data-repeater-sortable' : ''; ?><?php echo ( $args['collapsable'] ) ? ' data-repeater-collapsable' : ''; ?> class="edd-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
             
             <table class="widefat" width="100%" cellpadding="0" cellspacing="0">
 
                 <thead>
                     <tr>
-                        <th scope="col" class="edd-fields-field-handle"></th>
+                        <?php if ( $args['sortable'] ) : ?>
+                            <th scope="col" class="edd-fields-field-handle"></th>
+                        <?php endif; ?>
                         
                         <?php foreach ( $args['fields'] as $field_id => $field ) : ?>
                             <th scope="col"><?php echo $field['label']; ?></th>
@@ -89,7 +93,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
                     </tr>
                 </thead>
                 
-                <tbody data-repeater-list="<?php echo ( ! in_array( 'nested-repeater', $args['classes'] ) ) ? 'edd_settings[' . $args['id'] . ']' : $args['id']; ?>">
+                <tbody data-repeater-list="<?php echo ( ! in_array( 'nested-repeater', $args['classes'] ) ) ? 'edd_settings[' . $args['id'] . ']' : $args['id']; ?>" class="edd-repeater-list">
 
                     <?php if ( ! empty( $edd_option ) ) : 
 
@@ -98,10 +102,12 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
 
                             <tr class="edd_variable_prices_wrapper" data-repeater-item data-key="<?php echo esc_attr( $index ); ?>">
 
-                                <td>
-                                    <span class="edd_draghandle" data-repeater-item-handle></span>
-                                    <input type="hidden" name="<?php echo "{$args['id']}[$index][index]"; ?>" class="edd_repeatable_index" value="<?php echo $index; ?>"/>
-                                </td>
+                                <?php if ( $args['sortable'] ) : ?>
+                                    <td>
+                                        <span class="edd_draghandle" data-repeater-item-handle></span>
+                                        <input type="hidden" name="<?php echo "{$args['id']}[$index][index]"; ?>" class="edd_repeatable_index" value="<?php echo $index; ?>"/>
+                                    </td>
+                                <?php endif; ?>
 
                             <?php foreach ( $args['fields'] as $field_id => $field ) : 
 

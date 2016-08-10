@@ -30,19 +30,12 @@
                 
             },
             show: function () {
-                
-                var index = $( this ).index();
-
-                $( this ).find( '[data-repeater-item-handle]' ).text( index + 1 );
 
                 // Hide current title for new item and show default title
                 $( this ).find( '[data-repeater-collapsable-handle-title]' ).hide();
                 $( this ).find( '[data-repeater-collapsable-handle-default]' ).show();
 
                 $( this ).addClass( 'opened' ).removeClass( 'closed' ).stop().slideDown();
-
-                //init_colorpickers();
-                //init_datepickers();
 
                 $repeater.trigger( 'edd-repeater-add', [$( this )] );
                 
@@ -52,13 +45,6 @@
             }
             
         } );
-
-        /*
-        // Dummy item
-        if ( $dummy.length ) {
-            $dummy.remove();
-        }
-        */
 
         // Sortable
         if ( typeof $repeater.attr( 'data-repeater-sortable' ) !== 'undefined' ) {
@@ -73,9 +59,6 @@
                         var index = $( this ).index();
                         $( this ).find( '[data-repeater-item-handle]' ).text( index + 1 );
                     } );
-
-                    //init_colorpickers();
-                    //init_datepickers();
                     
                 }
                 

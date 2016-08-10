@@ -64,6 +64,7 @@ class EDD_Fields_Admin {
                 'classes' => array( 'edd-fields-settings-repeater' ),
                 'add_item_text' => __( 'Add Field Template Group', EDD_Fields::$plugin_id ),
                 'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields::$plugin_id ),
+                'collapsable' => true,
                 'fields' => array(
                     'field_template_group_name' => array(
                         'type'  => 'text',
@@ -79,6 +80,7 @@ class EDD_Fields_Admin {
                         'label' => __( 'Fields', EDD_Fields::$plugin_id ),
                         'add_item_text' => __( 'Add Field', EDD_Fields::$plugin_id ),
                         'delete_item_text' => __( 'Remove Field', EDD_Fields::$plugin_id ),
+                        'collapsable' => true,
                         'fields' => array(
                             'field_name' => array( 
                                 'type'  => 'text',
