@@ -1,4 +1,4 @@
-#edd-fields-repeater, .edd-fields-settings-repeater {
+#edd-fields-repeater, .edd-repeater {
     
     th {
         padding-left: 0.92308em;
@@ -22,8 +22,18 @@
         
     }
     
-    input[data-repeater-create] {
-        display: table-row;
+}
+
+.edd-repeater {
+    
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    
+    table.widefat {
+        background: transparent;
+        border: 0;
+        box-shadow: none;
     }
     
 }
