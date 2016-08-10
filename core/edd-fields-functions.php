@@ -25,13 +25,15 @@ function EDDFIELDS() {
 /**
  * Function to grab an individual EDD Fields value. Useful for Theme Template Files.
  * 
- * @param       integer $post_id    Post ID
  * @param       string  $key        Key 
+ * @param       integer $post_id    Post ID
  *                                      
  * since        1.0.0
  * @return      string Value
  */
-function edd_fields_get( $post_id, $name ) {
+function edd_fields_get( $name, $post_id ) {
+    
+    if ( $post_id === null ) $post_id = get_the_ID();
     
     $edd_fields = get_post_meta( $post_id, 'edd_fields', true );
 

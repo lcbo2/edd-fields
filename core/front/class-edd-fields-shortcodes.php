@@ -109,7 +109,7 @@ class EDD_Fields_Shortcodes {
             return __( 'You must specify a Field Name. Example: [edd_field name="test"]', EDD_Fields::$plugin_id );
         }
 
-        return edd_fields_get( $atts['post_id'], $atts['name'] );
+        return edd_fields_get( $atts['name'], $atts['post_id'] );
 
     }
 
