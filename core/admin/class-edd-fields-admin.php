@@ -68,23 +68,23 @@ class EDD_Fields_Admin {
                 'fields' => array(
                     'field_template_group_name' => array(
                         'type'  => 'text',
-                        'label' => __( 'Field Template Group Name', EDD_Fields::$plugin_id ),
+                        'desc' => __( 'Field Template Group Name', EDD_Fields::$plugin_id ),
                     ),
                     'test'    => array(
                         'type'  => 'text',
-                        'label' => __( 'Another Field', EDD_Fields::$plugin_id ),
+                        'desc' => __( 'Another Field', EDD_Fields::$plugin_id ),
                     ),
                     'fields' => array(
                         'test' => true,
                         'type' => 'repeater',
-                        'label' => __( 'Fields', EDD_Fields::$plugin_id ),
+                        'desc' => __( 'Fields', EDD_Fields::$plugin_id ),
                         'add_item_text' => __( 'Add Field', EDD_Fields::$plugin_id ),
                         'delete_item_text' => __( 'Remove Field', EDD_Fields::$plugin_id ),
-                        'collapsable' => true,
+                        'collapsable' => false,
                         'fields' => array(
                             'field_name' => array( 
                                 'type'  => 'text',
-                                'label' => __( 'Field Name', EDD_Fields::$plugin_id ),
+                                'desc' => __( 'Field Name', EDD_Fields::$plugin_id ),
                             ),
                         ),
                     ),

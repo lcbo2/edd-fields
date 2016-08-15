@@ -52,14 +52,7 @@
                 axis: 'y',
                 handle: '[data-repeater-item-handle]',
                 forcePlaceholderSize: true,
-                update: function (e, ui) {
-
-                    // Update the number in each row
-                    $repeater.find( '.edd-repeater-item' ).each( function () {
-                        var index = $( this ).index();
-                        $( this ).find( '[data-repeater-item-handle]' ).text( index + 1 );
-                    } );
-                    
+                update: function ( e, ui ) {
                 }
                 
             } );
@@ -68,14 +61,16 @@
 
         // Collapsable
         if ( typeof $repeater.attr( 'data-repeater-collapsable' ) !== 'undefined' ) {
-            $repeater.find( '.edd-repeater-item-content' ).hide();
+            $repeater.find( '.edd-repeater-content' ).first().hide();
         }
 
         $( document ).on( 'click touchend', '.edd-repeater[data-repeater-collapsable] [data-repeater-collapsable-handle]', function () {
 
             var $repeater_field = $( this ).closest( '.edd-repeater-item' ),
-                $content = $repeater_field.find( '.edd-repeater-item-content' ),
+                $content = $repeater_field.find( '.edd-repeater-content' ).first(),
                 status = $repeater_field.hasClass( 'opened' ) ? 'closing' : 'opening';
+            
+            console.log( $content );
 
             if ( status == 'opening' ) {
 

@@ -1,43 +1,143 @@
 #edd-fields-repeater, .edd-repeater {
-    
+
     th {
         padding-left: 0.92308em;
     }
-    
+
     .edd-fields-field-handle {
-        
+
         width: 0.5em;
-        
+
     }
-    
+
     input.regular-text {
         width: 100%;
     }
-    
+
     span.handle {
-        
+
         &:hover {
             cursor: move,
         }
-        
+
     }
-    
+
     td {
         vertical-align: top;
     }
-    
+
 }
 
 .edd-repeater {
-    
+
     background: #fff;
     border: 1px solid #e5e5e5;
     box-shadow: 0 1px 1px rgba(0,0,0,0.04);
-    
+
     table.widefat {
         background: transparent;
         border: 0;
         box-shadow: none;
     }
-    
+
+}
+
+div[data-edd-repeater] div[data-repeater-item] {
+
+    .repeater-header {
+        
+        td {
+            vertical-align: middle;
+        }
+        
+        .edd_draghandle {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin: 0;
+        }
+        
+        .edd-repeater-controls {
+            text-align: right;
+        }
+
+    }
+
+    &.opened {
+
+        .closed {
+            display: none;
+        }
+
+        .opened {
+            display: inline-block;
+        }
+
+    }
+
+    &.closed {
+
+        .opened {
+            display: none;
+        }
+
+        .closed {
+            display: inline-block;
+        }
+
+    }
+
+    & > .edd-repeater-content > table > tbody > tr {
+
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        float: left;
+
+        & > td {
+
+            &:first-of-type {
+                padding-left: 50px;
+            }
+
+            display: table-cell;
+
+            &:after {
+                clear: both;
+            }
+
+            &.repeater-container, &.repeater-collapsable {
+
+                padding-left: 10px; // Default
+                display: block;
+                float: left;
+
+            }
+
+            &.repeater-container {
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+
+            &.repeater-collapsable {
+
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+
+            }
+
+        }
+
+    }
+
+}
+
+.nested-repeater {
+
+    td {
+        padding-left: 10px !important;
+    }
+
 }

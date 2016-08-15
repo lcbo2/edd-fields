@@ -62,6 +62,8 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             'delete_item_text' => __( 'Delete Row', EDD_Fields::$plugin_id ),
             'sortable' => true,
             'collapsable' => false,
+            'collapsable_title' => __( 'New Row', EDD_Fields::$plugin_id ),
+            'nested' => false,
         ) );
         
         // We need to grab values this way to ensure Nested Repeaters work
@@ -74,124 +76,131 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
         
         ?>
 
-        <div<?php echo ( ! in_array( 'nested-repeater', $args['classes'] ) ) ? ' data-edd-repeater' : ''; ?><?php echo ( $args['sortable'] ) ? ' data-repeater-sortable' : ''; ?><?php echo ( $args['collapsable'] ) ? ' data-repeater-collapsable' : ''; ?> class="edd-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
+        <?php if ( $args['nested'] ) : ?>
+
+            <label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
+
+        <?php endif; ?>
+
+        <div<?php echo ( ! $args['nested'] ) ? ' data-edd-repeater' : ''; ?><?php echo ( $args['sortable'] ) ? ' data-repeater-sortable' : ''; ?><?php echo ( $args['collapsable'] ) ? ' data-repeater-collapsable' : ''; ?> class="edd-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
             
-            <table class="widefat" width="100%" cellpadding="0" cellspacing="0">
+            <div data-repeater-list="<?php echo ( ! $args['nested'] ) ? 'edd_settings[' . $args['id'] . ']' : $args['id']; ?>" class="edd-repeater-list">
 
-                <thead>
-                    <tr>
-                        <?php if ( $args['sortable'] ) : ?>
-                            <th scope="col" class="edd-fields-field-handle"></th>
-                        <?php endif; ?>
-                        
-                        <?php foreach ( $args['fields'] as $field_id => $field ) : ?>
-                            <th scope="col"><?php echo $field['label']; ?></th>
-                        <?php endforeach; ?>
-                        
-                        <th scope="col"></th>
-                        
-                    </tr>
-                </thead>
+                    <?php for ( $index = 0; $index < count( $edd_option ); $index++ ) : $value = $edd_option[$index]; ?>
                 
-                <tbody data-repeater-list="<?php echo ( ! in_array( 'nested-repeater', $args['classes'] ) ) ? 'edd_settings[' . $args['id'] . ']' : $args['id']; ?>" class="edd-repeater-list">
+                        <div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item<?php echo ( $args['collapsable'] ) ? ' closed' : ''; ?>">
+                            
+                            <?php if ( ! $args['nested'] ) : ?>
+                                <table class="repeater-header widefat" width="100%"l cellpadding="0" cellspacing="0" data-repeater-collapsable-handle>
+                                    
+                                    <tbody>
 
-                    <?php if ( ! empty( $edd_option ) ) : 
+                                        <?php if ( $args['sortable'] ) : ?>
+                                            <td class="edd-fields-field-handle">
+                                                <span class="edd_draghandle" data-repeater-item-handle></span>
+                                            </td>
+                                        <?php endif; ?>
 
-                        $index = 0;
-                        foreach ( $edd_option as $value ) : ?>
+                                        <?php 
+                                        if ( isset( $edd_option[$index] ) ) :
+        
+                                            // Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
+                                            foreach ( $value as $key => $setting ) : ?>
+                                                <td>
+                                                    <h2><?php echo $setting; ?></h2>
+                                                </td>
+                                            <?php 
+                                                break;
+                                            endforeach; 
+        
+                                        else: ?>
+        
+                                            <td>
+                                                <h2><?php echo $args['collapsable_title']; ?></h2>
+                                            </td>
+        
+                                        <?php endif; ?>
+                                        
+                                        <td class="edd-repeater-controls">
+                                            <span class="edd-repeater-collapsable-handle-arrow">
+                                                <span class="opened dashicons dashicons-arrow-up"></span>
+                                                <span class="closed dashicons dashicons-arrow-down"></span>
+                                            </span>
+                                            <input data-repeater-delete type="button" class="button" value="<?php echo $args['delete_item_text']; ?>" />
+                                        </td>
+                                        
+                                    </tbody>
 
-                            <tr class="edd_variable_prices_wrapper" data-repeater-item data-key="<?php echo esc_attr( $index ); ?>">
+                                </table>
+                            <?php endif; ?>
+                            
+                            <div class="edd-repeater-content">
 
-                                <?php if ( $args['sortable'] ) : ?>
-                                    <td>
-                                        <span class="edd_draghandle" data-repeater-item-handle></span>
-                                        <input type="hidden" name="<?php echo "{$args['id']}[$index][index]"; ?>" class="edd_repeatable_index" value="<?php echo $index; ?>"/>
-                                    </td>
-                                <?php endif; ?>
+                                <table class="widefat" width="100%" cellpadding="0" cellspacing="0">
 
-                            <?php foreach ( $args['fields'] as $field_id => $field ) : 
+                                    <tbody>
 
-                                if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
+                                        <tr class="edd_variable_prices_wrapper" data-key="<?php echo esc_attr( $index ); ?>">
+                                            
+                                            <?php if ( $args['nested'] && $args['sortable'] ) : ?>
 
-                                    <td>
+                                                <td class="edd-fields-field-handle">
+                                                    <span class="edd_draghandle" data-repeater-item-handle></span>
+                                                </td>
 
-                                        <?php
-                                            // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-                                            $field['id'] = $field_id;
-                                            $field['std'] = $value[ $field_id ];
+                                            <?php endif; ?>
 
-                                            if ( $field['type'] == 'repeater' ) $field['classes'][] = 'nested-repeater';
+                                            <?php foreach ( $args['fields'] as $field_id => $field ) : 
 
-                                            call_user_func( "edd_{$field['type']}_callback", $field ); 
-                                        ?>
+                                                if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
 
-                                    </td>
+                                                    <td<?php echo ( $field['type'] == 'repeater' ) ? ' class="repeater-container"' : ''; ?>>
 
-                                <?php endif;
+                                                        <?php
+                                                            // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+                                                            $field['id'] = $field_id;
+                                                            $field['std'] = $value[ $field_id ];
 
-                            endforeach; ?>
+                                                            if ( $field['type'] == 'repeater' ) {
+                                                                $field['nested'] = true;
+                                                                $field['classes'][] = 'nested-repeater';
+                                                            }
 
-                                <td>
-                                    <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
-                                    <input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
-                                </td>
+                                                            call_user_func( "edd_{$field['type']}_callback", $field ); 
+                                                        ?>
 
-                            </tr>
+                                                    </td>
 
-                        <?php 
+                                                <?php endif;
 
-                        $index++;
+                                            endforeach;
 
-                        endforeach;
+                                            if ( $args['nested'] ) : ?>
 
-                    else : // This case only hits if no changes have ever been made. Even erasing Settings will leave a non-empty array behind ?>
+                                                <td>
+                                                    <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+                                                    <input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
+                                                </td>
 
-                        <tr class="edd_variable_prices_wrapper" data-repeater-item data-key="0">
+                                            <?php endif; ?>
 
-                            <td>
-                                <span class="edd_draghandle"></span>
-                                <input type="hidden" name="<?php echo "{$args['id']}[0][index]"; ?>" class="edd_repeatable_index" value="0"/>
-                            </td>
+                                            </tr>
 
-                        <?php foreach ( $args['fields'] as $field_id => $field ) : 
+                                    </tbody>
 
-                            if ( is_callable( "edd_{$field['type']}_callback" ) ) : ?>
+                                </table>
+                                
+                            </div>
+                            
+                        </div>
 
-                                <td>
+                    <?php endfor; ?>       
 
-                                    <?php
-                                        // jQuery Repeater deals with this for us based on data-repeater-list
-                                        $field['id'] = $field_id;
-                                        $field['std'] = $value[ $field_id ];
-
-                                        if ( $field['type'] == 'repeater' ) $field['classes'][] = 'nested-repeater';
-
-                                        call_user_func( "edd_{$field['type']}_callback", $field ); 
-                                    ?>
-
-                                </td>
-
-                            <?php endif;
-
-                        endforeach; ?>
-
-                            <td>
-                                <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
-                                <input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
-                            </td>
-
-                        </tr>
-
-                    <?php endif; ?>
-
-                </tbody>
-                
-            </table>
+            </div>
             
             <input data-repeater-create type="button" class="button-secondary" style="float: none; clear:both; background:#fff; margin: 6px;" value="<?php echo $args['add_item_text']; ?>" />
 
         </div>
-
         
         <?php
         
