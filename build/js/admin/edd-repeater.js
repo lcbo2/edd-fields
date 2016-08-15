@@ -2,7 +2,6 @@
 ( function ( $ ) {
 
     var $repeaters = $( '[data-edd-repeater]' );
-    console.log( $repeaters );
 
     if ( ! $repeaters.length ) {
         return;
@@ -20,7 +19,7 @@
                 // Specify the jQuery selector for this nested repeater
                 selector: '.nested-repeater'
             } ],
-            hide: function () {
+            hide: function () { // Row Deletion
 
                 $( this ).stop().slideUp( 300, function () {
                     $(this).remove();
@@ -29,11 +28,31 @@
                 $repeater.trigger( 'edd-repeater-remove', [$( this )] );
                 
             },
-            show: function () {
+            show: function () { // Row Addition
 
                 // Hide current title for new item and show default title
-                $( this ).find( '[data-repeater-collapsable-handle-title]' ).hide();
-                $( this ).find( '[data-repeater-collapsable-handle-default]' ).show();
+                $( this ).find( '.repeater-header h2 span.title' ).html( $( this ).find( '.repeater-header h2' ).data( 'repeater-collapsable-default' ) );
+                
+                // Nested Repeaters always inherit the number of Rows from the previous Repeater, so this will fix that.
+                var nestedRepeaters = $( this ).find( '.nested-repeater' );
+                
+                $( nestedRepeaters ).each( function( index, nestedRepeater ) {
+                    
+                    var items = $( nestedRepeater ).find( '.edd-repeater-item' ).get().reverse();
+                    
+                    $( items ).each( function( row, nestedRow ) {
+                        
+                        if ( row == ( items.length - 1 ) ) return false;
+                        
+                        $( nestedRow ).stop().slideUp( 300, function() {
+                            $( this ).remove();
+                        } );
+                        
+                        $repeater.trigger( 'edd-nested-repeater-cleanup', [$( nestedRow )] );
+                        
+                    } );
+                    
+                } );
 
                 $( this ).addClass( 'opened' ).removeClass( 'closed' ).stop().slideDown();
 
@@ -69,8 +88,6 @@
             var $repeater_field = $( this ).closest( '.edd-repeater-item' ),
                 $content = $repeater_field.find( '.edd-repeater-content' ).first(),
                 status = $repeater_field.hasClass( 'opened' ) ? 'closing' : 'opening';
-            
-            console.log( $content );
 
             if ( status == 'opening' ) {
 
@@ -88,8 +105,8 @@
             
         } );
         
-        $repeater.on( 'edd-repeater-add', function() {
-            console.log( 'clicked' );
+        $( document ).on( 'keyup change', '.edd-repeater .edd-repeater-content td:first-of-type *[name^="edd_settings"]', function() {
+            $( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2 span.title' ).html( $( this ).val() );
         } );
         
     } );

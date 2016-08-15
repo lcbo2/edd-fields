@@ -8,6 +8,10 @@
 
         width: 0.5em;
 
+        .edd_draghandle {
+            background-repeat: no-repeat;
+        }
+
     }
 
     input.regular-text {
@@ -30,10 +34,6 @@
 
 .edd-repeater {
 
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
-
     table.widefat {
         background: transparent;
         border: 0;
@@ -42,89 +42,134 @@
 
 }
 
-div[data-edd-repeater] div[data-repeater-item] {
+div[data-edd-repeater] {
 
-    .repeater-header {
-        
-        td {
-            vertical-align: middle;
-        }
-        
-        .edd_draghandle {
-            margin-top: 0;
-        }
-
-        h2 {
-            margin: 0;
-        }
-        
-        .edd-repeater-controls {
-            text-align: right;
-        }
-
+    .edd-repeater-list {
+        border: 2px solid #e5e5e5;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.06);
     }
 
-    &.opened {
+    div[data-repeater-item] {
 
-        .closed {
-            display: none;
-        }
+        .repeater-header {
 
-        .opened {
-            display: inline-block;
-        }
+            background: #f5f5f5;
+            border: 1px #ddd;
+            border-top-style: solid;
+            border-bottom-style: solid;
 
-    }
-
-    &.closed {
-
-        .opened {
-            display: none;
-        }
-
-        .closed {
-            display: inline-block;
-        }
-
-    }
-
-    & > .edd-repeater-content > table > tbody > tr {
-
-        display: block;
-        width: 100%;
-        overflow: hidden;
-        float: left;
-
-        & > td {
-
-            &:first-of-type {
-                padding-left: 50px;
+            &:hover {
+                cursor: pointer;
             }
 
-            display: table-cell;
-
-            &:after {
-                clear: both;
+            td {
+                vertical-align: middle;
             }
 
-            &.repeater-container, &.repeater-collapsable {
+            .edd_draghandle {
+                margin-top: 0;
+            }
 
-                padding-left: 10px; // Default
+            h2 {
+                margin: 0;
+            }
+
+            .edd-repeater-collapsable-handle-arrow {
+                float: right;
+            }
+
+            .edd-repeater-controls {
+
+                width: 1px;
+                text-align: center;
+
+            }
+
+        }
+        
+        &:first-of-type {
+            .repeater-header {
+                border-top-style: none;
+            }
+        }
+        
+        &:last-of-type {
+            &.closed {
+                .repeater-header {
+                    border-bottom-style: none;
+                }
+            }
+        }
+
+        &.opened {
+
+            .closed {
+                display: none;
+            }
+
+            .opened {
+                display: inline-block;
+            }
+
+        }
+
+        &.closed {
+
+            .opened {
+                display: none;
+            }
+
+            .closed {
+                display: inline-block;
+            }
+
+        }
+
+        & > .edd-repeater-content {
+
+            background: #fff;
+
+            & > table > tbody > tr {
+
                 display: block;
+                width: 100%;
+                overflow: hidden;
                 float: left;
 
-            }
+                & > td {
 
-            &.repeater-container {
-                margin-left: 40px;
-                margin-right: 40px;
-            }
+                    &:first-of-type {
+                        padding-left: 50px;
+                    }
 
-            &.repeater-collapsable {
+                    display: table-cell;
 
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
+                    &:after {
+                        clear: both;
+                    }
+
+                    &.repeater-container, &.repeater-collapsable {
+
+                        padding-left: 10px; // Default
+                        display: block;
+                        float: left;
+
+                    }
+
+                    &.repeater-container {
+                        margin-left: 40px;
+                        margin-right: 40px;
+                    }
+
+                    &.repeater-collapsable {
+
+                        margin-left: 0;
+                        margin-right: 0;
+                        width: 100%;
+
+                    }
+
+                }
 
             }
 

@@ -65,6 +65,7 @@ class EDD_Fields_Admin {
                 'add_item_text' => __( 'Add Field Template Group', EDD_Fields::$plugin_id ),
                 'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields::$plugin_id ),
                 'collapsable' => true,
+                'collapsable_title' => __( 'New Field Template Group', EDD_Fields::$plugin_id ),
                 'fields' => array(
                     'field_template_group_name' => array(
                         'type'  => 'text',
