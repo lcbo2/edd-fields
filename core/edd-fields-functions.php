@@ -74,6 +74,9 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             $edd_option = $args['std'];
         }
         
+        // Ensure Dummy Field is created
+        $field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
+        
         ?>
 
         <?php if ( $args['nested'] ) : ?>
@@ -86,9 +89,9 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             
             <div data-repeater-list="<?php echo ( ! $args['nested'] ) ? 'edd_settings[' . $args['id'] . ']' : $args['id']; ?>" class="edd-repeater-list">
 
-                    <?php for ( $index = 0; $index < count( $edd_option ); $index++ ) : $value = $edd_option[$index]; ?>
+                    <?php for ( $index = 0; $index < $field_count; $index++ ) : $value = $edd_option[$index]; ?>
                 
-                        <div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item<?php echo ( $args['collapsable'] ) ? ' closed' : ''; ?>">
+                        <div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) && ! $args['nested'] ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item<?php echo ( $args['collapsable'] ) ? ' closed' : ''; ?>">
                             
                             <?php if ( ! $args['nested'] ) : ?>
                                 <table class="repeater-header widefat" width="100%"l cellpadding="0" cellspacing="0" data-repeater-collapsable-handle>
@@ -96,7 +99,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
                                     <tbody>
 
                                         <?php if ( $args['sortable'] ) : ?>
-                                            <td class="edd-fields-field-handle">
+                                            <td class="edd-repeater-field-handle">
                                                 <span class="edd_draghandle" data-repeater-item-handle></span>
                                             </td>
                                         <?php endif; ?>
@@ -151,7 +154,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
                                             
                                             <?php if ( $args['nested'] && $args['sortable'] ) : ?>
 
-                                                <td class="edd-fields-field-handle">
+                                                <td class="edd-repeater-field-handle">
                                                     <span class="edd_draghandle" data-repeater-item-handle></span>
                                                 </td>
 
