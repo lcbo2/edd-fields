@@ -67,7 +67,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
         ) );
         
         // We need to grab values this way to ensure Nested Repeaters work
-        if ( $args['std'] == '' ) {
+        if ( isset( $edd_options[ $args['id'] ] ) || $args['std'] == '' ) {
             $edd_option = $edd_options[ $args['id'] ];
         }
         else {
