@@ -158,8 +158,14 @@ div[data-edd-repeater] {
                     }
 
                     &.repeater-container {
+                        
                         margin-left: 40px;
                         margin-right: 40px;
+                        
+                        .edd-repeater-item {
+                            display: block;
+                        }
+                        
                     }
 
                     &.repeater-collapsable {
