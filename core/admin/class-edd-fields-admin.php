@@ -27,9 +27,6 @@ class EDD_Fields_Admin {
 
         // Enqueue CSS/JS on our Admin Settings Tab
         add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
-        
-        // Enqueue CSS/JS on the Post Edit screen
-        add_action( 'admin_enqueue_scripts', array( $this, 'admin_post_edit_scripts' ) );
 
     }
     
@@ -118,19 +115,6 @@ class EDD_Fields_Admin {
         wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
         wp_enqueue_script( EDD_Fields::$plugin_id . '-admin' );
 
-    }
-    
-    /**
-     * Enqueue our CSS/JS on the Post Edit Page
-     * 
-     * @access      public
-     * @since       1.0.0
-     * @return      void
-     */
-    public function admin_post_edit_scripts() {
-        var_dump( 'test' );
-        wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
-        
     }
 
 }
