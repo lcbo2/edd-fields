@@ -183,16 +183,16 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
                                             <?php foreach ( $args['fields'] as $field_id => $field ) : 
 
                                                 if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+        
+                                                    // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+                                                    $field['id'] = $field_id;
+                                                    $field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
                                             
                                                     if ( $field['type'] !== 'hook' ) : ?>
 
                                                         <td<?php echo ( $field['type'] == 'repeater' ) ? ' class="repeater-container"' : ''; ?>>
 
                                                             <?php
-                                                                // EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-                                                                $field['id'] = $field_id;
-                                                                $field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
-
                                                                 if ( $field['type'] == 'repeater' ) {
                                                                     $field['nested'] = true;
                                                                     $field['classes'][] = 'nested-repeater';
@@ -205,7 +205,6 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
                                             
                                                     <?php else : 
         
-                                                        $field['id'] = $field_id;
                                                         call_user_func( "edd_{$field['type']}_callback", $field ); 
         
                                                     endif;
