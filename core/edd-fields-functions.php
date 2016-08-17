@@ -65,6 +65,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             'collapsable_title' => __( 'New Row', EDD_Fields::$plugin_id ),
             'nested' => false,
             'layout' => 'table',
+            'input_name' => false,
         ) );
         
         // We need to grab values this way to ensure Nested Repeaters work
@@ -93,6 +94,8 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             $args['classes'][] = 'edd-repeater-layout-row';
         }
         
+        $name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
+        
         ?>
 
         <?php if ( $args['nested'] ) : ?>
@@ -103,7 +106,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
 
         <div<?php echo ( ! $args['nested'] ) ? ' data-edd-repeater' : ''; ?><?php echo ( $args['sortable'] ) ? ' data-repeater-sortable' : ''; ?><?php echo ( $args['collapsable'] ) ? ' data-repeater-collapsable' : ''; ?> class="edd-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
             
-            <div data-repeater-list="<?php echo ( ! $args['nested'] ) ? 'edd_settings[' . $args['id'] . ']' : $args['id']; ?>" class="edd-repeater-list">
+            <div data-repeater-list="<?php echo ( ! $args['nested'] ) ? $name : $args['id']; ?>" class="edd-repeater-list">
 
                     <?php for ( $index = 0; $index < $field_count; $index++ ) : $value = $edd_option[$index]; ?>
                 
