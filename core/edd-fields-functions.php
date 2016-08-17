@@ -64,6 +64,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
             'collapsable' => false,
             'collapsable_title' => __( 'New Row', EDD_Fields::$plugin_id ),
             'nested' => false,
+            'layout' => 'table',
         ) );
         
         // We need to grab values this way to ensure Nested Repeaters work
@@ -76,6 +77,21 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
         
         // Ensure Dummy Field is created
         $field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
+        
+        if ( $args['sortable'] ) {
+            $args['classes'][] = 'edd-repeater-sortable';
+        }
+        
+        if ( $args['collapsable'] ) {
+            $args['classes'][] = 'edd-repeater-collapsable';
+        }
+        
+        if ( $args['layout'] == 'table' ) {
+            $args['classes'][] = 'edd-repeater-layout-table';
+        }
+        else {
+            $args['classes'][] = 'edd-repeater-layout-row';
+        }
         
         ?>
 
@@ -94,7 +110,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
                         <div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) && ! $args['nested'] ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item<?php echo ( $args['collapsable'] ) ? ' closed' : ''; ?>">
                             
                             <?php if ( ! $args['nested'] ) : ?>
-                                <table class="repeater-header widefat" width="100%"l cellpadding="0" cellspacing="0" data-repeater-collapsable-handle>
+                                <table class="repeater-header widefat" width="100%"l cellpadding="0" cellspacing="0"<?php echo ( $args['collapsable'] ) ? ' data-repeater-collapsable-handle' : '';?>>
                                     
                                     <tbody>
                                         
