@@ -161,7 +161,15 @@
         } );
 
         $( document ).on( 'keyup change', '.edd-repeater .edd-repeater-content td:first-of-type *[name^="edd_settings"]', function() {
-            $( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2 span.title' ).html( $( this ).val() );
+            
+            if ( $( this ).val() !== '' ) {
+                $( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2 span.title' ).html( $( this ).val() );
+            }
+            else {
+                var defaultValue = $( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2' ).data( 'repeater-collapsable-default' );
+                $( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2 span.title' ).html( defaultValue );
+            }
+            
         } );
 
     } );
