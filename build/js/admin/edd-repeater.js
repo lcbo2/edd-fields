@@ -18,7 +18,6 @@
                     // Hit each colorpicker individually to ensure its settings are properly used
                     $( row ).find( '.edd-color-picker' ).each( function( index, colorPicker ) {
 
-                        console.log( $( colorPicker )[0] );
                         // Value exists in HTML but is inaccessable via JavaScript. No idea why.
                         var value = regex.exec( $( colorPicker )[0].outerHTML )[1];
 
