@@ -1,36 +1,36 @@
 #edd-fields-repeater {
 
-    th {
-        padding-left: 0.92308em;
-    }
+	th {
+		padding-left: 0.92308em;
+	}
 
-    .edd_repeatable_row {
+	.edd_repeatable_row {
 
-        td {
+		td {
 
-            &:first-of-type {
-                width: 0.5em;
-            }
+			&:first-of-type {
+				width: 0.5em;
+			}
 
-        }
+		}
 
-    }
+	}
 
-    .edd_draghandle {
-        margin-top: 0;
-        background-repeat: no-repeat;
-    }
+	.edd_draghandle {
+		margin-top: 0;
+		background-repeat: no-repeat;
+	}
 
-    input.regular-text {
-        width: 100%;
-    }
+	input.regular-text {
+		width: 100%;
+	}
 
-    span.handle {
+	span.handle {
 
-        &:hover {
-            cursor: move,
-        }
+		&:hover {
+			cursor: move,
+		}
 
-    }
+	}
 
 }

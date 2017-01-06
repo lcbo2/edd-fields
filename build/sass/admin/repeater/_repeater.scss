@@ -1,148 +1,148 @@
 .edd-repeater {
 
-    table.widefat {
-        background: transparent;
-        border: 0;
-        box-shadow: none;
-    }
+	table.widefat {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+	}
 
-    .edd-repeater-field-handle {
+	.edd-repeater-field-handle {
 
-        width: 0.5em;
+		width: 0.5em;
 
-        .edd_draghandle {
-            background-repeat: no-repeat;
-        }
+		.edd_draghandle {
+			background-repeat: no-repeat;
+		}
 
-    }
+	}
 
-    input.regular-text {
-        width: 100%;
-    }
+	input.regular-text {
+		width: 100%;
+	}
 
-    span.handle {
+	span.handle {
 
-        &:hover {
-            cursor: move,
-        }
+		&:hover {
+			cursor: move,
+		}
 
-    }
+	}
 
-    td {
-        vertical-align: top;
-    }
+	td {
+		vertical-align: top;
+	}
 
-    .edd-repeater-list {
-        border: 2px solid #e5e5e5;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.06);
-    }
+	.edd-repeater-list {
+		border: 2px solid #e5e5e5;
+		box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+	}
 
-    .edd-repeater-item {
+	.edd-repeater-item {
 
-        .repeater-header {
+		.repeater-header {
 
-            background: #f5f5f5;
-            border: 1px #ddd;
-            border-top-style: solid;
-            border-bottom-style: solid;
+			background: #f5f5f5;
+			border: 1px #ddd;
+			border-top-style: solid;
+			border-bottom-style: solid;
 
-            &:hover {
-                cursor: pointer;
-            }
+			&:hover {
+				cursor: pointer;
+			}
 
-            td {
-                vertical-align: middle;
-            }
+			td {
+				vertical-align: middle;
+			}
 
-            .edd_draghandle {
-                margin-top: 0;
-            }
+			.edd_draghandle {
+				margin-top: 0;
+			}
 
-            h2 {
-                margin: 0;
-                width: 100%;
-                float: left;
-            }
+			h2 {
+				margin: 0;
+				width: 100%;
+				float: left;
+			}
 
-            .edd-repeater-collapsable-handle-arrow {
-                float: right;
-            }
+			.edd-repeater-collapsable-handle-arrow {
+				float: right;
+			}
 
-            .edd-repeater-controls {
+			.edd-repeater-controls {
 
-                width: 1px;
-                text-align: center;
+				width: 1px;
+				text-align: center;
 
-            }
+			}
 
-        }
+		}
 
-        &:first-of-type {
-            .repeater-header {
-                border-top-style: none;
-            }
-        }
+		&:first-of-type {
+			.repeater-header {
+				border-top-style: none;
+			}
+		}
 
-        &:last-of-type {
-            &.closed {
-                .repeater-header {
-                    border-bottom-style: none;
-                }
-            }
-        }
+		&:last-of-type {
+			&.closed {
+				.repeater-header {
+					border-bottom-style: none;
+				}
+			}
+		}
 
-        &.opened {
+		&.opened {
 
-            .closed {
-                display: none;
-            }
+			.closed {
+				display: none;
+			}
 
-            .opened {
-                display: inline-block;
-            }
+			.opened {
+				display: inline-block;
+			}
 
-        }
+		}
 
-        &.closed {
+		&.closed {
 
-            .opened {
-                display: none;
-            }
+			.opened {
+				display: none;
+			}
 
-            .closed {
-                display: inline-block;
-            }
+			.closed {
+				display: inline-block;
+			}
 
-        }
+		}
 
-        & > .edd-repeater-content {
+		& > .edd-repeater-content {
 
-            background: #fff;
+			background: #fff;
 
-            & > table > tbody > tr {
+			& > table > tbody > tr {
 
-                display: block;
-                width: 100%;
-                overflow: hidden;
-                float: left;
+				display: block;
+				width: 100%;
+				overflow: hidden;
+				float: left;
 
-                // <td> holding Nested Repeater
-                // This gets shoved onto its own row for readability reasons
-                & > .repeater-container {
+				// <td> holding Nested Repeater
+				// This gets shoved onto its own row for readability reasons
+				& > .repeater-container {
 
-                    .edd-repeater-item {
+					.edd-repeater-item {
 
-                        display: block;
+						display: block;
 
-                    }
+					}
 
-                }
+				}
 
-            }
+			}
 
-        }
+		}
 
-    }
+	}
 
 }
 
@@ -150,139 +150,139 @@
 // It helps to line thing up in a visually appealing way
 .edd-repeater.edd-repeater-sortable {
 
-    .edd-repeater-item {
+	.edd-repeater-item {
 
-        & > .edd-repeater-content {
+		& > .edd-repeater-content {
 
-            & > table > tbody > tr {
+			& > table > tbody > tr {
 
-                & > td {
+				& > td {
 
-                    &:first-of-type {
-                        padding-left: 50px;
-                    }
+					&:first-of-type {
+						padding-left: 50px;
+					}
 
-                    display: table-cell;
+					display: table-cell;
 
-                    &:after {
-                        clear: both;
-                    }
+					&:after {
+						clear: both;
+					}
 
-                    // <td> holding Nested Repeater
-                    &.repeater-container {
+					// <td> holding Nested Repeater
+					&.repeater-container {
 
-                        padding-left: 10px; // Default
-                        display: block;
-                        float: left;
+						padding-left: 10px; // Default
+						display: block;
+						float: left;
 
-                        margin-left: 40px;
-                        margin-right: 40px;
+						margin-left: 40px;
+						margin-right: 40px;
 
-                        .edd-repeater-item {
+						.edd-repeater-item {
 
-                            td {
-                                padding-left: 10px; // Default
-                            }
+							td {
+								padding-left: 10px; // Default
+							}
 
-                        }
+						}
 
-                    }
+					}
 
-                    &.repeater-collapsable {
+					&.repeater-collapsable {
 
-                        margin-left: 0;
-                        margin-right: 0;
-                        width: 100%;
+						margin-left: 0;
+						margin-right: 0;
+						width: 100%;
 
-                    }
+					}
 
-                }
+				}
 
-            }
+			}
 
-        }
+		}
 
-    }
+	}
 
 }
 
 .edd-repeater.edd-repeater-layout-row {
 
-    .edd-repeater-item {
+	.edd-repeater-item {
 
-        & > .edd-repeater-content {
+		& > .edd-repeater-content {
 
-            & > table > tbody > tr > td {
+			& > table > tbody > tr > td {
 
-                // One Field per row
-                display: block;
+				// One Field per row
+				display: block;
 
-                &:not(:last-of-type) {
-                    margin-bottom: 0;
-                    padding-bottom: 0;
-                }
+				&:not(:last-of-type) {
+					margin-bottom: 0;
+					padding-bottom: 0;
+				}
 
-                input.regular-text {
-                    width: 25em; // Default
-                }
+				input.regular-text {
+					width: 25em; // Default
+				}
 
-                label {
-                    display: block; // Knock label to next line
-                }
+				label {
+					display: block; // Knock label to next line
+				}
 
-            }
+			}
 
-            & > table > tbody > tr {
+			& > table > tbody > tr {
 
-                & > td {
+				& > td {
 
-                    // <td> holding Nested Repeater
-                    &.repeater-container {
-                        
-                        display: table;
+					// <td> holding Nested Repeater
+					&.repeater-container {
+						
+						display: table;
 
-                        table > tbody > tr {
+						table > tbody > tr {
 
-                            display: table-row;
-                            width: auto;
+							display: table-row;
+							width: auto;
 
-                            td {
-                                // Reset defaults
-                                padding-left: 10px;
-                                padding-bottom: 15px;
-                                margin-bottom: 9px;
-                                display: table-cell;
-                            }
+							td {
+								// Reset defaults
+								padding-left: 10px;
+								padding-bottom: 15px;
+								margin-bottom: 9px;
+								display: table-cell;
+							}
 
-                        }
+						}
 
-                    }
+					}
 
-                }
+				}
 
-            }
+			}
 
-        }
+		}
 
-    }
+	}
 
-    &.edd-repeater-sortable {
+	&.edd-repeater-sortable {
 
-        .edd-repeater-item {
+		.edd-repeater-item {
 
-            & > .edd-repeater-content {
+			& > .edd-repeater-content {
 
-                td {
+				td {
 
-                    // Knock each <td> over to match the Collapsable Title
-                    padding-left: 50px;
+					// Knock each <td> over to match the Collapsable Title
+					padding-left: 50px;
 
-                }
+				}
 
-            }
+			}
 
-        }
+		}
 
-    }
+	}
 
 }
