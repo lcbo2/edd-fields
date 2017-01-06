@@ -1,6 +1,5 @@
-var gulp		  = require( 'gulp' );
-var sequence	  = require( 'run-sequence' );
+var gulp		= require( 'gulp' );
 
-gulp.task( 'default', function( done ) {
-	sequence( 'sass', 'uglify', 'watch', done );
+gulp.task( 'default', ['sass', 'uglify', 'watch'], function( done ) {
+	done();
 } );

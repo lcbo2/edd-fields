@@ -59,7 +59,7 @@ class EDD_Fields_Post_Edit {
 
 			add_meta_box(
 				'edd_fields_meta_box', // Metabox ID
-				sprintf( __( '%1$s Fields', EDD_Fields::$plugin_id ), $post_type_labels->singular_name, $post_type_labels->name ), // Metabox Label
+				sprintf( __( '%1$s Fields', EDD_Fields_ID ), $post_type_labels->singular_name, $post_type_labels->name ), // Metabox Label
 				array( $this, 'fields' ), // Callback function to populate Meta Box
 				$post_type,
 				'normal', // Position
@@ -90,8 +90,8 @@ class EDD_Fields_Post_Edit {
 				<thead>
 					<tr>
 						<th scope="col" class="edd-repeater-field-handle"></th>
-						<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields::$plugin_id ); ?></th>
-						<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields::$plugin_id ); ?></th>
+						<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
+						<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -116,7 +116,7 @@ class EDD_Fields_Post_Edit {
 
 				<tr>
 					<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-						<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields::$plugin_id ); ?></button>
+						<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields_ID ); ?></button>
 					</td>
 				</tr>
 
@@ -170,7 +170,7 @@ class EDD_Fields_Post_Edit {
 			</td>
 			<td>
 				<button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
-					<span class="screen-reader-text"><?php _e( 'Remove Field', EDD_Fields::$plugin_id ); ?></span><span aria-hidden="true">&times;</span>
+					<span class="screen-reader-text"><?php _e( 'Remove Field', EDD_Fields_ID ); ?></span><span aria-hidden="true">&times;</span>
 				</button>
 			</td>
 		</tr>
@@ -245,7 +245,7 @@ class EDD_Fields_Post_Edit {
 
 		if ( ( in_array( $current_screen->post_type, $post_types ) ) && ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) ) {
 			
-			wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
+			wp_enqueue_style( EDD_Fields_ID . '-admin' );
 
 		}
 
@@ -260,7 +260,7 @@ class EDD_Fields_Post_Edit {
 	 */
 	public function force_after_tiny_mce() {
 
-		printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . '/tinymce/tinymce-select.js' );
+		printf( '<script type="text/javascript" src="%s"></script>',  EDD_Fields_URL . 'assets/js/tinymce/tinymce-select.js' );
 
 	}
 	
@@ -282,7 +282,7 @@ class EDD_Fields_Post_Edit {
 
 			// Attach script to the button rather than enqueueing it
 			add_filter( 'mce_external_plugins', function( $plugin_array ) {
-				$plugin_array['edd_fields_shortcodes_script'] = EDD_Fields_URL . 'tinymce/edd-fields-shortcodes.js';
+				$plugin_array['edd_fields_shortcodes_script'] = EDD_Fields_URL . 'assets/js/tinymce/edd-fields-shortcodes.js';
 				return $plugin_array;
 			} );
 
@@ -321,7 +321,7 @@ class EDD_Fields_Post_Edit {
 		);
 
 		$result = array(
-			array( 'text' => sprintf( __( 'Current %s', EDD_Fields::$plugin_id ), $singular ), 'value' => '' )
+			array( 'text' => sprintf( __( 'Current %s', EDD_Fields_ID ), $singular ), 'value' => '' )
 		);
 
 		foreach ( $post_types as $post_type ) {
@@ -388,7 +388,7 @@ class EDD_Fields_Post_Edit {
 		}, $edd_fields );
 
 		$result = array(
-			array( 'text' => sprintf( __( 'Choose a Field Name', EDD_Fields::$plugin_id ), $singular ), 'value' => '' )
+			array( 'text' => sprintf( __( 'Choose a Field Name', EDD_Fields_ID ), $singular ), 'value' => '' )
 		);
 
 		foreach ( $key_list as $name ) {

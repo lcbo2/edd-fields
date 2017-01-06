@@ -103,7 +103,12 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			
 			// Only call this once, accessible always
 			$this->plugin_data = get_plugin_data( __FILE__ );
-
+			
+			if ( ! defined( 'EDD_Fields_ID' ) ) {
+				// Plugin Text Domain
+				define( 'EDD_Fields_ID', $this->plugin_data['TextDomain'] );
+			}
+			
 			if ( ! defined( 'EDD_Fields_VER' ) ) {
 				// Plugin version
 				define( 'EDD_Fields_VER', $this->plugin_data['Version'] );
@@ -135,25 +140,25 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			$lang_dir = apply_filters( 'EDD_Fields_languages_directory', $lang_dir );
 
 			// Traditional WordPress plugin locale filter
-			$locale = apply_filters( 'plugin_locale', get_locale(), EDD_Fields::$plugin_id );
-			$mofile = sprintf( '%1$s-%2$s.mo', EDD_Fields::$plugin_id, $locale );
+			$locale = apply_filters( 'plugin_locale', get_locale(), EDD_Fields_ID );
+			$mofile = sprintf( '%1$s-%2$s.mo', EDD_Fields_ID, $locale );
 
 			// Setup paths to current locale file
 			$mofile_local   = $lang_dir . $mofile;
-			$mofile_global  = WP_LANG_DIR . '/' . EDD_Fields::$plugin_id . '/' . $mofile;
+			$mofile_global  = WP_LANG_DIR . '/' . EDD_Fields_ID . '/' . $mofile;
 
 			if ( file_exists( $mofile_global ) ) {
 				// Look in global /wp-content/languages/edd-fields/ folder
 				// This way translations can be overridden via the Theme/Child Theme
-				load_textdomain( EDD_Fields::$plugin_id, $mofile_global );
+				load_textdomain( EDD_Fields_ID, $mofile_global );
 			}
 			else if ( file_exists( $mofile_local ) ) {
 				// Look in local /wp-content/plugins/edd-fields/languages/ folder
-				load_textdomain( EDD_Fields::$plugin_id, $mofile_local );
+				load_textdomain( EDD_Fields_ID, $mofile_local );
 			}
 			else {
 				// Load the default language files
-				load_plugin_textdomain( EDD_Fields::$plugin_id, false, $lang_dir );
+				load_plugin_textdomain( EDD_Fields_ID, false, $lang_dir );
 			}
 
 		}
@@ -195,15 +200,15 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		public function register_scripts() {
 			
 			wp_register_style(
-				EDD_Fields::$plugin_id . '-admin',
-				EDD_Fields_URL . '/admin.css',
+				EDD_Fields_ID . '-admin',
+				EDD_Fields_URL . '/assets/css/admin.css',
 				null,
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
 			);
 			
 			wp_register_script(
-				EDD_Fields::$plugin_id . '-admin',
-				EDD_Fields_URL . '/admin.js',
+				EDD_Fields_ID . '-admin',
+				EDD_Fields_URL . '/assets/js/admin.js',
 				array( 'jquery' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
 				true

@@ -40,7 +40,7 @@ class EDD_Fields_Admin {
 	*/
 	public function settings_section( $sections ) {
 
-		$sections['edd-fields-settings'] = __( 'Fields', EDD_Fields::$plugin_id );
+		$sections['edd-fields-settings'] = __( 'Fields', EDD_Fields_ID );
 
 		return $sections;
 
@@ -59,33 +59,33 @@ class EDD_Fields_Admin {
 		$edd_fields_settings = array(
 			array(
 				'id'   => 'edd_fields_template_settings',
-				'name' => __( 'Field Template Groups', EDD_Fields::$plugin_id ),
+				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
 				'type' => 'repeater',
 				'classes' => array( 'edd-fields-settings-repeater' ),
-				'add_item_text' => __( 'Add Field Template Group', EDD_Fields::$plugin_id ),
-				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields::$plugin_id ),
+				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
+				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
 				'collapsable' => true,
-				'collapsable_title' => __( 'New Field Template Group', EDD_Fields::$plugin_id ),
+				'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
 				'fields' => array(
 					'field_template_group_name' => array(
 						'type'  => 'text',
-						'desc' => __( 'Field Template Group Name', EDD_Fields::$plugin_id ),
+						'desc' => __( 'Field Template Group Name', EDD_Fields_ID ),
 					),
 					'test'	=> array(
 						'type'  => 'text',
-						'desc' => __( 'Another Field', EDD_Fields::$plugin_id ),
+						'desc' => __( 'Another Field', EDD_Fields_ID ),
 					),
 					'fields' => array(
 						'test' => true,
 						'type' => 'repeater',
-						'desc' => __( 'Fields', EDD_Fields::$plugin_id ),
-						'add_item_text' => __( 'Add Field', EDD_Fields::$plugin_id ),
-						'delete_item_text' => __( 'Remove Field', EDD_Fields::$plugin_id ),
+						'desc' => __( 'Fields', EDD_Fields_ID ),
+						'add_item_text' => __( 'Add Field', EDD_Fields_ID ),
+						'delete_item_text' => __( 'Remove Field', EDD_Fields_ID ),
 						'collapsable' => false,
 						'fields' => array(
 							'field_name' => array( 
 								'type'  => 'text',
-								'desc' => __( 'Field Name', EDD_Fields::$plugin_id ),
+								'desc' => __( 'Field Name', EDD_Fields_ID ),
 							),
 						),
 					),
@@ -112,8 +112,8 @@ class EDD_Fields_Admin {
 	 */
 	public function admin_settings_scripts() {
 
-		wp_enqueue_style( EDD_Fields::$plugin_id . '-admin' );
-		wp_enqueue_script( EDD_Fields::$plugin_id . '-admin' );
+		wp_enqueue_style( EDD_Fields_ID . '-admin' );
+		wp_enqueue_script( EDD_Fields_ID . '-admin' );
 
 	}
 
