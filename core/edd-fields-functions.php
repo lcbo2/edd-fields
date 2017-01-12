@@ -192,7 +192,7 @@ if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 											
 													if ( $field['type'] !== 'hook' ) : ?>
 
-														<td<?php echo ( $field['type'] == 'repeater' ) ? ' class="repeater-container"' : ''; ?>>
+														<td<?php echo ( $field['type'] == 'fields_repeater' ) ? ' class="repeater-container"' : ''; ?>>
 
 															<?php
 																if ( $field['type'] == 'fields_repeater' ) {
