@@ -60,36 +60,14 @@ class EDD_Fields_Admin {
 			array(
 				'id'   => 'edd_fields_template_settings',
 				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
-				'type' => 'repeater',
+				'type' => 'fields_repeater',
 				'classes' => array( 'edd-fields-settings-repeater' ),
 				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
 				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
 				'collapsable' => true,
 				'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'fields' => array(
-					'field_template_group_name' => array(
-						'type'  => 'text',
-						'desc' => __( 'Field Template Group Name', EDD_Fields_ID ),
-					),
-					'test'	=> array(
-						'type'  => 'text',
-						'desc' => __( 'Another Field', EDD_Fields_ID ),
-					),
-					'fields' => array(
-						'test' => true,
-						'type' => 'repeater',
-						'desc' => __( 'Fields', EDD_Fields_ID ),
-						'add_item_text' => __( 'Add Field', EDD_Fields_ID ),
-						'delete_item_text' => __( 'Remove Field', EDD_Fields_ID ),
-						'collapsable' => false,
-						'fields' => array(
-							'field_name' => array( 
-								'type'  => 'text',
-								'desc' => __( 'Field Name', EDD_Fields_ID ),
-							),
-						),
-					),
-				),
+				'std' => $this->get_default_templates(),
+				'fields' => $this->get_template_fields(),
 			),
 		);
 
@@ -101,6 +79,68 @@ class EDD_Fields_Admin {
 
 		return array_merge( $settings, $edd_fields_settings );
 
+	}
+	
+	public function get_default_templates() {
+		
+		$music = apply_filters( 'edd_fields_music_template_defaults', array(
+			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
+			'icon' => 'dashicons-format-audio',
+			'fields' => array(
+				array(
+					'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
+				),
+			),
+		) );
+		
+		$software = apply_filters( 'edd_fields_software_template_defaults', array(
+			'label' => _x( 'Software', 'Software Template', EDD_Fields_ID ),
+			'icon' => 'dashicons-editor-code',
+			'fields' => array(
+				'file_type' => array(
+					'type' => 'text',
+					'desc' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
+				),
+			),
+		) );
+		
+		return array_merge( array( $music ), array( $software ) );
+		
+	}
+	
+	public function get_template_fields() {
+		
+		$fields = apply_filters( 'edd_fields_template_fields', array(
+			'label' => array(
+				'type' => 'text',
+				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
+				'field_class' => '',
+				'readonly' => false,
+			),
+			'icon' => array(
+				'type' => 'text',
+				'desc' => _x( 'Icon', 'Template Tabl Icon Label', EDD_Fields_ID ),
+				'field_class' => '',
+				'readonly' => false,
+			),
+			'fields' => array(
+				'type' => 'fields_repeater',
+				'fields' => array(
+					'label' => array(
+						'type' => 'text',
+						'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
+				'field_class' => '',
+				'readonly' => false,
+					),
+				),
+			),
+		) );
+		
+		return $fields;
+		
 	}
 
 	/**

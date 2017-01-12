@@ -46,9 +46,9 @@ function edd_fields_get( $name, $post_id ) {
 	
 }
 
-if ( ! function_exists( 'edd_repeater_callback' ) ) {
+if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 	
-	function edd_repeater_callback( $args ) {
+	function edd_fields_repeater_callback( $args ) {
 		
 		global $edd_options;
 
@@ -108,7 +108,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
 			
 			<div data-repeater-list="<?php echo ( ! $args['nested'] ) ? $name : $args['id']; ?>" class="edd-repeater-list">
 
-					<?php for ( $index = 0; $index < $field_count; $index++ ) : $value = $edd_option[$index]; ?>
+					<?php for ( $index = 0; $index < $field_count; $index++ ) : $value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 				
 						<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) && ! $args['nested'] ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item<?php echo ( $args['collapsable'] ) ? ' closed' : ''; ?>">
 							
@@ -129,8 +129,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
 												<h2 data-repeater-collapsable-default="<?php echo $args['collapsable_title']; ?>">
 													<span class="title">
 
-														<?php if ( isset( $edd_option[$index] ) && reset( $edd_option[$index] ) !== '' ) : 
-
+														<?php if ( isset( $edd_option[$index] ) && reset( $edd_option[$index] ) !== '' ) :
 															// Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
 															foreach ( $value as $key => $setting ) : ?>
 																<?php echo $setting; ?>
@@ -196,7 +195,7 @@ if ( ! function_exists( 'edd_repeater_callback' ) ) {
 														<td<?php echo ( $field['type'] == 'repeater' ) ? ' class="repeater-container"' : ''; ?>>
 
 															<?php
-																if ( $field['type'] == 'repeater' ) {
+																if ( $field['type'] == 'fields_repeater' ) {
 																	$field['nested'] = true;
 																	$field['classes'][] = 'nested-repeater';
 																}
