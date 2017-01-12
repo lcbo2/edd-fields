@@ -81,6 +81,13 @@ class EDD_Fields_Admin {
 
 	}
 	
+	/**
+	 * Returns the Default Templates if none are saved. This overrides any default values for the Fields
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		array Default Templates
+	 */
 	public function get_default_templates() {
 		
 		$music = apply_filters( 'edd_fields_music_template_defaults', array(
@@ -111,6 +118,13 @@ class EDD_Fields_Admin {
 		
 	}
 	
+	/**
+	 * Returns the Fields used to Generate Field Templates
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		array Fields
+	 */
 	public function get_template_fields() {
 		
 		$fields = apply_filters( 'edd_fields_template_fields', array(
@@ -119,12 +133,14 @@ class EDD_Fields_Admin {
 				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
 				'field_class' => '',
 				'readonly' => false,
+				'std' => '',
 			),
 			'icon' => array(
 				'type' => 'text',
 				'desc' => _x( 'Icon', 'Template Tabl Icon Label', EDD_Fields_ID ),
 				'field_class' => '',
 				'readonly' => false,
+				'std' => '',
 			),
 			'fields' => array(
 				'type' => 'fields_repeater',
@@ -132,8 +148,9 @@ class EDD_Fields_Admin {
 					'label' => array(
 						'type' => 'text',
 						'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
-				'field_class' => '',
-				'readonly' => false,
+						'field_class' => '',
+						'readonly' => false,
+						'std' => '',
 					),
 				),
 			),
