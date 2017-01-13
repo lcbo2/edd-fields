@@ -33,6 +33,29 @@
 
 	}
 
+	function init_edd_repeater_chosen() {
+        
+        // Only try to run if there are any Chosen Fields within an EDD Repeater
+        if ( $( '.edd-repeater .edd-chosen' ).length ) {
+			
+			console.log( 'test' );
+            
+            $( '.edd-repeater' ).each( function( repeaterIndex, repeater ) {
+                
+                // Check only Open Repeater Rows
+                $( repeater ).find( '.edd-repeater-item.opened' ).each( function( rowIndex, row ) {
+
+                    // Init Chosen Fields as a Glob per-row
+                    $( row ).find( '.edd-chosen' ).chosen();
+
+                } );
+                
+            } );
+            
+        }
+        
+    }
+
 	var $repeaters = $( '[data-edd-repeater]' );
 
 	if ( ! $repeaters.length ) {
@@ -40,6 +63,7 @@
 	}
 
 	init_edd_repeater_colorpickers();
+	init_edd_repeater_chosen();
 
 	var edd_repeater_show = function() {
 
@@ -73,6 +97,7 @@
 		$( this ).addClass( 'opened' ).removeClass( 'closed' ).stop().slideDown();
 
 		init_edd_repeater_colorpickers();
+		init_edd_repeater_chosen();
 
 		$( repeater ).trigger( 'edd-repeater-add', [$( this )] );
 
@@ -126,6 +151,7 @@
 				forcePlaceholderSize: true,
 				update: function ( e, ui ) {
 					init_edd_repeater_colorpickers();
+					init_edd_repeater_chosen();
 				}
 
 			} );
@@ -134,7 +160,7 @@
 
 		// Collapsable
 		if ( typeof $repeater.attr( 'data-repeater-collapsable' ) !== 'undefined' ) {
-			$repeater.find( '.edd-repeater-content' ).first().hide();
+			$repeater.find( '.edd-repeater-content' ).hide();
 		}
 
 		$( document ).on( 'click touchend', '.edd-repeater[data-repeater-collapsable] [data-repeater-collapsable-handle]', function () {
@@ -148,6 +174,8 @@
 				$content.stop().slideDown();
 				$repeater_field.addClass( 'opened' );
 				$repeater_field.removeClass( 'closed' );
+				init_edd_repeater_colorpickers();
+				init_edd_repeater_chosen();
 
 			}
 			else {
@@ -160,7 +188,7 @@
 		} );
 
 		$( document ).on( 'keyup change', '.edd-repeater .edd-repeater-content td:first-of-type *[type!="hidden"]', function() {
-			
+
 			if ( $( this ).val() !== '' ) {
 				$( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2 span.title' ).html( $( this ).val() );
 			}
@@ -168,7 +196,7 @@
 				var defaultValue = $( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2' ).data( 'repeater-collapsable-default' );
 				$( this ).closest( '.edd-repeater-item' ).find( '.repeater-header h2 span.title' ).html( defaultValue );
 			}
-			
+
 		} );
 
 	} );
