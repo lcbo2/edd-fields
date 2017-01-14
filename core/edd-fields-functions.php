@@ -166,7 +166,7 @@ if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 								</table>
 							<?php endif; ?>
 							
-							<div class="edd-repeater-content">
+							<div class="edd-repeater-content<?php echo ( $args['nested'] ) ? '-nested' : ''; ?>">
 
 								<table class="widefat" width="100%" cellpadding="0" cellspacing="0">
 
