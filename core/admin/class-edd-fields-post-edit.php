@@ -80,60 +80,74 @@ class EDD_Fields_Post_Edit {
 	public function fields( $post ) {
 
 		$fields = get_post_meta( get_the_ID(), 'edd_fields', true );
+		$templates = EDDFIELDS()->admin->get_templates();
 
 		ob_start(); ?>
 
 		<div class="edd-fields-meta-box">
 			
-			<ul class="category-tabs">
-				<li><a href="#frag1">Tab 1</a></li>
-				<li><a href="#frag2">Tab 2</a></li>
-				<li><a href="#frag3">Tab 3</a></li>
+			<?php echo EDD()->html->text( array(
+				'name' => "edd_fields_tab",
+			) ); ?>
+			
+			<ul class="edd-fields-tabs">
+				<?php foreach ( $templates as $template ) : ?>
+					<li><a href="#<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>"><span class="<?php echo $template['icon']; ?>"></span></a></li>
+				<?php endforeach; ?>
+				<li><a href="#custom">Custom</a></li>
 			</ul>
 			<br class="clear" />
+				
+				<?php foreach ( $templates as $template ) : ?>
+				
+					<div class="hidden" id="<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>">
+						
+						<?php echo $template['label']; ?>
+						
+					</div>
+				
+				<?php endforeach; ?>
+			
+				<div id="custom">
 
-			<div class="edd_meta_table_wrap">
+					<table class="edd-fields-repeater widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
 
-				<table id="edd-fields-repeater" class="widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
-					
-					<?php var_dump( EDDFIELDS()->admin->get_templates() ); ?>
+						<thead>
+							<tr>
+								<th scope="col" class="edd-repeater-field-handle"></th>
+								<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
+								<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
 
-					<thead>
+					<?php if ( ! empty( $fields ) ) : 
+
+						foreach ( $fields as $key => $value ) : 
+
+								$name = isset( $value['key'] ) ? $value['key'] : '';
+								$value = isset( $value['value'] ) ? $value['value'] : '';
+								$args = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
+
+								do_action( 'edd_fields_render_row', $key, $args );
+
+						endforeach;
+
+					else :
+
+						do_action( 'edd_fields_render_row', 0, array() );
+
+					endif; ?>
+
 						<tr>
-							<th scope="col" class="edd-repeater-field-handle"></th>
-							<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
-							<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
-							<th scope="col"></th>
+							<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
+								<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields_ID ); ?></button>
+							</td>
 						</tr>
-					</thead>
 
-				<?php if ( ! empty( $fields ) ) : 
-
-					foreach ( $fields as $key => $value ) : 
-
-							$name = isset( $value['key'] ) ? $value['key'] : '';
-							$value = isset( $value['value'] ) ? $value['value'] : '';
-							$args = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
-
-							do_action( 'edd_fields_render_row', $key, $args );
-
-					endforeach;
-
-				else :
-
-					do_action( 'edd_fields_render_row', 0, array() );
-
-				endif; ?>
-
-					<tr>
-						<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-							<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields_ID ); ?></button>
-						</td>
-					</tr>
-
-				</table>
-
-			</div>
+					</table>
+					
+				</div>
 			
 		</div>
 
@@ -171,13 +185,13 @@ class EDD_Fields_Post_Edit {
 			</td>
 			<td class="edd-fields-key">
 				<?php echo EDD()->html->text( array(
-					'name' => "edd_fields[$key][key]",
+					'name' => "edd_fields[custom][$key][key]",
 					'value' => $args['name'],
 				) ); ?>
 			</td>
 			<td class="edd-fields-value">
 				<?php echo EDD()->html->text( array(
-					'name' => "edd_fields[$key][value]",
+					'name' => "edd_fields[custom][$key][value]",
 					'value' => $args['value'],
 				) ); ?>
 			</td>
@@ -259,6 +273,7 @@ class EDD_Fields_Post_Edit {
 		if ( ( in_array( $current_screen->post_type, $post_types ) ) && ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) ) {
 			
 			wp_enqueue_style( EDD_Fields_ID . '-admin' );
+			wp_enqueue_script( EDD_Fields_ID . '-admin' );
 
 		}
 

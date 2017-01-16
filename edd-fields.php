@@ -195,15 +195,15 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			
 			wp_register_style(
 				EDD_Fields_ID . '-admin',
-				EDD_Fields_URL . '/assets/css/admin.css',
+				EDD_Fields_URL . 'assets/css/admin.css',
 				null,
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
 			);
 			
 			wp_register_script(
 				EDD_Fields_ID . '-admin',
-				EDD_Fields_URL . '/assets/js/admin.js',
-				array( 'jquery' ),
+				EDD_Fields_URL . 'assets/js/admin.js',
+				array( 'jquery', 'jquery-ui-tabs' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
 				true
 			);
