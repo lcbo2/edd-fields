@@ -1,36 +1,44 @@
-.edd-fields-repeater {
+#edd_fields_meta_box {
 
-	th {
-		padding-left: 0.92308em;
+	.ui-tabs .ui-tabs-panel {
+		padding-top: 0;
 	}
 
-	.edd_repeatable_row {
+	.edd-fields-repeater {
 
-		td {
+		th {
+			padding-left: 0.92308em;
+		}
 
-			&:first-of-type {
-				width: 0.5em;
+		.edd_repeatable_row {
+
+			td {
+
+				&:first-of-type {
+					width: 0.5em;
+				}
+
+			}
+
+		}
+
+		.edd_draghandle {
+			margin-top: 0;
+			background-repeat: no-repeat;
+		}
+
+		input.regular-text {
+			width: 100%;
+		}
+
+		span.handle {
+
+			&:hover {
+				cursor: move,
 			}
 
 		}
 
 	}
-
-	.edd_draghandle {
-		margin-top: 0;
-		background-repeat: no-repeat;
-	}
-
-	input.regular-text {
-		width: 100%;
-	}
-
-	span.handle {
-
-		&:hover {
-			cursor: move,
-		}
-
-	}
-
+	
 }

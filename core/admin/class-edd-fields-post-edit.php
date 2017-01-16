@@ -79,22 +79,28 @@ class EDD_Fields_Post_Edit {
 	 */
 	public function fields( $post ) {
 
-		$fields = get_post_meta( get_the_ID(), 'edd_fields', true );
+		$fields = get_post_meta( $post->ID, 'edd_fields', true );
 		$templates = EDDFIELDS()->admin->get_templates();
 
 		ob_start(); ?>
 
 		<div class="edd-fields-meta-box">
 			
-			<?php echo EDD()->html->text( array(
-				'name' => "edd_fields_tab",
-			) ); ?>
+			<?php 
+		
+				if ( ! $active_tab = get_post_meta( $post->ID, 'edd_fields_tab', true ) ) {
+					$active_tab = count( $templates ); // jQuery UI Tabs are 0 indexed, but PHP is not, so this works
+				}
+		
+			?>
+			
+			<input type="hidden" name="edd_fields_tab" value="<?php echo $active_tab; ?>"/>
 			
 			<ul class="edd-fields-tabs">
 				<?php foreach ( $templates as $template ) : ?>
 					<li><a href="#<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>"><span class="<?php echo $template['icon']; ?>"></span></a></li>
 				<?php endforeach; ?>
-				<li><a href="#custom">Custom</a></li>
+				<li><a href="#custom"><span class="dashicons dashicons-admin-generic"></span></a></li>
 			</ul>
 			<br class="clear" />
 				
@@ -102,13 +108,15 @@ class EDD_Fields_Post_Edit {
 				
 					<div class="hidden" id="<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>">
 						
-						<?php echo $template['label']; ?>
+						<h2><?php echo $template['label']; ?></h2>
 						
 					</div>
 				
 				<?php endforeach; ?>
 			
 				<div id="custom">
+					
+					<h2><?php echo _x( 'Custom (No Template)', 'No Template Header', EDD_Fields_ID ); ?></h2>
 
 					<table class="edd-fields-repeater widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
 
@@ -236,14 +244,27 @@ class EDD_Fields_Post_Edit {
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 
 		if ( in_array( $post->post_type, $post_types ) ) {
+			
+			if ( ! empty( $_POST['edd_fields_tab'] ) ) {
+				
+				// Sanitization Filter.
+				$new_tab = apply_filters( 'edd_metabox_save_fields', $_POST['edd_fields_tab'] );
+				
+				update_post_meta( $post_id, 'edd_fields_tab', $new_tab );
+				
+			}
 
 			if ( ! empty( $_POST['edd_fields'] ) ) {
 
 				// Sanitization Filter. Values are already forced to re-index on Save.
-				$new_fields = apply_filters( 'edd_metabox_save_fields', array_values( $_POST['edd_fields'] ) );
+				$new_fields = apply_filters( 'edd_metabox_save_fields', $_POST['edd_fields'] );
+				
+				$templates = EDDFIELDS()->admin->get_templates();
 
-				if ( ( count( $new_fields ) == 1 ) &&
-					( empty( $new_fields[0]['key'] ) ) ) {
+				// If it is a Custom Template and everything is empty
+				if ( ! isset( $templates[ $_POST['edd_fields_tab'] ] ) &&
+					( count( $new_fields['custom'] ) == 1 ) &&
+					( empty( $new_fields['custom'][0]['key'] ) ) ) {
 					delete_post_meta( $post_id, 'edd_fields' );
 				}
 				else {
