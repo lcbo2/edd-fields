@@ -13,6 +13,12 @@ defined( 'ABSPATH' ) || die();
 class EDD_Fields_Admin {
 
 	/**
+	 * @var		EDD_Fields_Admin $admin_notices Allows Admin Notices to be ran when possible despite our Hook
+	 * @since	1.0.0
+	 */
+	private $admin_notices = array();
+
+	/**
 	 * EDD_Fields_Admin constructor.
 	 *
 	 * @since 1.0.0
@@ -28,16 +34,22 @@ class EDD_Fields_Admin {
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
 
+		// Allow Templates to be reset to their Defaults
+		add_action( 'init', array( $this, 'reset_field_templates_to_default' ) );
+
+		// Display Admin Notices
+		add_action( 'admin_init', array( $this, 'display_admin_notices' ) );
+
 	}
-	
+
 	/**
-	* Register Our Settings Section
-	* 
-	* @access	   public
-	* @since		1.0.0
-	* @param		array $sections EDD Settings Sections
-	* @return	   array Modified EDD Settings Sections
-	*/
+	 * Register Our Settings Section
+	 * 
+	 * @access	   public
+	 * @since		1.0.0
+	 * @param		array $sections EDD Settings Sections
+	 * @return	   array Modified EDD Settings Sections
+	 */
 	public function settings_section( $sections ) {
 
 		$sections['edd-fields-settings'] = __( 'Fields', EDD_Fields_ID );
@@ -47,28 +59,35 @@ class EDD_Fields_Admin {
 	}
 
 	/**
-	* Adds new Settings Section under "Extensions". Throws it under Misc if EDD is lower than v2.5
-	* 
-	* @access	  public
-	* @since	   1.0.0
-	* @param	   array $settings The existing EDD settings array
-	* @return	  array The modified EDD settings array
-	*/
+	 * Adds new Settings Section under "Extensions". Throws it under Misc if EDD is lower than v2.5
+	 * 
+	 * @access	  public
+	 * @since	   1.0.0
+	 * @param	   array $settings The existing EDD settings array
+	 * @return	  array The modified EDD settings array
+	 */
 	public function settings( $settings ) {
 
 		$edd_fields_settings = array(
 			array(
-				'id'   => 'edd_fields_template_settings',
-				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
-				'type' => 'fields_repeater',
-				'classes' => array( 'edd-fields-settings-repeater' ),
-				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
-				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
-				'collapsable' => true,
-				'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'std' => $this->get_default_templates(),
-				'fields' => $this->get_template_fields(),
-			),
+			'id' => 'edd_fields_template_settings',
+			'name' => __( 'Field Template Groups', EDD_Fields_ID ),
+			'type' => 'fields_repeater',
+			'classes' => array( 'edd-fields-settings-repeater' ),
+			'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
+			'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
+			'defaults_name' => 'edd_fields_template_reset_defaults',
+			'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
+			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
+			'collapsable' => true,
+			'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
+			'std' => $this->get_default_templates(),
+			'fields' => $this->get_template_fields(),
+		),
+			array(
+			'id' => 'fields_reset_defaults',
+			'type' => 'hook',
+		),
 		);
 
 		// If EDD is at version 2.5 or later...
@@ -80,7 +99,7 @@ class EDD_Fields_Admin {
 		return array_merge( $settings, $edd_fields_settings );
 
 	}
-	
+
 	/**
 	 * Returns the Default Templates if none are saved. This overrides any default values for the Fields
 	 * 
@@ -89,34 +108,34 @@ class EDD_Fields_Admin {
 	 * @return		array Default Templates
 	 */
 	public function get_default_templates() {
-		
+
 		$music = apply_filters( 'edd_fields_music_template_defaults', array(
 			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-format-audio',
 			'fields' => array(
-				array(
-					'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
-				),
-				array(
-					'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
-				),
-			),
+			array(
+			'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
+		),
+			array(
+			'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
+		),
+		),
 		) );
-		
+
 		$software = apply_filters( 'edd_fields_software_template_defaults', array(
 			'label' => _x( 'Software', 'Software Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-editor-code',
 			'fields' => array(
-				array(
-					'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
-				),
-			),
+			array(
+			'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
+		),
+		),
 		) );
-		
+
 		return array_merge( array( $music ), array( $software ) );
-		
+
 	}
-	
+
 	/**
 	 * Returns the Fields used to Generate Field Templates
 	 * 
@@ -125,49 +144,49 @@ class EDD_Fields_Admin {
 	 * @return		array Fields
 	 */
 	public function get_template_fields() {
-		
+
 		$fields = apply_filters( 'edd_fields_template_fields', array(
 			'label' => array(
-				'type' => 'text',
-				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
-				'field_class' => '',
-				'readonly' => false,
-				'std' => '',
-				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Slack_ID ),
-				'tooltip_desc'  => sprintf( _x( 'Controls the Title shown after selecting a Template Tab on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
-			),
+			'type' => 'text',
+			'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
+			'field_class' => '',
+			'readonly' => false,
+			'std' => '',
+			'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Slack_ID ),
+			'tooltip_desc'  => sprintf( _x( 'Controls the Title shown after selecting a Template Tab on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
+		),
 			'icon' => array(
-				'type' => 'select',
-				'desc' => _x( 'Icon', 'Template Icon Label', EDD_Fields_ID ),
-				'field_class' => 'edd-fields-icon',
-				'readonly' => false,
-				'std' => '',
-				'options' => $this->get_dashicons(),
-				'chosen' => true,
-				'tooltip_title' => _x( 'Icon', 'Template Icon Tooltip Title', EDD_Slack_ID ),
-				'tooltip_desc'  => sprintf( _x( 'Controls the Icon shown on the Template Tabs on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
-			),
+			'type' => 'select',
+			'desc' => _x( 'Icon', 'Template Icon Label', EDD_Fields_ID ),
+			'field_class' => 'edd-fields-icon',
+			'readonly' => false,
+			'std' => '',
+			'options' => $this->get_dashicons(),
+			'chosen' => true,
+			'tooltip_title' => _x( 'Icon', 'Template Icon Tooltip Title', EDD_Slack_ID ),
+			'tooltip_desc'  => sprintf( _x( 'Controls the Icon shown on the Template Tabs on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
+		),
 			'fields' => array(
-				'type' => 'fields_repeater',
-				'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
-				'fields' => array(
-					'label' => array(
-						'type' => 'text',
-						'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
-						'field_class' => '',
-						'readonly' => false,
-						'std' => '',
-						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Slack_ID ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular(), edd_get_label_singular() ),
-					),
-				),
-			),
+			'type' => 'fields_repeater',
+			'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
+			'fields' => array(
+			'label' => array(
+			'type' => 'text',
+			'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
+			'field_class' => '',
+			'readonly' => false,
+			'std' => '',
+			'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Slack_ID ),
+			'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+		),
+		),
+		),
 		) );
-		
+
 		return $fields;
-		
+
 	}
-	
+
 	/**
 	 * Returns an Array of Dashicons to use in a Select Dropdown
 	 * 
@@ -176,7 +195,7 @@ class EDD_Fields_Admin {
 	 * @return		array Array of Dashicons
 	 */
 	private function get_dashicons() {
-		
+
 		return array(
 			'dashicons dashicons-menu' => 'dashicons-menu',
 			'dashicons dashicons-admin-site' => 'dashicons-admin-site',
@@ -412,7 +431,59 @@ class EDD_Fields_Admin {
 			'dashicons dashicons-layout' => 'dashicons-layout',
 			'dashicons dashicons-paperclip' => 'dashicons-paperclip',
 		);
-		
+
+	}
+
+	/**
+     * Reset Field Template Groups to Default by deleting the saved values
+     * 
+     * @access		public
+     * @since		1.0.0
+     * @return		void
+     */
+	public function reset_field_templates_to_default() {
+
+		// For some reason we can't hook into admin_init within a production environment. Yeah, I have no idea either
+		if ( is_admin() ) {
+
+			// If we're reseting to defaults
+			if ( isset( $_POST['edd_fields_template_reset_defaults'] ) ) {
+
+				edd_delete_option( 'edd_fields_template_settings' );
+				unset( $_POST['edd_settings']['edd_fields_template_settings'] );
+				
+				$this->admin_notices[] = array(
+                    'edd-notices',
+                    'edd_fields_template_reset_defaults',
+                    _x( 'Field Template Groups Reset to Defaults.', 'Field Template Groups Reset to Defaults Successful', EDD_Slack_ID ),
+                    'updated'
+                );
+
+			}
+
+		}
+
+	}
+
+	/**
+     * Sometimes we need to add Admin Notices when add_settings_error() isn't accessable yet
+     * 
+     * @access      public
+     * @since       1.0.0
+     * @return      void
+     */
+	public function display_admin_notices() {
+
+		foreach( $this->admin_notices as $admin_notice ) {
+
+			// Pass array as Function Parameters
+			call_user_func_array( 'add_settings_error', $admin_notice );
+
+		}
+
+		// Clear out Notices
+		$this->admin_notices = array();
+
 	}
 
 	/**

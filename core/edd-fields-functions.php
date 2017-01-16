@@ -156,7 +156,7 @@ if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 											</td>
 
 											<td class="edd-repeater-controls">
-												<input data-repeater-delete type="button" class="button" value="<?php echo $args['delete_item_text']; ?>" />
+												<input data-repeater-delete type="button" class="button button-danger" value="<?php echo $args['delete_item_text']; ?>" />
 											</td>
 							
 										</tr>
@@ -239,6 +239,8 @@ if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 			</div>
 			
 			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
+			
+			<input type="submit" name="<?php echo $args['defaults_name']; ?>" class="button button-danger edd-repeater-defaults" style="margin-top: 6px;" value="<?php echo $args['defaults_text']; ?>" onclick="return confirm( '<?php echo $args['defaults_confirmation']; ?>' );" />
 
 		</div>
 		
