@@ -48,6 +48,8 @@
 						width: '100%',
 						templateResult: eddFieldsSelect2Icons,
 						templateSelection: eddFieldsSelect2Icons,
+						containerCssClass: 'edd-fields-select2 select2-container',
+						dropdownCssClass: 'edd-fields-select2 select2-container',
 						escapeMarkup: function(m) {	
 							return m;
 						}
