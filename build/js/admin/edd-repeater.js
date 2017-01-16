@@ -37,16 +37,21 @@
         
         // Only try to run if there are any Chosen Fields within an EDD Repeater
         if ( $( '.edd-repeater .edd-chosen' ).length ) {
-			
-			console.log( 'test' );
             
             $( '.edd-repeater' ).each( function( repeaterIndex, repeater ) {
                 
                 // Check only Open Repeater Rows
                 $( repeater ).find( '.edd-repeater-item.opened' ).each( function( rowIndex, row ) {
 
-                    // Init Chosen Fields as a Glob per-row
-                    $( row ).find( '.edd-chosen' ).chosen();
+                    // Just kidding, Select2 is better!
+                    $( row ).find( '.edd-chosen' ).select2( {
+						width: '100%',
+						templateResult: eddFieldsSelect2Icons,
+						templateSelection: eddFieldsSelect2Icons,
+						escapeMarkup: function(m) {	
+							return m;
+						}
+					} );
 
                 } );
                 
@@ -55,6 +60,12 @@
         }
         
     }
+	
+	function eddFieldsSelect2Icons( icon, container = null ) {
+		
+		return icon.text + '<span class="icon ' + icon.id + '"></span>';
+		
+	}
 
 	var $repeaters = $( '[data-edd-repeater]' );
 

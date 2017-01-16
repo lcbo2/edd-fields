@@ -137,7 +137,7 @@ class EDD_Fields_Admin {
 			'icon' => array(
 				'type' => 'select',
 				'desc' => _x( 'Icon', 'Template Tabl Icon Label', EDD_Fields_ID ),
-				'field_class' => '',
+				'field_class' => 'edd-fields-icon',
 				'readonly' => false,
 				'std' => '',
 				'options' => $this->get_dashicons(),

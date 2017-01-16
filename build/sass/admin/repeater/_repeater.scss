@@ -126,6 +126,10 @@
 				overflow: hidden;
 				float: left;
 
+				& > td {
+					width: 50%;
+				}
+
 				// <td> holding Nested Repeater
 				// This gets shoved onto its own row for readability reasons
 				& > .repeater-container {
@@ -238,7 +242,7 @@
 
 					// <td> holding Nested Repeater
 					&.repeater-container {
-						
+
 						display: table;
 
 						table > tbody > tr {
@@ -285,4 +289,19 @@
 
 	}
 
+}
+
+.select2-results, .select2-selection__rendered {
+	.icon {
+		float: right;
+		position: relative;
+	}
+}
+
+.select2-results .icon.dashicons {
+	line-height: 20px;
+}
+
+.select2-selection__rendered .icon.dashicons {
+	line-height: 26px;
 }
