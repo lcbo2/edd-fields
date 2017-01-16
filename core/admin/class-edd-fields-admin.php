@@ -70,24 +70,24 @@ class EDD_Fields_Admin {
 
 		$edd_fields_settings = array(
 			array(
-			'id' => 'edd_fields_template_settings',
-			'name' => __( 'Field Template Groups', EDD_Fields_ID ),
-			'type' => 'fields_repeater',
-			'classes' => array( 'edd-fields-settings-repeater' ),
-			'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
-			'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
-			'defaults_name' => 'edd_fields_template_reset_defaults',
-			'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
-			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
-			'collapsable' => true,
-			'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-			'std' => $this->get_default_templates(),
-			'fields' => $this->get_template_fields(),
-		),
+				'id' => 'edd_fields_template_settings',
+				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
+				'type' => 'fields_repeater',
+				'classes' => array( 'edd-fields-settings-repeater' ),
+				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
+				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
+				'defaults_name' => 'edd_fields_template_reset_defaults',
+				'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
+				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
+				'collapsable' => true,
+				'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
+				'std' => $this->get_default_templates(),
+				'fields' => $this->get_template_fields(),
+			),
 			array(
-			'id' => 'fields_reset_defaults',
-			'type' => 'hook',
-		),
+				'id' => 'fields_reset_defaults',
+				'type' => 'hook',
+			),
 		);
 
 		// If EDD is at version 2.5 or later...
@@ -113,23 +113,23 @@ class EDD_Fields_Admin {
 			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-format-audio',
 			'fields' => array(
-			array(
-			'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
-		),
-			array(
-			'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
-		),
-		),
+				array(
+					'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
+				),
+			),
 		) );
 
 		$software = apply_filters( 'edd_fields_software_template_defaults', array(
 			'label' => _x( 'Software', 'Software Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-editor-code',
 			'fields' => array(
-			array(
-			'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
-		),
-		),
+				array(
+					'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
+				),
+			),
 		) );
 
 		return array_merge( array( $music ), array( $software ) );
@@ -147,40 +147,40 @@ class EDD_Fields_Admin {
 
 		$fields = apply_filters( 'edd_fields_template_fields', array(
 			'label' => array(
-			'type' => 'text',
-			'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
-			'field_class' => '',
-			'readonly' => false,
-			'std' => '',
-			'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Slack_ID ),
-			'tooltip_desc'  => sprintf( _x( 'Controls the Title shown after selecting a Template Tab on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
-		),
+				'type' => 'text',
+				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
+				'field_class' => '',
+				'readonly' => false,
+				'std' => '',
+				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Slack_ID ),
+				'tooltip_desc'  => sprintf( _x( 'Controls the Title shown after selecting a Template Tab on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
+			),
 			'icon' => array(
-			'type' => 'select',
-			'desc' => _x( 'Icon', 'Template Icon Label', EDD_Fields_ID ),
-			'field_class' => 'edd-fields-icon',
-			'readonly' => false,
-			'std' => '',
-			'options' => $this->get_dashicons(),
-			'chosen' => true,
-			'tooltip_title' => _x( 'Icon', 'Template Icon Tooltip Title', EDD_Slack_ID ),
-			'tooltip_desc'  => sprintf( _x( 'Controls the Icon shown on the Template Tabs on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
-		),
+				'type' => 'select',
+				'desc' => _x( 'Icon', 'Template Icon Label', EDD_Fields_ID ),
+				'field_class' => 'edd-fields-icon',
+				'readonly' => false,
+				'std' => '',
+				'options' => $this->get_dashicons(),
+				'chosen' => true,
+				'tooltip_title' => _x( 'Icon', 'Template Icon Tooltip Title', EDD_Slack_ID ),
+				'tooltip_desc'  => sprintf( _x( 'Controls the Icon shown on the Template Tabs on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular() ),
+			),
 			'fields' => array(
-			'type' => 'fields_repeater',
-			'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
-			'fields' => array(
-			'label' => array(
-			'type' => 'text',
-			'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
-			'field_class' => '',
-			'readonly' => false,
-			'std' => '',
-			'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Slack_ID ),
-			'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular(), edd_get_label_singular() ),
-		),
-		),
-		),
+				'type' => 'fields_repeater',
+				'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
+				'fields' => array(
+					'label' => array(
+						'type' => 'text',
+						'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
+						'field_class' => '',
+						'readonly' => false,
+						'std' => '',
+						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Slack_ID ),
+						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Template Icon Tooltip Text', EDD_Slack_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+					),
+				),
+			),
 		) );
 
 		return $fields;
