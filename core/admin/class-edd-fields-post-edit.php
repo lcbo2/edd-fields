@@ -95,6 +95,8 @@ class EDD_Fields_Post_Edit {
 			<div class="edd_meta_table_wrap">
 
 				<table id="edd-fields-repeater" class="widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
+					
+					<?php var_dump( EDDFIELDS()->admin->get_templates() ); ?>
 
 					<thead>
 						<tr>

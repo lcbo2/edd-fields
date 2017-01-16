@@ -32,25 +32,19 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		 * @var		 EDD_Fields $admin Admin Settings
 		 * @since	   1.0.0
 		 */
-		private $admin;
+		public $admin;
 		
 		/**
 		 * @var		 EDD_Fields $post_edit Post Edit Screen Additions
 		 * @since	   1.0.0
 		 */
-		private $post_edit;
+		public $post_edit;
 		
 		/**
 		 * @var		 EDD_Fields $shortcodes Shortcodes
 		 * @since	   1.0.0
 		 */
-		private $shortcodes;
-		
-		/**
-		 * @var		 Plugin ID used for Localization, script names, etc.
-		 * @since	   1.0.0
-		 */
-		public static $plugin_id = 'edd-fields';
+		public $shortcodes;
 
 		/**
 		 * Get active instance
