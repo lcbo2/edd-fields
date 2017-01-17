@@ -90,7 +90,7 @@ class EDD_Fields_Post_Edit {
 					$active_tab = count( $templates ); // jQuery UI Tabs are 0 indexed, but PHP is not, so this works
 				}
 				else {
-					// Ensure we've got an Integer, because PHP is silly and thinks 0 is False
+					// Ensure we've got an Integer, because PHP is silly and thinks '0' is False
 					$active_tab = (int) $active_tab;
 				}
 		
