@@ -25,24 +25,30 @@ function EDDFIELDS() {
 /**
  * Function to grab an individual EDD Fields value. Useful for Theme Template Files.
  * 
- * @param	   string  $key		Key 
- * @param	   integer $post_id	Post ID
- *									  
- * since		1.0.0
+ * @param	  string  $key		Key
+ * @param	  integer $post_id	ID
+ *									                
+ * since	  1.0.0
  * @return	  string Value
  */
-function edd_fields_get( $name, $post_id ) {
+function edd_fields_get( $name, $post_id = null ) {
 	
 	if ( $post_id === null ) $post_id = get_the_ID();
 	
-	$edd_fields = get_post_meta( $post_id, 'edd_fields', true );
+	$tab_index = get_post_meta( $post_id, 'edd_fields_tab', true );
+		
+	// Get the Selected Tab based on the saved Index
+	$tab = EDDFIELDS()->utility->get_template_name_by_index( $tab_index );
+	$tab = str_replace( ' ', '-', strtolower( $tab ) );
+	
+	$fields = get_post_meta( $post_id, 'edd_fields', true );
 
 	// Collapse into a one-dimensional array of the Keys to find our Index
 	$key_list = array_map( function( $array ) {
 		return $array['key'];
-	}, $edd_fields );
+	}, $fields[ $tab ] );
 
-	return $edd_fields[ array_search( $name, $key_list ) ]['value'];
+	return $fields[ $tab ][ array_search( $name, $key_list ) ]['value'];
 	
 }
 
