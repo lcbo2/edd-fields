@@ -110,6 +110,39 @@ class EDD_Fields_Post_Edit {
 						
 						<h2><?php echo $template['label']; ?></h2>
 						
+						<table class="edd-fields-template widefat" width="100%" cellpadding="0" cellspacing="0">
+							
+							<thead>
+								<tr>
+									<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
+									<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
+								</tr>
+							</thead>
+						
+						<?php for ( $index = 0; $index < count( $template['fields'] ); $index++ ) : 
+						
+							$field = $template['fields'][ $index ]; ?>
+							
+							<tr>
+								
+								<th class="edd-fields-key">
+									<?php echo $field['label']; ?>
+									<input type="hidden" name="edd_fields[<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
+								</th>
+		
+								<td class="edd-fields-value">
+									<?php echo EDD()->html->text( array(
+										'name' => "edd_fields[" . str_replace( ' ', '-', strtolower( $template['label'] ) ) . "][$index][value]",
+										'value' => ( isset( $fields[ str_replace( ' ', '-', strtolower( $template['label'] ) ) ][$index]['value'] ) ) ? $fields[ str_replace( ' ', '-', strtolower( $template['label'] ) ) ][$index]['value'] : '',
+									) ); ?>
+								</td>
+								
+							</tr>
+						
+						<?php endfor; ?>
+							
+						</table>
+						
 					</div>
 				
 				<?php endforeach; ?>
@@ -131,7 +164,7 @@ class EDD_Fields_Post_Edit {
 
 					<?php if ( ! empty( $fields ) ) : 
 
-						foreach ( $fields as $key => $value ) : 
+						foreach ( $fields['custom'] as $key => $value ) : 
 
 								$name = isset( $value['key'] ) ? $value['key'] : '';
 								$value = isset( $value['value'] ) ? $value['value'] : '';
@@ -258,18 +291,9 @@ class EDD_Fields_Post_Edit {
 
 				// Sanitization Filter. Values are already forced to re-index on Save.
 				$new_fields = apply_filters( 'edd_metabox_save_fields', $_POST['edd_fields'] );
-				
-				$templates = EDDFIELDS()->admin->get_templates();
 
 				// If it is a Custom Template and everything is empty
-				if ( ! isset( $templates[ $_POST['edd_fields_tab'] ] ) &&
-					( count( $new_fields['custom'] ) == 1 ) &&
-					( empty( $new_fields['custom'][0]['key'] ) ) ) {
-					delete_post_meta( $post_id, 'edd_fields' );
-				}
-				else {
-					update_post_meta( $post_id, 'edd_fields', $new_fields );
-				}
+				update_post_meta( $post_id, 'edd_fields', $new_fields );
 
 			}
 
