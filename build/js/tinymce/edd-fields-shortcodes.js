@@ -90,7 +90,7 @@ jQuery( function( $ ) {
 		else {
 			// If No Post is Chosen
 			
-			$( '.edd-fields-repeater tbody tr .edd-fields-key input' ).each( function( index, element ) {
+			$( '.edd-fields-meta-box .ui-tabs-panel:visible tbody tr .edd-fields-key input' ).each( function( index, element ) {
 				
 				names.push( { 'text': $( element ).val(), 'value': $( element ).val() } );
 				
