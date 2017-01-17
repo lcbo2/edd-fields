@@ -11,8 +11,6 @@
 defined( 'ABSPATH' ) || die();
 
 class EDD_Fields_Post_Edit {
-	
-	private $plugin_data;
 
 	/**
 	 * EDD_Fields_Post_Edit constructor.
@@ -80,7 +78,7 @@ class EDD_Fields_Post_Edit {
 	public function fields( $post ) {
 
 		$fields = get_post_meta( $post->ID, 'edd_fields', true );
-		$templates = EDDFIELDS()->admin->get_templates();
+		$templates = EDDFIELDS()->utility->get_templates();
 
 		ob_start(); ?>
 

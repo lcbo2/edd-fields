@@ -23,26 +23,32 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 	class EDD_Fields {
 		
 		/**
-		 * @var		 EDD_Fields $plugin_data Holds Plugin Header Info
-		 * @since	   1.0.0
+		 * @var		 	EDD_Fields $plugin_data Holds Plugin Header Info
+		 * @since		1.0.0
 		 */
 		private $plugin_data;
 		
 		/**
-		 * @var		 EDD_Fields $admin Admin Settings
-		 * @since	   1.0.0
+		 * @var			EDD_Fields $utility Utility Functions
+		 * @since		1.0.0
+		 */
+		public $utility;
+		
+		/**
+		 * @var		 	EDD_Fields $admin Admin Settings
+		 * @since		1.0.0
 		 */
 		public $admin;
 		
 		/**
-		 * @var		 EDD_Fields $post_edit Post Edit Screen Additions
-		 * @since	   1.0.0
+		 * @var			EDD_Fields $post_edit Post Edit Screen Additions
+		 * @since		1.0.0
 		 */
 		public $post_edit;
 		
 		/**
-		 * @var		 EDD_Fields $shortcodes Shortcodes
-		 * @since	   1.0.0
+		 * @var			EDD_Fields $shortcodes Shortcodes
+		 * @since		1.0.0
 		 */
 		public $shortcodes;
 
@@ -50,7 +56,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		 * Get active instance
 		 *
 		 * @access	  public
-		 * @since	   1.0.0
+		 * @since	  1.0.0
 		 * @return	  object self::$instance The one true EDD_Fields
 		 */
 		public static function instance() {
@@ -165,6 +171,9 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		 * @return	  void
 		 */
 		private function require_necessities() {
+			
+			require_once EDD_Fields_DIR . '/core/class-edd-fields-utility.php';
+			$this->utility = new EDD_Fields_Utility();
 			
 			if ( is_admin() ) {
 				

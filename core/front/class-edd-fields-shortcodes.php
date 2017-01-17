@@ -51,13 +51,19 @@ class EDD_Fields_Shortcodes {
 
 		ob_start();
 
-		$repeater = get_post_meta( $atts['post_id'], 'edd_fields', true );
+		$tab_index = get_post_meta( $atts['post_id'], 'edd_fields_tab', true );
+		
+		// Get the Selected Tab based on the saved Index
+		$tab = EDDFIELDS()->utility->get_template_name_by_index( $tab_index );
+		$tab = str_replace( ' ', '-', strtolower( $tab ) );
+		
+		$fields = get_post_meta( $atts['post_id'], 'edd_fields', true );
 
-		if ( count( $repeater ) > 0 && $repeater !== '' ) : ?>
+		if ( count( $fields[ $tab ] ) > 0 && $fields[ $tab ] !== '' ) : ?>
 
 			<table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
 
-			<?php foreach ( $repeater as $row ) : ?>
+			<?php foreach ( $fields[ $tab ] as $row ) : ?>
 
 				<tr>
 

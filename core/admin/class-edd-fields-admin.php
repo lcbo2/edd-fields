@@ -81,7 +81,7 @@ class EDD_Fields_Admin {
 				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
 				'collapsable' => true,
 				'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'std' => $this->get_default_templates(),
+				'std' => EDDFIELDS()->utility->get_default_templates(),
 				'fields' => $this->get_template_fields(),
 			),
 			array(
@@ -149,59 +149,6 @@ class EDD_Fields_Admin {
 
 		return $fields;
 
-	}
-
-	/**
-	 * Returns the Default Templates if none are saved. This overrides any default values for the Fields
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		array Default Templates
-	 */
-	public function get_default_templates() {
-
-		$music = apply_filters( 'edd_fields_music_template_defaults', array(
-			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
-			'icon' => 'dashicons dashicons-format-audio',
-			'fields' => array(
-				array(
-					'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
-				),
-				array(
-					'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
-				),
-			),
-		) );
-
-		$software = apply_filters( 'edd_fields_software_template_defaults', array(
-			'label' => _x( 'Software', 'Software Template', EDD_Fields_ID ),
-			'icon' => 'dashicons dashicons-editor-code',
-			'fields' => array(
-				array(
-					'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
-				),
-			),
-		) );
-
-		return array_merge( array( $music ), array( $software ) );
-
-	}
-	
-	/**
-	 * Grabs either the saved Templates or Defaults as appropriate
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		array Field Group Templates
-	 */
-	public function get_templates() {
-		
-		$templates = edd_get_option( 'edd_fields_template_settings', false );
-		
-		if ( ! $templates ) $templates = $this->get_default_templates();
-		
-		return $templates;
-		
 	}
 
 	/**
