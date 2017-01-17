@@ -191,8 +191,8 @@ jQuery( function( $ ) {
 								},
 								onsubmit: function( e ) {
 									editor.insertContent( '[edd_field' + 
-															( e.data.id !== undefined ? ' post_id="' + e.data.id + '"' : '' ) + 
-															( e.data.name !== undefined ? ' name="' + e.data.name + '"' : '' ) + 
+															( e.data.id !== undefined && e.data.id !== '' ? ' post_id="' + e.data.id + '"' : '' ) + 
+															( e.data.name !== undefined && e.data.name !== '' ? ' name="' + e.data.name + '"' : '' ) + 
 														 ']' );
 								}
 
