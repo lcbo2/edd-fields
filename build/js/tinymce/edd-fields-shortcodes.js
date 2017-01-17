@@ -149,8 +149,8 @@ jQuery( function( $ ) {
 								],
 								onsubmit: function( e ) {
 									editor.insertContent( '[edd_fields_table' + 
-															( e.data.id !== undefined ? ' post_id="' + e.data.id + '"' : '' ) + 
-															( e.data.class !== undefined ? ' class="' + e.data.class + '"' : '' ) + 
+															( e.data.id !== undefined && e.data.id !== '' ? ' post_id="' + e.data.id + '"' : '' ) + 
+															( e.data.class !== undefined && e.data.class !== '' ? ' class="' + e.data.class + '"' : '' ) + 
 														 ']' );
 								}
 
