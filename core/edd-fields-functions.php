@@ -60,6 +60,9 @@ if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 			'fields' => array(),
 			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
 			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
+			'defaults_name' => 'edd_fields_repeater_reset_defaults',
+			'defaults_text' => _x( 'Reset to Defaults', 'Reset Repeater to Defaults', EDD_Fields_ID ),
+			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Repeater.', 'Reset Repeater Confirmation Dialog', EDD_Fields_ID ),
 			'sortable' => true,
 			'collapsable' => false,
 			'collapsable_title' => __( 'New Row', EDD_Fields_ID ),
@@ -240,7 +243,11 @@ if ( ! function_exists( 'edd_fields_repeater_callback' ) ) {
 			
 			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
 			
-			<input type="submit" name="<?php echo $args['defaults_name']; ?>" class="button button-danger edd-repeater-defaults" style="margin-top: 6px;" value="<?php echo $args['defaults_text']; ?>" onclick="return confirm( '<?php echo $args['defaults_confirmation']; ?>' );" />
+			<?php if ( ! $args['nested'] ) : ?>
+			
+				<input type="submit" name="<?php echo $args['defaults_name']; ?>" class="button button-danger edd-repeater-defaults" style="margin-top: 6px;" value="<?php echo $args['defaults_text']; ?>" onclick="return confirm( '<?php echo $args['defaults_confirmation']; ?>' );" />
+			
+			<?php endif; ?>
 
 		</div>
 		
