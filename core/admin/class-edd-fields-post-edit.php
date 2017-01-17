@@ -89,6 +89,10 @@ class EDD_Fields_Post_Edit {
 				if ( ! $active_tab = get_post_meta( $post->ID, 'edd_fields_tab', true ) ) {
 					$active_tab = count( $templates ); // jQuery UI Tabs are 0 indexed, but PHP is not, so this works
 				}
+				else {
+					// Ensure we've got an Integer, because PHP is silly and thinks 0 is False
+					$active_tab = (int) $active_tab;
+				}
 		
 			?>
 			
@@ -276,7 +280,7 @@ class EDD_Fields_Post_Edit {
 
 		if ( in_array( $post->post_type, $post_types ) ) {
 			
-			if ( ! empty( $_POST['edd_fields_tab'] ) ) {
+			if ( isset( $_POST['edd_fields_tab'] ) ) {
 				
 				// Sanitization Filter.
 				$new_tab = apply_filters( 'edd_metabox_save_fields', $_POST['edd_fields_tab'] );

@@ -76,6 +76,9 @@ class EDD_Fields_Utility {
 	 */
 	public function get_template_name_by_index( $index ) {
 		
+		// Ensure we've got an Integer, because PHP is silly and thinks 0 is False
+		$index = (int) $index;
+		
 		$templates = $this->get_templates();
 		
 		if ( ! isset( $templates[ $index ] ) ) return 'Custom';
