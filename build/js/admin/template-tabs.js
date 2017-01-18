@@ -4,18 +4,18 @@
 		
 		if ( $( '.edd-fields-tabs' ).length > 0 ) {
 			
+			var $active = $( 'input[name="edd_fields_tab"]' );
+			
 			$( '.edd-fields-meta-box .hidden' ).removeClass( 'hidden' );
 			$( '.edd-fields-meta-box' ).tabs( {
-				active: $( 'input[name="edd_fields_tab"]' ).val(),
+				active: $active.data( 'index' ),
 				activate: function( event, tabs ) {
 					
-					var value = tabs.newTab.index();
+					var index = tabs.newTab.index(),
+						value = tabs.newPanel[0].id;
 					
-					// Time to combat PHP falsiness
-					// '0' !== false, dangit
-					if ( value == '0' ) value = '0x0';
-					
-					$( 'input[name="edd_fields_tab"]' ).val( value );
+					$active.attr( 'data-index', index );
+					$active.val( value );
 				},
 			} );
 			

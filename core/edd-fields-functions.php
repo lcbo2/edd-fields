@@ -35,11 +35,7 @@ function edd_fields_get( $name, $post_id = null ) {
 	
 	if ( $post_id === null ) $post_id = get_the_ID();
 	
-	$tab_index = get_post_meta( $post_id, 'edd_fields_tab', true );
-		
-	// Get the Selected Tab based on the saved Index
-	$tab = EDDFIELDS()->utility->get_template_name_by_index( $tab_index );
-	$tab = str_replace( ' ', '-', strtolower( $tab ) );
+	$tab = get_post_meta( $post_id, 'edd_fields_tab', true );
 	
 	$fields = get_post_meta( $post_id, 'edd_fields', true );
 

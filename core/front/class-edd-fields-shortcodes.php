@@ -51,11 +51,7 @@ class EDD_Fields_Shortcodes {
 
 		ob_start();
 
-		$tab_index = get_post_meta( $atts['post_id'], 'edd_fields_tab', true );
-		
-		// Get the Selected Tab based on the saved Index
-		$tab = EDDFIELDS()->utility->get_template_name_by_index( $tab_index );
-		$tab = str_replace( ' ', '-', strtolower( $tab ) );
+		$tab = get_post_meta( $atts['post_id'], 'edd_fields_tab', true );
 		
 		$fields = get_post_meta( $atts['post_id'], 'edd_fields', true );
 

@@ -87,16 +87,16 @@ class EDD_Fields_Post_Edit {
 			<?php 
 		
 				if ( ! $active_tab = get_post_meta( $post->ID, 'edd_fields_tab', true ) ) {
-					$active_tab = count( $templates ); // jQuery UI Tabs are 0 indexed, but PHP is not, so this works
+					$active_tab = 'custom';
+					$index = count( $templates ); // jQuery UI Tabs are 0 indexed, but PHP is not, so this works
 				}
 				else {
-					// Ensure we've got an Integer, because PHP is silly and thinks '0' is False
-					$active_tab = (int) $active_tab;
+					$index = EDDFIELDS()->utility->get_template_index_by_name( $active_tab );
 				}
 		
 			?>
 			
-			<input type="hidden" name="edd_fields_tab" value="<?php echo $active_tab; ?>"/>
+			<input type="hidden" name="edd_fields_tab" value="<?php echo $active_tab; ?>" data-index="<?php echo $index; ?>" />
 			
 			<ul class="edd-fields-tabs">
 				<?php foreach ( $templates as $template ) : ?>

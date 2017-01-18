@@ -87,4 +87,35 @@ class EDD_Fields_Utility {
 		
 	}
 	
+	/**
+	 * Grabs the Template Index based on a provided Name. If one is not found, false is returned
+	 * 
+	 * @param		string $name Template Name
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		integer|boolean Template Index
+	 */
+	public function get_template_index_by_name( $name ) {
+		
+		// Normally it is already provided like this, but this ensures that it is the case
+		$name = str_replace( ' ', '-', strtolower( $name ) );
+		
+		$templates = $this->get_templates();
+		
+		$template_index = false; // Default case
+		for ( $index = 0; $index < count( $templates ); $index++ ) {
+			
+			$template = $templates[ $index ];
+			$template_name = str_replace( ' ', '-', $template['label'] );
+			
+			// If the provided name matches the Template Name, update $template_index
+			if ( $name == $template_name ) $template_index = $index;
+			
+		}
+		
+		return $template_index;
+		
+	}
+	
 }
