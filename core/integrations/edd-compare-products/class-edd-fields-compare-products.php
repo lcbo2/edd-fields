@@ -19,7 +19,15 @@ class EDD_Fields_Compare_Products {
 	 */
 	function __construct() {
 		
+		// Add some "fake" keys for EDD Fields Templates
+		// We're hooking into "After" because we don't care if they may or may not be set in the most recent Download
 		add_filter( 'edd_compare_products_meta_after', array( $this, 'add_field_keys' ) );
+		
+		// Filter the value for each EDD Fields key to display the proper value
+		add_filter( 'edd_compare_products_display_value', array( $this, 'get_edd_fields_value' ), 10, 2 );
+		
+		// Remove Keys that shouldn't be used with Compare Products
+		add_filter( 'edd_compare_products_exclude_meta', array( $this, 'remove_unneeded_keys' ) );
 
 	}
 	
@@ -53,6 +61,52 @@ class EDD_Fields_Compare_Products {
 		}
 		
 		return $fields;
+		
+	}
+	
+	/**
+	 * Use the Fake Key to determine with EDD Fields Template and Key to grab
+	 * 
+	 * @param		string $value Old Value
+	 * @param		string $key   Key from Compare Products
+	 *                                        
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		string New Value
+	 */
+	public function get_edd_fields_value( $value, $key ) {
+		
+		// Doesn't start with "eddfields-", not one of ours
+		if ( strpos( $key, 'eddfields-' ) !== 0 ) return $value;
+		
+		// Used to grab the Post ID
+		global $post;
+
+		// Grab the Template Key and the Field Key from the selected Key in Compare Products
+		$key = explode( '-', $key );
+
+		$template_key = $key[1];
+		$field_key = $key[2];
+		
+		return edd_fields_get( $field_key, $post->ID, $template_key );
+		
+	}
+	
+	/**
+	 * Remove Keys that either won't display data in Compare Products or display "useless" data
+	 * 
+	 * @param		array $keys Keys to be removed
+	 *                                
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		array Updated Keys
+	 */
+	public function remove_unneeded_keys( $keys ) {
+		
+		$keys[] = 'edd_fields';
+		$keys[] = 'edd_fields_tab';
+		
+		return $keys;
 		
 	}
 
