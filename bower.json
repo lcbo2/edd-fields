@@ -6,7 +6,8 @@
 		"url": "https://github.com/realbigplugins/edd-fields.git"
 	},
 	"dependencies": {
-		"jquery.repeater": "~1.1.3"
+		"jquery.repeater": "~1.1.3",
+		"select2": "^4.0.3"
 	},
 	"ignore": [
 		"**/.*",

@@ -226,6 +226,12 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 				true
 			);
 			
+			wp_localize_script(
+				EDD_Fields_ID . '-admin',
+				'eddFields',
+				apply_filters( 'edd_fields_localize_admin_script', array() )
+			);
+			
 		}
 
 	}

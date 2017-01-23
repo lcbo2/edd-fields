@@ -33,6 +33,9 @@ class EDD_Fields_Admin {
 
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
+		
+		// Localize the Admin Script with some PHP values
+		add_filter( 'edd_fields_localize_admin_script', array( $this, 'localize_script' ) );
 
 		// Allow Templates to be reset to their Defaults
 		add_action( 'init', array( $this, 'reset_field_templates_to_default' ) );
@@ -462,6 +465,25 @@ class EDD_Fields_Admin {
 		wp_enqueue_style( EDD_Fields_ID . '-admin' );
 		wp_enqueue_script( EDD_Fields_ID . '-admin' );
 
+	}
+	
+	/**
+	 * Localize the Admin.js with some values from PHP-land
+	 * 
+	 * @param	  array $localization Array holding all our Localizations
+	 *														
+	 * @access	  public
+	 * @since	  1.0.0
+	 * @return	  array Modified Array
+	 */
+	public function localize_script( $localization ) {
+		
+		$localization['url'] = EDD_Fields_URL;
+		
+		$localization['select2Warning'] = _x( 'A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems.', 'Select2 Warning', EDD_Fields_ID );
+		
+		return $localization;
+		
 	}
 
 }
