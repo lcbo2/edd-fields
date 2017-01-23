@@ -191,7 +191,14 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 				
 			}
 			
-			require_once EDD_Fields_DIR . '/core/integrations/edd-compare-products/class-edd-fields-compare-products.php';
+			if ( defined( 'EDD_Compare_Products_VER' ) && version_compare( EDD_Compare_Products_VER, '1.1.2' ) >= 0 ) {
+			
+				require_once EDD_Fields_DIR . '/core/integrations/edd-compare-products/class-edd-fields-compare-products.php';
+				
+			}
+			else if ( defined( 'EDD_COMPARE_PRODUCTS_VER' ) ) {
+				// Before the Constant changed
+			}
 			
 		}
 		
