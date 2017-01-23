@@ -139,4 +139,34 @@ class EDD_Fields_Utility {
 		
 	}
 	
+	/**
+	 * Whether or not the [edd_fields_table] shortcode should be injected in a Post
+	 * 
+	 * @param		integer $post_id Post ID
+	 *                               
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		boolean True to inject, false to not inject
+	 */
+	public function is_shortcode_injected( $post_id = null ) {
+		
+		if ( $post_id === null ) $post_id = get_the_ID();
+		
+		$inject_shortcode = get_post_meta( $post_id, 'edd_fields_table_inject', true );
+		
+		if ( $inject_shortcode == 'checked' ) {
+			$inject_shortcode = true;
+		}
+		else if ( $inject_shortcode == 'unchecked' ) {
+			$inject_shortcode = false;
+		}
+		else {
+			// Default unchecked, but we want the inverse of this option
+			$inject_shortcode = ! edd_get_option( 'edd_fields_table_inject', false );
+		}
+		
+		return $inject_shortcode;
+		
+	}
+	
 }

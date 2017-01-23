@@ -76,11 +76,36 @@ class EDD_Fields_Post_Edit {
 	 * @return	  void
 	 */
 	public function fields( $post ) {
+		
+		?>
+
+		<div class="edd-fields-meta-above">
+			
+			<label for="edd_fields_table_inject">
+				
+				<?php 
+		
+				$inject_shortcode = EDDFIELDS()->utility->is_shortcode_injected( $post->ID );
+			
+				echo EDD()->html->checkbox( array(
+					'name' => 'edd_fields_table_inject',
+					'current' => $inject_shortcode,
+				) );
+				
+				echo _x( 'Show Fields Table?', 'Fields Table Inject Checkbox Label', EDD_Fields_ID ); ?> <span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php echo _x( '<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button.', 'Fields Table Inject Tooltip', EDD_Fields_ID ); ?>"></span>
+				
+			</label>
+			
+		</div>
+
+		<?php
 
 		$fields = get_post_meta( $post->ID, 'edd_fields', true );
 		$templates = EDDFIELDS()->utility->get_templates();
 
-		ob_start(); ?>
+		ob_start();
+
+		?>
 
 		<div class="edd-fields-meta-box">
 			
@@ -278,6 +303,13 @@ class EDD_Fields_Post_Edit {
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 
 		if ( in_array( $post->post_type, $post_types ) ) {
+			
+			if ( isset( $_POST['edd_fields_table_inject'] ) ) {
+				update_post_meta( $post_id, 'edd_fields_table_inject', 'checked' );
+			}
+			else {
+				update_post_meta( $post_id, 'edd_fields_table_inject', 'unchecked' );
+			}
 			
 			if ( isset( $_POST['edd_fields_tab'] ) ) {
 				

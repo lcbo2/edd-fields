@@ -117,13 +117,25 @@ class EDD_Fields_Shortcodes {
 
 	/**
 	 * Force our Shortcode to load on Single Downloads
-	 * @param  string $content The Content
-	 * @return string The Content
+	 * 
+	 * @param		string $content The Content
+	 *                             
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		string The Content
 	 */
 	public function inject_shortcode( $content ) {
+		
+		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 
-		if ( is_single() && get_post_type() == 'download' ) {
-			$content .= '[edd_fields_table]';
+		if ( is_single() && in_array( get_post_type(), $post_types ) ) {
+			
+			$inject_shortcode = EDDFIELDS()->utility->is_shortcode_injected();
+			
+			if ( $inject_shortcode ) {
+				$content .= '[edd_fields_table]';
+			}
+			
 		}
 
 		return $content;

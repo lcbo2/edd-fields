@@ -73,6 +73,14 @@ class EDD_Fields_Admin {
 
 		$edd_fields_settings = array(
 			array(
+				'id' => 'edd_fields_table_inject',
+				'type' => 'checkbox',
+				'name' => _x( 'Fields Table Injection', 'Fields Table Injection Global Label', EDD_Fields_ID ),
+				'desc' => _x( 'Disable Automatic Injection of the Fields Table', 'Fields Table Injection Global Checkbox Label', EDD_Fields_ID ),
+				'tooltip_title' => _x( 'Fields Table Injection', 'Fields Table Injection Global Tooltip Title', EDD_Fields_ID ),
+				'tooltip_desc' => sprintf( _x( 'By default, the shortcode [edd_fields_table] is injected on every Single %s just above the Purchase Button. This can be overriden per-%s.', 'Fields Table Injection Global Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+			),
+			array(
 				'id' => 'edd_fields_template_settings',
 				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
 				'type' => 'fields_repeater',
