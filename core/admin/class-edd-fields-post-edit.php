@@ -100,7 +100,7 @@ class EDD_Fields_Post_Edit {
 			
 			<ul class="edd-fields-tabs">
 				<?php foreach ( $templates as $template ) : ?>
-					<li><a href="#<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>"><span class="<?php echo $template['icon']; ?>"></span></a></li>
+					<li><a href="#<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>"><span class="<?php echo $template['icon']; ?>"></span></a></li>
 				<?php endforeach; ?>
 				<li><a href="#custom"><span class="dashicons dashicons-admin-generic"></span></a></li>
 			</ul>
@@ -108,7 +108,7 @@ class EDD_Fields_Post_Edit {
 				
 				<?php foreach ( $templates as $template ) : ?>
 				
-					<div class="hidden" id="<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>">
+					<div class="hidden" id="<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>">
 						
 						<h2><?php echo $template['label']; ?></h2>
 						
@@ -129,13 +129,13 @@ class EDD_Fields_Post_Edit {
 								
 								<th class="edd-fields-key">
 									<?php echo $field['label']; ?>
-									<input type="hidden" name="edd_fields[<?php echo str_replace( ' ', '-', strtolower( $template['label'] ) ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
+									<input type="hidden" name="edd_fields[<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
 								</th>
 		
 								<td class="edd-fields-value">
 									<?php echo EDD()->html->text( array(
-										'name' => "edd_fields[" . str_replace( ' ', '-', strtolower( $template['label'] ) ) . "][$index][value]",
-										'value' => ( isset( $fields[ str_replace( ' ', '-', strtolower( $template['label'] ) ) ][$index]['value'] ) ) ? $fields[ str_replace( ' ', '-', strtolower( $template['label'] ) ) ][$index]['value'] : '',
+										'name' => "edd_fields[" . EDDFIELDS()->utility->sanitize_key( $template['label'] ) . "][$index][value]",
+										'value' => ( isset( $fields[ EDDFIELDS()->utility->sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ EDDFIELDS()->utility->sanitize_key( $template['label'] ) ][$index]['value'] : '',
 									) ); ?>
 								</td>
 								

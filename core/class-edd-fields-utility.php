@@ -99,7 +99,7 @@ class EDD_Fields_Utility {
 	public function get_template_index_by_name( $name ) {
 		
 		// Normally it is already provided like this, but this ensures that it is the case
-		$name = str_replace( ' ', '-', strtolower( $name ) );
+		$name = EDDFIELDS()->utility->sanitize_key( $name );
 		
 		$templates = $this->get_templates();
 		
@@ -107,7 +107,7 @@ class EDD_Fields_Utility {
 		for ( $index = 0; $index < count( $templates ); $index++ ) {
 			
 			$template = $templates[ $index ];
-			$template_name = str_replace( ' ', '-', $template['label'] );
+			$template_name = EDDFIELDS()->utility->sanitize_key( $name );
 			
 			// If the provided name matches the Template Name, update $template_index
 			if ( $name == $template_name ) $template_index = $index;
@@ -115,6 +115,24 @@ class EDD_Fields_Utility {
 		}
 		
 		return $template_index;
+		
+	}
+	
+	/**
+	 * Sanitize a String to have only Alphanumeric characters. No special characters, spaces, etc.
+	 * 
+	 * @param		string $key Template/Field Key
+	 *                                    
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		string Sanitized Key
+	 */
+	public function sanitize_key( $key ) {
+		
+		// Matches non-words, including underscore.
+		$key = preg_replace( '[\W|_]', '', strtolower( $key ) );
+		
+		return apply_filters( 'edd_fields_key_sanitize', $key );
 		
 	}
 	

@@ -191,6 +191,8 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 				
 			}
 			
+			require_once EDD_Fields_DIR . '/core/integrations/edd-compare-products/class-edd-fields-compare-products.php';
+			
 		}
 		
 		/**
