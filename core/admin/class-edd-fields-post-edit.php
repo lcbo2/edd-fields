@@ -224,7 +224,6 @@ class EDD_Fields_Post_Edit {
 		<tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="<?php echo esc_attr( $key ); ?>">
 			<td>
 				<span class="edd_draghandle"></span>
-				<input type="hidden" name="edd_fields[<?php echo $key; ?>][index]" class="edd_repeatable_index" value="<?php echo $key; ?>"/>
 			</td>
 			<td class="edd-fields-key">
 				<?php echo EDD()->html->text( array(

@@ -107,12 +107,15 @@ class EDD_Fields_Utility {
 		for ( $index = 0; $index < count( $templates ); $index++ ) {
 			
 			$template = $templates[ $index ];
-			$template_name = EDDFIELDS()->utility->sanitize_key( $name );
+			$template_name = EDDFIELDS()->utility->sanitize_key( $template['label'] );
 			
 			// If the provided name matches the Template Name, update $template_index
 			if ( $name == $template_name ) $template_index = $index;
 			
 		}
+		
+		// If there's no matching template, return 1 higher than the number of Templates
+		if ( $template_index === false ) $template_index = count( $templates );
 		
 		return $template_index;
 		
