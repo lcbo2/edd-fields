@@ -20,6 +20,66 @@ class EDD_Fields_Utility {
 	 * @return		array Default Templates
 	 */
 	public function get_default_templates() {
+		
+		$ebook = apply_filters( 'edd_fields_ebook_template_defaults', array(
+			'label' => _x( 'Ebook', 'Ebook Template', EDD_Fields_ID ),
+			'icon' => 'dashicons dashicons-book',
+			'fields' => array(
+				array(
+					'label' => _x( 'Author', 'Ebook Template: Author', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Number of Pages', 'Ebook Template: Number of Pages', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Publisher', 'Ebook Template: Publisher', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Format', 'Ebook Template: Format', EDD_Fields_ID ),
+				),
+			),
+		) );
+		
+		$wp_plugin = apply_filters( 'edd_fields_wordpress_plugin_template_defaults', array(
+			'label' => _x( 'WordPress Plugin', 'WordPress Plugin Template', EDD_Fields_ID ),
+			'icon' => 'dashicons dashicons-admin-plugins',
+			'fields' => array(
+				array(
+					'label' => _x( 'Required WordPress Version', 'WordPress Plugin Template: Required WordPress Version', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Required PHP Version', 'WordPress Plugin Template: Required PHP Version', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Contributors', 'WordPress Plugin Template: Contributors', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Supported Languages', 'WordPress Plugin Template: Supported Languages', EDD_Fields_ID ),
+				),
+			),
+		) );
+		
+		$wp_theme = apply_filters( 'edd_fields_wordpress_theme_template_defaults', array(
+			'label' => _x( 'WordPress Theme', 'WordPress Theme Template', EDD_Fields_ID ),
+			'icon' => 'dashicons dashicons-admin-appearance',
+			'fields' => array(
+				array(
+					'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Required PHP Version', 'WordPress Theme Template: Required PHP Version', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Contributors', 'WordPress Theme Template: Contributors', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Supported Languages', 'WordPress Theme Template: Supported Languages', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Responsive', 'WordPress Theme Template: Responsive', EDD_Fields_ID ),
+				),
+			),
+		) );
 
 		$music = apply_filters( 'edd_fields_music_template_defaults', array(
 			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
@@ -31,6 +91,15 @@ class EDD_Fields_Utility {
 				array(
 					'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
 				),
+				array(
+					'label' => _x( 'Length', 'Music Template: Length', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Producer', 'Music Template: Producer', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Explicit', 'Music Template: Explicit', EDD_Fields_ID ),
+				),
 			),
 		) );
 
@@ -39,12 +108,44 @@ class EDD_Fields_Utility {
 			'icon' => 'dashicons dashicons-editor-code',
 			'fields' => array(
 				array(
+					'label' => _x( 'Operating System', 'Software Template: Operating System', EDD_Fields_ID ),
+				),
+				array(
 					'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Disk Space', 'Software Template: Disk Space', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Required Memory', 'Software Template: Required Memory', EDD_Fields_ID ),
+				),
+			),
+		) );
+		
+		$photography = apply_filters( 'edd_fields_photography_template_defaults', array(
+			'label' => _x( 'Photography', 'Photography Template', EDD_Fields_ID ),
+			'icon' => 'dashicons dashicons-format-image',
+			'fields' => array(
+				array(
+					'label' => _x( 'License', 'Photography Template: License', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'File Type', 'Photography Template: File Type', EDD_Fields_ID ),
+				),
+				array(
+					'label' => _x( 'Dimensions', 'Photography Template: Dimensions', EDD_Fields_ID ),
 				),
 			),
 		) );
 
-		return array_merge( array( $music ), array( $software ) );
+		return apply_filters( 'edd_fields_template_defaults', array_merge( 
+			array( $ebook ),
+			array( $wp_plugin ),
+			array( $wp_theme ),
+			array( $music ),
+			array( $software ),
+			array( $photography )
+		) );
 
 	}
 	
