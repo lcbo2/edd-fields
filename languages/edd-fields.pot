@@ -1,0 +1,349 @@
+# Copyright (C) 2017 EDD_Fields
+# This file is distributed under the same license as the EDD_Fields package.
+msgid ""
+msgstr ""
+"Project-Id-Version: EDD_Fields\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/admin/class-edd-fields-admin.php:58
+msgid "Fields"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:78
+msgctxt "Fields Table Injection Global Label"
+msgid "Fields Table Injection"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:79
+msgctxt "Fields Table Injection Global Checkbox Label"
+msgid "Disable Automatic Injection of the Fields Table"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:80
+msgctxt "Fields Table Injection Global Tooltip Title"
+msgid "Fields Table Injection"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:81
+msgctxt "Fields Table Injection Global Tooltip Text"
+msgid "By default, the shortcode [edd_fields_table] is injected on every Single %s just above the Purchase Button. This can be overriden per-%s."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:85
+msgid "Field Template Groups"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:88
+msgid "Add Field Template Group"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:89
+msgid "Remove Field Template Group"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:91
+msgctxt "Reset Field Template Groups to Defaults"
+msgid "Reset to Defaults"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:92
+msgctxt "Reset Field Template Groups Confirmation Dialog"
+msgid "Are you sure? You will lose all changes made to the Field Template Groups."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:94
+msgid "New Field Template Group"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:126
+msgctxt "Template Name Label"
+msgid "Template Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:130
+msgctxt "Template Name Tooltip Title"
+msgid "Template Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:131
+msgctxt "Template Icon Tooltip Text"
+msgid "Controls the Title shown after selecting a Template Tab on the %s Edit Screen."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:135
+msgctxt "Template Icon Label"
+msgid "Icon"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:141
+msgctxt "Template Icon Tooltip Title"
+msgid "Icon"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:142
+msgctxt "Template Icon Tooltip Text"
+msgid "Controls the Icon shown on the Template Tabs on the %s Edit Screen."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:146
+msgctxt "Field Nested Repeater Label"
+msgid "Fields"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:150
+msgctxt "Field Name Label"
+msgid "Field Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:154
+msgctxt "Field Name Tooltip Title"
+msgid "Field Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:155
+msgctxt "Template Icon Tooltip Text"
+msgid "Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:433
+msgctxt "Field Template Groups Reset to Defaults Successful"
+msgid "Field Template Groups Reset to Defaults."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:491
+msgctxt "Select2 Warning"
+msgid "A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems."
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:60
+msgid "%1$s Fields"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:95
+msgctxt "Fields Table Inject Checkbox Label"
+msgid "Show Fields Table?"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:95
+msgctxt "Fields Table Inject Tooltip"
+msgid "<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button."
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:144, core/admin/class-edd-fields-post-edit.php:186
+msgid "Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:145, core/admin/class-edd-fields-post-edit.php:187
+msgid "Value"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:179
+msgctxt "No Template Header"
+msgid "Custom (No Template)"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:212
+msgid "Add Field"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:267
+msgid "Remove Field"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:430
+msgid "Current %s"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:497
+msgid "Choose a Field Name"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:25
+msgctxt "Ebook Template"
+msgid "Ebook"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:29
+msgctxt "Ebook Template: Author"
+msgid "Author"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:32
+msgctxt "Ebook Template: Number of Pages"
+msgid "Number of Pages"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:35
+msgctxt "Ebook Template: Publisher"
+msgid "Publisher"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:38
+msgctxt "Ebook Template: Format"
+msgid "Format"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:44
+msgctxt "WordPress Plugin Template"
+msgid "WordPress Plugin"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:48
+msgctxt "WordPress Plugin Template: Required WordPress Version"
+msgid "Required WordPress Version"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:51
+msgctxt "WordPress Plugin Template: Required PHP Version"
+msgid "Required PHP Version"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:54
+msgctxt "WordPress Plugin Template: Contributors"
+msgid "Contributors"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:57
+msgctxt "WordPress Plugin Template: Supported Languages"
+msgid "Supported Languages"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:63
+msgctxt "WordPress Theme Template"
+msgid "WordPress Theme"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:67
+msgctxt "WordPress Theme Template: Required WordPress Version"
+msgid "Required WordPress Version"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:70
+msgctxt "WordPress Theme Template: Required PHP Version"
+msgid "Required PHP Version"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:73
+msgctxt "WordPress Theme Template: Contributors"
+msgid "Contributors"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:76
+msgctxt "WordPress Theme Template: Supported Languages"
+msgid "Supported Languages"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:79
+msgctxt "WordPress Theme Template: Responsive"
+msgid "Responsive"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:85
+msgctxt "Music Template"
+msgid "Music"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:89
+msgctxt "Music Template: Artist"
+msgid "Artist"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:92
+msgctxt "Music Template: Genre"
+msgid "Genre"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:95
+msgctxt "Music Template: Length"
+msgid "Length"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:98
+msgctxt "Music Template: Producer"
+msgid "Producer"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:101
+msgctxt "Music Template: Explicit"
+msgid "Explicit"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:107
+msgctxt "Software Template"
+msgid "Software"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:111
+msgctxt "Software Template: Operating System"
+msgid "Operating System"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:114
+msgctxt "Software Template: File Type"
+msgid "File Type"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:117
+msgctxt "Software Template: Disk Space"
+msgid "Disk Space"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:120
+msgctxt "Software Template: Required Memory"
+msgid "Required Memory"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:126
+msgctxt "Photography Template"
+msgid "Photography"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:130
+msgctxt "Photography Template: License"
+msgid "License"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:133
+msgctxt "Photography Template: File Type"
+msgid "File Type"
+msgstr ""
+
+#: core/class-edd-fields-utility.php:136
+msgctxt "Photography Template: Dimensions"
+msgid "Dimensions"
+msgstr ""
+
+#: core/edd-fields-functions.php:68
+msgid "Add Row"
+msgstr ""
+
+#: core/edd-fields-functions.php:69
+msgid "Delete Row"
+msgstr ""
+
+#: core/edd-fields-functions.php:71
+msgctxt "Reset Repeater to Defaults"
+msgid "Reset to Defaults"
+msgstr ""
+
+#: core/edd-fields-functions.php:72
+msgctxt "Reset Repeater Confirmation Dialog"
+msgid "Are you sure? You will lose all changes made to the Repeater."
+msgstr ""
+
+#: core/edd-fields-functions.php:75
+msgid "New Row"
+msgstr ""
+
+#: core/front/class-edd-fields-shortcodes.php:111
+msgid "You must specify a Field Name. Example: [edd_field name=\"test\"]"
+msgstr ""
