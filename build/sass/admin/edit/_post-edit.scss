@@ -1,7 +1,21 @@
 #edd_fields_meta_box {
 
-	.ui-tabs .ui-tabs-panel {
-		padding-top: 0;
+	.ui-tabs {
+		
+		margin-top: 1em;
+		
+		.ui-tabs-panel {
+			padding-top: 0;
+		}
+		
+	}
+	
+	.edd-fields-template {
+		
+		.edd-fields-value {
+			border-left: 1px solid #e1e1e1;
+		}
+		
 	}
 
 	.edd-fields-repeater {
