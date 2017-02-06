@@ -125,6 +125,7 @@ class EDD_Fields_Admin {
 				'type' => 'text',
 				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
 				'field_class' => '',
+				'placeholder' => __( 'New Field Template Group', EDD_Fields_ID ),
 				'readonly' => false,
 				'std' => '',
 				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Fields_ID ),
@@ -148,6 +149,7 @@ class EDD_Fields_Admin {
 					'label' => array(
 						'type' => 'text',
 						'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
+						'placeholder' => '',
 						'field_class' => '',
 						'readonly' => false,
 						'std' => '',
