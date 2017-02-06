@@ -4,6 +4,11 @@
 		
 		margin-top: 1em;
 		
+		.tab-label {
+			display: inline;
+			line-height: 1.8;
+		}
+		
 		.ui-tabs-panel {
 			padding-top: 0;
 		}

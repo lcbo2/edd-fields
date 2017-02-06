@@ -125,9 +125,17 @@ class EDD_Fields_Post_Edit {
 			
 			<ul class="edd-fields-tabs">
 				<?php foreach ( $templates as $template ) : ?>
-					<li><a href="#<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>"><span class="<?php echo $template['icon']; ?>"></span></a></li>
+					<li>
+						<a href="#<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>">
+							<span class="<?php echo $template['icon']; ?>"></span> <span class="tab-label"><?php echo $template['label']; ?></span>
+						</a>
+					</li>
 				<?php endforeach; ?>
-				<li><a href="#custom"><span class="dashicons dashicons-admin-generic"></span></a></li>
+				<li>
+					<a href="#custom">
+						<span class="dashicons dashicons-admin-generic"></span> <span class="tab-label"><?php echo _x( 'Custom', 'Custom Template Label', EDD_Fields_ID ); ?></span>
+					</a>
+				</li>
 			</ul>
 			<br class="clear" />
 				
