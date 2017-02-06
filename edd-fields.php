@@ -51,6 +51,12 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		 * @since		1.0.0
 		 */
 		public $shortcodes;
+		
+		/**
+		 * @var			EDD_Fields $admin_errors Stores all our Admin Errors to fire at once
+		 * @since		1.0.0
+		 */
+		private $admin_errors;
 
 		/**
 		 * Get active instance
@@ -75,6 +81,18 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			
 			$this->setup_constants();
 			$this->load_textdomain();
+			
+			if ( defined( 'EDD_VERSION' ) 
+				&& ( version_compare( EDD_VERSION, '2.6.11' ) < 0 ) ) {
+				
+				$this->admin_errors[] = sprintf( _x( '%s requires v%s of %s or higher to be installed!', 'Outdated Dependency Error', EDD_Fields_ID ), '<strong>' . $this->plugin_data['Name'] . '</strong>', '2.6.11', '<a href="//wordpress.org/plugins/easy-digital-downloads/" target="_blank"><strong>Easy Digital Downloads</strong></a>' );
+				
+				if ( ! has_action( 'admin_notices', array( $this, 'admin_errors' ) ) ) {
+					add_action( 'admin_notices', array( $this, 'admin_errors' ) );
+				}
+				
+			}
+			
 			$this->require_necessities();
 			
 			// Register our CSS/JS for the whole plugin
@@ -200,6 +218,25 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 				// Before the Constant changed
 			}
 			
+		}
+		
+		/**
+		 * Show admin errors.
+		 * 
+		 * @access	  public
+		 * @since	  1.0.0
+		 * @return	  HTML
+		 */
+		public function admin_errors() {
+			?>
+			<div class="error">
+				<?php foreach ( $this->admin_errors as $notice ) : ?>
+					<p>
+						<?php echo $notice; ?>
+					</p>
+				<?php endforeach; ?>
+			</div>
+			<?php
 		}
 		
 		/**
