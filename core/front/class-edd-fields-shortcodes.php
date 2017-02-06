@@ -64,7 +64,9 @@ class EDD_Fields_Shortcodes {
 				<tr>
 
 					<td>
-						<?php echo $row['key']; ?>
+						<strong>
+							<?php echo $row['key']; ?>
+						</strong>
 					</td>
 
 					<td>
