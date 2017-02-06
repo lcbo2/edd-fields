@@ -1,2 +1,7 @@
+@import "foundation";
+
+@include foundation-reveal;
+@include foundation-close-button;
+
 @import "repeater/repeater.scss";
 @import "edit/post-edit.scss";
