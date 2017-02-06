@@ -20,22 +20,22 @@ msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:78
 msgctxt "Fields Table Injection Global Label"
-msgid "Fields Table Injection"
+msgid "Fields Table Display"
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:79
 msgctxt "Fields Table Injection Global Checkbox Label"
-msgid "Disable Automatic Injection of the Fields Table"
+msgid "Disable Automatic Display of Fields Table on the %s Page"
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:80
 msgctxt "Fields Table Injection Global Tooltip Title"
-msgid "Fields Table Injection"
+msgid "Fields Table Display"
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:81
 msgctxt "Fields Table Injection Global Tooltip Text"
-msgid "By default, the shortcode [edd_fields_table] is injected on every Single %s just above the Purchase Button. This can be overriden per-%s."
+msgid "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s."
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:85
@@ -60,7 +60,7 @@ msgctxt "Reset Field Template Groups Confirmation Dialog"
 msgid "Are you sure? You will lose all changes made to the Field Template Groups."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:94
+#: core/admin/class-edd-fields-admin.php:94, core/admin/class-edd-fields-admin.php:128
 msgid "New Field Template Group"
 msgstr ""
 
@@ -69,57 +69,57 @@ msgctxt "Template Name Label"
 msgid "Template Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:130
+#: core/admin/class-edd-fields-admin.php:131
 msgctxt "Template Name Tooltip Title"
 msgid "Template Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:131
+#: core/admin/class-edd-fields-admin.php:132
 msgctxt "Template Icon Tooltip Text"
 msgid "Controls the Title shown after selecting a Template Tab on the %s Edit Screen."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:135
+#: core/admin/class-edd-fields-admin.php:136
 msgctxt "Template Icon Label"
 msgid "Icon"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:141
+#: core/admin/class-edd-fields-admin.php:142
 msgctxt "Template Icon Tooltip Title"
 msgid "Icon"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:142
+#: core/admin/class-edd-fields-admin.php:143
 msgctxt "Template Icon Tooltip Text"
 msgid "Controls the Icon shown on the Template Tabs on the %s Edit Screen."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:146
+#: core/admin/class-edd-fields-admin.php:147
 msgctxt "Field Nested Repeater Label"
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:150
+#: core/admin/class-edd-fields-admin.php:151
 msgctxt "Field Name Label"
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:154
+#: core/admin/class-edd-fields-admin.php:156
 msgctxt "Field Name Tooltip Title"
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:155
+#: core/admin/class-edd-fields-admin.php:157
 msgctxt "Template Icon Tooltip Text"
 msgid "Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:433
+#: core/admin/class-edd-fields-admin.php:435
 msgctxt "Field Template Groups Reset to Defaults Successful"
 msgid "Field Template Groups Reset to Defaults."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:491
+#: core/admin/class-edd-fields-admin.php:493
 msgctxt "Select2 Warning"
 msgid "A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems."
 msgstr ""
@@ -138,32 +138,37 @@ msgctxt "Fields Table Inject Tooltip"
 msgid "<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button."
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:144, core/admin/class-edd-fields-post-edit.php:186
+#: core/admin/class-edd-fields-post-edit.php:136
+msgctxt "Custom Template Label"
+msgid "Custom"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:152, core/admin/class-edd-fields-post-edit.php:194
 msgid "Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:145, core/admin/class-edd-fields-post-edit.php:187
+#: core/admin/class-edd-fields-post-edit.php:153, core/admin/class-edd-fields-post-edit.php:195
 msgid "Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:179
+#: core/admin/class-edd-fields-post-edit.php:187
 msgctxt "No Template Header"
 msgid "Custom (No Template)"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:212
+#: core/admin/class-edd-fields-post-edit.php:220
 msgid "Add Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:267
+#: core/admin/class-edd-fields-post-edit.php:275
 msgid "Remove Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:430
+#: core/admin/class-edd-fields-post-edit.php:438
 msgid "Current %s"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:497
+#: core/admin/class-edd-fields-post-edit.php:505
 msgid "Choose a Field Name"
 msgstr ""
 
@@ -344,6 +349,11 @@ msgstr ""
 msgid "New Row"
 msgstr ""
 
-#: core/front/class-edd-fields-shortcodes.php:111
+#: core/front/class-edd-fields-shortcodes.php:113
 msgid "You must specify a Field Name. Example: [edd_field name=\"test\"]"
+msgstr ""
+
+#: edd-fields.php:88
+msgctxt "Outdated Dependency Error"
+msgid "%s requires v%s of %s or higher to be installed!"
 msgstr ""
