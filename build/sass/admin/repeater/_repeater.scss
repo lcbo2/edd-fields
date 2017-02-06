@@ -1,157 +1,30 @@
-.edd-repeater {
+table.widefat {
 
-	table.widefat {
-		background: transparent;
-		border: 0;
-		box-shadow: none;
-	}
+	background: transparent;
+	border: 0;
+	box-shadow: none;
 
-	.edd-repeater-field-handle {
+	thead {
 
-		width: 0.5em;
+		tr {
 
-		.edd_draghandle {
-			background-repeat: no-repeat;
-		}
+			display: block;
 
-	}
+			th {
 
-	input.regular-text {
-		width: 100%;
-	}
-
-	span.handle {
-
-		&:hover {
-			cursor: move,
-		}
-
-	}
-
-	td {
-		vertical-align: top;
-	}
-	
-	.button.button-danger {
-		background: #ff7151;
-        border-color: #c6573e;
-        color: #fff;
-	}
-	
-	.edd-repeater-defaults {
-		float: right;
-	}
-
-	.edd-repeater-list {
-		border: 2px solid #e5e5e5;
-		box-shadow: 0 1px 1px rgba(0,0,0,0.06);
-	}
-
-	.edd-repeater-item {
-
-		.repeater-header {
-
-			background: #f5f5f5;
-			border: 1px #ddd;
-			border-top-style: solid;
-			border-bottom-style: solid;
-
-			&:hover {
-				cursor: pointer;
-			}
-
-			td {
-				vertical-align: middle;
-			}
-
-			.edd_draghandle {
-				margin-top: 0;
-			}
-
-			h2 {
-				margin: 0;
-				width: 100%;
-				float: left;
-			}
-
-			.edd-repeater-collapsable-handle-arrow {
-				float: right;
-			}
-
-			.edd-repeater-controls {
-
-				width: 1px;
-				text-align: center;
-
-			}
-
-		}
-
-		&:first-of-type {
-			.repeater-header {
-				border-top-style: none;
-			}
-		}
-
-		&:last-of-type {
-			&.closed {
-				.repeater-header {
-					border-bottom-style: none;
-				}
-			}
-		}
-
-		&.opened {
-
-			.closed {
-				display: none;
-			}
-
-			.opened {
 				display: inline-block;
-			}
 
-		}
+				div {
 
-		&.closed {
-
-			.opened {
-				display: none;
-			}
-
-			.closed {
-				display: inline-block;
-			}
-
-		}
-
-		& > .edd-repeater-content {
-
-			background: #fff;
-
-			& > table > tbody > tr {
-
-				display: block;
-				width: 100%;
-				overflow: hidden;
-				float: left;
-
-				& > td {
-					width: 50%;
-				}
-
-				// <td> holding Nested Repeater
-				// This gets shoved onto its own row for readability reasons
-				& > .repeater-container {
-
-					.edd-repeater-item {
-
-						display: block;
-
-					}
+					display: inline-block;
+					vertical-align: middle;
 
 				}
 
+			}
+
+			.edd-rbm-repeater-controls {
+				text-align: right;
 			}
 
 		}
@@ -160,162 +33,69 @@
 
 }
 
-// Special Styling only needed to shift things around for Sortable Repeaters
-// It helps to line thing up in a visually appealing way
-.edd-repeater.edd-repeater-sortable {
-
-	.edd-repeater-item {
-
-		& > .edd-repeater-content {
-
-			& > table > tbody > tr {
-
-				& > td {
-
-					&:first-of-type {
-						padding-left: 50px;
-					}
-
-					display: table-cell;
-
-					&:after {
-						clear: both;
-					}
-
-					// <td> holding Nested Repeater
-					&.repeater-container {
-
-						padding-left: 10px; // Default
-						display: block;
-						float: left;
-
-						margin-left: 40px;
-						margin-right: 40px;
-
-						.edd-repeater-item {
-
-							td {
-								padding-left: 10px; // Default
-							}
-
-						}
-
-					}
-
-					&.repeater-collapsable {
-
-						margin-left: 0;
-						margin-right: 0;
-						width: 100%;
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-
+.button.button-danger {
+	background: #ff7151;
+	border-color: #c6573e;
+	color: #fff;
 }
 
-.edd-repeater.edd-repeater-layout-row {
-
-	.edd-repeater-item {
-
-		& > .edd-repeater-content {
-
-			& > table > tbody > tr > td {
-
-				// One Field per row
-				display: block;
-
-				&:not(:last-of-type) {
-					margin-bottom: 0;
-					padding-bottom: 0;
-				}
-
-				input.regular-text {
-					width: 25em; // Default
-				}
-
-				label {
-					display: block; // Knock label to next line
-				}
-
-			}
-
-			& > table > tbody > tr {
-
-				& > td {
-
-					// <td> holding Nested Repeater
-					&.repeater-container {
-
-						display: table;
-
-						table > tbody > tr {
-
-							display: table-row;
-							width: auto;
-
-							td {
-								// Reset defaults
-								padding-left: 10px;
-								padding-bottom: 15px;
-								margin-bottom: 9px;
-								display: table-cell;
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-
-	&.edd-repeater-sortable {
-
-		.edd-repeater-item {
-
-			& > .edd-repeater-content {
-
-				td {
-
-					// Knock each <td> over to match the Collapsable Title
-					padding-left: 50px;
-
-				}
-
-			}
-
-		}
-
-	}
-
+.edd-rbm-repeater-list {
+	border: 2px solid #e5e5e5;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.06);
 }
 
-.edd-fields-select2 {
+.edd-rbm-repeater-item {
 
-	.select2-results, .select2-selection__rendered {
-		.icon {
+	background: #f5f5f5;
+
+	.repeater-header {
+
+		border: 1px #ddd;
+		border-top-style: solid;
+		border-bottom-style: solid;
+		padding: 20px 0px 20px 10px;
+
+		th {
+			vertical-align: middle;
+			width: 100%;
+			padding: 0;
+			border: none;
+		}
+
+		.status-indicator {
+
+			line-height: 1.2;
+
+			&.active {
+				color: #4F8A10;
+			}
+
+			&.inactive {
+				color: #D8000C;
+			}
+
+		}
+
+		.edd-rbm-repeater-controls {
+
 			float: right;
-			position: relative;
+			text-align: center;
+			margin-right: 10px;
+
+		}
+
+	}
+
+	&:first-of-type {
+		.repeater-header {
+			border-top-style: none;
 		}
 	}
 
-	.select2-results .icon.dashicons {
-		line-height: 18px;
-	}
-
-	.select2-selection__rendered .icon.dashicons {
-		line-height: 26px;
+	&:last-of-type {
+		.repeater-header {
+			border-bottom-style: none;
+		}
 	}
 
 }

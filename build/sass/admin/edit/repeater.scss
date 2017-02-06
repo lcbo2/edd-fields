@@ -1,4 +1,8 @@
-.edd-fields-repeater, .edd-repeater {
+.edd-rbm-repeater {
+
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
 
 	th {
 		padding-left: 0.92308em;
@@ -26,14 +30,6 @@
 		vertical-align: top;
 	}
 
-}
-
-.edd-repeater {
-
-	background: #fff;
-	border: 1px solid #e5e5e5;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
-
 	table.widefat {
 		background: transparent;
 		border: 0;
@@ -42,7 +38,7 @@
 
 }
 
-div[data-edd-repeater] div[data-repeater-item] {
+div[data-edd-rbm-repeater] div[data-repeater-item] {
 
 	.repeater-header {
 		
@@ -58,7 +54,7 @@ div[data-edd-repeater] div[data-repeater-item] {
 			margin: 0;
 		}
 		
-		.edd-repeater-controls {
+		.edd-rbm-repeater-controls {
 			text-align: right;
 		}
 
@@ -88,7 +84,7 @@ div[data-edd-repeater] div[data-repeater-item] {
 
 	}
 
-	& > .edd-repeater-content > table > tbody > tr {
+	& > .edd-rbm-repeater-content > table > tbody > tr {
 
 		display: block;
 		width: 100%;

@@ -190,7 +190,7 @@ class EDD_Fields_Post_Edit {
 
 						<thead>
 							<tr>
-								<th scope="col" class="edd-repeater-field-handle"></th>
+								<th scope="col" class="edd-rbm-repeater-field-handle"></th>
 								<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
 								<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
 								<th scope="col"></th>

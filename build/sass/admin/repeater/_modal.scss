@@ -1,0 +1,44 @@
+.edd-rbm-repeater-content {
+
+	margin-bottom: 32px; // Same Margin as the margin from the top
+	overflow-x: hidden;
+
+	.edd-rbm-repeater-form {
+		margin-top: 1rem;
+	}
+
+	table.widefat {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+	}
+
+	input.regular-text, textarea, select, div.wp-picker-container {
+		width: 100%;
+	}
+
+	select.required.edd-chosen {
+		display: block !important; // Ensure that our validation works correctly
+		position: absolute;
+		clip: rect(0,0,0,0);
+	}
+
+	div.chosen-container {
+		width: 100% !important;   
+	}
+
+	td {
+
+		vertical-align: top;
+
+		&.hidden {
+			display: none !important;
+		}
+
+	}
+
+	.validation-error {
+		color: #D8000C;
+	}
+	
+}

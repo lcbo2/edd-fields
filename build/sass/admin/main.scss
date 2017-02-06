@@ -3,5 +3,14 @@
 @include foundation-reveal;
 @include foundation-close-button;
 
-@import "repeater/repeater.scss";
+.edd-rbm-repeater {
+
+	@import "repeater/repeater.scss";
+	@import "repeater/select2.scss";
+	
+}
+
+// While it has to do with the Repeater logically, it does not fall under the same selector
+@import "repeater/modal.scss";
+
 @import "edit/post-edit.scss";

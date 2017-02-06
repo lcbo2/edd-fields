@@ -7,7 +7,9 @@
  * @package EDD_Fields
  * @subpackage EDD_Fields/core/admin
  */
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 defined( 'ABSPATH' ) || die();
 
 class EDD_Fields_Admin {
@@ -33,6 +35,8 @@ class EDD_Fields_Admin {
 
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
+		
+		add_action( 'edd_edd_fields_template_settings', array( $this, 'edd_fields_templates_field' ) );
 		
 		// Localize the Admin Script with some PHP values
 		add_filter( 'edd_fields_localize_admin_script', array( $this, 'localize_script' ) );
@@ -83,7 +87,7 @@ class EDD_Fields_Admin {
 			array(
 				'id' => 'edd_fields_template_settings',
 				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
-				'type' => 'fields_repeater',
+				'type' => 'hook',
 				'classes' => array( 'edd-fields-settings-repeater' ),
 				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
 				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
@@ -109,6 +113,157 @@ class EDD_Fields_Admin {
 
 		return array_merge( $settings, $edd_fields_settings );
 
+	}
+	
+	/**
+	 * [[Description]]
+	 * @param [[Type]] $args [[Description]]
+	 */
+	public function edd_fields_templates_field( $args ) {
+		
+		$args = wp_parse_args( $args, array(
+			'id' => '',
+			'std' => '',
+			'classes' => array(),
+			'fields' => array(),
+			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
+			'edit_item_text' => __( 'Edit Row', EDD_Fields_ID ),
+			'save_item_text' => __( 'Save Row', EDD_Fields_ID ),
+			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
+			'default_title' => __( 'New Row', EDD_Fields_ID ),
+			'input_name' => false,
+		) );
+		
+		// Ensure Dummy Field is created
+		$field_count = ( count( $args['std'] ) >= 1 ) ? count( $args['std'] ) : 1;
+		
+		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
+		
+		do_action( 'edd_fields_before_templates_repeater' );
+		
+		?>
+
+		<div data-edd-rbm-repeater class="edd-rbm-repeater <?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
+			
+			<div data-repeater-list="<?php echo $name; ?>" class="edd-rbm-repeater-list">
+
+					<?php for ( $index = 0; $index < $field_count; $index++ ) : $value = ( isset( $args['std'][$index] ) ) ? $args['std'][$index] : array(); ?>
+				
+						<div data-repeater-item<?php echo ( ! isset( $args['std'][$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
+							
+							<table class="repeater-header wp-list-table widefat fixed posts">
+
+								<thead>
+
+									<tr>
+										<th scope="col">
+											<div class="title" data-repeater-default-title="<?php echo $args['default_title']; ?>">
+
+												<?php if ( isset( $args['std'][$index] ) && reset( $args['std'][$index] ) !== '' ) : 
+													// Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
+													foreach ( $value as $key => $setting ) : ?>
+														<?php echo $setting; ?>
+													<?php 
+														break;
+													endforeach; 
+												else: ?>
+
+													<?php echo $args['default_title']; ?>
+
+												<?php endif; ?>
+
+											</div>
+											
+											<div class="edd-rbm-repeater-controls">
+											
+												<input data-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
+												<input data-repeater-delete type="button" class="button button-danger" value="<?php echo $args['delete_item_text']; ?>" />
+												
+											</div>
+
+										</th>
+
+									</tr>
+
+								</thead>
+
+							</table>
+							
+							<div class="edd-rbm-repeater-content reveal" data-reveal data-v-offset="64">
+								
+								<div class="edd-rbm-repeater-form">
+
+									<table class="widefat" width="100%" cellpadding="0" cellspacing="0">
+
+										<tbody>
+
+											<?php foreach ( $args['fields'] as $field_id => $field ) : ?>
+
+												<tr>
+
+													<?php if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+		
+														// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+														$field['id'] = $field_id;
+														$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+		
+														if ( $field['type'] == 'checkbox' ) : 
+		
+															if ( isset( $field['std'] ) && (int) $field['std'] !== 0 ) {
+																$field['field_class'][] = 'default-checked';
+															}
+		
+														endif;
+		
+														if ( $field['type'] !== 'hook' ) : ?>
+
+															<td>
+
+																<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+
+															</td>
+
+														<?php else : 
+		
+															// Don't wrap calls for a Hook
+															call_user_func( "edd_{$field['type']}_callback", $field ); 
+		
+														endif;
+		
+													endif; ?>
+
+												</tr>
+
+											<?php endforeach; ?>
+
+										</tbody>
+
+									</table>
+									
+									<input type="submit" class="button button-primary alignright" value="<?php echo $args['save_item_text']; ?>" />
+								  
+								</div>
+								
+								<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
+									<span aria-hidden="true">&times;</span>
+								</a>
+								
+							</div>
+							
+						</div>
+
+					<?php endfor; ?>	  
+
+			</div>
+			
+			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
+
+		</div>
+		
+		<?php
+		
+		do_action( 'edd_fields_after_templates_repeater' );
+		
 	}
 	
 	/**
