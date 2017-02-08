@@ -10,6 +10,12 @@
 	
 }
 
+.edd-rbm-nested-repeater {
+	
+	@import "repeater/nested-repeater.scss";
+	
+}
+
 // While it has to do with the Repeater logically, it does not fall under the same selector
 @import "repeater/modal.scss";
 

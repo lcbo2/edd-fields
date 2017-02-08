@@ -95,6 +95,7 @@ class EDD_Fields_Admin {
 				'classes' => array( 'edd-fields-settings-repeater' ),
 				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
 				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
+				'save_item_text' => __( 'Save Field Template Group', EDD_Fields_ID ),
 				'defaults_name' => 'edd_fields_template_reset_defaults',
 				'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
 				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
@@ -307,37 +308,48 @@ class EDD_Fields_Admin {
 		
 		?>
 
-		<td data-edd-repeater class="edd-test-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
-			
-			<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-repeater-list">
+		<td data-edd-rbm-nested-repeater class="edd-rbm-repeater edd-rbm-nested-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
 				
-				<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
+			<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
+			
+			<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 				
 				<?php for ( $index = 0; $index < $field_count; $index++ ) : 
 		
 					$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 				
-						<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item">
+						<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
+							
+							<span class="edd_draghandle" data-repeater-item-handle></span>
+							
+							<div class="edd-rbm-nested-repeater-fields">
 
-							<?php foreach ( $args['fields'] as $field_id => $field ) : 
+								<?php foreach ( $args['fields'] as $field_id => $field ) : 
 
-								if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+									if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
 
-									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-									$field['id'] = $field_id;
-									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+										// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+										$field['id'] = $field_id;
+										$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
 
-									call_user_func( "edd_{$field['type']}_callback", $field );
+										call_user_func( "edd_{$field['type']}_callback", $field );
 
-								endif;
+									endif;
 
-							endforeach; ?>
+								endforeach; ?>
+								
+							</div>
+							
+							<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+							<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
 
 						</div>
 				
 				<?php endfor; ?>
 
 			</div>
+			
+			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
 
 		</td>
 
@@ -379,6 +391,8 @@ class EDD_Fields_Admin {
 			'edd_fields_template_fields' => array(
 				'type' => 'hook',
 				'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
+				'add_item_text' => __( 'Add Field', EDD_Fields_ID ),
+				'delete_item_text' => __( 'Remove Field', EDD_Fields_ID ),
 				'fields' => array(
 					'label' => array(
 						'type' => 'text',

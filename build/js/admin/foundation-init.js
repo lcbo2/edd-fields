@@ -96,7 +96,8 @@ function closeModal( uuid ) {
 	$( document ).on( 'open.zf.reveal', '.edd-rbm-repeater-content.reveal', function() {
 
 		init_edd_repeater_colorpickers( this );
-		init_edd_repeater_chosen( this );
+		init_edd_repeater_select2( this );
+		init_edd_repeater_tooltips( this );
 
 	} );
 

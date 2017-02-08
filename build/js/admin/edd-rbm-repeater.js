@@ -26,7 +26,7 @@ function eddFieldsSelect2Icons( icon, container = null ) {
 
 }
 
-function init_edd_repeater_chosen( modal ) {
+function init_edd_repeater_select2( modal ) {
 
 	// Only try to run if there are any Chosen Fields within an EDD Repeater
 	if ( jQuery( modal ).find( '.edd-chosen' ).length ) {
@@ -47,9 +47,36 @@ function init_edd_repeater_chosen( modal ) {
 
 }
 
+function init_edd_repeater_tooltips( modal ) {
+	
+	jQuery( modal ).find( '.edd-help-tip' ).each( function( index, tooltip ) {
+			
+		jQuery( tooltip ).tooltip( {
+			content: function() {
+				return jQuery( tooltip ).prop( 'title' );
+			},
+			tooltipClass: 'edd-ui-tooltip',
+			position: {
+				my: 'center top',
+				at: 'center bottom+10',
+				collision: 'flipfit',
+			},
+			hide: {
+				duration: 200,
+			},
+			show: {
+				duration: 200,
+			},
+		} );
+
+	} );
+	
+}
+
 // Repeaters
 ( function ( $ ) {
 
+	// This only targets the top-level, primary repeater
 	var $repeaters = $( '[data-edd-rbm-repeater]' );
 
 	if ( ! $repeaters.length ) {
@@ -60,6 +87,32 @@ function init_edd_repeater_chosen( modal ) {
 
 		// Hide current title for new item and show default title
 		$( this ).find( '.repeater-header div.title' ).html( $( this ).find( '.repeater-header div.title' ).data( 'repeater-default-title' ) );
+		
+		// Nested Repeaters always inherit the number of Rows from the previous Repeater, so this will fix that.
+		var repeater = $( this ).closest( '[data-edd-rbm-repeater]' ),
+			nestedRepeaters = $( this ).find( '.edd-rbm-nested-repeater' );
+
+		$( nestedRepeaters ).each( function( index, nestedRepeater ) {
+
+			var items = $( nestedRepeater ).find( '.edd-rbm-repeater-item' ).get().reverse();
+
+			if ( items.length == 1 ) return true; // Continue
+
+			$( items ).each( function( row, nestedRow ) {
+
+				if ( row == ( items.length - 1 ) ) return false; // Break
+
+				$( nestedRow ).stop().slideUp( 300, function() {
+					$( this ).remove();
+				} );
+
+				$( repeater ).trigger( 'edd-nested-repeater-cleanup', [$( nestedRow )] );
+
+			} );
+
+		} );
+		
+		init_edd_repeater_tooltips( this ); // This is necessary to ensure any Rows that are added have Tooltips
 
 		$( this ).stop().slideDown();
 		
@@ -70,22 +123,32 @@ function init_edd_repeater_chosen( modal ) {
 	}
 
 	var edd_repeater_hide = function() {
+		
+		// For Nested Repeaters, just remove it. No Confirmation.
+		if ( $( this ).closest( '.edd-rbm-repeater' ).hasClass( 'edd-rbm-nested-repeater' ) ) {
+			
+			$( this ).slideUp( 300, function () {
+				$( this ).remove();
+			} );
+			
+			return;
+		}
 
 		var repeater = $( this ).closest( '[data-edd-rbm-repeater]' ),
-			confirmDeletion = confirm( eddSlack.i18n.confirmDeletion );
+			confirmDeletion = confirm( eddFields.i18n.confirmDeletion );
 			
 		if ( confirmDeletion ) {
 
 			var $row = $( this ),
 				uuid = $row.find( '[data-repeater-edit]' ).data( 'open' ),
 				$modal = $( '[data-reveal="' + uuid + '"]' ),
-				postID = $modal.find( '.edd-slack-post-id' ).val();
+				postID = $modal.find( '.edd-fields-post-id' ).val();
 			
 			$.ajax( {
 				'type' : 'POST',
-				'url' : eddSlack.ajax,
+				'url' : eddFields.ajax,
 				'data' : {
-					'action' : 'delete_edd_rbm_slack_notification',
+					'action' : 'delete_edd_rbm_fields_template',
 					'post_id' : postID,
 				},
 				success : function( response ) {
@@ -124,13 +187,17 @@ function init_edd_repeater_chosen( modal ) {
 		$repeater.repeater( {
 
 			repeaters: [ {
+				selector: '.edd-rbm-nested-repeater',
 				show: edd_repeater_show,
 				hide: edd_repeater_hide,
+				ready: function ( setIndexes ) {
+					$repeater.find( '.edd-rbm-repeater-list' ).on( 'sortupdate', setIndexes );
+				}
 			} ],
 			show: edd_repeater_show,
 			hide: edd_repeater_hide,
 			ready: function ( setIndexes ) {
-				$repeater.find( 'tbody' ).on( 'sortupdate', setIndexes );
+				$repeater.find( '.edd-rbm-repeater-list' ).on( 'sortupdate', setIndexes );
 			}
 
 		} );
@@ -138,6 +205,18 @@ function init_edd_repeater_chosen( modal ) {
 		if ( $dummy.length ) {
 			$dummy.remove();
 		}
+		
+		$repeater.find( '.edd-rbm-repeater-list' ).sortable( {
+			axis: 'y',
+			handle: '[data-repeater-item-handle]',
+			forcePlaceholderSize: true,
+			update: function ( event, ui ) {
+				init_edd_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+				init_edd_repeater_select2( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+				init_edd_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+			}
+
+		} );
 		
 		$( document ).on( 'closed.zf.reveal', '.edd-rbm-repeater-content.reveal', function() {
 			
