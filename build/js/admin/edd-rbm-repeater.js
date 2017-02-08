@@ -73,6 +73,29 @@ function init_edd_repeater_tooltips( modal ) {
 	
 }
 
+function edd_repeater_reindex_primary() {
+	
+	jQuery( '[data-edd-rbm-repeater] .edd-rbm-repeater-item' ).each( function( index, row ) {
+						
+		var uuid = jQuery( row ).find( '[data-repeater-edit]' ).data( 'open' ),
+			$modal = jQuery( '[data-reveal="' + uuid + '"]' );
+
+		$modal.find( '[name]' ).each( function( inputIndex, input ) {
+
+			var reindexed = jQuery( input ).attr( 'name' ).replace( /\[\d+\]/, '[' + index + ']' ); // Only replaces the first one as to not break Nested Repeaters
+
+			jQuery( input ).attr( 'name', reindexed );
+
+		} );
+
+		init_edd_repeater_colorpickers( $modal );
+		init_edd_repeater_select2( $modal );
+		init_edd_repeater_tooltips( $modal );
+
+	} );
+	
+}
+
 // Repeaters
 ( function ( $ ) {
 
@@ -165,6 +188,8 @@ function init_edd_repeater_tooltips( modal ) {
 						} );
 						
 					} );
+					
+					edd_repeater_reindex_primary();
 
 					$( repeater ).trigger( 'edd-rbm-repeater-remove', [$row] );
 					
@@ -215,24 +240,7 @@ function init_edd_repeater_tooltips( modal ) {
 				// If we're not in a Nested Repeater
 				if ( ! $( event.currentTarget ).hasClass( 'edd-rbm-nested-repeater' ) ) {
 					
-					$( '[data-edd-rbm-repeater] .edd-rbm-repeater-item' ).each( function( index, row ) {
-						
-						var uuid = $( row ).find( '[data-repeater-edit]' ).data( 'open' ),
-							$modal = $( '[data-reveal="' + uuid + '"]' );
-						
-						$modal.find( '[name]' ).each( function( inputIndex, input ) {
-							
-							var reindexed = $( input ).attr( 'name' ).replace( /\[\d+\]/, '[' + index + ']' ); // Only replaces the first one as to not break Nested Repeaters
-							
-							$( input ).attr( 'name', reindexed );
-							
-						} );
-						
-						init_edd_repeater_colorpickers( $modal );
-						init_edd_repeater_select2( $modal );
-						init_edd_repeater_tooltips( $modal );
-						
-					} );
+					edd_repeater_reindex_primary();
 					
 					// TODO: Save order changes to DB
 					
