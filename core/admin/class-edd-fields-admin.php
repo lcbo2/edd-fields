@@ -36,7 +36,11 @@ class EDD_Fields_Admin {
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
 		
+		// Creates the primary Repeater
 		add_action( 'edd_edd_fields_template_settings', array( $this, 'edd_fields_templates_field' ) );
+		
+		// Creates the Fields Repeater in the Modal
+		add_action( 'edd_edd_fields_template_fields', array( $this, 'edd_fields_inner_repeater' ) );
 		
 		// Localize the Admin Script with some PHP values
 		add_filter( 'edd_fields_localize_admin_script', array( $this, 'localize_script' ) );
@@ -222,7 +226,7 @@ class EDD_Fields_Admin {
 		
 														endif;
 		
-														if ( $field['type'] !== 'hook' ) : ?>
+														if ( $field['type'] !== '' ) : ?>
 
 															<td>
 
@@ -275,6 +279,90 @@ class EDD_Fields_Admin {
 		
 	}
 	
+	public function edd_fields_inner_repeater( $args ) {
+		
+		global $edd_options;
+		
+		$args = wp_parse_args( $args, array(
+			'id' => '',
+			'std' => '',
+			'classes' => array(),
+			'fields' => array(),
+			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
+			'input_name' => false,
+		) );
+		
+		// We need to grab values this way to ensure Nested Repeaters work
+		if ( isset( $edd_options[ $args['id'] ] ) || $args['std'] == '' ) {
+			$edd_option = $edd_options[ $args['id'] ];
+		}
+		else {
+			$edd_option = $args['std'];
+		}
+		
+		// Ensure Dummy Field is created
+		$field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
+		
+		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
+		
+		?>
+		
+		<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
+
+		<div data-edd-rbm-repeater class="edd-rbm-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
+			
+			<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-repeater-list">
+				
+				<?php for ( $index = 0; $index < $field_count; $index++ ) : 
+		
+					$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
+				
+					<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item">
+
+							<tr>
+
+								<?php foreach ( $args['fields'] as $field_id => $field ) : 
+
+									if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+
+										// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+										$field['id'] = $field_id;
+										$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+
+										if ( $field['type'] !== 'hook' ) : ?>
+
+											<td>
+
+												<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+
+											</td>
+
+										<?php else : 
+
+											call_user_func( "edd_{$field['type']}_callback", $field ); 
+
+										endif;
+
+									endif;
+
+								endforeach; ?>
+
+							</tr>
+
+						</div>
+
+					</div>
+				
+				<?php endfor; ?>
+
+			</div>
+
+		</div>
+
+	<?php
+		
+	}
+	
 	/**
 	 * Returns the Fields used to Generate Field Templates
 	 * 
@@ -306,8 +394,8 @@ class EDD_Fields_Admin {
 				'tooltip_title' => _x( 'Icon', 'Template Icon Tooltip Title', EDD_Fields_ID ),
 				'tooltip_desc'  => sprintf( _x( 'Controls the Icon shown on the Template Tabs on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
 			),
-			'fields' => array(
-				'type' => 'fields_repeater',
+			'edd_fields_template_fields' => array(
+				'type' => 'hook',
 				'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
 				'fields' => array(
 					'label' => array(

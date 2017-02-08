@@ -24,7 +24,7 @@ class EDD_Fields_Utility {
 		$ebook = apply_filters( 'edd_fields_ebook_template_defaults', array(
 			'label' => _x( 'Ebook', 'Ebook Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-book',
-			'fields' => array(
+			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Author', 'Ebook Template: Author', EDD_Fields_ID ),
 				),
@@ -43,7 +43,7 @@ class EDD_Fields_Utility {
 		$wp_plugin = apply_filters( 'edd_fields_wordpress_plugin_template_defaults', array(
 			'label' => _x( 'WordPress Plugin', 'WordPress Plugin Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-admin-plugins',
-			'fields' => array(
+			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Required WordPress Version', 'WordPress Plugin Template: Required WordPress Version', EDD_Fields_ID ),
 				),
@@ -62,7 +62,7 @@ class EDD_Fields_Utility {
 		$wp_theme = apply_filters( 'edd_fields_wordpress_theme_template_defaults', array(
 			'label' => _x( 'WordPress Theme', 'WordPress Theme Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-admin-appearance',
-			'fields' => array(
+			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', EDD_Fields_ID ),
 				),
@@ -84,7 +84,7 @@ class EDD_Fields_Utility {
 		$music = apply_filters( 'edd_fields_music_template_defaults', array(
 			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-format-audio',
-			'fields' => array(
+			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
 				),
@@ -106,7 +106,7 @@ class EDD_Fields_Utility {
 		$software = apply_filters( 'edd_fields_software_template_defaults', array(
 			'label' => _x( 'Software', 'Software Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-editor-code',
-			'fields' => array(
+			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Operating System', 'Software Template: Operating System', EDD_Fields_ID ),
 				),
@@ -125,7 +125,7 @@ class EDD_Fields_Utility {
 		$photography = apply_filters( 'edd_fields_photography_template_defaults', array(
 			'label' => _x( 'Photography', 'Photography Template', EDD_Fields_ID ),
 			'icon' => 'dashicons dashicons-format-image',
-			'fields' => array(
+			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'License', 'Photography Template: License', EDD_Fields_ID ),
 				),
