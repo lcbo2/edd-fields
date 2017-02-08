@@ -115,8 +115,13 @@ class EDD_Fields_Admin {
 	}
 	
 	/**
-	 * [[Description]]
-	 * @param [[Type]] $args [[Description]]
+	 * Primary Template Repeater
+	 * 
+	 * @param		array $args EDD Settings API Args
+	 *                                      
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		void
 	 */
 	public function edd_fields_templates_field( $args ) {
 		
