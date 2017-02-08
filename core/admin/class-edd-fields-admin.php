@@ -94,8 +94,7 @@ class EDD_Fields_Admin {
 				'defaults_name' => 'edd_fields_template_reset_defaults',
 				'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
 				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
-				'collapsable' => true,
-				'collapsable_title' => __( 'New Field Template Group', EDD_Fields_ID ),
+				'default_title' => __( 'New Field Template Group', EDD_Fields_ID ),
 				'std' => EDDFIELDS()->utility->get_default_templates(),
 				'fields' => $this->get_template_fields(),
 			),
@@ -132,6 +131,9 @@ class EDD_Fields_Admin {
 			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
 			'default_title' => __( 'New Row', EDD_Fields_ID ),
 			'input_name' => false,
+			'defaults_name' => 'edd_fields_repeater_reset_defaults',
+			'defaults_text' => _x( 'Reset to Defaults', 'Reset Repeater to Defaults', EDD_Fields_ID ),
+			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Repeater.', 'Reset Repeater Confirmation Dialog', EDD_Fields_ID ),
 		) );
 		
 		// Ensure Dummy Field is created
@@ -257,6 +259,8 @@ class EDD_Fields_Admin {
 			</div>
 			
 			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
+			
+			<input type="submit" name="<?php echo $args['defaults_name']; ?>" class="button button-danger edd-repeater-defaults" style="margin-top: 6px;" value="<?php echo $args['defaults_text']; ?>" onclick="return confirm( '<?php echo $args['defaults_confirmation']; ?>' );" />
 
 		</div>
 		
