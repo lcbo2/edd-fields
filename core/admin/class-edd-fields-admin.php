@@ -226,7 +226,7 @@ class EDD_Fields_Admin {
 		
 														endif;
 		
-														if ( $field['type'] !== '' ) : ?>
+														if ( $field['type'] !== 'hook' ) : ?>
 
 															<td>
 
@@ -306,58 +306,40 @@ class EDD_Fields_Admin {
 		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
 		
 		?>
-		
-		<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
 
-		<div data-edd-rbm-repeater class="edd-rbm-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
+		<td data-edd-repeater class="edd-test-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
 			
 			<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-repeater-list">
+				
+				<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
 				
 				<?php for ( $index = 0; $index < $field_count; $index++ ) : 
 		
 					$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 				
-					<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item">
+						<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-repeater-item">
 
-							<tr>
+							<?php foreach ( $args['fields'] as $field_id => $field ) : 
 
-								<?php foreach ( $args['fields'] as $field_id => $field ) : 
+								if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
 
-									if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+									$field['id'] = $field_id;
+									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
 
-										// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-										$field['id'] = $field_id;
-										$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+									call_user_func( "edd_{$field['type']}_callback", $field );
 
-										if ( $field['type'] !== 'hook' ) : ?>
+								endif;
 
-											<td>
-
-												<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
-
-											</td>
-
-										<?php else : 
-
-											call_user_func( "edd_{$field['type']}_callback", $field ); 
-
-										endif;
-
-									endif;
-
-								endforeach; ?>
-
-							</tr>
+							endforeach; ?>
 
 						</div>
-
-					</div>
 				
 				<?php endfor; ?>
 
 			</div>
 
-		</div>
+		</td>
 
 	<?php
 		
