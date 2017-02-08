@@ -20,13 +20,28 @@ function init_edd_repeater_colorpickers( modal ) {
 
 }
 
+function eddFieldsSelect2Icons( icon, container = null ) {
+		
+	return icon.text + '<span class="icon ' + icon.id + '"></span>';
+
+}
+
 function init_edd_repeater_chosen( modal ) {
 
 	// Only try to run if there are any Chosen Fields within an EDD Repeater
 	if ( jQuery( modal ).find( '.edd-chosen' ).length ) {
 
-		// Init Chosen Fields as a Glob per-row
-		jQuery( modal ).find( '.edd-chosen' ).chosen();
+		// Just kidding, Select2 is better!
+		jQuery( modal ).find( '.edd-chosen' ).select2( {
+			width: '100%',
+			templateResult: eddFieldsSelect2Icons,
+			templateSelection: eddFieldsSelect2Icons,
+			containerCssClass: 'edd-fields-select2 select2-container',
+			dropdownCssClass: 'edd-fields-select2 select2-container',
+			escapeMarkup: function(m) {	
+				return m;
+			}
+		} );
 
 	}
 
