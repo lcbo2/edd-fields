@@ -170,6 +170,9 @@ class EDD_Fields_Admin {
 
 									<tr>
 										<th scope="col">
+											
+											<span class="edd_draghandle" data-repeater-item-handle></span>
+											
 											<div class="title" data-repeater-default-title="<?php echo $args['default_title']; ?>">
 
 												<?php if ( isset( $args['std'][$index] ) && reset( $args['std'][$index] ) !== '' ) : 
