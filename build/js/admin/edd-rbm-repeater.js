@@ -197,7 +197,7 @@ function init_edd_repeater_tooltips( modal ) {
 			show: edd_repeater_show,
 			hide: edd_repeater_hide,
 			ready: function ( setIndexes ) {
-				$repeater.find( '.edd-rbm-repeater-list' ).on( 'sortupdate', setIndexes );
+				// Custom Reindexing Function below
 			}
 
 		} );
@@ -211,9 +211,38 @@ function init_edd_repeater_tooltips( modal ) {
 			handle: '[data-repeater-item-handle]',
 			forcePlaceholderSize: true,
 			update: function ( event, ui ) {
-				init_edd_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
-				init_edd_repeater_select2( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
-				init_edd_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+				
+				// If we're not in a Nested Repeater
+				if ( ! $( event.currentTarget ).hasClass( 'edd-rbm-nested-repeater' ) ) {
+					
+					$( '[data-edd-rbm-repeater] .edd-rbm-repeater-item' ).each( function( index, row ) {
+						
+						var uuid = $( row ).find( '[data-repeater-edit]' ).data( 'open' ),
+							$modal = $( '[data-reveal="' + uuid + '"]' );
+						
+						$modal.find( '[name]' ).each( function( inputIndex, input ) {
+							
+							var reindexed = $( input ).attr( 'name' ).replace( /\[\d+\]/, '[' + index + ']' ); // Only replaces the first one as to not break Nested Repeaters
+							
+							$( input ).attr( 'name', reindexed );
+							
+						} );
+						
+						init_edd_repeater_colorpickers( $modal );
+						init_edd_repeater_select2( $modal );
+						init_edd_repeater_tooltips( $modal );
+						
+					} );
+					
+					// TODO: Save order changes to DB
+					
+				}
+				else {
+					init_edd_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+					init_edd_repeater_select2( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+					init_edd_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+				}
+				
 			}
 
 		} );
