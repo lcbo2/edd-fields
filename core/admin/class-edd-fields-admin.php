@@ -94,6 +94,7 @@ class EDD_Fields_Admin {
 				'type' => 'hook',
 				'classes' => array( 'edd-fields-settings-repeater' ),
 				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
+				'edit_item_text' => __( 'Edit Field Template Group', EDD_Fields_ID ),
 				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
 				'save_item_text' => __( 'Save Field Template Group', EDD_Fields_ID ),
 				'defaults_name' => 'edd_fields_template_reset_defaults',
