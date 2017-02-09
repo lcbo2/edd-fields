@@ -90,6 +90,7 @@ class EDD_Fields_Admin {
 			),
 			array(
 				'id' => 'edd_fields_template_settings',
+				'input_name' => 'edd_fields_template_settings',
 				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
 				'type' => 'hook',
 				'classes' => array( 'edd-fields-settings-repeater' ),
@@ -101,7 +102,7 @@ class EDD_Fields_Admin {
 				'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
 				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
 				'default_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'std' => EDDFIELDS()->utility->get_default_templates(),
+				'std' => EDDFIELDS()->utility->get_templates(),
 				'fields' => $this->get_template_fields(),
 			),
 			array(
@@ -131,6 +132,8 @@ class EDD_Fields_Admin {
 	 */
 	public function edd_fields_templates_field( $args ) {
 		
+		global $edd_options;
+		
 		$args = wp_parse_args( $args, array(
 			'id' => '',
 			'std' => '',
@@ -147,6 +150,14 @@ class EDD_Fields_Admin {
 			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Repeater.', 'Reset Repeater Confirmation Dialog', EDD_Fields_ID ),
 		) );
 		
+		// We need to grab values this way to ensure Nested Repeaters work
+		if ( isset( $edd_options[ $args['id'] ] ) || $args['std'] == '' ) {
+			$edd_option = $edd_options[ $args['id'] ];
+		}
+		else {
+			$edd_option = $args['std'];
+		}
+		
 		// Ensure Dummy Field is created
 		$field_count = ( count( $args['std'] ) >= 1 ) ? count( $args['std'] ) : 1;
 		
@@ -160,7 +171,7 @@ class EDD_Fields_Admin {
 			
 			<div data-repeater-list="<?php echo $name; ?>" class="edd-rbm-repeater-list">
 
-					<?php for ( $index = 0; $index < $field_count; $index++ ) : $value = ( isset( $args['std'][$index] ) ) ? $args['std'][$index] : array(); ?>
+					<?php for ( $index = 0; $index < $field_count; $index++ ) : $value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 				
 						<div data-repeater-item<?php echo ( ! isset( $args['std'][$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
 							
@@ -175,7 +186,7 @@ class EDD_Fields_Admin {
 											
 											<div class="title" data-repeater-default-title="<?php echo $args['default_title']; ?>">
 
-												<?php if ( isset( $args['std'][$index] ) && reset( $args['std'][$index] ) !== '' ) : 
+												<?php if ( isset( $edd_option[$index] ) && reset( $edd_option[$index] ) !== '' ) : 
 													// Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
 													foreach ( $value as $key => $setting ) : ?>
 														<?php echo $setting; ?>
@@ -679,7 +690,6 @@ class EDD_Fields_Admin {
 			if ( isset( $_POST['edd_fields_template_reset_defaults'] ) ) {
 
 				edd_delete_option( 'edd_fields_template_settings' );
-				unset( $_POST['edd_settings']['edd_fields_template_settings'] );
 				
 				$this->admin_notices[] = array(
                     'edd-notices',
@@ -760,5 +770,122 @@ class EDD_Fields_Admin {
 		return $localization;
 		
 	}
+	
+	/**
+	 * Inserts/Updates a Template via AJAX by Index
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		JSON
+	 */
+	public static function insert_template() {
+		
+		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
+			
+			$index = $_POST['index'];
+			
+			// We don't want to save this data
+			unset( $_POST['index'] );
+			unset( $_POST['action'] );
+			
+			// JavaScript likes to alphabetically arrange Object Members. We're forcing this to the end
+			$fields = $_POST['edd_fields_template_fields' ];
+			unset( $_POST['edd_fields_template_fields'] );
+			$_POST['edd_fields_template_fields'] = $fields;
+			
+			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
+			
+			$edd_fields_options[ $index ] = $_POST;
+			
+			$success = edd_update_option( 'edd_fields_template_settings', $edd_fields_options );
+			
+			if ( $success ) {
+				return wp_send_json_success();
+			}
+			else {
+				return wp_send_json_error();
+			}
+			
+		}
+		
+		return wp_send_json_error( array(
+			'error' => _x( 'Access Denied', 'Current User Cannot Insert Templates Error', EDD_Fields_ID ),
+		) );
+		
+	}
+	
+	/**
+	 * Save a fresh copy of the Templates with their new Indexes
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		JSON
+	 */
+	public static function sort_templates() {
+		
+		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
+			
+			foreach ( $_POST['templates'] as &$template ) {
+				
+				// JavaScript likes to alphabetically arrange Object Members. We're forcing this to the end
+				$fields = $template['edd_fields_template_fields' ];
+				unset( $template['edd_fields_template_fields'] );
+				$template['edd_fields_template_fields'] = $fields;
+				
+			}
+			
+			$success = edd_update_option( 'edd_fields_template_settings', $_POST['templates'] );
+			
+			if ( $success ) {
+				return wp_send_json_success();
+			}
+			else {
+				return wp_send_json_error();
+			}
+			
+		}
+		
+		return wp_send_json_error( array(
+			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', EDD_Fields_ID ),
+		) );
+		
+	}
+	
+	/**
+	 * Deletes a Template via AJAX and reindex the Array
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		JSON
+	 */
+	public static function delete_template() {
+		
+		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
+			
+			$index = $_POST['template_index'];
+			
+			if ( $success ) {
+				return wp_send_json_success();
+			}
+			else {
+				return wp_send_json_error();
+			}
+			
+		}
+		
+		return wp_send_json_error( array(
+			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', EDD_Fields_ID ),
+		) );
+		
+	}
 
 }
+
+// AJAX Hook for Creating/Updating Templates
+add_action( 'wp_ajax_insert_edd_fields_template', array( 'EDD_Fields_Admin', 'insert_template' ) );
+
+// AJAX Hook for Sorting Templates
+add_action( 'wp_ajax_sort_edd_fields_templates', array( 'EDD_Fields_Admin', 'sort_templates' ) );
+
+// AJAX Hook for Deleting Templates
+add_action( 'wp_ajax_delete_edd_rbm_fields_template', array( 'EDD_Fields_Admin', 'delete_template' ) );

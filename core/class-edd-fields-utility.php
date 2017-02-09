@@ -160,7 +160,10 @@ class EDD_Fields_Utility {
 		
 		$templates = edd_get_option( 'edd_fields_template_settings', false );
 		
-		if ( ! $templates ) $templates = $this->get_default_templates();
+		if ( ! $templates ) {
+			$templates = $this->get_default_templates();
+			edd_update_option( 'edd_fields_template_settings', $templates );
+		}
 		
 		return $templates;
 		

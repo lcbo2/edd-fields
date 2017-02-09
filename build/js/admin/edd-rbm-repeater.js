@@ -79,8 +79,6 @@ function edd_repeater_reindex_primary() {
 						
 		var uuid = jQuery( row ).find( '[data-repeater-edit]' ).data( 'open' ),
 			$modal = jQuery( '[data-reveal="' + uuid + '"]' );
-		
-		console.log( 'template' );
 
 		$modal.find( '[name]' ).each( function( inputIndex, input ) {
 
@@ -252,6 +250,21 @@ function edd_repeater_reindex_primary() {
 
 						data.push( get_edd_fields_form( $modal[0] ) );
 						
+					} );
+					
+					$.ajax( {
+						'type' : 'POST',
+						'url' : eddFields.ajax,
+						'data' : {
+							'action' : 'sort_edd_fields_templates',
+							'templates' : data,
+						},
+						success : function( response ) {
+
+						},
+						error : function( request, status, error ) {
+
+						}
 					} );
 					
 					// TODO: Save order changes to DB
