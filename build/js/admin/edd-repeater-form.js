@@ -32,11 +32,19 @@
 				if ( $form[0].checkValidity() ) { // Only run our code if we've got a Valid Form
 
 					// Used to construct HTML Name Attribute
-					var repeaterList = $( '.edd-rbm-repeater-list' ).data( 'repeater-list' ),
+					var repeaterList = $( '.edd-fields-settings-repeater .edd-rbm-repeater-list' ).data( 'repeater-list' ),
 						regex = new RegExp( repeaterList.replace( /[-\/\\^$*+?.()|[\]{}]/g, '\\$&' ) + '\\[\\d\\]\\[(.*)\\]', 'gi' ),
-						data = {};
+						data = {},
+						uuid = $( modal ).data( 'reveal' ),
+						$row = $( '[data-open="' + uuid + '"]' ).closest( '.edd-rbm-repeater-item' ),
+						templateIndex = $row.index();
+					
+					var nestedRepeaterList = $( '.edd-rbm-nested-repeater .edd-rbm-repeater-list' ).data( 'repeater-list' );
+					
+					// Holds all data for the Nested Repeater
+					data[nestedRepeaterList] = [];
 
-					$( this ).find( '.edd-fields-field' ).each( function( index, field ) {
+					$( this ).find( '[name]' ).each( function( index, field ) {
 
 						if ( $( field ).parent().hasClass( 'hidden' ) ) return true;
 
@@ -49,16 +57,28 @@
 							value = ( $( field ).prop( 'checked' ) ) ? 1 : 0;
 
 						}
-
-						// Checkboxes don't place nice with my regex and I'm not rewriting it
-						data[ match[1].replace( '][', '' ) ] = value;
+						
+						if ( name.indexOf( nestedRepeaterList ) == -1 ) {
+							// Checkboxes don't play nice with my regex and I'm not rewriting it
+							data[ match[1].replace( '][', '' ) ] = value;
+						}
+						else {
+							
+							// This is the name of the individual field
+							var nestedFieldKey = name.replace( /.*\[/, '' ).replace( ']', '' );
+							
+							data.edd_fields_template_fields.push( {
+								[nestedFieldKey]: value,
+							} );
+						}
 
 						// Reset Interal Pointer for Regex
 						regex.lastIndex = 0;
 
 					} );
 
-					data.action = 'insert_edd_rbm_fields_notification';
+					data.action = 'insert_edd_fields_template';
+					data.index = templateIndex;
 
 					$.ajax( {
 						'type' : 'POST',
@@ -68,9 +88,6 @@
 
 							var uuid = $( modal ).data( 'reveal' ),
 								$row = $( '[data-open="' + uuid + '"]' ).closest( '.edd-rbm-repeater-item' );
-
-							// If the Modal started as a New Notification, we need to update the Post ID value to ensure it can be updated
-							$form.find( '.edd-fields-post-id' ).val( response.data.post_id );
 
 							closeModal( uuid );
 

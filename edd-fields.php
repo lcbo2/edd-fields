@@ -258,7 +258,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			wp_register_script(
 				EDD_Fields_ID . '-admin',
 				EDD_Fields_URL . 'assets/js/admin.js',
-				array( 'jquery', 'jquery-ui-tabs' ),
+				array( 'jquery', 'jquery-effects-core', 'jquery-effects-highlight', 'jquery-ui-tabs' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
 				true
 			);
