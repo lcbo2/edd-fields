@@ -55,7 +55,9 @@ class EDD_Fields_Shortcodes {
 		
 		$fields = get_post_meta( $atts['post_id'], 'edd_fields', true );
 
-		if ( count( $fields[ $tab ] ) > 0 && $fields[ $tab ] !== '' ) : ?>
+		if ( $fields &&
+			count( $fields[ $tab ] ) > 0 &&
+			$fields[ $tab ] !== '' ) : ?>
 
 			<table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
 
