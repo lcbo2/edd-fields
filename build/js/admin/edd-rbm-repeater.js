@@ -242,6 +242,17 @@ function edd_repeater_reindex_primary() {
 					
 					edd_repeater_reindex_primary();
 					
+					// Grab all data with their new indexes to save
+					var data = [];
+					$( '[data-edd-rbm-repeater] .edd-rbm-repeater-item' ).each( function( index, row ) {
+						
+						var uuid = $( row ).find( '[data-repeater-edit]' ).data( 'open' ),
+							$modal = $( '[data-reveal="' + uuid + '"]' );
+
+						data.push( get_edd_fields_form( $modal[0] ) );
+						
+					} );
+					
 					// TODO: Save order changes to DB
 					
 				}
