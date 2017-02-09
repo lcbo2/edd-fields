@@ -7,9 +7,7 @@
  * @package EDD_Fields
  * @subpackage EDD_Fields/core/admin
  */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 defined( 'ABSPATH' ) || die();
 
 class EDD_Fields_Admin {
