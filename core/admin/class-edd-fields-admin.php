@@ -757,10 +757,10 @@ class EDD_Fields_Admin {
 		
 		$localization['i18n'] = array(
 			'select2Warning' => _x( 'A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems.', 'Select2 Warning', EDD_Fields_ID ),
-			'activeText' => _x( 'Active Notification', 'Active Notification Aria Label', EDD_Slack_ID ),
-			'inactiveText' => _x( 'Inactive Notification', 'Inactive Notification Aria Label', EDD_Slack_ID ),
-			'confirmDeletion' => _x( 'Are you sure you want to delete this Slack Notification?', 'Confirm Notification Deletion', EDD_Slack_ID ),
-			'validationError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Slack_ID ),
+			'activeText' => _x( 'Active Template', 'Active Template Aria Label', EDD_Fields_ID ),
+			'inactiveText' => _x( 'Inactive Template', 'Inactive Template Aria Label', EDD_Fields_ID ),
+			'confirmDeletion' => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
+			'validationError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
 		);
 		
 		$localization['url'] = EDD_Fields_URL;
@@ -862,7 +862,13 @@ class EDD_Fields_Admin {
 		
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
 			
-			$index = $_POST['template_index'];
+			$index = $_POST['index'];
+			
+			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
+			
+			unset( $edd_fields_options[ $index ] );
+			
+			$success = edd_update_option( 'edd_fields_template_settings', array_values( $edd_fields_options ) );
 			
 			if ( $success ) {
 				return wp_send_json_success();

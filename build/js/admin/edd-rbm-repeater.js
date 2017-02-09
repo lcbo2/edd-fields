@@ -172,7 +172,7 @@ function edd_repeater_reindex_primary() {
 				'url' : eddFields.ajax,
 				'data' : {
 					'action' : 'delete_edd_rbm_fields_template',
-					'template_index' : templateIndex,
+					'index' : templateIndex,
 				},
 				success : function( response ) {
 					
