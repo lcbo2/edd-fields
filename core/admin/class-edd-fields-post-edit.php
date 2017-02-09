@@ -154,9 +154,9 @@ class EDD_Fields_Post_Edit {
 								</tr>
 							</thead>
 						
-						<?php for ( $index = 0; $index < count( $template['fields'] ); $index++ ) : 
+						<?php for ( $index = 0; $index < count( $template['edd_fields_template_fields'] ); $index++ ) : 
 						
-							$field = $template['fields'][ $index ]; ?>
+							$field = $template['edd_fields_template_fields'][ $index ]; ?>
 							
 							<tr>
 								
