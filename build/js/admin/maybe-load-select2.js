@@ -26,7 +26,7 @@ var maybeLoadSelect2 = function() {
 
 	}
 	else {
-		console.warn( eddFields.select2Warning );
+		console.warn( eddFields.i18n.select2Warning );
 	}
 
 };

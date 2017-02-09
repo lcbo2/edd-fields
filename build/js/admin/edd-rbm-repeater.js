@@ -79,6 +79,8 @@ function edd_repeater_reindex_primary() {
 						
 		var uuid = jQuery( row ).find( '[data-repeater-edit]' ).data( 'open' ),
 			$modal = jQuery( '[data-reveal="' + uuid + '"]' );
+		
+		console.log( 'template' );
 
 		$modal.find( '[name]' ).each( function( inputIndex, input ) {
 
@@ -185,11 +187,10 @@ function edd_repeater_reindex_primary() {
 						
 						$row.effect( 'highlight', { color : '#FFBABA' }, 300 ).dequeue().slideUp( 300, function () {
 							$row.remove();
+							edd_repeater_reindex_primary();
 						} );
 						
 					} );
-					
-					edd_repeater_reindex_primary();
 
 					$( repeater ).trigger( 'edd-rbm-repeater-remove', [$row] );
 					

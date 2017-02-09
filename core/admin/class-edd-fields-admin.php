@@ -745,9 +745,17 @@ class EDD_Fields_Admin {
 	 */
 	public function localize_script( $localization ) {
 		
+		$localization['i18n'] = array(
+			'select2Warning' => _x( 'A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems.', 'Select2 Warning', EDD_Fields_ID ),
+			'activeText' => _x( 'Active Notification', 'Active Notification Aria Label', EDD_Slack_ID ),
+			'inactiveText' => _x( 'Inactive Notification', 'Inactive Notification Aria Label', EDD_Slack_ID ),
+			'confirmDeletion' => _x( 'Are you sure you want to delete this Slack Notification?', 'Confirm Notification Deletion', EDD_Slack_ID ),
+			'validationError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Slack_ID ),
+		);
+		
 		$localization['url'] = EDD_Fields_URL;
 		
-		$localization['select2Warning'] = _x( 'A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems.', 'Select2 Warning', EDD_Fields_ID );
+		$localization['ajax'] = admin_url( 'admin-ajax.php' );
 		
 		return $localization;
 		
