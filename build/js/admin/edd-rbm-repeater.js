@@ -167,14 +167,14 @@ function edd_repeater_reindex_primary() {
 			var $row = $( this ),
 				uuid = $row.find( '[data-repeater-edit]' ).data( 'open' ),
 				$modal = $( '[data-reveal="' + uuid + '"]' ),
-				postID = $modal.find( '.edd-fields-post-id' ).val();
+				templateIndex = $row.index();
 			
 			$.ajax( {
 				'type' : 'POST',
 				'url' : eddFields.ajax,
 				'data' : {
 					'action' : 'delete_edd_rbm_fields_template',
-					'post_id' : postID,
+					'template_index' : templateIndex,
 				},
 				success : function( response ) {
 					
