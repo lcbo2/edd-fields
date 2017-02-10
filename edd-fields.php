@@ -98,6 +98,9 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			// Register our CSS/JS for the whole plugin
 			add_action( 'init', array( $this, 'register_scripts' ) );
 			
+			// Include and init any Widgets
+			add_action( 'widgets_init', array( $this, 'init_widgets' ) );
+			
 			// Handle licensing
 			if ( class_exists( 'EDD_License' ) ) {
 				$license = new EDD_License( __FILE__, $this->plugin_data['Name'], EDD_Fields_VER, $this->plugin_data['Author'] );
@@ -242,9 +245,9 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		/**
 		 * Register our CSS/JS to use later
 		 * 
-		 * @access	  public
-		 * @since	   1.0.0
-		 * @return	  void
+		 * @access		public
+		 * @since		1.0.0
+		 * @return		void
 		 */
 		public function register_scripts() {
 			
@@ -268,6 +271,19 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 				'eddFields',
 				apply_filters( 'edd_fields_localize_admin_script', array() )
 			);
+			
+		}
+		
+		/**
+		 * Include and Register any Widgets
+		 * 
+		 * @access		public
+		 * @since		1.0.0
+		 * @return		void
+		 */
+		public function init_widgets() {
+			
+			require_once EDD_Fields_DIR . '/core/widgets/class-edd-fields-widget.php';
 			
 		}
 
