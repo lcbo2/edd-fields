@@ -37,7 +37,7 @@ function edd_fields_get( $name, $post_id = null, $template = null ) {
 	if ( $post_id === null ) $post_id = get_the_ID();
 	
 	if ( $template === null ) {
-		$template = get_post_meta( $post_id, 'edd_fields_tab', true );
+		$template = get_post_meta( $post_id, 'edd_fields_template', true );
 	}
 	
 	$fields = get_post_meta( $post_id, 'edd_fields', true );
