@@ -61,6 +61,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		
 		// Previously saved Values
 		$saved_post_id = ! empty( $instance['post_id'] ) ? $instance['post_id'] : 0;
+		$saved_shortcode = ! empty( $instance['shortcode'] ) ? $instance['shortcode'] : 'table';
 		
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 		
@@ -163,6 +164,22 @@ class EDD_Fields_Widget extends WP_Widget {
 			</select>
 			
 		</p>
+
+		<p>
+			
+			<label for="<?php echo $this->get_field_id( 'shortcode' ); ?>">
+				<?php echo _x( 'How to display the Data:', 'How to display the Data Label', EDD_Fields_ID ); ?>
+			</label>
+			<br />
+			<label>
+				<input type="radio" name="<?php echo $this->get_field_name( 'shortcode' ); ?>" value="table" <?php checked( $saved_shortcode, 'table' ); ?>/> <?php echo _x( 'Full Table', 'Widget Full Table Display', EDD_Fields_ID ); ?>
+			</label>
+			<br />
+			<label>
+				<input type="radio" name="<?php echo $this->get_field_name( 'shortcode' ); ?>" value="individual" <?php checked( $saved_shortcode, 'individual' ); ?>/> <?php echo _x( 'Single Value', 'Widget Single Value Display', EDD_Fields_ID ); ?>
+			</label>
+			
+		</p>
 		
 		<?php 
 		
@@ -183,6 +200,8 @@ class EDD_Fields_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		
 		$instance = array();
+		$instance['post_id'] = ( ! empty( $new_instance['post_id'] ) ) ? strip_tags( $new_instance['post_id'] ) : '';
+		$instance['shortcode'] = ( ! empty( $new_instance['shortcode'] ) ) ? strip_tags( $new_instance['shortcode'] ) : '';
 		
 		return $instance;
 		
