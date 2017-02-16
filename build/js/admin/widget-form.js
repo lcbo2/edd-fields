@@ -12,7 +12,9 @@
 			success : function( response ) {
 				
 				var $select = $form.find( '.edd-fields-widget-field' ),
-					selected = $select.data( 'selected' );
+					selected = $select.data( 'selected' ),
+					$fields = $form.find( '.edd-fields-widget-field' ),
+					$prefix = $form.find( '.edd-fields-widget-prefix' );
 				
 				$select.empty();
 				
@@ -21,6 +23,10 @@
 					$select.append( '<option value="' + value + '"' + ( ( value == selected ) ? ' selected' : '' ) + '>' + response.data[value] + '</option>' );
 					
 				}
+				
+				var field = $fields.find( 'option:selected' ).text();
+				
+				$prefix.attr( 'placeholder', field + ': ' );
 
 			},
 			error : function( request, status, error ) {
@@ -34,6 +40,7 @@
 		
 		if ( $( '.edd-fields-widget-form' ).length > 0 ) {
 			
+			// When the Shortcode type changes
 			$( document ).on( 'change', '.edd-fields-widget-form .edd-fields-widget-shortcode', function() {
 				
 				if ( $( this ).val() == 'individual' ) {
@@ -52,6 +59,7 @@
 				
 			} );
 			
+			// When the Selected Post changes
 			$( document ).on( 'change', '.edd-fields-widget-form .edd-fields-widget-post-id', function() {
 				
 				var $form = $( this ).closest( '.edd-fields-widget-form' ),
@@ -60,11 +68,25 @@
 				
 				// We only need to do AJAX if we're set to Individual, as changing to Individual will trigger it anyway
 				if ( shortcodeToggle == 'individual' ) {
+					
 					getFieldsForDownload( postID, $form );
+					
 				}
 				
 			} );
 			
+			// When the Selected Field Changes
+			$( document ).on( 'change', '.edd-fields-widget-form .edd-fields-widget-field', function() {
+				
+				var $form = $( this ).closest( '.edd-fields-widget-form' ),
+					field = $( this ).find( 'option:selected' ).text(),
+					$prefix = $form.find( '.edd-fields-widget-prefix' );
+				
+				$prefix.attr( 'placeholder', field + ': ' );
+				
+			} );
+			
+			// When we open the Widget Settings
 			$( document ).on( 'click touched', '.widget-top', function() {
 
 				// If we've already loaded up necessary data or if the Widget doesn't match anyway, bail

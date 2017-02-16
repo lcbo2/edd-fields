@@ -96,6 +96,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		$saved_post_id = ! empty( $instance['post_id'] ) ? $instance['post_id'] : 0;
 		$saved_shortcode = ! empty( $instance['shortcode'] ) ? $instance['shortcode'] : 'table';
 		$saved_field = ! empty( $instance['field'] ) ? $instance['field'] : 0;
+		$saved_prefix = ! empty( $instance['prefix'] ) ? $instance['prefix'] : '';
 		
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 		
@@ -166,7 +167,7 @@ class EDD_Fields_Widget extends WP_Widget {
 			<p>
 
 				<label for="<?php echo $this->get_field_id( 'post_id' ); ?>">
-					<?php echo sprintf( _x( 'Show Data for which %s', 'Show for which Item Label', EDD_Fields_ID ), $singular ); ?>
+					<?php echo sprintf( _x( 'Show Data for which %s:', 'Show for which Item Label', EDD_Fields_ID ), $singular ); ?>
 				</label>
 
 				<select id="<?php echo $this->get_field_id( 'post_id' ); ?>" class="widefat edd-fields-widget-post-id" name="<?php echo $this->get_field_name( 'post_id' ); ?>">
@@ -218,11 +219,18 @@ class EDD_Fields_Widget extends WP_Widget {
 			</p>
 			
 			<div class="edd-fields-individual-options<?php echo ( $saved_shortcode !== 'individual' ) ? ' hidden' : ''; ?>">
+				
+				<p>
+					<label for="<?php echo $this->get_field_id( 'prefix' ); ?>">
+						<?php echo _x( 'What should show before the value?', 'Value Prefix Label', EDD_Fields_ID ); ?>
+					</label>
+					<input type="text" class="widefat edd-fields-widget-prefix" name="<?php echo $this->get_field_name( 'prefix' ); ?>" value="<?php echo $saved_prefix; ?>" data-default="<?php echo _x( 'Key: ', 'Default Value Prefix', EDD_Fields_ID ); ?>" placeholder="<?php echo _x( 'Key: ', 'Default Value Prefix', EDD_Fields_ID ); ?>" />
+				</p>
 
 				<p>
 					
 					<label for="<?php echo $this->get_field_id( 'field' ); ?>">
-						<?php echo _x( 'Show Which Field', 'Show Which Field Label', EDD_Fields_ID ); ?>
+						<?php echo _x( 'Show which Field?', 'Show which Field Label', EDD_Fields_ID ); ?>
 					</label>
 
 					<select name="<?php echo $this->get_field_name( 'field' ); ?>" class="widefat edd-fields-widget-field" data-selected="<?php echo $saved_field; ?>">
@@ -260,6 +268,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		$instance['post_id'] = ( ! empty( $new_instance['post_id'] ) ) ? strip_tags( $new_instance['post_id'] ) : '';
 		$instance['shortcode'] = ( ! empty( $new_instance['shortcode'] ) ) ? strip_tags( $new_instance['shortcode'] ) : '';
 		$instance['field'] = ( ! empty( $new_instance['field'] ) ) ? strip_tags( $new_instance['field'] ) : '';
+		$instance['prefix'] = ( ! empty( $new_instance['prefix'] ) ) ? strip_tags( $new_instance['prefix'] ) : '';
 		
 		return $instance;
 		
