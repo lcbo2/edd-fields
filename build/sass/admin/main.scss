@@ -6,7 +6,6 @@
 .edd-rbm-repeater {
 
 	@import "repeater/repeater.scss";
-	@import "repeater/select2.scss";
 	
 }
 
@@ -18,9 +17,6 @@
 
 // While it has to do with the Repeater logically, it does not fall under the same selector
 @import "repeater/modal.scss";
-
-// Same with the Select2 Styling, except it needs to similarly be outside of any other selector
-@import "repeater/select2.scss";
 
 @import "edit/post-edit.scss";
 

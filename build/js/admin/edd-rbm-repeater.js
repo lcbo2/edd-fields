@@ -20,33 +20,6 @@ function init_edd_repeater_colorpickers( modal ) {
 
 }
 
-function eddFieldsSelect2Icons( icon, container = null ) {
-		
-	return icon.text + '<span class="icon ' + icon.id + '"></span>';
-
-}
-
-function init_edd_repeater_select2( modal ) {
-
-	// Only try to run if there are any Chosen Fields within an EDD Repeater
-	if ( jQuery( modal ).find( '.edd-chosen' ).length ) {
-
-		// Just kidding, Select2 is better!
-		jQuery( modal ).find( '.edd-chosen' ).select2( {
-			width: '100%',
-			templateResult: eddFieldsSelect2Icons,
-			templateSelection: eddFieldsSelect2Icons,
-			containerCssClass: 'edd-fields-select2 select2-container',
-			dropdownCssClass: 'edd-fields-select2 select2-container',
-			escapeMarkup: function(m) {	
-				return m;
-			}
-		} );
-
-	}
-
-}
-
 function init_edd_repeater_tooltips( modal ) {
 	
 	jQuery( modal ).find( '.edd-help-tip' ).each( function( index, tooltip ) {
@@ -89,7 +62,6 @@ function edd_repeater_reindex_primary() {
 		} );
 
 		init_edd_repeater_colorpickers( $modal );
-		init_edd_repeater_select2( $modal );
 		init_edd_repeater_tooltips( $modal );
 
 	} );
@@ -272,7 +244,6 @@ function edd_repeater_reindex_primary() {
 				}
 				else {
 					init_edd_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
-					init_edd_repeater_select2( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
 					init_edd_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
 				}
 				
