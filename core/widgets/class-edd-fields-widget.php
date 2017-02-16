@@ -50,30 +50,57 @@ class EDD_Fields_Widget extends WP_Widget {
 			
 		// Determine whether or not we're going to build the Shortcode with a Post ID Attribute
 		if ( (int) $post_id == 0 ) {
-			$post_id = ' ';
+			$post_id = get_the_ID();
+			$post_id_string = ' ';
 		}
 		else {
-			$post_id = ' post_id="' . $post_id . '" ';
+			$post_id_string = ' post_id="' . $post_id . '" ';
 		}
 		
 		if ( $instance['shortcode'] == 'table' ) {
 			
-			echo do_shortcode( '[edd_fields_table' . $post_id . 'class="edd-fields-table-widget"]' );
+			echo do_shortcode( '[edd_fields_table' . $post_id_string . 'class="edd-fields-table-widget"]' );
 			
 		}
 		else {
 			
 			$field_name = $instance['field'];
 			
-			// Determine whether or not we're going to build the Shortcode with a Name Attribute
-			if ( $field_name == '0' ) {
-				$field_name = '';
-			}
-			else {
-				$field_name = ' name="' . $field_name . '"';
+			$prefix = $instance['prefix'];
+			
+			if ( empty( $prefix ) ) {
+				
+				$fields = get_post_meta( $post_id, 'edd_fields', true );
+				
+				// If there's no Fields saved, don't bother continuing
+				if ( $fields ) {
+				
+					$template = get_post_meta( $post_id, 'edd_fields_tab', true );
+
+					$fields = $fields[ $template ];
+
+					foreach ( $fields as $field ) {
+
+						if ( edd_fields_sanitize_key( $field['key'] ) == $field_name ) {
+							$prefix = $field['key'] . ': ';
+						}
+
+					}
+					
+				}
+				
 			}
 			
-			echo do_shortcode( '[edd_field' . $post_id . $field_name . ']' );
+			// Determine whether or not we're going to build the Shortcode with a Name Attribute
+			if ( empty( $field_name ) ) {
+				$field_name_string = '';
+				$prefix = '';
+			}
+			else {
+				$field_name_string = ' name="' . $field_name . '"';
+			}
+			
+			echo $prefix . do_shortcode( '[edd_field' . $post_id_string . $field_name_string . ']' );
 			
 		}
 		
@@ -224,7 +251,7 @@ class EDD_Fields_Widget extends WP_Widget {
 					<label for="<?php echo $this->get_field_id( 'prefix' ); ?>">
 						<?php echo _x( 'What should show before the value?', 'Value Prefix Label', EDD_Fields_ID ); ?>
 					</label>
-					<input type="text" class="widefat edd-fields-widget-prefix" name="<?php echo $this->get_field_name( 'prefix' ); ?>" value="<?php echo $saved_prefix; ?>" data-default="<?php echo _x( 'Key: ', 'Default Value Prefix', EDD_Fields_ID ); ?>" placeholder="<?php echo _x( 'Key: ', 'Default Value Prefix', EDD_Fields_ID ); ?>" />
+					<input type="text" class="widefat edd-fields-widget-prefix" name="<?php echo $this->get_field_name( 'prefix' ); ?>" value="<?php echo $saved_prefix; ?>" data-default="<?php echo _x( 'Key', 'Default Value Prefix, no Colon', EDD_Fields_ID ); ?>" placeholder="<?php echo _x( 'Key: ', 'Default Value Prefix', EDD_Fields_ID ); ?>" />
 				</p>
 
 				<p>
@@ -234,7 +261,9 @@ class EDD_Fields_Widget extends WP_Widget {
 					</label>
 
 					<select name="<?php echo $this->get_field_name( 'field' ); ?>" class="widefat edd-fields-widget-field" data-selected="<?php echo $saved_field; ?>">
-						<option value="0">test</option>
+						<option value="0">
+							<?php echo _x( 'Select a Field', 'Field Select Default Option', EDD_Fields_ID ); ?>
+						</option>
 					</select>
 
 				</p>
@@ -306,7 +335,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		
 		asort( $fields );
 		
-		$fields = array( 0 => 'test' ) + $fields;
+		$fields = array( 0 => _x( 'Select a Field', 'Field Select Default Option', EDD_Fields_ID ) ) + $fields;
 		
 		return wp_send_json_success( $fields );
 		

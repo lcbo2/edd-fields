@@ -24,9 +24,14 @@
 					
 				}
 				
-				var field = $fields.find( 'option:selected' ).text();
+				var $field = $fields.find( 'option:selected' ),
+					fieldText = $field.text();
 				
-				$prefix.attr( 'placeholder', field + ': ' );
+				if ( $field.val() == '0' ) {
+					fieldText = $prefix.data( 'default' );
+				}
+				
+				$prefix.attr( 'placeholder', fieldText + ': ' );
 
 			},
 			error : function( request, status, error ) {
@@ -79,10 +84,17 @@
 			$( document ).on( 'change', '.edd-fields-widget-form .edd-fields-widget-field', function() {
 				
 				var $form = $( this ).closest( '.edd-fields-widget-form' ),
-					field = $( this ).find( 'option:selected' ).text(),
+					$field = $( this ).find( 'option:selected' ),
+					fieldText = $field.text(),
 					$prefix = $form.find( '.edd-fields-widget-prefix' );
 				
-				$prefix.attr( 'placeholder', field + ': ' );
+				$( this ).attr( 'data-selected', $( this ).val() );
+				
+				if ( $field.val() == '0' ) {
+					fieldText = $prefix.data( 'default' );
+				}
+				
+				$prefix.attr( 'placeholder', fieldText + ': ' );
 				
 			} );
 			
