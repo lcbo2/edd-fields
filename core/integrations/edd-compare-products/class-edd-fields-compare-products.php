@@ -104,7 +104,7 @@ class EDD_Fields_Compare_Products {
 	public function remove_unneeded_keys( $keys ) {
 		
 		$keys[] = 'edd_fields';
-		$keys[] = 'edd_fields_tab';
+		$keys[] = 'edd_fields_template';
 		
 		return $keys;
 		

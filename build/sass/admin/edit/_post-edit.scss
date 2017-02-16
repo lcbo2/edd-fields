@@ -15,7 +15,7 @@
 		
 	}
 	
-	.edd-fields-template {
+	.edd-fields-template:not( #edd-fields-custom ) {
 		
 		.edd-fields-value {
 			border-left: 1px solid #e1e1e1;

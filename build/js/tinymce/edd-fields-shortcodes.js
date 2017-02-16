@@ -90,7 +90,7 @@ jQuery( function( $ ) {
 		else {
 			// If No Post is Chosen
 			
-			$( '.edd-fields-meta-box .ui-tabs-panel:visible tbody tr .edd-fields-key input' ).each( function( index, element ) {
+			$( '#edd_fields_meta_box .edd-fields-template:visible tbody tr .edd-fields-key input' ).each( function( index, element ) {
 				
 				names.push( { 'text': $( element ).val(), 'value': $( element ).val() } );
 				
@@ -98,7 +98,7 @@ jQuery( function( $ ) {
 			
 		}
 		
-		if ( $( '.edd-fields-names option' ).length == 0 ) {
+		if ( $( '.tinymce-edd-fields-names option' ).length == 0 ) {
 			
 			// Create initial instance
 			return names;
@@ -106,7 +106,7 @@ jQuery( function( $ ) {
 		}
 		else {
 			
-			$( '.edd-fields-names' ).empty();
+			$( '.tinymce-edd-fields-names' ).empty();
 			
 			var html = '';
 			for ( var index = 0; index < names.length; index++ ) {
@@ -115,7 +115,7 @@ jQuery( function( $ ) {
 				
 			}
 			
-			$( '.edd-fields-names' ).html( html );
+			$( '.tinymce-edd-fields-names' ).html( html );
 			
 		}
 		
@@ -176,7 +176,7 @@ jQuery( function( $ ) {
 										type: 'select',
 										name: 'name',
 										label: 'Field Name',
-										classes: 'edd-fields-names',
+										classes: 'tinymce-edd-fields-names',
 										values: edd_fields_get_names( undefined ),
 									},
 								],

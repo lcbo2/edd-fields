@@ -77,9 +77,11 @@ class EDD_Fields_Post_Edit {
 	 */
 	public function fields( $post ) {
 		
+		ob_start();
+		
 		?>
 
-		<div class="edd-fields-meta-above">
+		<div class="edd-fields-meta-box">
 			
 			<label for="edd_fields_table_inject">
 				
@@ -96,134 +98,129 @@ class EDD_Fields_Post_Edit {
 				
 			</label>
 			
-		</div>
+			<br />
 
-		<?php
-
-		$fields = get_post_meta( $post->ID, 'edd_fields', true );
-		$templates = edd_fields_get_templates();
-
-		ob_start();
-
-		?>
-
-		<div class="edd-fields-meta-box">
-			
-			<?php 
+			<?php
 		
-				if ( ! $active_tab = get_post_meta( $post->ID, 'edd_fields_tab', true ) ) {
-					$active_tab = 'custom';
-					$index = count( $templates ); // jQuery UI Tabs are 0 indexed, but PHP is not, so this works
-				}
-				else {
-					$index = EDDFIELDS()->utility->get_template_index_by_name( $active_tab );
-				}
+			$fields = get_post_meta( $post->ID, 'edd_fields', true );
+			$templates = edd_fields_get_templates();
+		
+			$templates_select = array();
+
+			foreach ( $templates as $template ) {
+
+				$templates_select[ edd_fields_sanitize_key( $template['label'] ) ] = $template['label'];
+
+			}
+
+			// Place an option for "Custom" right at the top
+			$templates_select = array( 'custom' => _x( 'Custom (No Template)', 'Custom Template Label', EDD_Fields_ID ) ) + $templates_select;
+		
+			if ( ! $active_template = get_post_meta( $post->ID, 'edd_fields_template', true ) ) {
+				$active_template = 'custom';
+			}
 		
 			?>
-			
-			<input type="hidden" name="edd_fields_tab" value="<?php echo $active_tab; ?>" data-index="<?php echo $index; ?>" />
-			
-			<ul class="edd-fields-tabs">
-				<?php foreach ( $templates as $template ) : ?>
-					<li>
-						<a href="#<?php echo edd_fields_sanitize_key( $template['label'] ); ?>">
-							<span class="<?php echo $template['icon']; ?>"></span> <span class="tab-label"><?php echo $template['label']; ?></span>
-						</a>
-					</li>
-				<?php endforeach; ?>
-				<li>
-					<a href="#custom">
-						<span class="dashicons dashicons-admin-generic"></span> <span class="tab-label"><?php echo _x( 'Custom', 'Custom Template Label', EDD_Fields_ID ); ?></span>
-					</a>
-				</li>
-			</ul>
-			<br class="clear" />
 				
-				<?php foreach ( $templates as $template ) : ?>
-				
-					<div class="hidden" id="<?php echo edd_fields_sanitize_key( $template['label'] ); ?>">
-						
-						<h2><?php echo $template['label']; ?></h2>
-						
-						<table class="edd-fields-template widefat" width="100%" cellpadding="0" cellspacing="0">
-							
-							<thead>
-								<tr>
-									<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
-									<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
-								</tr>
-							</thead>
-						
-						<?php for ( $index = 0; $index < count( $template['edd_fields_template_fields'] ); $index++ ) : 
-						
-							$field = $template['edd_fields_template_fields'][ $index ]; ?>
-							
-							<tr>
-								
-								<th class="edd-fields-key">
-									<?php echo $field['label']; ?>
-									<input type="hidden" name="edd_fields[<?php echo edd_fields_sanitize_key( $template['label'] ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
-								</th>
-		
-								<td class="edd-fields-value">
-									<?php echo EDD()->html->text( array(
-										'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
-										'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
-									) ); ?>
-								</td>
-								
-							</tr>
-						
-						<?php endfor; ?>
-							
-						</table>
-						
-					</div>
-				
-				<?php endforeach; ?>
-			
-				<div id="custom">
-					
-					<h2><?php echo _x( 'Custom (No Template)', 'No Template Header', EDD_Fields_ID ); ?></h2>
+			<p>
+				<strong>
+					<?php echo _x( 'Select a Field Template Group', 'Fields Template Label', EDD_Fields_ID ); ?>
+				</strong>
+				<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php echo _x( '<strong>Select a Field Template Group</strong>: You can choose a Template created on the EDD Fields Settings Page, or use the Custom setting.', 'Select a Field Template Group Tooltip', EDD_Fields_ID ); ?>"></span>
+			</p>
 
-					<table class="edd-fields-repeater widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
+			<p>
+
+				<?php echo EDD()->html->select( array( 
+					'options' => $templates_select,
+					'selected' => $active_template,
+					'name' => 'edd_fields_template',
+					'show_option_all' => false,
+					'show_option_none' => false,
+				) ); ?>
+
+			</p>
+				
+			<div id="edd-fields-custom" class="edd-fields-template<?php echo ( $active_template !== 'custom' ) ? ' hidden' : ''; ?>">
+
+				<table class="edd-fields-repeater widefat edd_repeatable_table" width="100%" cellpadding="0" cellspacing="0">
+
+					<thead>
+						<tr>
+							<th scope="col" class="edd-rbm-repeater-field-handle"></th>
+							<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
+							<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+
+				<?php if ( ! empty( $fields ) ) : 
+
+					foreach ( $fields['custom'] as $key => $value ) : 
+
+							$name = isset( $value['key'] ) ? $value['key'] : '';
+							$value = isset( $value['value'] ) ? $value['value'] : '';
+							$args = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
+
+							do_action( 'edd_fields_render_row', $key, $args );
+
+					endforeach;
+
+				else :
+
+					do_action( 'edd_fields_render_row', 0, array() );
+
+				endif; ?>
+
+					<tr>
+						<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
+							<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields_ID ); ?></button>
+						</td>
+					</tr>
+
+				</table>
+
+			</div>
+			<?php foreach ( $templates as $template ) : ?>
+
+				<div id="edd-fields-<?php echo edd_fields_sanitize_key( $template['label'] ); ?>" class="edd-fields-template<?php echo ( $active_template !== edd_fields_sanitize_key( $template['label'] ) ) ? ' hidden' : ''; ?>">
+
+					<table class="edd-fields-template-table widefat" width="100%" cellpadding="0" cellspacing="0">
 
 						<thead>
 							<tr>
-								<th scope="col" class="edd-rbm-repeater-field-handle"></th>
 								<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
 								<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
-								<th scope="col"></th>
 							</tr>
 						</thead>
 
-					<?php if ( ! empty( $fields ) ) : 
+					<?php for ( $index = 0; $index < count( $template['edd_fields_template_fields'] ); $index++ ) : 
 
-						foreach ( $fields['custom'] as $key => $value ) : 
-
-								$name = isset( $value['key'] ) ? $value['key'] : '';
-								$value = isset( $value['value'] ) ? $value['value'] : '';
-								$args = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
-
-								do_action( 'edd_fields_render_row', $key, $args );
-
-						endforeach;
-
-					else :
-
-						do_action( 'edd_fields_render_row', 0, array() );
-
-					endif; ?>
+						$field = $template['edd_fields_template_fields'][ $index ]; ?>
 
 						<tr>
-							<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-								<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields_ID ); ?></button>
+
+							<th class="edd-fields-key">
+								<?php echo $field['label']; ?>
+								<input type="hidden" name="edd_fields[<?php echo edd_fields_sanitize_key( $template['label'] ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
+							</th>
+
+							<td class="edd-fields-value">
+								<?php echo EDD()->html->text( array(
+									'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
+									'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
+								) ); ?>
 							</td>
+
 						</tr>
 
+					<?php endfor; ?>
+
 					</table>
-					
+
 				</div>
+
+			<?php endforeach; ?>
 			
 		</div>
 
@@ -319,12 +316,12 @@ class EDD_Fields_Post_Edit {
 				update_post_meta( $post_id, 'edd_fields_table_inject', 'unchecked' );
 			}
 			
-			if ( isset( $_POST['edd_fields_tab'] ) ) {
+			if ( isset( $_POST['edd_fields_template'] ) ) {
 				
 				// Sanitization Filter.
-				$new_tab = apply_filters( 'edd_metabox_save_fields', $_POST['edd_fields_tab'] );
+				$new_tab = apply_filters( 'edd_metabox_save_fields', $_POST['edd_fields_template'] );
 				
-				update_post_meta( $post_id, 'edd_fields_tab', $new_tab );
+				update_post_meta( $post_id, 'edd_fields_template', $new_tab );
 				
 			}
 

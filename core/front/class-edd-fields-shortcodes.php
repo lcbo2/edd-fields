@@ -51,17 +51,17 @@ class EDD_Fields_Shortcodes {
 
 		ob_start();
 
-		$tab = get_post_meta( $atts['post_id'], 'edd_fields_tab', true );
+		$template = get_post_meta( $atts['post_id'], 'edd_fields_template', true );
 		
 		$fields = get_post_meta( $atts['post_id'], 'edd_fields', true );
 
 		if ( $fields &&
-			count( $fields[ $tab ] ) > 0 &&
-			$fields[ $tab ] !== '' ) : ?>
+			count( $fields[ $template ] ) > 0 &&
+			$fields[ $template ] !== '' ) : ?>
 
 			<table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
 
-			<?php foreach ( $fields[ $tab ] as $row ) : ?>
+			<?php foreach ( $fields[ $template ] as $row ) : ?>
 
 				<tr>
 
