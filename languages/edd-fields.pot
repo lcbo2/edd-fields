@@ -14,193 +14,178 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/admin/class-edd-fields-admin.php:66
+#: core/admin/class-edd-fields-admin.php:64
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:86
+#: core/admin/class-edd-fields-admin.php:84
 msgctxt "Fields Table Injection Global Label"
 msgid "Fields Table Display"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:87
+#: core/admin/class-edd-fields-admin.php:85
 msgctxt "Fields Table Injection Global Checkbox Label"
 msgid "Disable Automatic Display of Fields Table on the %s Page"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:88
+#: core/admin/class-edd-fields-admin.php:86
 msgctxt "Fields Table Injection Global Tooltip Title"
 msgid "Fields Table Display"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:89
+#: core/admin/class-edd-fields-admin.php:87
 msgctxt "Fields Table Injection Global Tooltip Text"
 msgid "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:94
+#: core/admin/class-edd-fields-admin.php:92
 msgid "Field Template Groups"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:97
+#: core/admin/class-edd-fields-admin.php:95
 msgid "Add Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:98
+#: core/admin/class-edd-fields-admin.php:96
 msgid "Edit Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:99
+#: core/admin/class-edd-fields-admin.php:97
 msgid "Remove Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:100
+#: core/admin/class-edd-fields-admin.php:98
 msgid "Save Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:102
+#: core/admin/class-edd-fields-admin.php:100
 msgctxt "Reset Field Template Groups to Defaults"
 msgid "Reset to Defaults"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:103
+#: core/admin/class-edd-fields-admin.php:101
 msgctxt "Reset Field Template Groups Confirmation Dialog"
 msgid "Are you sure? You will lose all changes made to the Field Template Groups."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:104, core/admin/class-edd-fields-admin.php:389
+#: core/admin/class-edd-fields-admin.php:102, core/admin/class-edd-fields-admin.php:387
 msgid "New Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:142, core/admin/class-edd-fields-admin.php:307
+#: core/admin/class-edd-fields-admin.php:140, core/admin/class-edd-fields-admin.php:305
 msgid "Add Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:143
+#: core/admin/class-edd-fields-admin.php:141
 msgid "Edit Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:144
+#: core/admin/class-edd-fields-admin.php:142
 msgid "Save Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:145
+#: core/admin/class-edd-fields-admin.php:143
 msgid "Delete Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:146
+#: core/admin/class-edd-fields-admin.php:144
 msgid "New Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:149
+#: core/admin/class-edd-fields-admin.php:147
 msgctxt "Reset Repeater to Defaults"
 msgid "Reset to Defaults"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:150
+#: core/admin/class-edd-fields-admin.php:148
 msgctxt "Reset Repeater Confirmation Dialog"
 msgid "Are you sure? You will lose all changes made to the Repeater."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:274
+#: core/admin/class-edd-fields-admin.php:272
 msgctxt "Close Fields Notification Modal"
 msgid "Close Notification Editor"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:387
+#: core/admin/class-edd-fields-admin.php:385
 msgctxt "Template Name Label"
 msgid "Template Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:392
+#: core/admin/class-edd-fields-admin.php:390
 msgctxt "Template Name Tooltip Title"
 msgid "Template Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:393
+#: core/admin/class-edd-fields-admin.php:391
 msgctxt "Template Icon Tooltip Text"
 msgid "Controls the Title shown after selecting a Template Tab on the %s Edit Screen."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:397
-msgctxt "Template Icon Label"
-msgid "Icon"
-msgstr ""
-
-#: core/admin/class-edd-fields-admin.php:403
-msgctxt "Template Icon Tooltip Title"
-msgid "Icon"
-msgstr ""
-
-#: core/admin/class-edd-fields-admin.php:404
-msgctxt "Template Icon Tooltip Text"
-msgid "Controls the Icon shown on the Template Tabs on the %s Edit Screen."
-msgstr ""
-
-#: core/admin/class-edd-fields-admin.php:408
+#: core/admin/class-edd-fields-admin.php:395
 msgctxt "Field Nested Repeater Label"
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:409, core/admin/class-edd-fields-post-edit.php:220
+#: core/admin/class-edd-fields-admin.php:396, core/admin/class-edd-fields-post-edit.php:177
 msgid "Add Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:410, core/admin/class-edd-fields-post-edit.php:275
+#: core/admin/class-edd-fields-admin.php:397, core/admin/class-edd-fields-post-edit.php:272
 msgid "Remove Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:414
+#: core/admin/class-edd-fields-admin.php:401
 msgctxt "Field Name Label"
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:419
+#: core/admin/class-edd-fields-admin.php:406
 msgctxt "Field Name Tooltip Title"
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:420
+#: core/admin/class-edd-fields-admin.php:407
 msgctxt "Template Icon Tooltip Text"
 msgid "Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:697
+#: core/admin/class-edd-fields-admin.php:437
 msgctxt "Field Template Groups Reset to Defaults Successful"
 msgid "Field Template Groups Reset to Defaults."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:759
+#: core/admin/class-edd-fields-admin.php:499
 msgctxt "Select2 Warning"
 msgid "A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:760
+#: core/admin/class-edd-fields-admin.php:500
 msgctxt "Active Template Aria Label"
 msgid "Active Template"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:761
+#: core/admin/class-edd-fields-admin.php:501
 msgctxt "Inactive Template Aria Label"
 msgid "Inactive Template"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:762
+#: core/admin/class-edd-fields-admin.php:502
 msgctxt "Confirm Template Deletion"
 msgid "Are you sure you want to delete this Field Template Group?"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:763
+#: core/admin/class-edd-fields-admin.php:503
 msgctxt "Required Field not filled out (Ancient/Bad Browsers Only)"
 msgid "This field is required"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:812
+#: core/admin/class-edd-fields-admin.php:552
 msgctxt "Current User Cannot Insert Templates Error"
 msgid "Access Denied"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:849, core/admin/class-edd-fields-admin.php:883
+#: core/admin/class-edd-fields-admin.php:589, core/admin/class-edd-fields-admin.php:623
 msgctxt "Current User Cannot Delete Templates Error"
 msgid "Access Denied"
 msgstr ""
@@ -209,39 +194,44 @@ msgstr ""
 msgid "%1$s Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:95
+#: core/admin/class-edd-fields-post-edit.php:97
 msgctxt "Fields Table Inject Checkbox Label"
 msgid "Show Fields Table?"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:95
+#: core/admin/class-edd-fields-post-edit.php:97
 msgctxt "Fields Table Inject Tooltip"
 msgid "<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button."
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:136
+#: core/admin/class-edd-fields-post-edit.php:117
 msgctxt "Custom Template Label"
-msgid "Custom"
-msgstr ""
-
-#: core/admin/class-edd-fields-post-edit.php:152, core/admin/class-edd-fields-post-edit.php:194
-msgid "Name"
-msgstr ""
-
-#: core/admin/class-edd-fields-post-edit.php:153, core/admin/class-edd-fields-post-edit.php:195
-msgid "Value"
-msgstr ""
-
-#: core/admin/class-edd-fields-post-edit.php:187
-msgctxt "No Template Header"
 msgid "Custom (No Template)"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:438
+#: core/admin/class-edd-fields-post-edit.php:127
+msgctxt "Fields Template Label"
+msgid "Select a Field Template Group"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:129
+msgctxt "Select a Field Template Group Tooltip"
+msgid "<strong>Select a Field Template Group</strong>: You can choose a Template created on the EDD Fields Settings Page, or use the Custom setting."
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:151, core/admin/class-edd-fields-post-edit.php:192
+msgid "Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:152, core/admin/class-edd-fields-post-edit.php:193
+msgid "Value"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:435, core/widgets/class-edd-fields-widget.php:146
 msgid "Current %s"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:505
+#: core/admin/class-edd-fields-post-edit.php:502
 msgid "Choose a Field Name"
 msgstr ""
 
@@ -250,158 +240,218 @@ msgctxt "Ebook Template"
 msgid "Ebook"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:29
+#: core/class-edd-fields-utility.php:28
 msgctxt "Ebook Template: Author"
 msgid "Author"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:32
+#: core/class-edd-fields-utility.php:31
 msgctxt "Ebook Template: Number of Pages"
 msgid "Number of Pages"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:35
+#: core/class-edd-fields-utility.php:34
 msgctxt "Ebook Template: Publisher"
 msgid "Publisher"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:38
+#: core/class-edd-fields-utility.php:37
 msgctxt "Ebook Template: Format"
 msgid "Format"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:44
+#: core/class-edd-fields-utility.php:43
 msgctxt "WordPress Plugin Template"
 msgid "WordPress Plugin"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:48
+#: core/class-edd-fields-utility.php:46
 msgctxt "WordPress Plugin Template: Required WordPress Version"
 msgid "Required WordPress Version"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:51
+#: core/class-edd-fields-utility.php:49
 msgctxt "WordPress Plugin Template: Required PHP Version"
 msgid "Required PHP Version"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:54
+#: core/class-edd-fields-utility.php:52
 msgctxt "WordPress Plugin Template: Contributors"
 msgid "Contributors"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:57
+#: core/class-edd-fields-utility.php:55
 msgctxt "WordPress Plugin Template: Supported Languages"
 msgid "Supported Languages"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:63
+#: core/class-edd-fields-utility.php:61
 msgctxt "WordPress Theme Template"
 msgid "WordPress Theme"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:67
+#: core/class-edd-fields-utility.php:64
 msgctxt "WordPress Theme Template: Required WordPress Version"
 msgid "Required WordPress Version"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:70
+#: core/class-edd-fields-utility.php:67
 msgctxt "WordPress Theme Template: Required PHP Version"
 msgid "Required PHP Version"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:73
+#: core/class-edd-fields-utility.php:70
 msgctxt "WordPress Theme Template: Contributors"
 msgid "Contributors"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:76
+#: core/class-edd-fields-utility.php:73
 msgctxt "WordPress Theme Template: Supported Languages"
 msgid "Supported Languages"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:79
+#: core/class-edd-fields-utility.php:76
 msgctxt "WordPress Theme Template: Responsive"
 msgid "Responsive"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:85
+#: core/class-edd-fields-utility.php:82
 msgctxt "Music Template"
 msgid "Music"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:89
+#: core/class-edd-fields-utility.php:85
 msgctxt "Music Template: Artist"
 msgid "Artist"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:92
+#: core/class-edd-fields-utility.php:88
 msgctxt "Music Template: Genre"
 msgid "Genre"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:95
+#: core/class-edd-fields-utility.php:91
 msgctxt "Music Template: Length"
 msgid "Length"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:98
+#: core/class-edd-fields-utility.php:94
 msgctxt "Music Template: Producer"
 msgid "Producer"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:101
+#: core/class-edd-fields-utility.php:97
 msgctxt "Music Template: Explicit"
 msgid "Explicit"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:107
+#: core/class-edd-fields-utility.php:103
 msgctxt "Software Template"
 msgid "Software"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:111
+#: core/class-edd-fields-utility.php:106
 msgctxt "Software Template: Operating System"
 msgid "Operating System"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:114
+#: core/class-edd-fields-utility.php:109
 msgctxt "Software Template: File Type"
 msgid "File Type"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:117
+#: core/class-edd-fields-utility.php:112
 msgctxt "Software Template: Disk Space"
 msgid "Disk Space"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:120
+#: core/class-edd-fields-utility.php:115
 msgctxt "Software Template: Required Memory"
 msgid "Required Memory"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:126
+#: core/class-edd-fields-utility.php:121
 msgctxt "Photography Template"
 msgid "Photography"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:130
+#: core/class-edd-fields-utility.php:124
 msgctxt "Photography Template: License"
 msgid "License"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:133
+#: core/class-edd-fields-utility.php:127
 msgctxt "Photography Template: File Type"
 msgid "File Type"
 msgstr ""
 
-#: core/class-edd-fields-utility.php:136
+#: core/class-edd-fields-utility.php:130
 msgctxt "Photography Template: Dimensions"
 msgid "Dimensions"
 msgstr ""
 
-#: core/front/class-edd-fields-shortcodes.php:113
+#: core/front/class-edd-fields-shortcodes.php:115
 msgid "You must specify a Field Name. Example: [edd_field name=\"test\"]"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:24
+msgctxt "EDD Fields Widget Name"
+msgid "EDD Fields"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:27
+msgctxt "EDD Fields Widget Description"
+msgid "A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name."
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:142
+msgctxt "Current Item Replacement Text for Widget"
+msgid "Item"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:197
+msgctxt "Show for which Item Label"
+msgid "Show Data for which %s:"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:235
+msgctxt "How to display the Data Label"
+msgid "How to display the Data:"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:239
+msgctxt "Widget Full Table Display"
+msgid "Full Table"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:243
+msgctxt "Widget Single Value Display"
+msgid "Single Value"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:252
+msgctxt "Value Prefix Label"
+msgid "What should show before the value?"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:254
+msgctxt "Default Value Prefix, no Colon"
+msgid "Key"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:254
+msgctxt "Default Value Prefix"
+msgid "Key: "
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:260
+msgctxt "Show which Field Label"
+msgid "Show which Field?"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:265, core/widgets/class-edd-fields-widget.php:338
+msgctxt "Field Select Default Option"
+msgid "Select a Field"
 msgstr ""
 
 #: edd-fields.php:88
