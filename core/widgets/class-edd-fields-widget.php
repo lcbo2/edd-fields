@@ -75,7 +75,7 @@ class EDD_Fields_Widget extends WP_Widget {
 				// If there's no Fields saved, don't bother continuing
 				if ( $fields ) {
 				
-					$template = get_post_meta( $post_id, 'edd_fields_tab', true );
+					$template = get_post_meta( $post_id, 'edd_fields_template', true );
 
 					$fields = $fields[ $template ];
 
@@ -310,7 +310,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		if ( (int) $_POST['post_id'] !== 0 ) {
 		
 			$saved_fields = get_post_meta( $_POST['post_id'], 'edd_fields', true );
-			$selected_template = get_post_meta( $_POST['post_id'], 'edd_fields_tab', true );
+			$selected_template = get_post_meta( $_POST['post_id'], 'edd_fields_template', true );
 
 			if ( ! $selected_template ) $selected_template = 'custom';
 
