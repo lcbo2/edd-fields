@@ -62,6 +62,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		// Previously saved Values
 		$saved_post_id = ! empty( $instance['post_id'] ) ? $instance['post_id'] : 0;
 		$saved_shortcode = ! empty( $instance['shortcode'] ) ? $instance['shortcode'] : 'table';
+		$saved_field = ! empty( $instance['field'] ) ? $instance['field'] : 0;
 		
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 		
@@ -127,61 +128,84 @@ class EDD_Fields_Widget extends WP_Widget {
 		
 		?>
 
-		<p>
+		<div class="edd-fields-widget-form">
+
+			<p>
+
+				<label for="<?php echo $this->get_field_id( 'post_id' ); ?>">
+					<?php echo sprintf( _x( 'Show Data for which %s', 'Show for which Item Label', EDD_Fields_ID ), $singular ); ?>
+				</label>
+
+				<select id="<?php echo $this->get_field_id( 'post_id' ); ?>" class="widefat edd-fields-widget-post-id" name="<?php echo $this->get_field_name( 'post_id' ); ?>">
+
+					<?php foreach ( $posts as $key => $value ) :
+
+						if ( is_array( $value ) ) : ?>
+
+							<optgroup label="<?php echo $key; ?>">
+
+								<?php foreach ( $value as $post_id => $post_title ) : ?>
+
+									<option value="<?php echo $post_id; ?>"<?php echo ( $post_id == $saved_post_id ) ? ' selected' : ''; ?>>
+										<?php echo $post_title; ?>
+									</option>
+
+								<?php endforeach; ?>
+
+							</optgroup>
+
+						<?php else : ?>
+
+							<option value="<?php echo $key; ?>"<?php echo ( $key == $saved_post_id ) ? ' selected' : ''; ?>>
+								<?php echo $value; ?>
+							</option>
+
+						<?php endif;
+
+					endforeach; ?>
+
+				</select>
+
+			</p>
+
+			<p>
+
+				<label for="<?php echo $this->get_field_id( 'shortcode' ); ?>">
+					<?php echo _x( 'How to display the Data:', 'How to display the Data Label', EDD_Fields_ID ); ?>
+				</label>
+				<br />
+				<label>
+					<input type="radio" class="edd-fields-widget-shortcode" name="<?php echo $this->get_field_name( 'shortcode' ); ?>" value="table"<?php echo ( $saved_shortcode == 'table' ) ? ' checked' : ''; ?> /> <?php echo _x( 'Full Table', 'Widget Full Table Display', EDD_Fields_ID ); ?>
+				</label>
+				<br />
+				<label>
+					<input type="radio" class="edd-fields-widget-shortcode" name="<?php echo $this->get_field_name( 'shortcode' ); ?>" value="individual"<?php echo ( $saved_shortcode == 'individual' ) ? ' checked' : ''; ?> /> <?php echo _x( 'Single Value', 'Widget Single Value Display', EDD_Fields_ID ); ?>
+				</label>
+
+			</p>
 			
-			<label for="<?php echo $this->get_field_id( 'post_id' ); ?>">
-				<?php echo sprintf( _x( 'Show Data for which %s', 'Show for which Item Label', EDD_Fields_ID ), $singular ); ?>
-			</label>
-		
-			<select id="<?php echo $this->get_field_id( 'post_id' ); ?>" class="widefat" name="<?php echo $this->get_field_name( 'post_id' ); ?>">
+			<div class="edd-fields-individual-options<?php echo ( $saved_shortcode !== 'individual' ) ? ' hidden' : ''; ?>">
 
-				<?php foreach ( $posts as $key => $value ) :
+				<p>
+					
+					<label for="<?php echo $this->get_field_id( 'field' ); ?>">
+						<?php echo _x( 'Show Which Field', 'Show Which Field Label', EDD_Fields_ID ); ?>
+					</label>
 
-					if ( is_array( $value ) ) : ?>
+					<select name="<?php echo $this->get_field_name( 'field' ); ?>" class="widefat edd-fields-widget-field" data-selected="<?php echo $saved_field; ?>">
+						<option value="0">test</option>
+					</select>
 
-						<optgroup label="<?php echo $key; ?>">
+				</p>
+				
+			</div>
 
-							<?php foreach ( $value as $post_id => $post_title ) : ?>
-
-								<option value="<?php echo $post_id; ?>"<?php echo ( $post_id == $saved_post_id ) ? ' selected' : ''; ?>>
-									<?php echo $post_title; ?>
-								</option>
-
-							<?php endforeach; ?>
-
-						</optgroup>
-
-					<?php else : ?>
-
-						<option value="<?php echo $key; ?>"<?php echo ( $key == $saved_post_id ) ? ' selected' : ''; ?>>
-							<?php echo $value; ?>
-						</option>
-
-					<?php endif;
-
-				endforeach; ?>
-
-			</select>
-			
-		</p>
-
-		<p>
-			
-			<label for="<?php echo $this->get_field_id( 'shortcode' ); ?>">
-				<?php echo _x( 'How to display the Data:', 'How to display the Data Label', EDD_Fields_ID ); ?>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="<?php echo $this->get_field_name( 'shortcode' ); ?>" value="table" <?php checked( $saved_shortcode, 'table' ); ?>/> <?php echo _x( 'Full Table', 'Widget Full Table Display', EDD_Fields_ID ); ?>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="<?php echo $this->get_field_name( 'shortcode' ); ?>" value="individual" <?php checked( $saved_shortcode, 'individual' ); ?>/> <?php echo _x( 'Single Value', 'Widget Single Value Display', EDD_Fields_ID ); ?>
-			</label>
-			
-		</p>
+		</div>
 		
 		<?php 
+		
+		// Enqueues our script automagically on both the Widgets page and the Customizer
+		//wp_enqueue_script( EDD_Fields_ID . '-admin' );
 		
 	}
 	
@@ -202,6 +226,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		$instance = array();
 		$instance['post_id'] = ( ! empty( $new_instance['post_id'] ) ) ? strip_tags( $new_instance['post_id'] ) : '';
 		$instance['shortcode'] = ( ! empty( $new_instance['shortcode'] ) ) ? strip_tags( $new_instance['shortcode'] ) : '';
+		$instance['field'] = ( ! empty( $new_instance['field'] ) ) ? strip_tags( $new_instance['field'] ) : '';
 		
 		return $instance;
 		
