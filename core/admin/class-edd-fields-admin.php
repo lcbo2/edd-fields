@@ -100,7 +100,7 @@ class EDD_Fields_Admin {
 				'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
 				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
 				'default_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'std' => EDDFIELDS()->utility->get_templates(),
+				'std' => edd_fields_get_templates(),
 				'fields' => $this->get_template_fields(),
 			),
 			array(

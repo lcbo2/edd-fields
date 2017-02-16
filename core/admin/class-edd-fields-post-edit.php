@@ -101,7 +101,7 @@ class EDD_Fields_Post_Edit {
 		<?php
 
 		$fields = get_post_meta( $post->ID, 'edd_fields', true );
-		$templates = EDDFIELDS()->utility->get_templates();
+		$templates = edd_fields_get_templates();
 
 		ob_start();
 
@@ -126,7 +126,7 @@ class EDD_Fields_Post_Edit {
 			<ul class="edd-fields-tabs">
 				<?php foreach ( $templates as $template ) : ?>
 					<li>
-						<a href="#<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>">
+						<a href="#<?php echo edd_fields_sanitize_key( $template['label'] ); ?>">
 							<span class="<?php echo $template['icon']; ?>"></span> <span class="tab-label"><?php echo $template['label']; ?></span>
 						</a>
 					</li>
@@ -141,7 +141,7 @@ class EDD_Fields_Post_Edit {
 				
 				<?php foreach ( $templates as $template ) : ?>
 				
-					<div class="hidden" id="<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>">
+					<div class="hidden" id="<?php echo edd_fields_sanitize_key( $template['label'] ); ?>">
 						
 						<h2><?php echo $template['label']; ?></h2>
 						
@@ -162,13 +162,13 @@ class EDD_Fields_Post_Edit {
 								
 								<th class="edd-fields-key">
 									<?php echo $field['label']; ?>
-									<input type="hidden" name="edd_fields[<?php echo EDDFIELDS()->utility->sanitize_key( $template['label'] ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
+									<input type="hidden" name="edd_fields[<?php echo edd_fields_sanitize_key( $template['label'] ); ?>][<?php echo $index; ?>][key]" value="<?php echo $field['label']; ?>" />
 								</th>
 		
 								<td class="edd-fields-value">
 									<?php echo EDD()->html->text( array(
-										'name' => "edd_fields[" . EDDFIELDS()->utility->sanitize_key( $template['label'] ) . "][$index][value]",
-										'value' => ( isset( $fields[ EDDFIELDS()->utility->sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ EDDFIELDS()->utility->sanitize_key( $template['label'] ) ][$index]['value'] : '',
+										'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
+										'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
 									) ); ?>
 								</td>
 								

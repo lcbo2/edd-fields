@@ -27,6 +27,8 @@ class EDD_Fields_Widget extends WP_Widget {
                 'description' => _x( 'A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name.', 'EDD Fields Widget Description', EDD_Fields_ID ),
             ) // Args
         );
+		
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customizer_styles' ) );
 
 	}
 	
@@ -43,6 +45,37 @@ class EDD_Fields_Widget extends WP_Widget {
 	 * @return		HTML
 	 */
 	public function widget( $args, $instance ) {
+		
+		$post_id = $instance['post_id'];
+			
+		// Determine whether or not we're going to build the Shortcode with a Post ID Attribute
+		if ( (int) $post_id == 0 ) {
+			$post_id = ' ';
+		}
+		else {
+			$post_id = ' post_id="' . $post_id . '" ';
+		}
+		
+		if ( $instance['shortcode'] == 'table' ) {
+			
+			echo do_shortcode( '[edd_fields_table' . $post_id . 'class="edd-fields-table-widget"]' );
+			
+		}
+		else {
+			
+			$field_name = $instance['field'];
+			
+			// Determine whether or not we're going to build the Shortcode with a Name Attribute
+			if ( $field_name == '0' ) {
+				$field_name = '';
+			}
+			else {
+				$field_name = ' name="' . $field_name . '"';
+			}
+			
+			echo do_shortcode( '[edd_field' . $post_id . $field_name . ']' );
+			
+		}
 		
 	}
 	
@@ -205,7 +238,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		<?php 
 		
 		// Enqueues our script automagically on both the Widgets page and the Customizer
-		//wp_enqueue_script( EDD_Fields_ID . '-admin' );
+		wp_enqueue_script( EDD_Fields_ID . '-admin' );
 		
 	}
 	
@@ -232,6 +265,60 @@ class EDD_Fields_Widget extends WP_Widget {
 		
 	}
 	
+	public static function get_fields_ajax_callback() {
+		
+		$fields = array();
+		
+		if ( (int) $_POST['post_id'] !== 0 ) {
+		
+			$saved_fields = get_post_meta( $_POST['post_id'], 'edd_fields', true );
+			$selected_template = get_post_meta( $_POST['post_id'], 'edd_fields_tab', true );
+
+			if ( ! $selected_template ) $selected_template = 'custom';
+
+			foreach ( $saved_fields[ $selected_template ] as $field ) {
+				$fields[ edd_fields_sanitize_key( $field['key'] ) ] = $field['key'];
+			}
+			
+		}
+		else {
+			
+			$templates = edd_fields_get_templates();
+			
+			foreach ( $templates as $template ) {
+				
+				foreach ( $template['edd_fields_template_fields'] as $field ) {
+					$fields[ edd_fields_sanitize_key( $field['label'] ) ] = $field['label'];
+				}
+				
+			}
+			
+		}
+		
+		asort( $fields );
+		
+		$fields = array( 0 => 'test' ) + $fields;
+		
+		return wp_send_json_success( $fields );
+		
+	}
+	
+	/**
+	 * WP Core has a weird bug with rendering Radio buttons in Customizer Widgets in Chrome only
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		void
+	 */
+	public function customizer_styles() {
+		
+		wp_enqueue_style( EDD_Fields_ID . '-admin' );
+		
+	}
+	
 }
+
+// AJAX Callback to get the Fields for our Select Field
+add_action( 'wp_ajax_get_edd_fields_widget_field', array( 'EDD_Fields_Widget', 'get_fields_ajax_callback' ) );
 
 register_widget( 'EDD_Fields_Widget' );

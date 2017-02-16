@@ -42,15 +42,15 @@ class EDD_Fields_Compare_Products {
 	 */
 	public function add_field_keys( $fields ) {
 		
-		$templates = EDDFIELDS()->utility->get_templates();
+		$templates = edd_fields_get_templates();
 		
 		foreach ( $templates as $template ) {
 			
-			$template_name = EDDFIELDS()->utility->sanitize_key( $template['label'] );
+			$template_name = edd_fields_sanitize_key( $template['label'] );
 			
 			foreach ( $template['fields'] as $field ) {
 				
-				$field_name = EDDFIELDS()->utility->sanitize_key( $field['label'] );
+				$field_name = edd_fields_sanitize_key( $field['label'] );
 			
 				$key = 'eddfields-' . $template_name . '-' . $field_name;
 

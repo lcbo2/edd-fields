@@ -150,26 +150,6 @@ class EDD_Fields_Utility {
 	}
 	
 	/**
-	 * Grabs either the saved Templates or Defaults as appropriate
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		array Field Group Templates
-	 */
-	public function get_templates() {
-		
-		$templates = edd_get_option( 'edd_fields_template_settings', false );
-		
-		if ( ! $templates ) {
-			$templates = $this->get_default_templates();
-			edd_update_option( 'edd_fields_template_settings', $templates );
-		}
-		
-		return $templates;
-		
-	}
-	
-	/**
 	 * Grabs the Template Name based on a provided Index. If one is not found, "Custom" is returned.
 	 * 
 	 * @param		integer $index Zero-Indexed array Index of the Template
@@ -183,7 +163,7 @@ class EDD_Fields_Utility {
 		// Ensure we've got an Integer, because PHP is silly and thinks '0' is False
 		$index = (int) $index;
 		
-		$templates = $this->get_templates();
+		$templates = edd_fields_get_templates();
 		
 		if ( ! isset( $templates[ $index ] ) ) return 'Custom';
 		
@@ -203,15 +183,15 @@ class EDD_Fields_Utility {
 	public function get_template_index_by_name( $name ) {
 		
 		// Normally it is already provided like this, but this ensures that it is the case
-		$name = EDDFIELDS()->utility->sanitize_key( $name );
+		$name = edd_fields_sanitize_key( $name );
 		
-		$templates = $this->get_templates();
+		$templates = edd_fields_get_templates();
 		
 		$template_index = false; // Default case
 		for ( $index = 0; $index < count( $templates ); $index++ ) {
 			
 			$template = $templates[ $index ];
-			$template_name = EDDFIELDS()->utility->sanitize_key( $template['label'] );
+			$template_name = edd_fields_sanitize_key( $template['label'] );
 			
 			// If the provided name matches the Template Name, update $template_index
 			if ( $name == $template_name ) $template_index = $index;
@@ -222,24 +202,6 @@ class EDD_Fields_Utility {
 		if ( $template_index === false ) $template_index = count( $templates );
 		
 		return $template_index;
-		
-	}
-	
-	/**
-	 * Sanitize a String to have only Alphanumeric characters. No special characters, spaces, etc.
-	 * 
-	 * @param		string $key Template/Field Key
-	 *                                    
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		string Sanitized Key
-	 */
-	public function sanitize_key( $key ) {
-		
-		// Matches non-words, including underscore.
-		$key = preg_replace( '[\W|_]', '', strtolower( $key ) );
-		
-		return apply_filters( 'edd_fields_key_sanitize', $key );
 		
 	}
 	

@@ -1,0 +1,11 @@
+.customize-control {
+
+	.edd-fields-widget-form {
+
+		input[type="radio"]:checked:before {
+			text-indent: -5000px;
+		}
+
+	}
+
+}
