@@ -21,6 +21,8 @@ table.widefat {
 			th {
 
 				display: inline-block;
+				max-width: none !important; // Plz no, EDD
+				overflow: visible;
 
 				div {
 
@@ -89,9 +91,14 @@ table.widefat {
 		}
 
 		.edd-rbm-repeater-controls {
+			
+			text-align: right;
 
-			float: right;
-			text-align: center;
+			@media #{$medium-up} {
+				float: right; // No floating on small screens, we use text-align instead
+				text-align: center;
+			}
+			
 			margin-right: 10px;
 
 		}

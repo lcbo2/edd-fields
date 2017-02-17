@@ -3,6 +3,8 @@
 @include foundation-reveal;
 @include foundation-close-button;
 
+@import "../media-queries.scss";
+
 .edd-rbm-repeater {
 
 	@import "repeater/repeater.scss";
