@@ -76,15 +76,19 @@ class EDD_Fields_Widget extends WP_Widget {
 				if ( $fields ) {
 				
 					$template = get_post_meta( $post_id, 'edd_fields_template', true );
+					
+					if ( isset( $fields[ $template ] ) ) {
 
-					$fields = $fields[ $template ];
+						$fields = $fields[ $template ];
 
-					foreach ( $fields as $field ) {
+						foreach ( $fields as $field ) {
 
-						if ( edd_fields_sanitize_key( $field['key'] ) == $field_name ) {
-							$prefix = $field['key'] . ': ';
+							if ( edd_fields_sanitize_key( $field['key'] ) == $field_name ) {
+								$prefix = $field['key'] . ': ';
+							}
+
 						}
-
+						
 					}
 					
 				}
@@ -93,14 +97,20 @@ class EDD_Fields_Widget extends WP_Widget {
 			
 			// Determine whether or not we're going to build the Shortcode with a Name Attribute
 			if ( empty( $field_name ) ) {
-				$field_name_string = '';
-				$prefix = '';
+				echo _x( 'You must choose a Field from the Drop-down in the EDD Fields Widget Settings', 'No Field Chosen in Widget', EDD_Fields_ID );
 			}
 			else {
-				$field_name_string = ' name="' . $field_name . '"';
+				
+				$field = edd_fields_get( $field_name, $post_id );
+				
+				if ( empty( $field ) ) {
+					echo $prefix . _x( 'No data found', 'No data found for the chosen Field in the Widget', EDD_Fields_ID );
+				}
+				else {
+					echo $prefix . $field;
+				}
+				
 			}
-			
-			echo $prefix . do_shortcode( '[edd_field' . $post_id_string . $field_name_string . ']' );
 			
 		}
 		
