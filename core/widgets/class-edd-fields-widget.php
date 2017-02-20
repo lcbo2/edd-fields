@@ -65,34 +65,28 @@ class EDD_Fields_Widget extends WP_Widget {
 		else {
 			
 			$field_name = $instance['field'];
-			
-			$prefix = $instance['prefix'];
-			
-			if ( empty( $prefix ) ) {
-				
-				$fields = get_post_meta( $post_id, 'edd_fields', true );
-				
-				// If there's no Fields saved, don't bother continuing
-				if ( $fields ) {
-				
-					$template = get_post_meta( $post_id, 'edd_fields_template', true );
-					
-					if ( isset( $fields[ $template ] ) ) {
+			$fields = get_post_meta( $post_id, 'edd_fields', true );
+			$prefix = '';
 
-						$fields = $fields[ $template ];
+			// If there's no Fields saved, don't bother continuing
+			if ( $fields ) {
 
-						foreach ( $fields as $field ) {
+				$template = get_post_meta( $post_id, 'edd_fields_template', true );
 
-							if ( edd_fields_sanitize_key( $field['key'] ) == $field_name ) {
-								$prefix = $field['key'] . ': ';
-							}
+				if ( isset( $fields[ $template ] ) ) {
 
+					$fields = $fields[ $template ];
+
+					foreach ( $fields as $field ) {
+
+						if ( edd_fields_sanitize_key( $field['key'] ) == $field_name ) {
+							$prefix = $field['key'] . ': ';
 						}
-						
+
 					}
-					
+
 				}
-				
+
 			}
 			
 			// Determine whether or not we're going to build the Shortcode with a Name Attribute
@@ -133,7 +127,6 @@ class EDD_Fields_Widget extends WP_Widget {
 		$saved_post_id = ! empty( $instance['post_id'] ) ? $instance['post_id'] : 0;
 		$saved_shortcode = ! empty( $instance['shortcode'] ) ? $instance['shortcode'] : 'table';
 		$saved_field = ! empty( $instance['field'] ) ? $instance['field'] : 0;
-		$saved_prefix = ! empty( $instance['prefix'] ) ? $instance['prefix'] : '';
 		
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 		
@@ -256,13 +249,6 @@ class EDD_Fields_Widget extends WP_Widget {
 			</p>
 			
 			<div class="edd-fields-individual-options<?php echo ( $saved_shortcode !== 'individual' ) ? ' hidden' : ''; ?>">
-				
-				<p>
-					<label for="<?php echo $this->get_field_id( 'prefix' ); ?>">
-						<?php echo _x( 'What should show before the value?', 'Value Prefix Label', EDD_Fields_ID ); ?>
-					</label>
-					<input type="text" class="widefat edd-fields-widget-prefix" name="<?php echo $this->get_field_name( 'prefix' ); ?>" value="<?php echo $saved_prefix; ?>" data-default="<?php echo _x( 'Key', 'Default Value Prefix, no Colon', EDD_Fields_ID ); ?>" placeholder="<?php echo _x( 'Key: ', 'Default Value Prefix', EDD_Fields_ID ); ?>" />
-				</p>
 
 				<p>
 					
@@ -307,7 +293,6 @@ class EDD_Fields_Widget extends WP_Widget {
 		$instance['post_id'] = ( ! empty( $new_instance['post_id'] ) ) ? strip_tags( $new_instance['post_id'] ) : '';
 		$instance['shortcode'] = ( ! empty( $new_instance['shortcode'] ) ) ? strip_tags( $new_instance['shortcode'] ) : '';
 		$instance['field'] = ( ! empty( $new_instance['field'] ) ) ? strip_tags( $new_instance['field'] ) : '';
-		$instance['prefix'] = ( ! empty( $new_instance['prefix'] ) ) ? strip_tags( $new_instance['prefix'] ) : '';
 		
 		return $instance;
 		
