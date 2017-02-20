@@ -217,6 +217,9 @@ function edd_repeater_reindex_primary() {
 					var data = [];
 					$( '[data-edd-rbm-repeater] .edd-rbm-repeater-item' ).each( function( index, row ) {
 						
+						// Skip if we're not saved
+						if ( ! $( row ).data( 'saved' ) ) return true;
+						
 						var uuid = $( row ).find( '[data-repeater-edit]' ).data( 'open' ),
 							$modal = $( '[data-reveal="' + uuid + '"]' );
 

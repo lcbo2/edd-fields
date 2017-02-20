@@ -76,6 +76,11 @@ function closeModal( uuid ) {
 	$( document ).ready( function() {
 
 		initModals();
+		
+		// On Page load, assume all are saved (As they are)
+		$( '.edd-rbm-repeater-item' ).each( function( index, row ) {
+			$( row ).attr( 'data-saved', true );
+		} );
 
 		// This JavaScript only loads on our custom Page, so we're fine doing this
 		var $repeaters = $( '[data-edd-rbm-repeater]' );

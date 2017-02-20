@@ -534,7 +534,7 @@ class EDD_Fields_Admin {
 			
 			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
 			
-			$edd_fields_options[ $index ] = $_POST;
+			$edd_fields_options = EDDFIELDS()->utility->array_insert( $edd_fields_options, $index, array( $_POST ) );
 			
 			$success = edd_update_option( 'edd_fields_template_settings', $edd_fields_options );
 			
@@ -563,6 +563,10 @@ class EDD_Fields_Admin {
 	public static function sort_templates() {
 		
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
+			
+			// Ensure everything is indexed in-order
+			// We could have gaps due to non-saved Templates inbetween our sorted Array.
+			$_POST['templates'] = array_values( $_POST['templates'] );
 			
 			foreach ( $_POST['templates'] as &$template ) {
 				

@@ -229,4 +229,25 @@ class EDD_Fields_Utility {
 		
 	}
 	
+	/**
+	 * Inserts an Array at the specified Index
+	 * 
+	 * @param		array   $array        Original Array
+	 * @param		integer $position     Numeric Index at which to Insert. This does work with Associative Arrays, but you need to provide a numeric index regardless
+	 * @param		array   $insert_array Inserted Array
+	 *              
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		array   Modified Array
+	 */
+	public function array_insert( $array, $position, $insert_array ) {
+		
+		// First half before the cut-off for the splice
+		$first_array = array_splice( $array, 0, $position ); 
+		
+		// Merge this with the inserted array and the last half of the splice
+		return array_merge( $first_array, $insert_array, $array ); 
+		
+	}
+	
 }
