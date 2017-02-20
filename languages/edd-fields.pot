@@ -175,12 +175,17 @@ msgctxt "Required Field not filled out (Ancient/Bad Browsers Only)"
 msgid "This field is required"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:551
+#: core/admin/class-edd-fields-admin.php:503
+msgctxt "Duplicate Template Name Error"
+msgid "Two Field Template Groups cannot share a Name"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:562
 msgctxt "Current User Cannot Insert Templates Error"
 msgid "Access Denied"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:588, core/admin/class-edd-fields-admin.php:622
+#: core/admin/class-edd-fields-admin.php:603, core/admin/class-edd-fields-admin.php:644
 msgctxt "Current User Cannot Delete Templates Error"
 msgid "Access Denied"
 msgstr ""
