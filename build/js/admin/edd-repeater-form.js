@@ -1,7 +1,39 @@
 /**
- * [[Description]]
- * @param   {[[Type]]} modal [[Description]]
- * @returns {boolean}  [[Description]]
+ * Gets the Index of a Row excluding all unsaved Rows
+ * 
+ * @param		{string}  uuid Unique Identifier of a Row/Modal relationship
+ *                        
+ * @since		1.0.0
+ * @returns 	{integer} Index
+ */
+function get_edd_fields_index( uuid ) {
+	
+	var templateIndex = 0;
+	jQuery( '.edd-rbm-repeater-item' ).each( function( index, row ) {
+		
+		if ( jQuery( row ).find( '[data-repeater-edit]' ).data( 'open' ) == uuid ) {
+			return false; // End loop, we found it
+		}
+		
+		if ( ! jQuery( row ).data( 'saved' ) ) {
+			return true; // Next iteration, this doesn't match our modal and it isn't saved
+		}
+		
+		templateIndex++;
+		
+	} );
+	
+	return templateIndex;
+	
+}
+
+/**
+ * Dynamically Grabs all Data in the Form
+ * 
+ * @param 		{object} modal Modal JavaScript Object
+ *                         
+ * @since		1.0.0
+ * @returns 	{object} Key=>Value of each Field in the Form
  */
 function get_edd_fields_form( modal ) {
 	
@@ -11,7 +43,7 @@ function get_edd_fields_form( modal ) {
 		data = {},
 		uuid = jQuery( modal ).data( 'reveal' ),
 		$row = jQuery( '[data-open="' + uuid + '"]' ).closest( '.edd-rbm-repeater-item' ),
-		templateIndex = $row.index();
+		templateIndex = get_edd_fields_index( uuid );
 
 	var nestedRepeaterList = jQuery( '.edd-rbm-nested-repeater .edd-rbm-repeater-list' ).data( 'repeater-list' );
 
@@ -125,9 +157,12 @@ function edd_fields_sanitize_key( key ) {
 
 				if ( $form[0].checkValidity() ) { // Only run our code if we've got a Valid Form
 
-					var data = get_edd_fields_form( modal );
+					var data = get_edd_fields_form( modal ),
+						uuid = $( modal ).data( 'reveal' ),
+						$row = $( '[data-open="' + uuid + '"]' ).closest( '.edd-rbm-repeater-item' );;
 
 					data.action = 'insert_edd_fields_template';
+					data.saved = ( $row.data( 'saved' ) ) ? true : false;
 
 					$.ajax( {
 						'type' : 'POST',
@@ -135,10 +170,10 @@ function edd_fields_sanitize_key( key ) {
 						'data' : data,
 						success : function( response ) {
 
-							var uuid = $( modal ).data( 'reveal' ),
-								$row = $( '[data-open="' + uuid + '"]' ).closest( '.edd-rbm-repeater-item' );
-
 							closeModal( uuid );
+							
+							// Update our Item to show it is saved
+							$row.attr( 'data-saved', true );
 
 							// Highlight Green
 							$row.effect( 'highlight', { color : '#DFF2BF' }, 1000 );

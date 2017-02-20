@@ -523,10 +523,12 @@ class EDD_Fields_Admin {
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
 			
 			$index = $_POST['index'];
+			$existing = $_POST['saved'];
 			
 			// We don't want to save this data
 			unset( $_POST['index'] );
 			unset( $_POST['action'] );
+			unset( $_POST['saved'] );
 			
 			// JavaScript likes to alphabetically arrange Object Members. We're forcing this to the end
 			$fields = $_POST['edd_fields_template_fields' ];
@@ -535,7 +537,15 @@ class EDD_Fields_Admin {
 			
 			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
 			
-			$edd_fields_options = EDDFIELDS()->utility->array_insert( $edd_fields_options, $index, array( $_POST ) );
+			if ( $existing == 'true' ) {
+				$edd_fields_options[ $index ] = $_POST; // Overwrite an older entry
+			}
+			else {
+				// Insert between other entries.
+				// This is done this way to avoid edge-case weirdness
+				// Example: User starts to create a Template then closes the Modal. Then Rearranges Templates, THEN saves their previous Template.
+				$edd_fields_options = EDDFIELDS()->utility->array_insert( $edd_fields_options, $index, array( $_POST ) );
+			}
 			
 			$success = edd_update_option( 'edd_fields_template_settings', $edd_fields_options );
 			
@@ -606,13 +616,20 @@ class EDD_Fields_Admin {
 		
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
 			
-			$index = $_POST['index'];
+			if ( $_POST['saved'] == 'true' ) {
 			
-			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
-			
-			unset( $edd_fields_options[ $index ] );
-			
-			$success = edd_update_option( 'edd_fields_template_settings', array_values( $edd_fields_options ) );
+				$index = $_POST['index'];
+
+				$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
+
+				unset( $edd_fields_options[ $index ] );
+
+				$success = edd_update_option( 'edd_fields_template_settings', array_values( $edd_fields_options ) );
+				
+			}
+			else {
+				$success = true; // Deleting a non-saved Template always succeeds
+			}
 			
 			if ( $success ) {
 				return wp_send_json_success();

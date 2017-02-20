@@ -170,7 +170,7 @@ function edd_repeater_reindex_primary() {
 			var $row = $( this ),
 				uuid = $row.find( '[data-repeater-edit]' ).data( 'open' ),
 				$modal = $( '[data-reveal="' + uuid + '"]' ),
-				templateIndex = $row.index();
+				templateIndex = get_edd_fields_index( uuid ); // In this case we don't care if something is saved or not
 			
 			$.ajax( {
 				'type' : 'POST',
@@ -178,6 +178,7 @@ function edd_repeater_reindex_primary() {
 				'data' : {
 					'action' : 'delete_edd_rbm_fields_template',
 					'index' : templateIndex,
+					'saved' : ( $row.data( 'saved' ) ) ? true : false,
 				},
 				success : function( response ) {
 					
