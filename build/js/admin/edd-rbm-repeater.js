@@ -1,5 +1,5 @@
 // Initialize special fields if they exist
-function init_edd_repeater_colorpickers( modal ) {
+function init_edd_rbm_repeater_colorpickers( modal ) {
 
 	var regex = /value="(#(?:[0-9a-f]{3}){1,2})"/i;
 
@@ -20,7 +20,7 @@ function init_edd_repeater_colorpickers( modal ) {
 
 }
 
-function init_edd_repeater_tooltips( modal ) {
+function init_edd_rbm_repeater_tooltips( modal ) {
 	
 	jQuery( modal ).find( '.edd-help-tip' ).each( function( index, tooltip ) {
 			
@@ -46,6 +46,35 @@ function init_edd_repeater_tooltips( modal ) {
 	
 }
 
+function init_edd_rbm_repeater_required_fields( modal ) {
+	
+	jQuery( modal ).find( '.required' ).each( function( index, field ) {
+			
+		if ( jQuery( field ).closest( 'td' ).hasClass( 'hidden' ) ) {
+			jQuery( field ).attr( 'required', false );
+		}
+		else {
+			jQuery( field ).attr( 'required', true );
+		}
+
+		// Fix Tab Ordering Bug 
+		if ( jQuery( field ).hasClass( 'edd-chosen' ) ) {
+
+			// Ensure the Chosen Container has been built
+			jQuery( field ).chosen();
+
+			// No Tab index for the "hidden" Select field
+			jQuery( field ).attr( 'tabindex', -1 );
+
+			// Why would you be unable to tab into it by default?!?!
+			jQuery( field ).siblings( '.chosen-container' ).find( '.chosen-single' ).attr( 'tabindex', 0 );
+
+		}
+
+	} );
+	
+}
+
 function edd_repeater_reindex_primary() {
 	
 	jQuery( '[data-edd-rbm-repeater] .edd-rbm-repeater-item' ).each( function( index, row ) {
@@ -61,8 +90,9 @@ function edd_repeater_reindex_primary() {
 
 		} );
 
-		init_edd_repeater_colorpickers( $modal );
-		init_edd_repeater_tooltips( $modal );
+		init_edd_rbm_repeater_colorpickers( $modal );
+		init_edd_rbm_repeater_tooltips( $modal );
+		init_edd_rbm_repeater_required_fields( $modal );
 
 	} );
 	
@@ -107,7 +137,8 @@ function edd_repeater_reindex_primary() {
 
 		} );
 		
-		init_edd_repeater_tooltips( this ); // This is necessary to ensure any Rows that are added have Tooltips
+		init_edd_rbm_repeater_tooltips( this ); // This is necessary to ensure any Rows that are added have Tooltips
+		init_edd_rbm_repeater_required_fields( this ); // Ensure that Required Fields get handled
 
 		$( this ).stop().slideDown();
 		
@@ -246,8 +277,9 @@ function edd_repeater_reindex_primary() {
 					
 				}
 				else {
-					init_edd_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
-					init_edd_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+					init_edd_rbm_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+					init_edd_rbm_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+					init_edd_rbm_repeater_required_fields( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
 				}
 				
 			}
