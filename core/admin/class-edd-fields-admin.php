@@ -496,7 +496,6 @@ class EDD_Fields_Admin {
 	public function localize_script( $localization ) {
 		
 		$localization['i18n'] = array(
-			'select2Warning' => _x( 'A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems.', 'Select2 Warning', EDD_Fields_ID ),
 			'activeText' => _x( 'Active Template', 'Active Template Aria Label', EDD_Fields_ID ),
 			'inactiveText' => _x( 'Inactive Template', 'Inactive Template Aria Label', EDD_Fields_ID ),
 			'confirmDeletion' => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
