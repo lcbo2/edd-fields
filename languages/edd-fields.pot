@@ -156,36 +156,31 @@ msgid "Field Template Groups Reset to Defaults."
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:499
-msgctxt "Select2 Warning"
-msgid "A plugin other than EDD Fields appears to have loaded Select2 on this page. This could cause problems."
-msgstr ""
-
-#: core/admin/class-edd-fields-admin.php:500
 msgctxt "Active Template Aria Label"
 msgid "Active Template"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:501
+#: core/admin/class-edd-fields-admin.php:500
 msgctxt "Inactive Template Aria Label"
 msgid "Inactive Template"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:502
+#: core/admin/class-edd-fields-admin.php:501
 msgctxt "Confirm Template Deletion"
 msgid "Are you sure you want to delete this Field Template Group?"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:503
+#: core/admin/class-edd-fields-admin.php:502
 msgctxt "Required Field not filled out (Ancient/Bad Browsers Only)"
 msgid "This field is required"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:552
+#: core/admin/class-edd-fields-admin.php:551
 msgctxt "Current User Cannot Insert Templates Error"
 msgid "Access Denied"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:589, core/admin/class-edd-fields-admin.php:623
+#: core/admin/class-edd-fields-admin.php:588, core/admin/class-edd-fields-admin.php:622
 msgctxt "Current User Cannot Delete Templates Error"
 msgid "Access Denied"
 msgstr ""
@@ -227,7 +222,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:435, core/widgets/class-edd-fields-widget.php:146
+#: core/admin/class-edd-fields-post-edit.php:435, core/widgets/class-edd-fields-widget.php:149
 msgid "Current %s"
 msgstr ""
 
@@ -404,52 +399,47 @@ msgctxt "EDD Fields Widget Description"
 msgid "A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name."
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:142
+#: core/widgets/class-edd-fields-widget.php:94
+msgctxt "No Field Chosen in Widget"
+msgid "You must choose a Field from the Drop-down in the EDD Fields Widget Settings"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:101
+msgctxt "No data found for the chosen Field in the Widget"
+msgid "No data found"
+msgstr ""
+
+#: core/widgets/class-edd-fields-widget.php:145
 msgctxt "Current Item Replacement Text for Widget"
 msgid "Item"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:197
+#: core/widgets/class-edd-fields-widget.php:200
 msgctxt "Show for which Item Label"
 msgid "Show Data for which %s:"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:235
+#: core/widgets/class-edd-fields-widget.php:238
 msgctxt "How to display the Data Label"
 msgid "How to display the Data:"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:239
+#: core/widgets/class-edd-fields-widget.php:242
 msgctxt "Widget Full Table Display"
 msgid "Full Table"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:243
+#: core/widgets/class-edd-fields-widget.php:246
 msgctxt "Widget Single Value Display"
 msgid "Single Value"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:252
-msgctxt "Value Prefix Label"
-msgid "What should show before the value?"
-msgstr ""
-
-#: core/widgets/class-edd-fields-widget.php:254
-msgctxt "Default Value Prefix, no Colon"
-msgid "Key"
-msgstr ""
-
-#: core/widgets/class-edd-fields-widget.php:254
-msgctxt "Default Value Prefix"
-msgid "Key: "
-msgstr ""
-
-#: core/widgets/class-edd-fields-widget.php:260
+#: core/widgets/class-edd-fields-widget.php:256
 msgctxt "Show which Field Label"
 msgid "Show which Field?"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:265, core/widgets/class-edd-fields-widget.php:338
+#: core/widgets/class-edd-fields-widget.php:261, core/widgets/class-edd-fields-widget.php:333
 msgctxt "Field Select Default Option"
 msgid "Select a Field"
 msgstr ""
