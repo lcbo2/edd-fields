@@ -131,7 +131,7 @@ class EDD_Fields_Widget extends WP_Widget {
 		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 		
 		$args = array(
-			'numberposts' => -1,
+			'posts_per_page' => -1,
 			'orderby' => 'name',
 			'order' => 'ASC',
 			'post_status' => 'publish',
