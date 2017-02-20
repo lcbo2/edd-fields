@@ -57,6 +57,20 @@ function get_edd_fields_form( modal ) {
 	
 }
 
+/**
+ * Sanitizes a String similarly to how we do in PHP-Land
+ * 
+ * @param		{string} key String Key
+ *                      
+ * @since		1.0.0
+ * @returns 	{string} Sanitized String Key
+ */
+function edd_fields_sanitize_key( key ) {
+	
+	return key.replace( /[\W|_]/g, '', ).toLowerCase();
+	
+}
+
 ( function( $ ) {
 
 	/**
@@ -85,6 +99,27 @@ function get_edd_fields_form( modal ) {
 			$form.submit( function( event ) {
 
 				event.preventDefault(); // Don't submit the form via PHP
+				
+				var $templateName = $form.find( '.edd-fields-template-name' ),
+					templateName = ( $templateName.val() == '' ) ? $templateName.attr( 'placeholder' ) : $templateName.val(),
+					uuid = $( modal ).data( 'reveal' );
+				
+				$templateName[0].setCustomValidity( '' ); // Reset Validity Message
+				
+				$( '.edd-rbm-repeater-item' ).each( function( index, row ) {
+					
+					// If this is the current Item, ignore
+					if ( $( row ).find( '[data-repeater-edit]' ).data( 'open' ) == uuid ) return true;
+					
+					if ( edd_fields_sanitize_key( $( row ).find( '.title' ).text().trim() ) == edd_fields_sanitize_key( templateName.trim() ) ) {
+						
+						$templateName[0].setCustomValidity( $templateName.data( 'validity-error' ) );
+						
+						return false; // break loop
+						
+					}
+					
+				} );
 
 				$form[0].reportValidity(); // Report Validity via HTML5 stuff
 

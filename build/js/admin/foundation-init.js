@@ -103,6 +103,8 @@ function closeModal( uuid ) {
 		init_edd_rbm_repeater_colorpickers( this );
 		init_edd_rbm_repeater_tooltips( this );
 		init_edd_rbm_repeater_required_fields( this );
+		
+		$( this ).find( '.edd-fields-template-name' ).attr( 'data-validity-error', eddFields.i18n.duplicateNameError );
 
 	} );
 

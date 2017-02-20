@@ -49,6 +49,8 @@ function init_edd_rbm_repeater_tooltips( modal ) {
 function init_edd_rbm_repeater_required_fields( modal ) {
 	
 	jQuery( modal ).find( '.required' ).each( function( index, field ) {
+		
+		jQuery( field ).attr( 'data-validation-error', eddFields.i18n.requiredError );
 			
 		if ( jQuery( field ).closest( 'td' ).hasClass( 'hidden' ) ) {
 			jQuery( field ).attr( 'required', false );

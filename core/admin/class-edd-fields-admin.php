@@ -383,7 +383,7 @@ class EDD_Fields_Admin {
 			'label' => array(
 				'type' => 'text',
 				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
-				'field_class' => '',
+				'field_class' => 'edd-fields-template-name',
 				'placeholder' => __( 'New Field Template Group', EDD_Fields_ID ),
 				'readonly' => false,
 				'std' => '',
@@ -499,7 +499,8 @@ class EDD_Fields_Admin {
 			'activeText' => _x( 'Active Template', 'Active Template Aria Label', EDD_Fields_ID ),
 			'inactiveText' => _x( 'Inactive Template', 'Inactive Template Aria Label', EDD_Fields_ID ),
 			'confirmDeletion' => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
-			'validationError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
+			'requiredError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
+			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', EDD_Fields_ID ),
 		);
 		
 		$localization['url'] = EDD_Fields_URL;
