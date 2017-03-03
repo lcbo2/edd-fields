@@ -328,56 +328,52 @@ class EDD_Fields_Admin {
 
 			<div data-edd-rbm-nested-repeater class="edd-rbm-repeater edd-rbm-nested-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
 
-				<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
+				<table>
 
-					<table>
+					<tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 
-						<tbody>
+					<?php for ( $index = 0; $index < $field_count; $index++ ) : 
 
-						<?php for ( $index = 0; $index < $field_count; $index++ ) : 
+						$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 
-							$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
+							<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
 
-								<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
+								<td>
+									<span class="edd_draghandle" data-repeater-item-handle></span>
+								</td>
 
-									<td>
-										<span class="edd_draghandle" data-repeater-item-handle></span>
-									</td>
+								<?php foreach ( $args['fields'] as $field_id => $field ) : 
 
-									<?php foreach ( $args['fields'] as $field_id => $field ) : 
+									if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
 
-										if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+										// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+										$field['id'] = $field_id;
+										$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
 
-											// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-											$field['id'] = $field_id;
-											$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+										echo '<td>';
 
-											echo '<td>';
+											call_user_func( "edd_{$field['type']}_callback", $field );
 
-												call_user_func( "edd_{$field['type']}_callback", $field );
+										echo '</td>';
 
-											echo '</td>';
+									endif;
 
-										endif;
+								endforeach; ?>
 
-									endforeach; ?>
+								<td>
 
-									<td>
+									<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+									<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
 
-										<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
-										<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
+								</td>
 
-									</td>
+							</tr>
 
-								</tr>
+					<?php endfor; ?>
 
-						<?php endfor; ?>
+					</tbody>
 
-						</tbody>
-
-					</table>
-
-				</div>
+				</table>
 
 				<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
 

@@ -1,3 +1,8 @@
+table {
+	@include repeater-list;
+	width: 100%;
+}
+
 .edd-rbm-repeater-item {
 	
 	background: transparent;
