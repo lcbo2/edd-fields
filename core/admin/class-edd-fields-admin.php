@@ -39,6 +39,7 @@ class EDD_Fields_Admin {
 		
 		// Creates the Fields Repeater in the Modal
 		add_action( 'edd_edd_fields_template_fields', array( $this, 'edd_fields_inner_repeater' ) );
+		add_action( 'edd_fields_type', array( $this, 'edd_fields_inner_repeater' ) );
 		
 		// Localize the Admin Script with some PHP values
 		add_filter( 'edd_fields_localize_admin_script', array( $this, 'localize_script' ) );
@@ -321,49 +322,67 @@ class EDD_Fields_Admin {
 		
 		?>
 
-		<td data-edd-rbm-nested-repeater class="edd-rbm-repeater edd-rbm-nested-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
-				
+		<td>
+
 			<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
-			
-			<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
-				
-				<?php for ( $index = 0; $index < $field_count; $index++ ) : 
-		
-					$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
-				
-						<div data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
-							
-							<span class="edd_draghandle" data-repeater-item-handle></span>
-							
-							<div class="edd-rbm-nested-repeater-fields">
 
-								<?php foreach ( $args['fields'] as $field_id => $field ) : 
+			<div data-edd-rbm-nested-repeater class="edd-rbm-repeater edd-rbm-nested-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
 
-									if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+				<div data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 
-										// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-										$field['id'] = $field_id;
-										$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+					<table>
 
-										call_user_func( "edd_{$field['type']}_callback", $field );
+						<tbody>
 
-									endif;
+						<?php for ( $index = 0; $index < $field_count; $index++ ) : 
 
-								endforeach; ?>
-								
-							</div>
-							
-							<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
-							<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
+							$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 
-						</div>
-				
-				<?php endfor; ?>
+								<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
+
+									<td>
+										<span class="edd_draghandle" data-repeater-item-handle></span>
+									</td>
+
+									<?php foreach ( $args['fields'] as $field_id => $field ) : 
+
+										if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+
+											// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+											$field['id'] = $field_id;
+											$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+
+											echo '<td>';
+
+												call_user_func( "edd_{$field['type']}_callback", $field );
+
+											echo '</td>';
+
+										endif;
+
+									endforeach; ?>
+
+									<td>
+
+										<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+										<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
+
+									</td>
+
+								</tr>
+
+						<?php endfor; ?>
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+				<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
 
 			</div>
 			
-			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
-
 		</td>
 
 	<?php
@@ -405,6 +424,16 @@ class EDD_Fields_Admin {
 						'std' => '',
 						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Fields_ID ),
 						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+					),
+					'type' => array(
+						'type' => 'select',
+						'options' => array(
+							'test',
+							'yo',
+						),
+						'std' => 0,
+						'field_class' => 'edd-fields-type',
+						'desc' => '',
 					),
 				),
 			),
