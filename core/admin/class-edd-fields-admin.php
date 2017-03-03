@@ -34,12 +34,14 @@ class EDD_Fields_Admin {
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
 		
-		// Creates the primary Repeater
+		// Creates the primary Template Repeater
 		add_action( 'edd_edd_fields_template_settings', array( $this, 'edd_fields_templates_field' ) );
 		
-		// Creates the Fields Repeater in the Modal
+		// Creates the Fields Repeater in the Template Edit Modal
 		add_action( 'edd_edd_fields_template_fields', array( $this, 'edd_fields_inner_repeater' ) );
-		add_action( 'edd_fields_type', array( $this, 'edd_fields_inner_repeater' ) );
+		
+		// Creates another Modal with Field Options Repeater
+		add_action( 'edd_edd_fields_options', array( $this, 'edd_fields_options_modal' ) );
 		
 		// Localize the Admin Script with some PHP values
 		add_filter( 'edd_fields_localize_admin_script', array( $this, 'localize_script' ) );
@@ -385,6 +387,101 @@ class EDD_Fields_Admin {
 		
 	}
 	
+	public function edd_fields_options_modal( $args ) {
+		
+		global $edd_options;
+		
+		$args = wp_parse_args( $args, array(
+			'id' => '',
+			'std' => '',
+			'classes' => array(),
+			'fields' => array(),
+			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
+			'edit_item_text' => __( 'Edit Row', EDD_Fields_ID ),
+			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
+			'input_name' => false,
+		) );
+		
+		// We need to grab values this way to ensure Nested Repeaters work
+		if ( isset( $edd_options[ $args['id'] ] ) ) {
+			$edd_option = $edd_options[ $args['id'] ];
+		}
+		else {
+			$edd_option = $args['std'];
+		}
+		
+		// Ensure Dummy Field is created
+		$field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
+		
+		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
+		
+		?>
+
+		<input data-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
+
+		<div class="edd-rbm-repeater-content reveal" data-reveal data-v-offset="64">
+								
+			<div class="edd-rbm-repeater-form">
+
+				<table class="widefat" width="100%" cellpadding="0" cellspacing="0">
+
+					<tbody>
+
+						<?php foreach ( $args['fields'] as $field_id => $field ) : ?>
+
+							<tr>
+
+								<?php if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+
+									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+									$field['id'] = $field_id;
+									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+
+									if ( $field['type'] == 'checkbox' ) : 
+
+										if ( isset( $field['std'] ) && (int) $field['std'] !== 0 ) {
+											$field['field_class'][] = 'default-checked';
+										}
+
+									endif;
+
+									if ( $field['type'] !== 'hook' ) : ?>
+
+										<td>
+
+											<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+
+										</td>
+
+									<?php else : 
+
+										// Don't wrap calls for a Hook
+										call_user_func( "edd_{$field['type']}_callback", $field ); 
+
+									endif;
+
+								endif; ?>
+
+							</tr>
+
+						<?php endforeach; ?>
+
+					</tbody>
+
+				</table>
+
+			</div>
+
+			<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
+				<span aria-hidden="true">&times;</span>
+			</a>
+
+		</div>
+
+		<?php
+		
+	}
+	
 	/**
 	 * Returns the Fields used to Generate Field Templates
 	 * 
@@ -424,12 +521,31 @@ class EDD_Fields_Admin {
 					'type' => array(
 						'type' => 'select',
 						'options' => array(
-							'test',
-							'yo',
+							'text' => _x( 'Plain Text', 'Plain Text Field Type Label', EDD_Fields_ID ),
+							'select' =>  _x( 'Select', 'Select Field Type Label', EDD_Fields_ID ),
 						),
-						'std' => 0,
+						'std' => 'text',
 						'field_class' => 'edd-fields-type',
 						'desc' => '',
+					),
+					'edd_fields_options' => array(
+						'type' => 'hook',
+						'edit_item_text' => __( 'Edit Options', EDD_Fields_ID ),
+						'add_item_text' => __( 'Add Option', EDD_Fields_ID ),
+						'delete_item_text' => __( 'Remove Option', EDD_Fields_ID ),
+						'std' => '',
+						'fields' => array(
+							'value' => array(
+								'type' => 'text',
+								'desc' => _x( 'Value', 'Value Label', EDD_Fields_ID ),
+								'placeholder' => '',
+								'field_class' => '',
+								'readonly' => false,
+								'std' => '',
+								'tooltip_title' => _x( 'Value', 'Value Tooltip Title', EDD_Fields_ID ),
+								'tooltip_desc'  => sprintf( _x( 'Adds Values for the Dropdown on the %s Edit Screen.', 'Field Option Value Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
+							),
+						),
 					),
 				),
 			),
@@ -526,6 +642,10 @@ class EDD_Fields_Admin {
 			'confirmDeletion' => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
 			'requiredError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
 			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', EDD_Fields_ID ),
+		);
+		
+		$localization['show_fields_options'] = array(
+			'select',
 		);
 		
 		$localization['url'] = EDD_Fields_URL;
