@@ -149,6 +149,16 @@ function edd_repeater_reindex_primary() {
 		$( repeater ).trigger( 'edd-rbm-repeater-add', [$( this )] );
 
 	}
+	
+	var edd_fields_field_option_show = function() {
+		
+		$( this ).stop().slideDown();
+		
+		var repeater = $( this ).closest( '[data-edd-rbm-repeater]' );
+		
+		$( repeater ).trigger( 'edd-fields-option-add', [$( this )] );
+		
+	}
 
 	var edd_repeater_hide = function() {
 		
@@ -207,6 +217,14 @@ function edd_repeater_reindex_primary() {
 		}
 
 	}
+	
+	var edd_fields_field_option_hide = function() {
+		
+		$( this ).slideUp( 300, function () {
+			$( this ).remove();
+		} );
+		
+	}
 
 	$repeaters.each( function () {
 
@@ -222,7 +240,15 @@ function edd_repeater_reindex_primary() {
 				hide: edd_repeater_hide,
 				ready: function ( setIndexes ) {
 					$repeater.find( '.edd-rbm-repeater-list' ).on( 'sortupdate', setIndexes );
-				}
+				},
+				repeaters: [ {
+					selector: '.edd-fields-field-option-repeater',
+					show: edd_fields_field_option_show,
+					hide: edd_fields_field_option_hide,
+					ready: function( setIndexes ) {
+						$repeater.find( '.edd-rbm-repeater-list' ).on( 'sortupdate', setIndexes );
+					}
+				} ]
 			} ],
 			show: edd_repeater_show,
 			hide: edd_repeater_hide,

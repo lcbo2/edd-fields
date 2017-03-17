@@ -417,59 +417,59 @@ class EDD_Fields_Admin {
 		
 		?>
 
-		<input data-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
+		<input data-options-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
 
-		<div class="edd-rbm-repeater-content reveal" data-reveal data-v-offset="64">
-								
-			<div class="edd-rbm-repeater-form">
+		<div class="edd-fields-field-options reveal" data-reveal data-v-offset="64">
+			
+			<div data-edd-fields-field-options-repeater class="edd-rbm-repeater edd-fields-field-option-repeater edd_meta_table_wrap">
 
 				<table class="widefat" width="100%" cellpadding="0" cellspacing="0">
 
-					<tbody>
+					<tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 
-						<?php foreach ( $args['fields'] as $field_id => $field ) : ?>
+						<?php for ( $index = 0; $index < $field_count; $index++ ) : 
 
-							<tr>
+							$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 
-								<?php if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+								<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
 
-									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-									$field['id'] = $field_id;
-									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+									<td>
+										<span class="edd_draghandle" data-repeater-item-handle></span>
+									</td>
 
-									if ( $field['type'] == 'checkbox' ) : 
+									<?php foreach ( $args['fields'] as $field_id => $field ) : 
 
-										if ( isset( $field['std'] ) && (int) $field['std'] !== 0 ) {
-											$field['field_class'][] = 'default-checked';
-										}
+										if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
 
-									endif;
+											// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+											$field['id'] = $field_id;
+											$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
 
-									if ( $field['type'] !== 'hook' ) : ?>
+											echo '<td>';
 
-										<td>
+												call_user_func( "edd_{$field['type']}_callback", $field );
 
-											<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+											echo '</td>';
 
-										</td>
+										endif;
 
-									<?php else : 
+									endforeach; ?>
 
-										// Don't wrap calls for a Hook
-										call_user_func( "edd_{$field['type']}_callback", $field ); 
+									<td>
 
-									endif;
+										<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+										<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
 
-								endif; ?>
+									</td>
 
-							</tr>
+								</tr>
 
-						<?php endforeach; ?>
+						<?php endfor; ?>
 
 					</tbody>
 
 				</table>
-
+				
 			</div>
 
 			<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
