@@ -152,9 +152,12 @@ function edd_repeater_reindex_primary() {
 	
 	var edd_fields_field_option_show = function() {
 		
+		init_edd_rbm_repeater_tooltips( this ); // This is necessary to ensure any Rows that are added have Tooltips
+		init_edd_rbm_repeater_required_fields( this ); // Ensure that Required Fields get handled
+		
 		$( this ).stop().slideDown();
 		
-		var repeater = $( this ).closest( '[data-edd-rbm-repeater]' );
+		var repeater = $( this ).closest( '[data-edd-fields-field-options-repeater]' );
 		
 		$( repeater ).trigger( 'edd-fields-option-add', [$( this )] );
 		

@@ -310,7 +310,7 @@ class EDD_Fields_Admin {
 		) );
 		
 		// We need to grab values this way to ensure Nested Repeaters work
-		if ( isset( $edd_options[ $args['id'] ] ) || $args['std'] == '' ) {
+		if ( isset( $edd_options[ $args['id'] ] ) ) {
 			$edd_option = $edd_options[ $args['id'] ];
 		}
 		else {
@@ -398,6 +398,7 @@ class EDD_Fields_Admin {
 			'fields' => array(),
 			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
 			'edit_item_text' => __( 'Edit Row', EDD_Fields_ID ),
+			'save_item_text' => __( 'Save Row', EDD_Fields_ID ),
 			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
 			'input_name' => false,
 		) );
@@ -421,9 +422,9 @@ class EDD_Fields_Admin {
 
 		<div class="edd-fields-field-options reveal" data-reveal data-v-offset="64">
 			
-			<div data-edd-fields-field-options-repeater class="edd-rbm-repeater edd-fields-field-option-repeater edd_meta_table_wrap">
+			<div data-edd-fields-field-options-repeater class="edd-rbm-repeater edd-fields-field-option-repeater edd_meta_table_wrap" style="margin: 8px 10px;">
 
-				<table class="widefat" width="100%" cellpadding="0" cellspacing="0">
+				<table>
 
 					<tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 
@@ -470,7 +471,11 @@ class EDD_Fields_Admin {
 
 				</table>
 				
+				<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
+				
 			</div>
+			
+			<input type="submit" class="button button-primary alignright" value="<?php echo $args['save_item_text']; ?>" />
 
 			<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
 				<span aria-hidden="true">&times;</span>
@@ -507,6 +512,7 @@ class EDD_Fields_Admin {
 				'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
 				'add_item_text' => __( 'Add Field', EDD_Fields_ID ),
 				'delete_item_text' => __( 'Remove Field', EDD_Fields_ID ),
+				'std' => '',
 				'fields' => array(
 					'label' => array(
 						'type' => 'text',

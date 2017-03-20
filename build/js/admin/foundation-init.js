@@ -111,7 +111,7 @@ function closeModal( uuid ) {
 
 	} );
 
-	$( document ).on( 'click touched', '[data-repeater-edit]', function() {
+	$( document ).on( 'click touched', '[data-repeater-edit], [data-options-repeater-edit]', function() {
 
 		openModal( $( this ).data( 'open' ) );
 
