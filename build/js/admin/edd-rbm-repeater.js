@@ -46,6 +46,21 @@ function init_edd_rbm_repeater_tooltips( modal ) {
 	
 }
 
+function init_edd_rbm_repeater_options_button( modal ) {
+	
+	jQuery( modal ).find( '.edd-fields-type' ).each( function( index, type ) {
+		
+		if ( eddFields.showFieldsOptions.indexOf( jQuery( type ).val() ) > -1 ) {
+			jQuery( type ).closest( '[data-repeater-item]' ).find( '[data-options-repeater-edit]' ).attr( 'disabled', false );
+		}
+		else {
+			jQuery( type ).closest( '[data-repeater-item]' ).find( '[data-options-repeater-edit]' ).attr( 'disabled', true );
+		}
+		
+	} );
+	
+}
+
 function init_edd_rbm_repeater_required_fields( modal ) {
 	
 	jQuery( modal ).find( '.required' ).each( function( index, field ) {
@@ -95,6 +110,7 @@ function edd_repeater_reindex_primary() {
 		init_edd_rbm_repeater_colorpickers( $modal );
 		init_edd_rbm_repeater_tooltips( $modal );
 		init_edd_rbm_repeater_required_fields( $modal );
+		init_edd_rbm_repeater_options_button( $modal );
 
 	} );
 	
@@ -141,6 +157,7 @@ function edd_repeater_reindex_primary() {
 		
 		init_edd_rbm_repeater_tooltips( this ); // This is necessary to ensure any Rows that are added have Tooltips
 		init_edd_rbm_repeater_required_fields( this ); // Ensure that Required Fields get handled
+		init_edd_rbm_repeater_options_button( this );
 
 		$( this ).stop().slideDown();
 		
@@ -305,13 +322,12 @@ function edd_repeater_reindex_primary() {
 						}
 					} );
 					
-					// TODO: Save order changes to DB
-					
 				}
 				else {
 					init_edd_rbm_repeater_colorpickers( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
 					init_edd_rbm_repeater_tooltips( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
 					init_edd_rbm_repeater_required_fields( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+					init_edd_rbm_repeater_options_button( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
 				}
 				
 			}
@@ -332,6 +348,14 @@ function edd_repeater_reindex_primary() {
 				$row.closest( '.edd-rbm-repeater-item' ).find( '.repeater-header div.title' ).html( defaultValue );
 			}
 			
+		} );
+		
+		$( document ).ready( function() {
+
+			$( document ).on( 'change', '.edd-fields-type', function( event ) {
+				init_edd_rbm_repeater_options_button( $( event.currentTarget ).closest( '.edd-rbm-repeater-content' ) );
+			} );
+
 		} );
 
 	} );

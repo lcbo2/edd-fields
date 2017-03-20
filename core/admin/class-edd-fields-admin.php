@@ -475,7 +475,7 @@ class EDD_Fields_Admin {
 				
 			</div>
 			
-			<input type="submit" class="button button-primary alignright" value="<?php echo $args['save_item_text']; ?>" />
+			<input type="button" data-close class="button button-primary alignright" value="<?php echo $args['save_item_text']; ?>" />
 
 			<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
 				<span aria-hidden="true">&times;</span>
@@ -541,6 +541,7 @@ class EDD_Fields_Admin {
 						'type' => 'hook',
 						'edit_item_text' => __( 'Edit Options', EDD_Fields_ID ),
 						'add_item_text' => __( 'Add Option', EDD_Fields_ID ),
+						'save_item_text' => __( 'Save Options', EDD_Fields_ID ),
 						'delete_item_text' => __( 'Remove Option', EDD_Fields_ID ),
 						'std' => '',
 						'fields' => array(
@@ -653,7 +654,7 @@ class EDD_Fields_Admin {
 			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', EDD_Fields_ID ),
 		);
 		
-		$localization['show_fields_options'] = array(
+		$localization['showFieldsOptions'] = array(
 			'select',
 		);
 		
