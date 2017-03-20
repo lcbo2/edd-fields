@@ -44,7 +44,8 @@ function get_edd_fields_form( modal ) {
 		$row = jQuery( '[data-open="' + uuid + '"]' ).closest( '.edd-rbm-repeater-item' ),
 		templateIndex = get_edd_fields_index( uuid );
 
-	var nestedRepeaterList = jQuery( '.edd-rbm-nested-repeater > table > .edd-rbm-repeater-list' ).data( 'repeater-list' );
+	var nestedRepeaterList = jQuery( '.edd-rbm-nested-repeater > table > .edd-rbm-repeater-list' ).data( 'repeater-list' ),
+		optionRepeaterList = jQuery( '.edd-fields-field-option-repeater > table > .edd-rbm-repeater-list' ).data( 'repeater-list' );
 
 	// Holds all data for the Nested Repeater
 	data[nestedRepeaterList] = [];
@@ -62,11 +63,27 @@ function get_edd_fields_form( modal ) {
 			value = {},
 				isRepeater = true;
 			
+			value[optionRepeaterList] = [];
+			
+			var optionsUuid = jQuery( field ).find( '[data-options-repeater-edit]' ).data( 'open' ),
+				$optionsModal = jQuery( '[data-reveal="' + optionsUuid + '"]' );
+			
 			jQuery( field ).find( '[name]' ).each( function( fieldIndex, repeaterField ) {
 				
 				name = jQuery( repeaterField ).attr( 'name' ),
 					name = name.replace( /.*]\[(.*)]$/, '$1' ),
 					value[ name ] = jQuery( repeaterField ).val();
+				
+			} );
+			
+			$optionsModal.find( '[name]' ).each( function( optionIndex, option ) {
+				
+				name = jQuery( option ).attr( 'name' ),
+					name = name.replace( /.*]\[(.*)]$/, '$1' );
+				
+				value[optionRepeaterList].push( {
+					[name]: jQuery( option ).val(),
+				} );
 				
 			} );
 			
@@ -97,48 +114,6 @@ function get_edd_fields_form( modal ) {
 		}
 
 	} );
-	
-	/**
-	
-	jQuery( modal ).find( '[data-options-repeater-edit]' ).each( function( index, options ) {
-		
-		var uuid = jQuery( options ).data( 'open' ),
-			$optionsModal = jQuery( '[data-reveal="' + uuid + '"]' );
-		
-		$optionsModal.find( '[name]' ).each( function( optionIndex, field ) {
-			
-			var name = jQuery( field ).attr( 'name' ),
-				match = regex.exec( name ),
-				value = jQuery( field ).val();
-			
-			if ( jQuery( field ).is( 'input[type="checkbox"]' ) ) {
-
-				value = ( jQuery( field ).prop( 'checked' ) ) ? 1 : 0;
-
-			}
-
-			if ( name.indexOf( nestedRepeaterList ) == -1 ) {
-				// Checkboxes don't play nice with my regex and I'm not rewriting it
-				data[ match[1].replace( '][', '' ) ] = value;
-			}
-			else {
-
-				// This is the name of the individual field
-				var nestedFieldKey = name.replace( /.*\[/, '' ).replace( ']', '' );
-
-				data.edd_fields_template_fields.push( {
-					[nestedFieldKey]: value,
-				} );
-			}
-
-			// Reset Interal Pointer for Regex
-			regex.lastIndex = 0;
-			
-		} );
-		
-	} );
-	
-	*/
 
 	data.index = templateIndex;
 	
@@ -220,9 +195,6 @@ function edd_fields_sanitize_key( key ) {
 
 					data.action = 'insert_edd_fields_template';
 					data.saved = ( $row.data( 'saved' ) ) ? true : false;
-					
-					console.log( data );
-					return false;
 
 					$.ajax( {
 						'type' : 'POST',
