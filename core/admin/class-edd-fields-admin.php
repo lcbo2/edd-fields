@@ -338,7 +338,7 @@ class EDD_Fields_Admin {
 
 						$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
 
-							<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
+							<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item edd-fields-field">
 
 								<td>
 									<span class="edd_draghandle" data-repeater-item-handle></span>
@@ -500,7 +500,10 @@ class EDD_Fields_Admin {
 			'label' => array(
 				'type' => 'text',
 				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
-				'field_class' => 'edd-fields-template-name',
+				'field_class' => array(
+					'edd-fields-template-name',
+					'edd-fields-field',
+				),
 				'placeholder' => __( 'New Field Template Group', EDD_Fields_ID ),
 				'readonly' => false,
 				'std' => '',
