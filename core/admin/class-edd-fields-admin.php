@@ -495,6 +495,9 @@ class EDD_Fields_Admin {
 	 * @return		array Fields
 	 */
 	public function get_template_fields() {
+		
+		// Determine whether to generalize things or not
+		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
 
 		$fields = apply_filters( 'edd_fields_template_fields', array(
 			'label' => array(
@@ -532,6 +535,7 @@ class EDD_Fields_Admin {
 						'options' => array(
 							'text' => _x( 'Plain Text', 'Plain Text Field Type Label', EDD_Fields_ID ),
 							'select' =>  _x( 'Select', 'Select Field Type Label', EDD_Fields_ID ),
+							'posts' => sprintf( _x( '%s List', 'Downloads Field Type Label', EDD_Fields_ID ), ( count( $post_types ) == 1 && $post_types[0] == 'download' ) ? edd_get_label_plural() : __( 'Posts', EDD_Fields_ID ) ),
 						),
 						'std' => 'text',
 						'field_class' => 'edd-fields-type',
