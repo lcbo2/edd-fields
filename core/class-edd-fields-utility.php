@@ -89,6 +89,7 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', EDD_Fields_ID ),
+					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
 							'value' => '4.4',

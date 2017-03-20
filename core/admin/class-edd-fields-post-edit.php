@@ -206,10 +206,41 @@ class EDD_Fields_Post_Edit {
 							</th>
 
 							<td class="edd-fields-value">
-								<?php echo EDD()->html->text( array(
-									'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
-									'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
-								) ); ?>
+								
+								<?php 
+		
+									if ( isset( $field['type'] ) &&
+										 $field['type'] == 'select' ) {
+										
+										// We need to make our saved format less crazy
+										$options = array();
+										foreach( $field['edd_fields_options'] as $option ) {
+											
+											$options[ esc_attr( $option['value'] ) ] = $option['value'];
+											
+										}
+							
+										echo EDD()->html->select( array(
+											'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
+											'selected' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
+											'options' => $options,
+											'show_option_all' => false,
+											'show_option_none' => false,
+											'class' => 'regular-text',
+										) );
+										
+									}
+									else {
+								
+										echo EDD()->html->text( array(
+											'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
+											'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
+										) );
+										
+									}
+		
+								?>
+								
 							</td>
 
 						</tr>
