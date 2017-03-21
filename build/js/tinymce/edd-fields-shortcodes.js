@@ -1,4 +1,4 @@
-jQuery( function( $ ) {
+( function( $ ) {
 	
 	function edd_fields_get_posts() {
 	
@@ -25,7 +25,7 @@ jQuery( function( $ ) {
 				success: function( response ) {
 					temp = $.parseJSON( response );
 				},
-				error: function ( error ) {
+				error: function( error ) {
 					temp = [ { 'text': 'Error. See Browser Console.', 'value': '' } ];
 					console.error( error );
 				}
@@ -120,6 +120,28 @@ jQuery( function( $ ) {
 		}
 		
 	}
+	
+	function edd_fields_tinymce_chosen() {
+		
+		$( '.edd-fields-posts' ).each( function( index, select ) {
+
+			var style = $( select ).attr( 'style' );
+
+			$( select ).on( 'chosen:ready', function( event, chosen ) {
+
+				$( select ).hide();
+				$( select ).next( '.chosen-container' ).attr( 'style', style );
+
+			} )
+			.chosen( {
+				inherit_select_classes: true,
+				placeholder_text_single: edd_vars.one_option,
+				placeholder_text_multiple: edd_vars.one_or_more_option,
+			} );
+
+		} );
+		
+	}
 
 	$( document ).ready( function() {
 
@@ -139,6 +161,7 @@ jQuery( function( $ ) {
 										type: 'select',
 										name: 'id',
 										label: "Using This Post's Data:",
+										classes: 'edd-fields-posts edd-select edd-select-chosen',
 										values: edd_fields_get_posts(),
 									},
 									{
@@ -147,6 +170,15 @@ jQuery( function( $ ) {
 										label: 'Wrapper Class (Optional)'
 									},
 								],
+								onPostRender: function( e ) {
+									
+									setTimeout( function () {
+								
+										edd_fields_tinymce_chosen();
+										
+									}, 100 );
+									
+								},
 								onsubmit: function( e ) {
 									editor.insertContent( '[edd_fields_table' + 
 															( e.data.id !== undefined && e.data.id !== '' ? ' post_id="' + e.data.id + '"' : '' ) + 
@@ -169,7 +201,7 @@ jQuery( function( $ ) {
 										type: 'select',
 										name: 'id',
 										label: "Using This Post's Data:",
-										classes: 'edd-fields-get-names',
+										classes: 'edd-select edd-select-chosen edd-fields-posts edd-fields-get-names',
 										values: edd_fields_get_posts(),
 									},
 									{
@@ -181,6 +213,12 @@ jQuery( function( $ ) {
 									},
 								],
 								onPostRender: function( e ) {
+									
+									setTimeout( function () {
+									
+										edd_fields_tinymce_chosen();
+										
+									}, 100 );
 
 									$( '.edd-fields-get-names' ).on( 'change', function( event ) {
 
@@ -210,4 +248,4 @@ jQuery( function( $ ) {
 
 	} ); // Document Ready
 
-} );
+} )( jQuery );
