@@ -27,8 +27,6 @@ class EDD_Fields_Widget extends WP_Widget {
                 'description' => _x( 'A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name.', 'EDD Fields Widget Description', EDD_Fields_ID ),
             ) // Args
         );
-		
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customizer_styles' ) );
 
 	}
 	
@@ -45,6 +43,11 @@ class EDD_Fields_Widget extends WP_Widget {
 	 * @return		HTML
 	 */
 	public function widget( $args, $instance ) {
+		
+		$instance = wp_parse_args( $instance, array(
+			'post_id' => 0,
+			'shortcode' => 'table',
+		) );
 		
 		$post_id = $instance['post_id'];
 			
@@ -270,8 +273,30 @@ class EDD_Fields_Widget extends WP_Widget {
 		
 		<?php 
 		
+		$js_dir  = EDD_PLUGIN_URL . 'assets/js/';
+		$css_dir  = EDD_PLUGIN_URL . 'assets/css/';
+		$suffix  = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		
+		// Ensure EDD's inclusion of Chosen is available
+		wp_enqueue_script(
+			'jquery-chosen',
+			$js_dir . 'chosen.jquery' . $suffix . '.js',
+			array( 'jquery' ),
+			EDD_VERSION
+		);
+		
+		// Ensure EDD's inclusion of Chosen is available
+		wp_enqueue_style(
+			'jquery-chosen',
+			$css_dir . 'chosen' . $suffix . '.css',
+			array(),
+			EDD_VERSION
+		);
+		
 		// Enqueues our script automagically on both the Widgets page and the Customizer
 		wp_enqueue_script( EDD_Fields_ID . '-admin' );
+		
+		wp_enqueue_style( EDD_Fields_ID . '-admin' );
 		
 	}
 	
@@ -333,19 +358,6 @@ class EDD_Fields_Widget extends WP_Widget {
 		$fields = array( 0 => _x( 'Select a Field', 'Field Select Default Option', EDD_Fields_ID ) ) + $fields;
 		
 		return wp_send_json_success( $fields );
-		
-	}
-	
-	/**
-	 * WP Core has a weird bug with rendering Radio buttons in Customizer Widgets in Chrome only
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		void
-	 */
-	public function customizer_styles() {
-		
-		wp_enqueue_style( EDD_Fields_ID . '-admin' );
 		
 	}
 	

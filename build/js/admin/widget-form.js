@@ -109,6 +109,10 @@
 
 				var $form = $( this ).siblings( '.widget-inside' ).find( '.edd-fields-widget-form' ),
 					postID = $form.find( '.edd-fields-widget-post-id' ).val();
+				
+				$form.find( '.edd-fields-widget-post-id' ).chosen( {
+					inherit_select_classes: true,
+				} );
 
 				getFieldsForDownload( postID, $form );
 
