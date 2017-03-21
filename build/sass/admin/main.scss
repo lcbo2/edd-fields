@@ -5,13 +5,15 @@
 
 @import "../media-queries.scss";
 
+@import "../mixins.scss";
+
 .edd-rbm-repeater {
 
 	@import "repeater/repeater.scss";
 	
 }
 
-.edd-rbm-nested-repeater {
+.edd-rbm-nested-repeater, .edd-fields-field-option-repeater {
 	
 	@import "repeater/nested-repeater.scss";
 	

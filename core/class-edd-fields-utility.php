@@ -44,9 +44,36 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Required WordPress Version', 'WordPress Plugin Template: Required WordPress Version', EDD_Fields_ID ),
+					'type' => 'select',
+					'edd_fields_options' => array(
+						array(
+							'value' => '4.4',
+						),
+						array(
+							'value' => '4.5',
+						),
+						array(
+							'value' => '4.6',
+						),
+						array(
+							'value' => '4.7',
+						),
+					),
 				),
 				array(
 					'label' => _x( 'Required PHP Version', 'WordPress Plugin Template: Required PHP Version', EDD_Fields_ID ),
+					'type' => 'select',
+					'edd_fields_options' => array(
+						array(
+							'value' => '5.6',
+						),
+						array(
+							'value' => '7.0',
+						),
+						array(
+							'value' => '7.1',
+						),
+					),
 				),
 				array(
 					'label' => _x( 'Contributors', 'WordPress Plugin Template: Contributors', EDD_Fields_ID ),
@@ -62,9 +89,36 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', EDD_Fields_ID ),
+					'type' => 'select',
+					'edd_fields_options' => array(
+						array(
+							'value' => '4.4',
+						),
+						array(
+							'value' => '4.5',
+						),
+						array(
+							'value' => '4.6',
+						),
+						array(
+							'value' => '4.7',
+						),
+					),
 				),
 				array(
 					'label' => _x( 'Required PHP Version', 'WordPress Theme Template: Required PHP Version', EDD_Fields_ID ),
+					'type' => 'select',
+					'edd_fields_options' => array(
+						array(
+							'value' => '5.6',
+						),
+						array(
+							'value' => '7.0',
+						),
+						array(
+							'value' => '7.1',
+						),
+					),
 				),
 				array(
 					'label' => _x( 'Contributors', 'WordPress Theme Template: Contributors', EDD_Fields_ID ),
@@ -74,6 +128,15 @@ class EDD_Fields_Utility {
 				),
 				array(
 					'label' => _x( 'Responsive', 'WordPress Theme Template: Responsive', EDD_Fields_ID ),
+					'type' => 'select',
+					'edd_fields_options' => array(
+						array(
+							'value' => __( 'Yes', EDD_Fields_ID ),
+						),
+						array(
+							'value' => __( 'No', EDD_Fields_ID ),
+						),
+					),
 				),
 			),
 		) );
@@ -95,6 +158,15 @@ class EDD_Fields_Utility {
 				),
 				array(
 					'label' => _x( 'Explicit', 'Music Template: Explicit', EDD_Fields_ID ),
+					'type' => 'select',
+					'edd_fields_options' => array(
+						array(
+							'value' => __( 'Yes', EDD_Fields_ID ),
+						),
+						array(
+							'value' => __( 'No', EDD_Fields_ID ),
+						),
+					),
 				),
 			),
 		) );

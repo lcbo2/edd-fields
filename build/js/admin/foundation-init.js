@@ -6,6 +6,7 @@
  */
 function initModals() {
 
+	// Primary Modal Repeater
 	jQuery( '.edd-rbm-repeater .edd-rbm-repeater-item' ).each( function( index, item ) {
 
 		var $modal = jQuery( item ).find( '.edd-rbm-repeater-content.reveal' );
@@ -18,6 +19,24 @@ function initModals() {
 		$modal.attr( 'data-reveal', uuid );
 
 		var $editButton = jQuery( item ).find( 'input[data-repeater-edit]' ).attr( 'data-open', uuid );
+
+		$modal = new Foundation.Reveal( $modal );
+
+	} );
+	
+	// Modal Repeater for Field Options
+	jQuery( '.edd-rbm-nested-repeater .edd-rbm-repeater-item' ).each( function( index, item ) {
+
+		var $modal = jQuery( item ).find( '.edd-fields-field-options.reveal' );
+
+		if ( $modal.attr( 'data-reveal' ) !== '' ) return true;
+
+		// Copy of how Foundation creates UUIDs
+		var uuid = Math.round( Math.pow( 36, 7 ) - Math.random() * Math.pow( 36, 6 ) ).toString( 36 ).slice( 1 ) + '-reveal';
+
+		$modal.attr( 'data-reveal', uuid );
+
+		var $editButton = jQuery( item ).find( 'input[data-options-repeater-edit]' ).attr( 'data-open', uuid );
 
 		$modal = new Foundation.Reveal( $modal );
 
@@ -78,7 +97,7 @@ function closeModal( uuid ) {
 		initModals();
 		
 		// On Page load, assume all are saved (As they are)
-		$( '.edd-rbm-repeater-item' ).each( function( index, row ) {
+		$( 'div[data-repeater-list="edd_fields_template_settings"] > .edd-rbm-repeater-item' ).each( function( index, row ) {
 			$( row ).attr( 'data-saved', true );
 		} );
 
@@ -92,7 +111,7 @@ function closeModal( uuid ) {
 
 	} );
 
-	$( document ).on( 'click touched', '[data-repeater-edit]', function() {
+	$( document ).on( 'click touched', '[data-repeater-edit], [data-options-repeater-edit]', function() {
 
 		openModal( $( this ).data( 'open' ) );
 
@@ -103,6 +122,7 @@ function closeModal( uuid ) {
 		init_edd_rbm_repeater_colorpickers( this );
 		init_edd_rbm_repeater_tooltips( this );
 		init_edd_rbm_repeater_required_fields( this );
+		init_edd_rbm_repeater_options_button( this );
 		
 		$( this ).find( '.edd-fields-template-name' ).attr( 'data-validity-error', eddFields.i18n.duplicateNameError );
 
