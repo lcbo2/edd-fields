@@ -401,6 +401,8 @@ class EDD_Fields_Admin {
 			'save_item_text' => __( 'Save Row', EDD_Fields_ID ),
 			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
 			'input_name' => false,
+			'tooltip_title' => false,
+			'tooltip_desc' => false,
 		) );
 		
 		// We need to grab values this way to ensure Nested Repeaters work
@@ -419,6 +421,12 @@ class EDD_Fields_Admin {
 		?>
 
 		<input data-options-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
+
+		<label for="<?php echo $name; ?>" style="display: inline-block;"><?php echo wp_kses_post( $args['desc'] ); ?></label>
+
+		<?php if ( ! empty( $args['tooltip_title'] ) && ! empty( $args['tooltip_desc'] ) ) : ?>
+ 			<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<strong><?php echo $args['tooltip_title']; ?></strong>: <?php echo $args['tooltip_desc']; ?>"></span>
+ 		<?php endif; ?>
 
 		<div class="edd-fields-field-options reveal" data-reveal data-v-offset="64">
 			
@@ -528,7 +536,7 @@ class EDD_Fields_Admin {
 						'readonly' => false,
 						'std' => '',
 						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Fields_ID ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Field Name Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
 					),
 					'type' => array(
 						'type' => 'select',
@@ -539,7 +547,9 @@ class EDD_Fields_Admin {
 						),
 						'std' => 'text',
 						'field_class' => 'edd-fields-type',
-						'desc' => '',
+						'desc' => _x( 'Field Type', 'Field Type Label', EDD_Fields_ID ),
+						'tooltip_title' => _x( 'Field Type', 'Field Type Tooltip Title', EDD_Fields_ID ),
+						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen.', 'Field Type Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
 					),
 					'edd_fields_options' => array(
 						'type' => 'hook',
@@ -548,6 +558,9 @@ class EDD_Fields_Admin {
 						'save_item_text' => __( 'Save Options', EDD_Fields_ID ),
 						'delete_item_text' => __( 'Remove Option', EDD_Fields_ID ),
 						'std' => '',
+						'desc' => _x( 'Field Options', 'Field Options Label', EDD_Fields_ID ),
+						'tooltip_title' => _x( 'Field Options', 'Field Options Tooltip Title', EDD_Fields_ID ),
+						'tooltip_desc'  => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', EDD_Fields_ID ),
 						'fields' => array(
 							'value' => array(
 								'type' => 'text',
