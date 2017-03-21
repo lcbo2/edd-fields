@@ -80,7 +80,7 @@ class EDD_Fields_Widget extends WP_Widget {
 					foreach ( $fields as $field ) {
 
 						if ( edd_fields_sanitize_key( $field['key'] ) == $field_name ) {
-							$prefix = $field['key'] . ': ';
+							$prefix = $field['key'] . ':&nbsp;';
 						}
 
 					}
