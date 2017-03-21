@@ -44,6 +44,11 @@ class EDD_Fields_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		
+		$instance = wp_parse_args( $instance, array(
+			'post_id' => 0,
+			'shortcode' => 'table',
+		) );
+		
 		$post_id = $instance['post_id'];
 			
 		// Determine whether or not we're going to build the Shortcode with a Post ID Attribute
