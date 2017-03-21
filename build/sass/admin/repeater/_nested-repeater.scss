@@ -1,3 +1,8 @@
+table {
+	@include repeater-list;
+	width: 100%;
+}
+
 .edd-rbm-repeater-item {
 	
 	background: transparent;
@@ -22,21 +27,16 @@
 	.edd_draghandle {
 		
 		margin: 0;
-		top: -1.4rem;
+		top: 0.15em;
 		display: inline-block;
 		position: relative;
 		background-repeat: no-repeat;
-		vertical-align: baseline;
-		
-		@media #{$medium-up} {
-			top: -1.4em;
-		}
 		
 	}
 
 	.edd_remove_repeatable {
 		margin: 0;
-		top: -1.6em;
+		top: 0.35em;
 		display: inline;
 		position: relative;
 	}

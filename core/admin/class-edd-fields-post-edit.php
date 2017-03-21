@@ -120,6 +120,70 @@ class EDD_Fields_Post_Edit {
 				$active_template = 'custom';
 			}
 		
+			$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
+		
+			$args = array(
+				'posts_per_page' => -1,
+				'orderby' => 'name',
+				'order' => 'ASC',
+				'post_status' => 'publish',
+			);
+		
+			if ( count( $post_types ) == 1 &&
+				$post_types[0] == 'download' ) { // EDD Allows Users to Filter this. Some other plugins do too, but we're targeting EDD
+				$singular = edd_get_label_singular();
+			}
+			else {
+				$singular = _x( 'Item', 'Current Item Replacement Text for Widget', EDD_Fields_ID );
+			}
+
+			$posts = array(
+				0 => sprintf( __( 'Current %s', EDD_Fields_ID ), $singular ),
+			);
+
+		
+			// This is only used for Fields with their Type set to "posts", but running it here ensures we only do this query once
+			foreach ( $post_types as $post_type ) {
+
+				$args['post_type'] = $post_type;
+				$query = new WP_Query( $args );
+
+				if ( $query->have_posts() ) : 
+
+					$grouped_posts = array();
+					while ( $query->have_posts() ) : $query->the_post();
+
+						if ( count( $post_types ) > 1 ) {
+							// Store later for a <optgroup>
+							$grouped_posts[ esc_attr( get_the_title() ) ] = get_the_title();
+						}
+						else {
+							$posts[ esc_attr( get_the_title() ) ] = get_the_title();
+						}
+
+					endwhile;
+
+					wp_reset_postdata();
+
+					if ( count( $post_types ) > 1 ) {
+
+						if ( $post_type == 'download' ) {
+							$plural = edd_get_label_plural();
+						}
+						else {
+							$post_type_object = get_post_type_object( $post_type );
+							$plural = $post_type_object->labels->name;
+						}
+
+						// Create <optgroup>
+						$posts[ $plural ] = $grouped_posts;
+
+					}
+
+				endif;
+
+			}
+		
 			?>
 				
 			<p>
@@ -206,10 +270,75 @@ class EDD_Fields_Post_Edit {
 							</th>
 
 							<td class="edd-fields-value">
-								<?php echo EDD()->html->text( array(
-									'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
-									'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
-								) ); ?>
+								
+								<?php 
+		
+									if ( isset( $field['type'] ) &&
+										 $field['type'] == 'select' ) {
+										
+										// We need to make our saved format less crazy
+										$options = array();
+										foreach( $field['edd_fields_options'] as $option ) {
+											
+											$options[ esc_attr( $option['value'] ) ] = $option['value'];
+											
+										}
+							
+										echo EDD()->html->select( array(
+											'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
+											'selected' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
+											'options' => $options,
+											'show_option_all' => false,
+											'show_option_none' => false,
+											'class' => 'regular-text',
+										) );
+										
+									}
+									else if ( isset( $field['type'] ) &&
+											$field['type'] == 'posts' ) { ?>
+										
+										<select class="edd-select edd-select-chosen" name="edd_fields[<?php echo edd_fields_sanitize_key( $template['label'] ); ?>][<?php echo $index; ?>][value]">
+
+											<?php foreach ( $posts as $key => $value ) :
+
+												if ( is_array( $value ) ) : ?>
+
+													<optgroup label="<?php echo $key; ?>">
+
+														<?php foreach ( $value as $post_id => $post_title ) : ?>
+
+															<option value="<?php echo $post_id; ?>"<?php echo ( $post_id == $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ? ' selected' : ''; ?>>
+																<?php echo $post_title; ?>
+															</option>
+
+														<?php endforeach; ?>
+
+													</optgroup>
+
+												<?php else : ?>
+
+													<option value="<?php echo $key; ?>"<?php echo ( $key == $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ? ' selected' : ''; ?>>
+														<?php echo $value; ?>
+													</option>
+
+												<?php endif;
+
+											endforeach; ?>
+
+										</select>
+										
+									<?php }
+									else {
+								
+										echo EDD()->html->text( array(
+											'name' => "edd_fields[" . edd_fields_sanitize_key( $template['label'] ) . "][$index][value]",
+											'value' => ( isset( $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] ) ) ? $fields[ edd_fields_sanitize_key( $template['label'] ) ][$index]['value'] : '',
+										) );
+										
+									}
+		
+								?>
+								
 							</td>
 
 						</tr>
