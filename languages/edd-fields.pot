@@ -119,7 +119,7 @@ msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:522
 msgctxt "Template Icon Tooltip Text"
-msgid "Controls the Title shown after selecting a Template Tab on the %s Edit Screen."
+msgid "Controls the title shown when selecting a Field Template Group on the %s Edit Screen."
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:526
@@ -147,7 +147,7 @@ msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:539
 msgctxt "Field Name Tooltip Text"
-msgid "Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s."
+msgid "Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s."
 msgstr ""
 
 #: core/admin/class-edd-fields-admin.php:544
@@ -289,12 +289,12 @@ msgctxt "Custom Template Label"
 msgid "Custom (No Template)"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:137, core/widgets/class-edd-fields-widget.php:145
+#: core/admin/class-edd-fields-post-edit.php:137, core/widgets/class-edd-fields-widget.php:148
 msgctxt "Current Item Replacement Text for Widget"
 msgid "Item"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:141, core/admin/class-edd-fields-post-edit.php:564, core/widgets/class-edd-fields-widget.php:149
+#: core/admin/class-edd-fields-post-edit.php:141, core/admin/class-edd-fields-post-edit.php:564, core/widgets/class-edd-fields-widget.php:152
 msgid "Current %s"
 msgstr ""
 
@@ -497,42 +497,42 @@ msgctxt "EDD Fields Widget Description"
 msgid "A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name."
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:94
+#: core/widgets/class-edd-fields-widget.php:97
 msgctxt "No Field Chosen in Widget"
 msgid "You must choose a Field from the Drop-down in the EDD Fields Widget Settings"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:101
+#: core/widgets/class-edd-fields-widget.php:104
 msgctxt "No data found for the chosen Field in the Widget"
 msgid "No data found"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:200
+#: core/widgets/class-edd-fields-widget.php:203
 msgctxt "Show for which Item Label"
 msgid "Show Data for which %s:"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:238
+#: core/widgets/class-edd-fields-widget.php:241
 msgctxt "How to display the Data Label"
 msgid "How to display the Data:"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:242
+#: core/widgets/class-edd-fields-widget.php:245
 msgctxt "Widget Full Table Display"
 msgid "Full Table"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:246
+#: core/widgets/class-edd-fields-widget.php:249
 msgctxt "Widget Single Value Display"
 msgid "Single Value"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:256
+#: core/widgets/class-edd-fields-widget.php:259
 msgctxt "Show which Field Label"
 msgid "Show which Field?"
 msgstr ""
 
-#: core/widgets/class-edd-fields-widget.php:261, core/widgets/class-edd-fields-widget.php:333
+#: core/widgets/class-edd-fields-widget.php:264, core/widgets/class-edd-fields-widget.php:358
 msgctxt "Field Select Default Option"
 msgid "Select a Field"
 msgstr ""
