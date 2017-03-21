@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Easy Digital Downloads - Fields
-Plugin URL: http://easydigitaldownloads.com/downloads/fields
+Plugin URL: https://easydigitaldownloads.com/downloads/fields
 Description: Easily create custom attributes or meta for your Downloads
 Version: 0.6.0
 Text Domain: edd-fields
 Author: Real Big Plugins
-Author URI: http://realbigplugins.com
+Author URI: https://realbigplugins.com
 Contributors: d4mation
 */
 
