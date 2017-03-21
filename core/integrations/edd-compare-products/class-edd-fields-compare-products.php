@@ -48,7 +48,7 @@ class EDD_Fields_Compare_Products {
 			
 			$template_name = edd_fields_sanitize_key( $template['label'] );
 			
-			foreach ( $template['fields'] as $field ) {
+			foreach ( $template['edd_fields_template_fields'] as $field ) {
 				
 				$field_name = edd_fields_sanitize_key( $field['label'] );
 			
