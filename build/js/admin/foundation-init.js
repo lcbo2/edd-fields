@@ -56,8 +56,7 @@ function initModals() {
 function openModal( uuid, row = undefined ) {
 
 	// Handle newly created Rows
-	if ( uuid.hasOwnProperty( 'type' ) && 
-		uuid.type == 'edd-rbm-repeater-add' ) {
+	if ( uuid.type == 'edd-rbm-repeater-add' ) {
 
 		var $row = jQuery( row );
 

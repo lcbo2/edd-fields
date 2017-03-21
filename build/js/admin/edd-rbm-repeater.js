@@ -158,6 +158,8 @@ function edd_repeater_reindex_primary() {
 		init_edd_rbm_repeater_tooltips( this ); // This is necessary to ensure any Rows that are added have Tooltips
 		init_edd_rbm_repeater_required_fields( this ); // Ensure that Required Fields get handled
 		init_edd_rbm_repeater_options_button( this );
+		
+		initModals();
 
 		$( this ).stop().slideDown();
 		
