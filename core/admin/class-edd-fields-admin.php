@@ -519,7 +519,7 @@ class EDD_Fields_Admin {
 				'readonly' => false,
 				'std' => '',
 				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Fields_ID ),
-				'tooltip_desc'  => sprintf( _x( 'Controls the Title shown after selecting a Template Tab on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
+				'tooltip_desc'  => sprintf( _x( 'Controls the title shown when selecting a Field Template Group on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
 			),
 			'edd_fields_template_fields' => array(
 				'type' => 'hook',
@@ -536,7 +536,7 @@ class EDD_Fields_Admin {
 						'readonly' => false,
 						'std' => '',
 						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Fields_ID ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Scren per %s.', 'Field Name Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s.', 'Field Name Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
 					),
 					'type' => array(
 						'type' => 'select',
