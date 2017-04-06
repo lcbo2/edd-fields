@@ -23,6 +23,22 @@ function EDDFIELDS() {
 }
 
 /**
+ * Collapse into a one-dimensional array of the Keys to find our Index
+ *
+ * @param array $fields
+ *
+ * @return array
+ */
+function edd_fields_get_key_list( $fields ) {
+
+	$key_list = array_map( function( $array ) {
+		return edd_fields_sanitize_key( $array['key'] );
+	}, $fields );
+
+	return $key_list;
+}
+
+/**
  * Function to grab an individual EDD Fields value. Useful for Theme Template Files.
  * 
  * @param	  string  $key		Key
@@ -44,10 +60,7 @@ function edd_fields_get( $name, $post_id = null, $template = null ) {
 	
 	if ( ! $fields || ! isset( $fields[ $template ] ) ) return false;
 
-	// Collapse into a one-dimensional array of the Keys to find our Index
-	$key_list = array_map( function( $array ) {
-		return edd_fields_sanitize_key( $array['key'] );
-	}, $fields[ $template ] );
+	$key_list = edd_fields_get_key_list( $fields[ $template ] );
 
 	return $fields[ $template ][ array_search( edd_fields_sanitize_key( $name ), $key_list ) ]['value'];
 	

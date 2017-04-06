@@ -620,21 +620,22 @@ class EDD_Fields_Post_Edit {
 
 		$post_id = $_POST['post_id'];
 
-		$edd_fields = get_post_meta( $post_id, 'edd_fields', true );
+		$template = get_post_meta( $post_id, 'edd_fields_template', true );
 
-		// Collapse into a one-dimensional array of the Keys to find our Index
-		$key_list = array_map( function( $array ) {
-			return $array['key'];
-		}, $edd_fields );
+		$fields = get_post_meta( $post_id, 'edd_fields', true );
 
 		$result = array(
 			array( 'text' => sprintf( __( 'Choose a Field Name', EDD_Fields_ID ), $singular ), 'value' => '' )
 		);
 
-		foreach ( $key_list as $name ) {
+		if ( $fields && isset( $fields[ $template ] ) ) {
 
-			$result[] = array( 'text' => $name, 'value' => $name );
+			$key_list = edd_fields_get_key_list( $fields[ $template ] );
 
+			foreach ( $key_list as $name ) {
+
+				$result[] = array( 'text' => $name, 'value' => $name );
+			}
 		}
 
 		echo json_encode( $result );
