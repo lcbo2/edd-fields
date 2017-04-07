@@ -30,21 +30,21 @@ class EDD_Fields_Shortcodes {
 		add_filter( 'the_content', array( $this, 'inject_shortcode' ), 9 );
 
 	}
-	
+
 	/**
 	 * Outputs Download Fields as a table via Shortcode
-	 * 
-	 * @access	  public
-	 * @since	   1.0.0
-	 * @return	  HTML
+	 *
+	 * @access      public
+	 * @since       1.0.0
+	 * @return      HTML
 	 */
 	public function edd_fields_table_shortcode( $atts, $content ) {
 
-		$atts = shortcode_atts( 
+		$atts = shortcode_atts(
 			array(
-				'class' => '',
+				'class'   => '',
 				'post_id' => get_the_ID(),
-			), 
+			),
 			$atts,
 			'edd_fields_table'
 		);
@@ -52,34 +52,44 @@ class EDD_Fields_Shortcodes {
 		ob_start();
 
 		$template = get_post_meta( $atts['post_id'], 'edd_fields_template', true );
-		
+
 		$fields = get_post_meta( $atts['post_id'], 'edd_fields', true );
 
-		if ( $fields &&
-			count( $fields[ $template ] ) > 0 &&
-			$fields[ $template ] !== '' ) : ?>
+		$show = false;
+		if ( $fields && isset( $fields[ $template ] ) && ! empty( $fields[ $template ] ) ) {
 
-			<table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
+			// Erase out potentially empty fields
+			$fields[ $template ][0] = array_filter( $fields[ $template ][0] );
 
-			<?php foreach ( $fields[ $template ] as $row ) : ?>
+			// Erase out potentially empty template
+			$fields[ $template ] = array_filter( $fields[ $template ] );
 
-				<tr>
+			$show = ! empty( $fields[ $template ] );
+		}
 
-					<td>
-						<strong>
-							<?php echo $row['key']; ?>
-						</strong>&nbsp;
-					</td>
+		if ( $show ) : ?>
 
-					<td>
-						<?php echo $row['value']; ?>
-					</td>
+            <table class="edd-fields<?php echo ( $atts['class'] !== '' ) ? ' ' . $atts['class'] : ''; ?>">
 
-				</tr>
+				<?php foreach ( $fields[ $template ] as $row ) : ?>
 
-			<?php endforeach; ?>
+                    <tr>
 
-			</table>
+                        <td>
+                            <strong>
+								<?php echo $row['key']; ?>
+                            </strong>&nbsp;
+                        </td>
+
+                        <td>
+							<?php echo $row['value']; ?>
+                        </td>
+
+                    </tr>
+
+				<?php endforeach; ?>
+
+            </table>
 
 		<?php endif;
 
@@ -92,21 +102,21 @@ class EDD_Fields_Shortcodes {
 
 	/**
 	 * Shortcode to grab individual EDD Fields Values
-	 * 
-	 * @param	   array  $atts	Shortcode Attributes
-	 * @param	   string $content We're not actually using this, but I like to have it there for completeness
-	 *																							 
-	 * @access	  public
-	 * @since	   1.0.0
-	 * @return	  string
+	 *
+	 * @param       array $atts Shortcode Attributes
+	 * @param       string $content We're not actually using this, but I like to have it there for completeness
+	 *
+	 * @access      public
+	 * @since       1.0.0
+	 * @return      string
 	 */
 	public function edd_field_shortcode( $atts, $content ) {
 
-		$atts = shortcode_atts( 
+		$atts = shortcode_atts(
 			array(
-				'name' => '',
+				'name'    => '',
 				'post_id' => get_the_ID(),
-			), 
+			),
 			$atts,
 			'edd_field'
 		);
@@ -121,25 +131,25 @@ class EDD_Fields_Shortcodes {
 
 	/**
 	 * Force our Shortcode to load on Single Downloads
-	 * 
-	 * @param		string $content The Content
-	 *                             
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		string The Content
+	 *
+	 * @param        string $content The Content
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        string The Content
 	 */
 	public function inject_shortcode( $content ) {
-		
-		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
+
+		$post_types = apply_filters( 'edd_fields_metabox_post_types', array( 'download' ) );
 
 		if ( is_single() && in_array( get_post_type(), $post_types ) ) {
-			
+
 			$inject_shortcode = EDDFIELDS()->utility->is_shortcode_injected();
-			
+
 			if ( $inject_shortcode ) {
 				$content .= '[edd_fields_table]';
 			}
-			
+
 		}
 
 		return $content;
