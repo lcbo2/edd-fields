@@ -26,13 +26,14 @@ function EDDFIELDS() {
  * Collapse into a one-dimensional array of the Keys to find our Index
  *
  * @param array $fields
+ * @param bool $sanitize
  *
  * @return array
  */
-function edd_fields_get_key_list( $fields ) {
+function edd_fields_get_key_list( $fields, $sanitize = false ) {
 
-	$key_list = array_map( function( $array ) {
-		return edd_fields_sanitize_key( $array['key'] );
+	$key_list = array_map( function( $array ) use ( $sanitize ) {
+		return $sanitize ? edd_fields_sanitize_key( $array['key'] ) : $array['key'];
 	}, $fields );
 
 	return $key_list;
@@ -60,7 +61,7 @@ function edd_fields_get( $name, $post_id = null, $template = null ) {
 	
 	if ( ! $fields || ! isset( $fields[ $template ] ) ) return false;
 
-	$key_list = edd_fields_get_key_list( $fields[ $template ] );
+	$key_list = edd_fields_get_key_list( $fields[ $template ], true );
 
 	return $fields[ $template ][ array_search( edd_fields_sanitize_key( $name ), $key_list ) ]['value'];
 	

@@ -13,8 +13,8 @@ defined( 'ABSPATH' ) || die();
 class EDD_Fields_Admin {
 
 	/**
-	 * @var		EDD_Fields_Admin $admin_notices Allows Admin Notices to be ran when possible despite our Hook
-	 * @since	1.0.0
+	 * @var        EDD_Fields_Admin $admin_notices Allows Admin Notices to be ran when possible despite our Hook
+	 * @since    1.0.0
 	 */
 	private $admin_notices = array();
 
@@ -33,16 +33,16 @@ class EDD_Fields_Admin {
 
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
-		
+
 		// Creates the primary Template Repeater
 		add_action( 'edd_edd_fields_template_settings', array( $this, 'edd_fields_templates_field' ) );
-		
+
 		// Creates the Fields Repeater in the Template Edit Modal
 		add_action( 'edd_edd_fields_template_fields', array( $this, 'edd_fields_inner_repeater' ) );
-		
+
 		// Creates another Modal with Field Options Repeater
 		add_action( 'edd_edd_fields_options', array( $this, 'edd_fields_options_modal' ) );
-		
+
 		// Localize the Admin Script with some PHP values
 		add_filter( 'edd_fields_localize_admin_script', array( $this, 'localize_script' ) );
 
@@ -56,11 +56,13 @@ class EDD_Fields_Admin {
 
 	/**
 	 * Register Our Settings Section
-	 * 
-	 * @access	   public
-	 * @since		1.0.0
-	 * @param		array $sections EDD Settings Sections
-	 * @return	   array Modified EDD Settings Sections
+	 *
+	 * @access       public
+	 * @since        1.0.0
+	 *
+	 * @param        array $sections EDD Settings Sections
+	 *
+	 * @return       array Modified EDD Settings Sections
 	 */
 	public function settings_section( $sections ) {
 
@@ -72,42 +74,44 @@ class EDD_Fields_Admin {
 
 	/**
 	 * Adds new Settings Section under "Extensions". Throws it under Misc if EDD is lower than v2.5
-	 * 
-	 * @access	  public
-	 * @since	   1.0.0
-	 * @param	   array $settings The existing EDD settings array
-	 * @return	  array The modified EDD settings array
+	 *
+	 * @access      public
+	 * @since       1.0.0
+	 *
+	 * @param       array $settings The existing EDD settings array
+	 *
+	 * @return      array The modified EDD settings array
 	 */
 	public function settings( $settings ) {
 
 		$edd_fields_settings = array(
 			array(
-				'id' => 'edd_fields_table_inject',
-				'type' => 'checkbox',
-				'name' => _x( 'Fields Table Display', 'Fields Table Injection Global Label', EDD_Fields_ID ),
-				'desc' => sprintf( _x( 'Disable Automatic Display of Fields Table on the %s Page', 'Fields Table Injection Global Checkbox Label', EDD_Fields_ID ), edd_get_label_singular() ),
+				'id'            => 'edd_fields_table_inject',
+				'type'          => 'checkbox',
+				'name'          => _x( 'Fields Table Display', 'Fields Table Injection Global Label', EDD_Fields_ID ),
+				'desc'          => sprintf( _x( 'Disable Automatic Display of Fields Table on the %s Page', 'Fields Table Injection Global Checkbox Label', EDD_Fields_ID ), edd_get_label_singular() ),
 				'tooltip_title' => _x( 'Fields Table Display', 'Fields Table Injection Global Tooltip Title', EDD_Fields_ID ),
-				'tooltip_desc' => sprintf( _x( "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s.", 'Fields Table Injection Global Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_plural() ),
+				'tooltip_desc'  => sprintf( _x( "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s.", 'Fields Table Injection Global Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_plural() ),
 			),
 			array(
-				'id' => 'edd_fields_template_settings',
-				'input_name' => 'edd_fields_template_settings',
-				'name' => __( 'Field Template Groups', EDD_Fields_ID ),
-				'type' => 'hook',
-				'classes' => array( 'edd-fields-settings-repeater' ),
-				'add_item_text' => __( 'Add Field Template Group', EDD_Fields_ID ),
-				'edit_item_text' => __( 'Edit Field Template Group', EDD_Fields_ID ),
-				'delete_item_text' => __( 'Remove Field Template Group', EDD_Fields_ID ),
-				'save_item_text' => __( 'Save Field Template Group', EDD_Fields_ID ),
-				'defaults_name' => 'edd_fields_template_reset_defaults',
-				'defaults_text' => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
+				'id'                    => 'edd_fields_template_settings',
+				'input_name'            => 'edd_fields_template_settings',
+				'name'                  => __( 'Field Template Groups', EDD_Fields_ID ),
+				'type'                  => 'hook',
+				'classes'               => array( 'edd-fields-settings-repeater' ),
+				'add_item_text'         => __( 'Add Field Template Group', EDD_Fields_ID ),
+				'edit_item_text'        => __( 'Edit Field Template Group', EDD_Fields_ID ),
+				'delete_item_text'      => __( 'Remove Field Template Group', EDD_Fields_ID ),
+				'save_item_text'        => __( 'Save Field Template Group', EDD_Fields_ID ),
+				'defaults_name'         => 'edd_fields_template_reset_defaults',
+				'defaults_text'         => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
 				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
-				'default_title' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'std' => edd_fields_get_templates(),
-				'fields' => $this->get_template_fields(),
+				'default_title'         => __( 'New Field Template Group', EDD_Fields_ID ),
+				'std'                   => edd_fields_get_templates(),
+				'fields'                => $this->get_template_fields(),
 			),
 			array(
-				'id' => 'fields_reset_defaults',
+				'id'   => 'fields_reset_defaults',
 				'type' => 'hook',
 			),
 		);
@@ -121,454 +125,475 @@ class EDD_Fields_Admin {
 		return array_merge( $settings, $edd_fields_settings );
 
 	}
-	
+
 	/**
 	 * Primary Template Repeater
-	 * 
-	 * @param		array $args EDD Settings API Args
-	 *                                      
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		void
+	 *
+	 * @param        array $args EDD Settings API Args
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        void
 	 */
 	public function edd_fields_templates_field( $args ) {
-		
+
 		global $edd_options;
-		
+
 		$args = wp_parse_args( $args, array(
-			'id' => '',
-			'std' => '',
-			'classes' => array(),
-			'fields' => array(),
-			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
-			'edit_item_text' => __( 'Edit Row', EDD_Fields_ID ),
-			'save_item_text' => __( 'Save Row', EDD_Fields_ID ),
-			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
-			'default_title' => __( 'New Row', EDD_Fields_ID ),
-			'input_name' => false,
-			'defaults_name' => 'edd_fields_repeater_reset_defaults',
-			'defaults_text' => _x( 'Reset to Defaults', 'Reset Repeater to Defaults', EDD_Fields_ID ),
+			'id'                    => '',
+			'std'                   => '',
+			'classes'               => array(),
+			'fields'                => array(),
+			'add_item_text'         => __( 'Add Row', EDD_Fields_ID ),
+			'edit_item_text'        => __( 'Edit Row', EDD_Fields_ID ),
+			'save_item_text'        => __( 'Save Row', EDD_Fields_ID ),
+			'delete_item_text'      => __( 'Delete Row', EDD_Fields_ID ),
+			'default_title'         => __( 'New Row', EDD_Fields_ID ),
+			'input_name'            => false,
+			'defaults_name'         => 'edd_fields_repeater_reset_defaults',
+			'defaults_text'         => _x( 'Reset to Defaults', 'Reset Repeater to Defaults', EDD_Fields_ID ),
 			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Repeater.', 'Reset Repeater Confirmation Dialog', EDD_Fields_ID ),
 		) );
-		
+
 		// We need to grab values this way to ensure Nested Repeaters work
 		if ( isset( $edd_options[ $args['id'] ] ) || $args['std'] == '' ) {
 			$edd_option = $edd_options[ $args['id'] ];
-		}
-		else {
+		} else {
 			$edd_option = $args['std'];
 		}
-		
+
 		// Ensure Dummy Field is created
 		$field_count = ( count( $args['std'] ) >= 1 ) ? count( $args['std'] ) : 1;
-		
+
 		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
-		
+
 		do_action( 'edd_fields_before_templates_repeater' );
-		
+
 		?>
 
-		<div data-edd-rbm-repeater class="edd-rbm-repeater <?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
-			
-			<div data-repeater-list="<?php echo $name; ?>" class="edd-rbm-repeater-list">
+        <div data-edd-rbm-repeater
+             class="edd-rbm-repeater <?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
 
-					<?php for ( $index = 0; $index < $field_count; $index++ ) : $value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
-				
-						<div data-repeater-item<?php echo ( ! isset( $args['std'][$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
-							
-							<table class="repeater-header wp-list-table widefat fixed posts">
+            <div data-repeater-list="<?php echo $name; ?>" class="edd-rbm-repeater-list">
 
-								<thead>
+				<?php for ( $index = 0; $index < $field_count; $index ++ ) : $value = ( isset( $edd_option[ $index ] ) ) ? $edd_option[ $index ] : array(); ?>
 
-									<tr>
-										<th scope="col">
-											
-											<span class="edd_draghandle" data-repeater-item-handle></span>
-											
-											<div class="title" data-repeater-default-title="<?php echo $args['default_title']; ?>">
+                    <div data-repeater-item<?php echo ( ! isset( $args['std'][ $index ] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?>
+                         class="edd-rbm-repeater-item">
 
-												<?php if ( isset( $edd_option[$index] ) && reset( $edd_option[$index] ) !== '' ) : 
-													// Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
-													foreach ( $value as $key => $setting ) : ?>
-														<?php echo $setting; ?>
-													<?php 
-														break;
-													endforeach; 
-												else: ?>
+                        <table class="repeater-header wp-list-table widefat fixed posts">
 
-													<?php echo $args['default_title']; ?>
+                            <thead>
 
-												<?php endif; ?>
+                            <tr>
+                                <th scope="col">
 
-											</div>
-											
-											<div class="edd-rbm-repeater-controls">
-											
-												<input data-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
-												<input data-repeater-delete type="button" class="button button-danger" value="<?php echo $args['delete_item_text']; ?>" />
-												
-											</div>
+                                    <span class="edd_draghandle" data-repeater-item-handle></span>
 
-										</th>
+                                    <div class="title"
+                                         data-repeater-default-title="<?php echo $args['default_title']; ?>">
 
-									</tr>
+										<?php if ( isset( $edd_option[ $index ] ) && reset( $edd_option[ $index ] ) !== '' ) :
+											// Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
+											foreach ( $value as $key => $setting ) : ?>
+												<?php echo $setting; ?>
+												<?php
+												break;
+											endforeach;
+										else: ?>
 
-								</thead>
+											<?php echo $args['default_title']; ?>
 
-							</table>
-							
-							<div class="edd-rbm-repeater-content reveal" data-reveal data-v-offset="64">
-								
-								<div class="edd-rbm-repeater-form">
+										<?php endif; ?>
 
-									<table class="widefat" width="100%" cellpadding="0" cellspacing="0">
+                                    </div>
 
-										<tbody>
+                                    <div class="edd-rbm-repeater-controls">
 
-											<?php foreach ( $args['fields'] as $field_id => $field ) : ?>
+                                        <input data-repeater-edit type="button" class="button"
+                                               value="<?php echo $args['edit_item_text']; ?>"/>
+                                        <input data-repeater-delete type="button" class="button button-danger"
+                                               value="<?php echo $args['delete_item_text']; ?>"/>
 
-												<tr>
+                                    </div>
 
-													<?php if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
-		
-														// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-														$field['id'] = $field_id;
-														$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
-		
-														if ( $field['type'] == 'checkbox' ) : 
-		
-															if ( isset( $field['std'] ) && (int) $field['std'] !== 0 ) {
-																$field['field_class'][] = 'default-checked';
-															}
-		
-														endif;
-		
-														if ( $field['type'] !== 'hook' ) : ?>
+                                </th>
 
-															<td>
+                            </tr>
 
-																<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+                            </thead>
 
-															</td>
+                        </table>
 
-														<?php else : 
-		
-															// Don't wrap calls for a Hook
-															call_user_func( "edd_{$field['type']}_callback", $field ); 
-		
-														endif;
-		
-													endif; ?>
+                        <div class="edd-rbm-repeater-content reveal" data-reveal data-v-offset="64">
 
-												</tr>
+                            <div class="edd-rbm-repeater-form">
 
-											<?php endforeach; ?>
+                                <table class="widefat" width="100%" cellpadding="0" cellspacing="0">
 
-										</tbody>
+                                    <tbody>
 
-									</table>
-									
-									<input type="submit" class="button button-primary alignright" value="<?php echo $args['save_item_text']; ?>" />
-								  
-								</div>
-								
-								<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
-									<span aria-hidden="true">&times;</span>
-								</a>
-								
-							</div>
-							
-						</div>
+									<?php foreach ( $args['fields'] as $field_id => $field ) : ?>
 
-					<?php endfor; ?>	  
+                                        <tr>
 
-			</div>
-			
-			<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
-			
-			<input type="submit" name="<?php echo $args['defaults_name']; ?>" class="button button-danger edd-repeater-defaults" style="margin-top: 6px;" value="<?php echo $args['defaults_text']; ?>" onclick="return confirm( '<?php echo $args['defaults_confirmation']; ?>' );" />
+											<?php if ( is_callable( "edd_{$field['type']}_callback" ) ) :
 
-		</div>
-		
+												// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+												$field['id'] = $field_id;
+												$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+
+												if ( $field['type'] == 'checkbox' ) :
+
+													if ( isset( $field['std'] ) && (int) $field['std'] !== 0 ) {
+														$field['field_class'][] = 'default-checked';
+													}
+
+												endif;
+
+												if ( $field['type'] !== 'hook' ) : ?>
+
+                                                    <td>
+
+														<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+
+                                                    </td>
+
+												<?php else :
+
+													// Don't wrap calls for a Hook
+													call_user_func( "edd_{$field['type']}_callback", $field );
+
+												endif;
+
+											endif; ?>
+
+                                        </tr>
+
+									<?php endforeach; ?>
+
+                                    </tbody>
+
+                                </table>
+
+                                <input type="submit" class="button button-primary alignright"
+                                       value="<?php echo $args['save_item_text']; ?>"/>
+
+                            </div>
+
+                            <a class="close-button" data-close
+                               aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+				<?php endfor; ?>
+
+            </div>
+
+            <input data-repeater-create type="button" class="button" style="margin-top: 6px;"
+                   value="<?php echo $args['add_item_text']; ?>"/>
+
+            <input type="submit" name="<?php echo $args['defaults_name']; ?>"
+                   class="button button-danger edd-repeater-defaults" style="margin-top: 6px;"
+                   value="<?php echo $args['defaults_text']; ?>"
+                   onclick="return confirm( '<?php echo $args['defaults_confirmation']; ?>' );"/>
+
+        </div>
+
 		<?php
-		
+
 		do_action( 'edd_fields_after_templates_repeater' );
-		
+
 	}
-	
+
 	public function edd_fields_inner_repeater( $args ) {
-		
+
 		global $edd_options;
-		
+
 		$args = wp_parse_args( $args, array(
-			'id' => '',
-			'std' => '',
-			'classes' => array(),
-			'fields' => array(),
+			'id'            => '',
+			'std'           => '',
+			'classes'       => array(),
+			'fields'        => array(),
 			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
-			'input_name' => false,
+			'input_name'    => false,
 		) );
-		
+
 		// We need to grab values this way to ensure Nested Repeaters work
 		if ( isset( $edd_options[ $args['id'] ] ) ) {
 			$edd_option = $edd_options[ $args['id'] ];
-		}
-		else {
+		} else {
 			$edd_option = $args['std'];
 		}
-		
+
 		// Ensure Dummy Field is created
 		$field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
-		
+
 		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
-		
+
 		?>
 
-		<td>
+        <td>
 
-			<label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
+            <label for="<?php echo $args['id']; ?>"><?php echo $args['desc']; ?></label>
 
-			<div data-edd-rbm-nested-repeater class="edd-rbm-repeater edd-rbm-nested-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
+            <div data-edd-rbm-nested-repeater
+                 class="edd-rbm-repeater edd-rbm-nested-repeater edd_meta_table_wrap<?php echo ( isset( $args['classes'] ) ) ? ' ' . implode( ' ', $args['classes'] ) : ''; ?>">
 
-				<table>
+                <table>
 
-					<tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
+                    <tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 
-					<?php for ( $index = 0; $index < $field_count; $index++ ) : 
+					<?php for ( $index = 0; $index < $field_count; $index ++ ) :
 
-						$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
+						$value = ( isset( $edd_option[ $index ] ) ) ? $edd_option[ $index ] : array(); ?>
 
-							<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item edd-fields-field">
+                        <tr data-repeater-item<?php echo ( ! isset( $edd_option[ $index ] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?>
+                            class="edd-rbm-repeater-item edd-fields-field">
 
-								<td>
-									<span class="edd_draghandle" data-repeater-item-handle></span>
-								</td>
+                            <td>
+                                <span class="edd_draghandle" data-repeater-item-handle></span>
+                            </td>
 
-								<?php foreach ( $args['fields'] as $field_id => $field ) : 
+							<?php foreach ( $args['fields'] as $field_id => $field ) :
 
-									if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+								if ( is_callable( "edd_{$field['type']}_callback" ) ) :
 
-										// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-										$field['id'] = $field_id;
-										$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+									$field['id']  = $field_id;
+									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
 
-										echo '<td>';
+									echo '<td>';
 
-											call_user_func( "edd_{$field['type']}_callback", $field );
+									call_user_func( "edd_{$field['type']}_callback", $field );
 
-										echo '</td>';
+									echo '</td>';
 
-									endif;
+								endif;
 
-								endforeach; ?>
+							endforeach; ?>
 
-								<td>
+                            <td>
 
-									<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
-									<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
+                                <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+                                <input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file"
+                                       style="background: url(<?php echo admin_url( '/images/xit.gif' ); ?>) no-repeat;"/>
 
-								</td>
+                            </td>
 
-							</tr>
+                        </tr>
 
 					<?php endfor; ?>
 
-					</tbody>
+                    </tbody>
 
-				</table>
+                </table>
 
-				<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
+                <input data-repeater-create type="button" class="button" style="margin-top: 6px;"
+                       value="<?php echo $args['add_item_text']; ?>"/>
 
-			</div>
-			
-		</td>
+            </div>
 
-	<?php
-		
+        </td>
+
+		<?php
+
 	}
-	
+
 	public function edd_fields_options_modal( $args ) {
-		
+
 		global $edd_options;
-		
+
 		$args = wp_parse_args( $args, array(
-			'id' => '',
-			'std' => '',
-			'classes' => array(),
-			'fields' => array(),
-			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
-			'edit_item_text' => __( 'Edit Row', EDD_Fields_ID ),
-			'save_item_text' => __( 'Save Row', EDD_Fields_ID ),
+			'id'               => '',
+			'std'              => '',
+			'classes'          => array(),
+			'fields'           => array(),
+			'add_item_text'    => __( 'Add Row', EDD_Fields_ID ),
+			'edit_item_text'   => __( 'Edit Row', EDD_Fields_ID ),
+			'save_item_text'   => __( 'Save Row', EDD_Fields_ID ),
 			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
-			'input_name' => false,
-			'tooltip_title' => false,
-			'tooltip_desc' => false,
+			'input_name'       => false,
+			'tooltip_title'    => false,
+			'tooltip_desc'     => false,
 		) );
-		
+
 		// We need to grab values this way to ensure Nested Repeaters work
 		if ( isset( $edd_options[ $args['id'] ] ) ) {
 			$edd_option = $edd_options[ $args['id'] ];
-		}
-		else {
+		} else {
 			$edd_option = $args['std'];
 		}
-		
+
 		// Ensure Dummy Field is created
 		$field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
-		
+
 		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
-		
+
 		?>
 
-		<input data-options-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>" />
+        <input data-options-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>"/>
 
-		<label for="<?php echo $name; ?>" style="display: inline-block;"><?php echo wp_kses_post( $args['desc'] ); ?></label>
+        <label for="<?php echo $name; ?>"
+               style="display: inline-block;"><?php echo wp_kses_post( $args['desc'] ); ?></label>
 
 		<?php if ( ! empty( $args['tooltip_title'] ) && ! empty( $args['tooltip_desc'] ) ) : ?>
- 			<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<strong><?php echo $args['tooltip_title']; ?></strong>: <?php echo $args['tooltip_desc']; ?>"></span>
- 		<?php endif; ?>
+            <span alt="f223" class="edd-help-tip dashicons dashicons-editor-help"
+                  title="<strong><?php echo $args['tooltip_title']; ?></strong>: <?php echo $args['tooltip_desc']; ?>"></span>
+		<?php endif; ?>
 
-		<div class="edd-fields-field-options reveal" data-reveal data-v-offset="64">
-			
-			<div data-edd-fields-field-options-repeater class="edd-rbm-repeater edd-fields-field-option-repeater edd_meta_table_wrap" style="margin: 8px 10px;">
+        <div class="edd-fields-field-options reveal" data-reveal data-v-offset="64">
 
-				<table>
+            <div data-edd-fields-field-options-repeater
+                 class="edd-rbm-repeater edd-fields-field-option-repeater edd_meta_table_wrap"
+                 style="margin: 8px 10px;">
 
-					<tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
+                <table>
 
-						<?php for ( $index = 0; $index < $field_count; $index++ ) : 
+                    <tbody data-repeater-list="<?php echo $args['id']; ?>" class="edd-rbm-repeater-list">
 
-							$value = ( isset( $edd_option[$index] ) ) ? $edd_option[$index] : array(); ?>
+					<?php for ( $index = 0; $index < $field_count; $index ++ ) :
 
-								<tr data-repeater-item<?php echo ( ! isset( $edd_option[$index] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?> class="edd-rbm-repeater-item">
+						$value = ( isset( $edd_option[ $index ] ) ) ? $edd_option[ $index ] : array(); ?>
 
-									<td>
-										<span class="edd_draghandle" data-repeater-item-handle></span>
-									</td>
+                        <tr data-repeater-item<?php echo ( ! isset( $edd_option[ $index ] ) ) ? ' data-repeater-dummy style="display: none;"' : ''; ?>
+                            class="edd-rbm-repeater-item">
 
-									<?php foreach ( $args['fields'] as $field_id => $field ) : 
+                            <td>
+                                <span class="edd_draghandle" data-repeater-item-handle></span>
+                            </td>
 
-										if ( is_callable( "edd_{$field['type']}_callback" ) ) : 
+							<?php foreach ( $args['fields'] as $field_id => $field ) :
 
-											// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
-											$field['id'] = $field_id;
-											$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+								if ( is_callable( "edd_{$field['type']}_callback" ) ) :
 
-											echo '<td>';
+									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
+									$field['id']  = $field_id;
+									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
 
-												call_user_func( "edd_{$field['type']}_callback", $field );
+									echo '<td>';
 
-											echo '</td>';
+									call_user_func( "edd_{$field['type']}_callback", $field );
 
-										endif;
+									echo '</td>';
 
-									endforeach; ?>
+								endif;
 
-									<td>
+							endforeach; ?>
 
-										<span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
-										<input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;" />
+                            <td>
 
-									</td>
+                                <span class="screen-reader-text"><?php echo $args['delete_item_text']; ?></span>
+                                <input data-repeater-delete type="button" class="edd_remove_repeatable" data-type="file"
+                                       style="background: url(<?php echo admin_url( '/images/xit.gif' ); ?>) no-repeat;"/>
 
-								</tr>
+                            </td>
 
-						<?php endfor; ?>
+                        </tr>
 
-					</tbody>
+					<?php endfor; ?>
 
-				</table>
-				
-				<input data-repeater-create type="button" class="button" style="margin-top: 6px;" value="<?php echo $args['add_item_text']; ?>" />
-				
-			</div>
-			
-			<input type="button" data-close class="button button-primary alignright" value="<?php echo $args['save_item_text']; ?>" />
+                    </tbody>
 
-			<a class="close-button" data-close aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
-				<span aria-hidden="true">&times;</span>
-			</a>
+                </table>
 
-		</div>
+                <input data-repeater-create type="button" class="button" style="margin-top: 6px;"
+                       value="<?php echo $args['add_item_text']; ?>"/>
+
+            </div>
+
+            <input type="button" data-close class="button button-primary alignright"
+                   value="<?php echo $args['save_item_text']; ?>"/>
+
+            <a class="close-button" data-close
+               aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
+                <span aria-hidden="true">&times;</span>
+            </a>
+
+        </div>
 
 		<?php
-		
+
 	}
-	
+
 	/**
 	 * Returns the Fields used to Generate Field Templates
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		array Fields
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        array Fields
 	 */
 	public function get_template_fields() {
-		
+
 		// Determine whether to generalize things or not
-		$post_types = apply_filters( 'edd_fields_metabox_post_types' , array( 'download' ) );
+		$post_types = apply_filters( 'edd_fields_metabox_post_types', array( 'download' ) );
 
 		$fields = apply_filters( 'edd_fields_template_fields', array(
-			'label' => array(
-				'type' => 'text',
-				'desc' => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
-				'field_class' => array(
+			'label'                      => array(
+				'type'          => 'text',
+				'desc'          => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
+				'field_class'   => array(
 					'edd-fields-template-name',
 					'edd-fields-field',
 				),
-				'placeholder' => __( 'New Field Template Group', EDD_Fields_ID ),
-				'readonly' => false,
-				'std' => '',
+				'placeholder'   => __( 'New Field Template Group', EDD_Fields_ID ),
+				'readonly'      => false,
+				'std'           => '',
 				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Fields_ID ),
 				'tooltip_desc'  => sprintf( _x( 'Controls the title shown when selecting a Field Template Group on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
 			),
 			'edd_fields_template_fields' => array(
-				'type' => 'hook',
-				'desc' => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
-				'add_item_text' => __( 'Add Field', EDD_Fields_ID ),
+				'type'             => 'hook',
+				'desc'             => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
+				'add_item_text'    => __( 'Add Field', EDD_Fields_ID ),
 				'delete_item_text' => __( 'Remove Field', EDD_Fields_ID ),
-				'std' => '',
-				'fields' => array(
-					'label' => array(
-						'type' => 'text',
-						'desc' => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
-						'placeholder' => '',
-						'field_class' => '',
-						'readonly' => false,
-						'std' => '',
+				'std'              => '',
+				'fields'           => array(
+					'label'              => array(
+						'type'          => 'text',
+						'desc'          => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
+						'placeholder'   => '',
+						'field_class'   => '',
+						'readonly'      => false,
+						'std'           => '',
 						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Fields_ID ),
 						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s.', 'Field Name Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
 					),
-					'type' => array(
-						'type' => 'select',
-						'options' => array(
-							'text' => _x( 'Plain Text', 'Plain Text Field Type Label', EDD_Fields_ID ),
-							'select' =>  _x( 'Select', 'Select Field Type Label', EDD_Fields_ID ),
-							'posts' => sprintf( _x( '%s List', 'Downloads Field Type Label', EDD_Fields_ID ), ( count( $post_types ) == 1 && $post_types[0] == 'download' ) ? edd_get_label_plural() : __( 'Posts', EDD_Fields_ID ) ),
+					'type'               => array(
+						'type'          => 'select',
+						'options'       => array(
+							'text'   => _x( 'Plain Text', 'Plain Text Field Type Label', EDD_Fields_ID ),
+							'select' => _x( 'Select', 'Select Field Type Label', EDD_Fields_ID ),
+							'posts'  => sprintf( _x( '%s List', 'Downloads Field Type Label', EDD_Fields_ID ), ( count( $post_types ) == 1 && $post_types[0] == 'download' ) ? edd_get_label_plural() : __( 'Posts', EDD_Fields_ID ) ),
 						),
-						'std' => 'text',
-						'field_class' => 'edd-fields-type',
-						'desc' => _x( 'Field Type', 'Field Type Label', EDD_Fields_ID ),
+						'std'           => 'text',
+						'field_class'   => 'edd-fields-type',
+						'desc'          => _x( 'Field Type', 'Field Type Label', EDD_Fields_ID ),
 						'tooltip_title' => _x( 'Field Type', 'Field Type Tooltip Title', EDD_Fields_ID ),
 						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen.', 'Field Type Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
 					),
 					'edd_fields_options' => array(
-						'type' => 'hook',
-						'edit_item_text' => __( 'Edit Options', EDD_Fields_ID ),
-						'add_item_text' => __( 'Add Option', EDD_Fields_ID ),
-						'save_item_text' => __( 'Save Options', EDD_Fields_ID ),
+						'type'             => 'hook',
+						'edit_item_text'   => __( 'Edit Options', EDD_Fields_ID ),
+						'add_item_text'    => __( 'Add Option', EDD_Fields_ID ),
+						'save_item_text'   => __( 'Save Options', EDD_Fields_ID ),
 						'delete_item_text' => __( 'Remove Option', EDD_Fields_ID ),
-						'std' => '',
-						'desc' => _x( 'Field Options', 'Field Options Label', EDD_Fields_ID ),
-						'tooltip_title' => _x( 'Field Options', 'Field Options Tooltip Title', EDD_Fields_ID ),
-						'tooltip_desc'  => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', EDD_Fields_ID ),
-						'fields' => array(
+						'std'              => '',
+						'desc'             => _x( 'Field Options', 'Field Options Label', EDD_Fields_ID ),
+						'tooltip_title'    => _x( 'Field Options', 'Field Options Tooltip Title', EDD_Fields_ID ),
+						'tooltip_desc'     => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', EDD_Fields_ID ),
+						'fields'           => array(
 							'value' => array(
-								'type' => 'text',
-								'desc' => _x( 'Value', 'Value Label', EDD_Fields_ID ),
-								'placeholder' => '',
-								'field_class' => '',
-								'readonly' => false,
-								'std' => '',
+								'type'          => 'text',
+								'desc'          => _x( 'Value', 'Value Label', EDD_Fields_ID ),
+								'placeholder'   => '',
+								'field_class'   => '',
+								'readonly'      => false,
+								'std'           => '',
 								'tooltip_title' => _x( 'Value', 'Value Tooltip Title', EDD_Fields_ID ),
 								'tooltip_desc'  => sprintf( _x( 'Adds Values for the Dropdown on the %s Edit Screen.', 'Field Option Value Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
 							),
@@ -583,12 +608,12 @@ class EDD_Fields_Admin {
 	}
 
 	/**
-     * Reset Field Template Groups to Default by deleting the saved values
-     * 
-     * @access		public
-     * @since		1.0.0
-     * @return		void
-     */
+	 * Reset Field Template Groups to Default by deleting the saved values
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        void
+	 */
 	public function reset_field_templates_to_default() {
 
 		// For some reason we can't hook into admin_init within a production environment. Yeah, I have no idea either
@@ -598,13 +623,13 @@ class EDD_Fields_Admin {
 			if ( isset( $_POST['edd_fields_template_reset_defaults'] ) ) {
 
 				edd_delete_option( 'edd_fields_template_settings' );
-				
+
 				$this->admin_notices[] = array(
-                    'edd-notices',
-                    'edd_fields_template_reset_defaults',
-                    _x( 'Field Template Groups Reset to Defaults.', 'Field Template Groups Reset to Defaults Successful', EDD_Fields_ID ),
-                    'updated'
-                );
+					'edd-notices',
+					'edd_fields_template_reset_defaults',
+					_x( 'Field Template Groups Reset to Defaults.', 'Field Template Groups Reset to Defaults Successful', EDD_Fields_ID ),
+					'updated'
+				);
 
 			}
 
@@ -613,15 +638,15 @@ class EDD_Fields_Admin {
 	}
 
 	/**
-     * Sometimes we need to add Admin Notices when add_settings_error() isn't accessable yet
-     * 
-     * @access      public
-     * @since       1.0.0
-     * @return      void
-     */
+	 * Sometimes we need to add Admin Notices when add_settings_error() isn't accessable yet
+	 *
+	 * @access      public
+	 * @since       1.0.0
+	 * @return      void
+	 */
 	public function display_admin_notices() {
 
-		foreach( $this->admin_notices as $admin_notice ) {
+		foreach ( $this->admin_notices as $admin_notice ) {
 
 			// Pass array as Function Parameters
 			call_user_func_array( 'add_settings_error', $admin_notice );
@@ -635,161 +660,161 @@ class EDD_Fields_Admin {
 
 	/**
 	 * Enqueue our CSS/JS on our Admin Settings Tab
-	 * 
-	 * @access	  public
-	 * @since	   1.0.0
-	 * @return	  void
+	 *
+	 * @access      public
+	 * @since       1.0.0
+	 * @return      void
 	 */
 	public function admin_settings_scripts() {
 
 		wp_enqueue_style( EDD_Fields_ID . '-admin' );
-		
+
 		// Dependencies
 		wp_enqueue_script( 'jquery-effects-core' );
 		wp_enqueue_script( 'jquery-effects-highlight' );
-		
+
 		wp_enqueue_script( EDD_Fields_ID . '-admin' );
 
 	}
-	
+
 	/**
 	 * Localize the Admin.js with some values from PHP-land
-	 * 
-	 * @param	  array $localization Array holding all our Localizations
-	 *														
-	 * @access	  public
-	 * @since	  1.0.0
-	 * @return	  array Modified Array
+	 *
+	 * @param      array $localization Array holding all our Localizations
+	 *
+	 * @access      public
+	 * @since      1.0.0
+	 * @return      array Modified Array
 	 */
 	public function localize_script( $localization ) {
-		
+
 		$localization['i18n'] = array(
-			'activeText' => _x( 'Active Template', 'Active Template Aria Label', EDD_Fields_ID ),
-			'inactiveText' => _x( 'Inactive Template', 'Inactive Template Aria Label', EDD_Fields_ID ),
-			'confirmDeletion' => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
-			'requiredError' => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
+			'activeText'         => _x( 'Active Template', 'Active Template Aria Label', EDD_Fields_ID ),
+			'inactiveText'       => _x( 'Inactive Template', 'Inactive Template Aria Label', EDD_Fields_ID ),
+			'confirmDeletion'    => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
+			'requiredError'      => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
 			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', EDD_Fields_ID ),
+			'noFields'           => __( 'No Fields', EDD_Fields_ID ),
+			'selectField'        => __( 'Select a Field', EDD_Fields_ID ),
+			'loading'            => __( 'Loading...', EDD_Fields_ID ),
 		);
-		
+
 		$localization['showFieldsOptions'] = array(
 			'select',
 		);
-		
+
 		$localization['url'] = EDD_Fields_URL;
-		
+
 		$localization['ajax'] = admin_url( 'admin-ajax.php' );
-		
+
 		return $localization;
-		
+
 	}
-	
+
 	/**
 	 * Inserts/Updates a Template via AJAX by Index
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		JSON
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        JSON
 	 */
 	public static function insert_template() {
-		
+
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
-			
-			$index = $_POST['index'];
+
+			$index    = $_POST['index'];
 			$existing = $_POST['saved'];
-			
+
 			// We don't want to save this data
 			unset( $_POST['index'] );
 			unset( $_POST['action'] );
 			unset( $_POST['saved'] );
-			
+
 			// JavaScript likes to alphabetically arrange Object Members. We're forcing this to the end
-			$fields = $_POST['edd_fields_template_fields' ];
+			$fields = $_POST['edd_fields_template_fields'];
 			unset( $_POST['edd_fields_template_fields'] );
 			$_POST['edd_fields_template_fields'] = $fields;
-			
+
 			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
-			
+
 			if ( $existing == 'true' ) {
 				$edd_fields_options[ $index ] = $_POST; // Overwrite an older entry
-			}
-			else {
+			} else {
 				// Insert between other entries.
 				// This is done this way to avoid edge-case weirdness
 				// Example: User starts to create a Template then closes the Modal. Then Rearranges Templates, THEN saves their previous Template.
 				$edd_fields_options = EDDFIELDS()->utility->array_insert( $edd_fields_options, $index, array( $_POST ) );
 			}
-			
+
 			$success = edd_update_option( 'edd_fields_template_settings', $edd_fields_options );
-			
+
 			if ( $success ) {
 				return wp_send_json_success();
-			}
-			else {
+			} else {
 				return wp_send_json_error();
 			}
-			
+
 		}
-		
+
 		return wp_send_json_error( array(
 			'error' => _x( 'Access Denied', 'Current User Cannot Insert Templates Error', EDD_Fields_ID ),
 		) );
-		
+
 	}
-	
+
 	/**
 	 * Save a fresh copy of the Templates with their new Indexes
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		JSON
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        JSON
 	 */
 	public static function sort_templates() {
-		
+
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
-			
+
 			// Ensure everything is indexed in-order
 			// We could have gaps due to non-saved Templates inbetween our sorted Array.
 			$_POST['templates'] = array_values( $_POST['templates'] );
-			
+
 			foreach ( $_POST['templates'] as &$template ) {
-				
+
 				// JavaScript likes to alphabetically arrange Object Members. We're forcing this to the end
-				$fields = $template['edd_fields_template_fields' ];
+				$fields = $template['edd_fields_template_fields'];
 				unset( $template['edd_fields_template_fields'] );
 				$template['edd_fields_template_fields'] = $fields;
-				
+
 			}
-			
+
 			$success = edd_update_option( 'edd_fields_template_settings', $_POST['templates'] );
-			
+
 			if ( $success ) {
 				return wp_send_json_success();
-			}
-			else {
+			} else {
 				return wp_send_json_error();
 			}
-			
+
 		}
-		
+
 		return wp_send_json_error( array(
 			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', EDD_Fields_ID ),
 		) );
-		
+
 	}
-	
+
 	/**
 	 * Deletes a Template via AJAX and reindex the Array
-	 * 
-	 * @access		public
-	 * @since		1.0.0
-	 * @return		JSON
+	 *
+	 * @access        public
+	 * @since        1.0.0
+	 * @return        JSON
 	 */
 	public static function delete_template() {
-		
+
 		if ( is_admin() && current_user_can( 'manage_shop_settings' ) ) {
-			
+
 			if ( $_POST['saved'] == 'true' ) {
-			
+
 				$index = $_POST['index'];
 
 				$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
@@ -797,25 +822,23 @@ class EDD_Fields_Admin {
 				unset( $edd_fields_options[ $index ] );
 
 				$success = edd_update_option( 'edd_fields_template_settings', array_values( $edd_fields_options ) );
-				
-			}
-			else {
+
+			} else {
 				$success = true; // Deleting a non-saved Template always succeeds
 			}
-			
+
 			if ( $success ) {
 				return wp_send_json_success();
-			}
-			else {
+			} else {
 				return wp_send_json_error();
 			}
-			
+
 		}
-		
+
 		return wp_send_json_error( array(
 			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', EDD_Fields_ID ),
 		) );
-		
+
 	}
 
 }
