@@ -27,9 +27,11 @@
 
                     $select.append('<option>' + i18n['selectField'] + '</option>');
 
-                    for ( var value in response.data ) {
+                    for ( var i = 0; i < response.data.length; i++ ) {
 
-                        $select.append('<option value="' + value + '">' + response.data[value] + '</option>');
+                        var value = response.data[i];
+
+                        $select.append('<option value="' + value + '">' + value + '</option>');
 
                     }
 

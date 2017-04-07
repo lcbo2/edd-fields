@@ -381,7 +381,7 @@ class EDD_Fields_Widget extends WP_Widget {
 
 		asort( $fields );
 
-		return wp_send_json_success( $fields );
+		return wp_send_json_success( array_values( $fields ) );
 
 	}
 
