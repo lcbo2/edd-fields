@@ -316,23 +316,8 @@ function edd_repeater_reindex_primary() {
 
                     });
 
-                    $.ajax({
-                        'type': 'POST',
-                        'url': eddFields.ajax,
-                        'data': {
-                            'action': 'sort_edd_fields_templates',
-                            'templates': data,
-                        },
-                        success: function (response) {
+                } else {
 
-                        },
-                        error: function (request, status, error) {
-
-                        }
-                    });
-
-                }
-                else {
                     init_edd_rbm_repeater_colorpickers($(event.currentTarget).closest('.edd-rbm-repeater-content'));
                     init_edd_rbm_repeater_tooltips($(event.currentTarget).closest('.edd-rbm-repeater-content'));
                     init_edd_rbm_repeater_required_fields($(event.currentTarget).closest('.edd-rbm-repeater-content'));
