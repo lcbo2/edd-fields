@@ -66,7 +66,7 @@ class EDD_Fields_Admin {
 	 */
 	public function settings_section( $sections ) {
 
-		$sections['edd-fields-settings'] = __( 'Fields', EDD_Fields_ID );
+		$sections['edd-fields-settings'] = __( 'Fields', 'edd-fields' );
 
 		return $sections;
 
@@ -88,25 +88,25 @@ class EDD_Fields_Admin {
 			array(
 				'id'            => 'edd_fields_table_inject',
 				'type'          => 'checkbox',
-				'name'          => _x( 'Fields Table Display', 'Fields Table Injection Global Label', EDD_Fields_ID ),
-				'desc'          => sprintf( _x( 'Disable Automatic Display of Fields Table on the %s Page', 'Fields Table Injection Global Checkbox Label', EDD_Fields_ID ), edd_get_label_singular() ),
-				'tooltip_title' => _x( 'Fields Table Display', 'Fields Table Injection Global Tooltip Title', EDD_Fields_ID ),
-				'tooltip_desc'  => sprintf( _x( "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s.", 'Fields Table Injection Global Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_plural() ),
+				'name'          => _x( 'Fields Table Display', 'Fields Table Injection Global Label', 'edd-fields' ),
+				'desc'          => sprintf( _x( 'Disable Automatic Display of Fields Table on the %s Page', 'Fields Table Injection Global Checkbox Label', 'edd-fields' ), edd_get_label_singular() ),
+				'tooltip_title' => _x( 'Fields Table Display', 'Fields Table Injection Global Tooltip Title', 'edd-fields' ),
+				'tooltip_desc'  => sprintf( _x( "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s.", 'Fields Table Injection Global Tooltip Text', 'edd-fields' ), edd_get_label_singular(), edd_get_label_plural() ),
 			),
 			array(
 				'id'                    => 'edd_fields_template_settings',
 				'input_name'            => 'edd_fields_template_settings',
-				'name'                  => __( 'Field Template Groups', EDD_Fields_ID ),
+				'name'                  => __( 'Field Template Groups', 'edd-fields' ),
 				'type'                  => 'hook',
 				'classes'               => array( 'edd-fields-settings-repeater' ),
-				'add_item_text'         => __( 'Add Field Template Group', EDD_Fields_ID ),
-				'edit_item_text'        => __( 'Edit Field Template Group', EDD_Fields_ID ),
-				'delete_item_text'      => __( 'Remove Field Template Group', EDD_Fields_ID ),
-				'save_item_text'        => __( 'Save Field Template Group', EDD_Fields_ID ),
+				'add_item_text'         => __( 'Add Field Template Group', 'edd-fields' ),
+				'edit_item_text'        => __( 'Edit Field Template Group', 'edd-fields' ),
+				'delete_item_text'      => __( 'Remove Field Template Group', 'edd-fields' ),
+				'save_item_text'        => __( 'Save Field Template Group', 'edd-fields' ),
 				'defaults_name'         => 'edd_fields_template_reset_defaults',
-				'defaults_text'         => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', EDD_Fields_ID ),
-				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', EDD_Fields_ID ),
-				'default_title'         => __( 'New Field Template Group', EDD_Fields_ID ),
+				'defaults_text'         => _x( 'Reset to Defaults', 'Reset Field Template Groups to Defaults', 'edd-fields' ),
+				'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Field Template Groups.', 'Reset Field Template Groups Confirmation Dialog', 'edd-fields' ),
+				'default_title'         => __( 'New Field Template Group', 'edd-fields' ),
 				'std'                   => edd_fields_get_templates(),
 				'fields'                => $this->get_template_fields(),
 			),
@@ -144,15 +144,15 @@ class EDD_Fields_Admin {
 			'std'                   => '',
 			'classes'               => array(),
 			'fields'                => array(),
-			'add_item_text'         => __( 'Add Row', EDD_Fields_ID ),
-			'edit_item_text'        => __( 'Edit Row', EDD_Fields_ID ),
-			'save_item_text'        => __( 'Save Row', EDD_Fields_ID ),
-			'delete_item_text'      => __( 'Delete Row', EDD_Fields_ID ),
-			'default_title'         => __( 'New Row', EDD_Fields_ID ),
+			'add_item_text'         => __( 'Add Row', 'edd-fields' ),
+			'edit_item_text'        => __( 'Edit Row', 'edd-fields' ),
+			'save_item_text'        => __( 'Save Row', 'edd-fields' ),
+			'delete_item_text'      => __( 'Delete Row', 'edd-fields' ),
+			'default_title'         => __( 'New Row', 'edd-fields' ),
 			'input_name'            => false,
 			'defaults_name'         => 'edd_fields_repeater_reset_defaults',
-			'defaults_text'         => _x( 'Reset to Defaults', 'Reset Repeater to Defaults', EDD_Fields_ID ),
-			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Repeater.', 'Reset Repeater Confirmation Dialog', EDD_Fields_ID ),
+			'defaults_text'         => _x( 'Reset to Defaults', 'Reset Repeater to Defaults', 'edd-fields' ),
+			'defaults_confirmation' => _x( 'Are you sure? You will lose all changes made to the Repeater.', 'Reset Repeater Confirmation Dialog', 'edd-fields' ),
 		) );
 
 		// We need to grab values this way to ensure Nested Repeaters work
@@ -282,7 +282,7 @@ class EDD_Fields_Admin {
                             </div>
 
                             <a class="close-button" data-close
-                               aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
+                               aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', 'edd-fields' ); ?>">
                                 <span aria-hidden="true">&times;</span>
                             </a>
 
@@ -319,7 +319,7 @@ class EDD_Fields_Admin {
 			'std'           => '',
 			'classes'       => array(),
 			'fields'        => array(),
-			'add_item_text' => __( 'Add Row', EDD_Fields_ID ),
+			'add_item_text' => __( 'Add Row', 'edd-fields' ),
 			'input_name'    => false,
 		) );
 
@@ -413,10 +413,10 @@ class EDD_Fields_Admin {
 			'std'              => '',
 			'classes'          => array(),
 			'fields'           => array(),
-			'add_item_text'    => __( 'Add Row', EDD_Fields_ID ),
-			'edit_item_text'   => __( 'Edit Row', EDD_Fields_ID ),
-			'save_item_text'   => __( 'Save Row', EDD_Fields_ID ),
-			'delete_item_text' => __( 'Delete Row', EDD_Fields_ID ),
+			'add_item_text'    => __( 'Add Row', 'edd-fields' ),
+			'edit_item_text'   => __( 'Edit Row', 'edd-fields' ),
+			'save_item_text'   => __( 'Save Row', 'edd-fields' ),
+			'delete_item_text' => __( 'Delete Row', 'edd-fields' ),
 			'input_name'       => false,
 			'tooltip_title'    => false,
 			'tooltip_desc'     => false,
@@ -510,7 +510,7 @@ class EDD_Fields_Admin {
                    value="<?php echo $args['save_item_text']; ?>"/>
 
             <a class="close-button" data-close
-               aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', EDD_Fields_ID ); ?>">
+               aria-label="<?php echo _x( 'Close Notification Editor', 'Close Fields Notification Modal', 'edd-fields' ); ?>">
                 <span aria-hidden="true">&times;</span>
             </a>
 
@@ -535,67 +535,67 @@ class EDD_Fields_Admin {
 		$fields = apply_filters( 'edd_fields_template_fields', array(
 			'label'                      => array(
 				'type'          => 'text',
-				'desc'          => _x( 'Template Name', 'Template Name Label', EDD_Fields_ID ),
+				'desc'          => _x( 'Template Name', 'Template Name Label', 'edd-fields' ),
 				'field_class'   => array(
 					'edd-fields-template-name',
 					'edd-fields-field',
 				),
-				'placeholder'   => __( 'New Field Template Group', EDD_Fields_ID ),
+				'placeholder'   => __( 'New Field Template Group', 'edd-fields' ),
 				'readonly'      => false,
 				'std'           => '',
-				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', EDD_Fields_ID ),
-				'tooltip_desc'  => sprintf( _x( 'Controls the title shown when selecting a Field Template Group on the %s Edit Screen.', 'Template Icon Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
+				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', 'edd-fields' ),
+				'tooltip_desc'  => sprintf( _x( 'Controls the title shown when selecting a Field Template Group on the %s Edit Screen.', 'Template Icon Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
 			),
 			'edd_fields_template_fields' => array(
 				'type'             => 'hook',
-				'desc'             => _x( 'Fields', 'Field Nested Repeater Label', EDD_Fields_ID ),
-				'add_item_text'    => __( 'Add Field', EDD_Fields_ID ),
-				'delete_item_text' => __( 'Remove Field', EDD_Fields_ID ),
+				'desc'             => _x( 'Fields', 'Field Nested Repeater Label', 'edd-fields' ),
+				'add_item_text'    => __( 'Add Field', 'edd-fields' ),
+				'delete_item_text' => __( 'Remove Field', 'edd-fields' ),
 				'std'              => '',
 				'fields'           => array(
 					'label'              => array(
 						'type'          => 'text',
-						'desc'          => _x( 'Field Name', 'Field Name Label', EDD_Fields_ID ),
+						'desc'          => _x( 'Field Name', 'Field Name Label', 'edd-fields' ),
 						'placeholder'   => '',
 						'field_class'   => '',
 						'readonly'      => false,
 						'std'           => '',
-						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', EDD_Fields_ID ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s.', 'Field Name Tooltip Text', EDD_Fields_ID ), edd_get_label_singular(), edd_get_label_singular() ),
+						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', 'edd-fields' ),
+						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s.', 'Field Name Tooltip Text', 'edd-fields' ), edd_get_label_singular(), edd_get_label_singular() ),
 					),
 					'type'               => array(
 						'type'          => 'select',
 						'options'       => array(
-							'text'   => _x( 'Plain Text', 'Plain Text Field Type Label', EDD_Fields_ID ),
-							'select' => _x( 'Select', 'Select Field Type Label', EDD_Fields_ID ),
-							'posts'  => sprintf( _x( '%s List', 'Downloads Field Type Label', EDD_Fields_ID ), ( count( $post_types ) == 1 && $post_types[0] == 'download' ) ? edd_get_label_plural() : __( 'Posts', EDD_Fields_ID ) ),
+							'text'   => _x( 'Plain Text', 'Plain Text Field Type Label', 'edd-fields' ),
+							'select' => _x( 'Select', 'Select Field Type Label', 'edd-fields' ),
+							'posts'  => sprintf( _x( '%s List', 'Downloads Field Type Label', 'edd-fields' ), ( count( $post_types ) == 1 && $post_types[0] == 'download' ) ? edd_get_label_plural() : __( 'Posts', 'edd-fields' ) ),
 						),
 						'std'           => 'text',
 						'field_class'   => 'edd-fields-type',
-						'desc'          => _x( 'Field Type', 'Field Type Label', EDD_Fields_ID ),
-						'tooltip_title' => _x( 'Field Type', 'Field Type Tooltip Title', EDD_Fields_ID ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen.', 'Field Type Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
+						'desc'          => _x( 'Field Type', 'Field Type Label', 'edd-fields' ),
+						'tooltip_title' => _x( 'Field Type', 'Field Type Tooltip Title', 'edd-fields' ),
+						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen.', 'Field Type Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
 					),
 					'edd_fields_options' => array(
 						'type'             => 'hook',
-						'edit_item_text'   => __( 'Edit Options', EDD_Fields_ID ),
-						'add_item_text'    => __( 'Add Option', EDD_Fields_ID ),
-						'save_item_text'   => __( 'Save Options', EDD_Fields_ID ),
-						'delete_item_text' => __( 'Remove Option', EDD_Fields_ID ),
+						'edit_item_text'   => __( 'Edit Options', 'edd-fields' ),
+						'add_item_text'    => __( 'Add Option', 'edd-fields' ),
+						'save_item_text'   => __( 'Save Options', 'edd-fields' ),
+						'delete_item_text' => __( 'Remove Option', 'edd-fields' ),
 						'std'              => '',
-						'desc'             => _x( 'Field Options', 'Field Options Label', EDD_Fields_ID ),
-						'tooltip_title'    => _x( 'Field Options', 'Field Options Tooltip Title', EDD_Fields_ID ),
-						'tooltip_desc'     => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', EDD_Fields_ID ),
+						'desc'             => _x( 'Field Options', 'Field Options Label', 'edd-fields' ),
+						'tooltip_title'    => _x( 'Field Options', 'Field Options Tooltip Title', 'edd-fields' ),
+						'tooltip_desc'     => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', 'edd-fields' ),
 						'fields'           => array(
 							'value' => array(
 								'type'          => 'text',
-								'desc'          => _x( 'Value', 'Value Label', EDD_Fields_ID ),
+								'desc'          => _x( 'Value', 'Value Label', 'edd-fields' ),
 								'placeholder'   => '',
 								'field_class'   => '',
 								'readonly'      => false,
 								'std'           => '',
-								'tooltip_title' => _x( 'Value', 'Value Tooltip Title', EDD_Fields_ID ),
-								'tooltip_desc'  => sprintf( _x( 'Adds Values for the Dropdown on the %s Edit Screen.', 'Field Option Value Tooltip Text', EDD_Fields_ID ), edd_get_label_singular() ),
+								'tooltip_title' => _x( 'Value', 'Value Tooltip Title', 'edd-fields' ),
+								'tooltip_desc'  => sprintf( _x( 'Adds Values for the Dropdown on the %s Edit Screen.', 'Field Option Value Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
 							),
 						),
 					),
@@ -627,7 +627,7 @@ class EDD_Fields_Admin {
 				$this->admin_notices[] = array(
 					'edd-notices',
 					'edd_fields_template_reset_defaults',
-					_x( 'Field Template Groups Reset to Defaults.', 'Field Template Groups Reset to Defaults Successful', EDD_Fields_ID ),
+					_x( 'Field Template Groups Reset to Defaults.', 'Field Template Groups Reset to Defaults Successful', 'edd-fields' ),
 					'updated'
 				);
 
@@ -689,14 +689,14 @@ class EDD_Fields_Admin {
 	public function localize_script( $localization ) {
 
 		$localization['i18n'] = array(
-			'activeText'         => _x( 'Active Template', 'Active Template Aria Label', EDD_Fields_ID ),
-			'inactiveText'       => _x( 'Inactive Template', 'Inactive Template Aria Label', EDD_Fields_ID ),
-			'confirmDeletion'    => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', EDD_Fields_ID ),
-			'requiredError'      => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', EDD_Fields_ID ),
-			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', EDD_Fields_ID ),
-			'noFields'           => __( 'No Fields', EDD_Fields_ID ),
-			'selectField'        => __( 'Select a Field', EDD_Fields_ID ),
-			'loading'            => __( 'Loading...', EDD_Fields_ID ),
+			'activeText'         => _x( 'Active Template', 'Active Template Aria Label', 'edd-fields' ),
+			'inactiveText'       => _x( 'Inactive Template', 'Inactive Template Aria Label', 'edd-fields' ),
+			'confirmDeletion'    => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', 'edd-fields' ),
+			'requiredError'      => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', 'edd-fields' ),
+			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', 'edd-fields' ),
+			'noFields'           => __( 'No Fields', 'edd-fields' ),
+			'selectField'        => __( 'Select a Field', 'edd-fields' ),
+			'loading'            => __( 'Loading...', 'edd-fields' ),
 		);
 
 		$localization['showFieldsOptions'] = array(
@@ -757,7 +757,7 @@ class EDD_Fields_Admin {
 		}
 
 		return wp_send_json_error( array(
-			'error' => _x( 'Access Denied', 'Current User Cannot Insert Templates Error', EDD_Fields_ID ),
+			'error' => _x( 'Access Denied', 'Current User Cannot Insert Templates Error', 'edd-fields' ),
 		) );
 
 	}
@@ -797,7 +797,7 @@ class EDD_Fields_Admin {
 		}
 
 		return wp_send_json_error( array(
-			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', EDD_Fields_ID ),
+			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', 'edd-fields' ),
 		) );
 
 	}
@@ -838,7 +838,7 @@ class EDD_Fields_Admin {
 		}
 
 		return wp_send_json_error( array(
-			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', EDD_Fields_ID ),
+			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', 'edd-fields' ),
 		) );
 
 	}

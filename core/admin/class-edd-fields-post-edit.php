@@ -57,7 +57,7 @@ class EDD_Fields_Post_Edit {
 
 			add_meta_box(
 				'edd_fields_meta_box', // Metabox ID
-				sprintf( __( '%1$s Fields', EDD_Fields_ID ), $post_type_labels->singular_name, $post_type_labels->name ), // Metabox Label
+				sprintf( __( '%1$s Fields', 'edd-fields' ), $post_type_labels->singular_name, $post_type_labels->name ), // Metabox Label
 				array( $this, 'fields' ), // Callback function to populate Meta Box
 				$post_type,
 				'normal', // Position
@@ -94,7 +94,7 @@ class EDD_Fields_Post_Edit {
 					'current' => $inject_shortcode,
 				) );
 				
-				echo _x( 'Show Fields Table?', 'Fields Table Inject Checkbox Label', EDD_Fields_ID ); ?> <span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php echo _x( '<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button.', 'Fields Table Inject Tooltip', EDD_Fields_ID ); ?>"></span>
+				echo _x( 'Show Fields Table?', 'Fields Table Inject Checkbox Label', 'edd-fields' ); ?> <span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php echo _x( '<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button.', 'Fields Table Inject Tooltip', 'edd-fields' ); ?>"></span>
 				
 			</label>
 			
@@ -114,7 +114,7 @@ class EDD_Fields_Post_Edit {
 			}
 
 			// Place an option for "Custom" right at the top
-			$templates_select = array( 'custom' => _x( 'Custom (No Template)', 'Custom Template Label', EDD_Fields_ID ) ) + $templates_select;
+			$templates_select = array( 'custom' => _x( 'Custom (No Template)', 'Custom Template Label', 'edd-fields' ) ) + $templates_select;
 		
 			if ( ! $active_template = get_post_meta( $post->ID, 'edd_fields_template', true ) ) {
 				$active_template = 'custom';
@@ -134,11 +134,11 @@ class EDD_Fields_Post_Edit {
 				$singular = edd_get_label_singular();
 			}
 			else {
-				$singular = _x( 'Item', 'Current Item Replacement Text for Widget', EDD_Fields_ID );
+				$singular = _x( 'Item', 'Current Item Replacement Text for Widget', 'edd-fields' );
 			}
 
 			$posts = array(
-				0 => sprintf( __( 'Current %s', EDD_Fields_ID ), $singular ),
+				0 => sprintf( __( 'Current %s', 'edd-fields' ), $singular ),
 			);
 
 		
@@ -188,9 +188,9 @@ class EDD_Fields_Post_Edit {
 				
 			<p>
 				<strong>
-					<?php echo _x( 'Select a Field Template Group', 'Fields Template Label', EDD_Fields_ID ); ?>
+					<?php echo _x( 'Select a Field Template Group', 'Fields Template Label', 'edd-fields' ); ?>
 				</strong>
-				<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php echo _x( '<strong>Select a Field Template Group</strong>: You can choose a Template created on the EDD Fields Settings Page, or use the Custom setting.', 'Select a Field Template Group Tooltip', EDD_Fields_ID ); ?>"></span>
+				<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php echo _x( '<strong>Select a Field Template Group</strong>: You can choose a Template created on the EDD Fields Settings Page, or use the Custom setting.', 'Select a Field Template Group Tooltip', 'edd-fields' ); ?>"></span>
 			</p>
 
 			<p>
@@ -212,8 +212,8 @@ class EDD_Fields_Post_Edit {
 					<thead>
 						<tr>
 							<th scope="col" class="edd-rbm-repeater-field-handle"></th>
-							<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
-							<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
+							<th scope="col" class="edd-fields-name"><?php _e( 'Name', 'edd-fields' ); ?></th>
+							<th scope="col" class="edd-fields-value"><?php _e( 'Value', 'edd-fields' ); ?></th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -238,7 +238,7 @@ class EDD_Fields_Post_Edit {
 
 					<tr>
 						<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-							<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', EDD_Fields_ID ); ?></button>
+							<button class="button-secondary edd_add_repeatable" style="margin: 6px 0;"><?php _e( 'Add Field', 'edd-fields' ); ?></button>
 						</td>
 					</tr>
 
@@ -253,8 +253,8 @@ class EDD_Fields_Post_Edit {
 
 						<thead>
 							<tr>
-								<th scope="col" class="edd-fields-name"><?php _e( 'Name', EDD_Fields_ID ); ?></th>
-								<th scope="col" class="edd-fields-value"><?php _e( 'Value', EDD_Fields_ID ); ?></th>
+								<th scope="col" class="edd-fields-name"><?php _e( 'Name', 'edd-fields' ); ?></th>
+								<th scope="col" class="edd-fields-value"><?php _e( 'Value', 'edd-fields' ); ?></th>
 							</tr>
 						</thead>
 
@@ -398,7 +398,7 @@ class EDD_Fields_Post_Edit {
 			</td>
 			<td>
 				<button class="edd_remove_repeatable" data-type="file" style="background: url(<?php echo admin_url('/images/xit.gif'); ?>) no-repeat;">
-					<span class="screen-reader-text"><?php _e( 'Remove Field', EDD_Fields_ID ); ?></span><span aria-hidden="true">&times;</span>
+					<span class="screen-reader-text"><?php _e( 'Remove Field', 'edd-fields' ); ?></span><span aria-hidden="true">&times;</span>
 				</button>
 			</td>
 		</tr>
@@ -561,7 +561,7 @@ class EDD_Fields_Post_Edit {
 		);
 
 		$result = array(
-			array( 'text' => sprintf( __( 'Current %s', EDD_Fields_ID ), $singular ), 'value' => '' )
+			array( 'text' => sprintf( __( 'Current %s', 'edd-fields' ), $singular ), 'value' => '' )
 		);
 
 		foreach ( $post_types as $post_type ) {
@@ -625,7 +625,7 @@ class EDD_Fields_Post_Edit {
 		$fields = get_post_meta( $post_id, 'edd_fields', true );
 
 		$result = array(
-			array( 'text' => sprintf( __( 'Choose a Field Name', EDD_Fields_ID ), $singular ), 'value' => '' )
+			array( 'text' => sprintf( __( 'Choose a Field Name', 'edd-fields' ), $singular ), 'value' => '' )
 		);
 
 		if ( $fields && isset( $fields[ $template ] ) ) {

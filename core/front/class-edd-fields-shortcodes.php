@@ -122,7 +122,7 @@ class EDD_Fields_Shortcodes {
 		);
 
 		if ( $atts['name'] == '' ) {
-			return __( 'You must specify a Field Name. Example: [edd_field name="test"]', EDD_Fields_ID );
+			return __( 'You must specify a Field Name. Example: [edd_field name="test"]', 'edd-fields' );
 		}
 
 		return edd_fields_get( $atts['name'], $atts['post_id'] );

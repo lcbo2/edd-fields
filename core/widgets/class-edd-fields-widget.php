@@ -21,10 +21,10 @@ class EDD_Fields_Widget extends WP_Widget {
 
 		parent::__construct(
 			'edd_fields_widget', // Base ID
-			_x( 'EDD Fields', 'EDD Fields Widget Name', EDD_Fields_ID ), // Name
+			_x( 'EDD Fields', 'EDD Fields Widget Name', 'edd-fields' ), // Name
 			array(
 				'classname'   => 'edd-fields-widget',
-				'description' => _x( 'A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name.', 'EDD Fields Widget Description', EDD_Fields_ID ),
+				'description' => _x( 'A Widget that can show a Table of all EDD Fields (For the chosen Field Template Group) or an individual Field by Name.', 'EDD Fields Widget Description', 'edd-fields' ),
 			) // Args
 		);
 
@@ -92,13 +92,13 @@ class EDD_Fields_Widget extends WP_Widget {
 
 			// Determine whether or not we're going to build the Shortcode with a Name Attribute
 			if ( empty( $field_name ) ) {
-				echo _x( 'You must choose a Field from the Drop-down in the EDD Fields Widget Settings', 'No Field Chosen in Widget', EDD_Fields_ID );
+				echo _x( 'You must choose a Field from the Drop-down in the EDD Fields Widget Settings', 'No Field Chosen in Widget', 'edd-fields' );
 			} else {
 
 				$field = edd_fields_get( $field_name, $post_id );
 
 				if ( empty( $field ) ) {
-					echo $prefix . _x( 'No data found', 'No data found for the chosen Field in the Widget', EDD_Fields_ID );
+					echo $prefix . _x( 'No data found', 'No data found for the chosen Field in the Widget', 'edd-fields' );
 				} else {
 					echo $prefix . $field;
 				}
@@ -141,11 +141,11 @@ class EDD_Fields_Widget extends WP_Widget {
 		) { // EDD Allows Users to Filter this. Some other plugins do too, but we're targeting EDD
 			$singular = edd_get_label_singular();
 		} else {
-			$singular = _x( 'Item', 'Current Item Replacement Text for Widget', EDD_Fields_ID );
+			$singular = _x( 'Item', 'Current Item Replacement Text for Widget', 'edd-fields' );
 		}
 
 		$posts = array(
-			0 => sprintf( __( 'Current %s', EDD_Fields_ID ), $singular ),
+			0 => sprintf( __( 'Current %s', 'edd-fields' ), $singular ),
 		);
 
 		foreach ( $post_types as $post_type ) {
@@ -210,7 +210,7 @@ class EDD_Fields_Widget extends WP_Widget {
             <p>
 
                 <label for="<?php echo $this->get_field_id( 'post_id' ); ?>">
-					<?php echo sprintf( _x( 'Show Data for which %s:', 'Show for which Item Label', EDD_Fields_ID ), $singular ); ?>
+					<?php echo sprintf( _x( 'Show Data for which %s:', 'Show for which Item Label', 'edd-fields' ), $singular ); ?>
                 </label>
 
                 <select id="<?php echo $this->get_field_id( 'post_id' ); ?>" class="widefat edd-fields-widget-post-id"
@@ -249,19 +249,19 @@ class EDD_Fields_Widget extends WP_Widget {
             <p>
 
                 <label for="<?php echo $this->get_field_id( 'shortcode' ); ?>">
-					<?php echo _x( 'How to display the Data:', 'How to display the Data Label', EDD_Fields_ID ); ?>
+					<?php echo _x( 'How to display the Data:', 'How to display the Data Label', 'edd-fields' ); ?>
                 </label>
                 <br/>
                 <label>
                     <input type="radio" class="edd-fields-widget-shortcode"
                            name="<?php echo $this->get_field_name( 'shortcode' ); ?>"
-                           value="table"<?php echo ( $saved_shortcode == 'table' ) ? ' checked' : ''; ?> /> <?php echo _x( 'Full Table', 'Widget Full Table Display', EDD_Fields_ID ); ?>
+                           value="table"<?php echo ( $saved_shortcode == 'table' ) ? ' checked' : ''; ?> /> <?php echo _x( 'Full Table', 'Widget Full Table Display', 'edd-fields' ); ?>
                 </label>
                 <br/>
                 <label>
                     <input type="radio" class="edd-fields-widget-shortcode"
                            name="<?php echo $this->get_field_name( 'shortcode' ); ?>"
-                           value="individual"<?php echo ( $saved_shortcode == 'individual' ) ? ' checked' : ''; ?> /> <?php echo _x( 'Single Value', 'Widget Single Value Display', EDD_Fields_ID ); ?>
+                           value="individual"<?php echo ( $saved_shortcode == 'individual' ) ? ' checked' : ''; ?> /> <?php echo _x( 'Single Value', 'Widget Single Value Display', 'edd-fields' ); ?>
                 </label>
 
             </p>
@@ -271,13 +271,13 @@ class EDD_Fields_Widget extends WP_Widget {
                 <p>
 
                     <label for="<?php echo $this->get_field_id( 'field' ); ?>">
-						<?php echo _x( 'Show which Field?', 'Show which Field Label', EDD_Fields_ID ); ?>
+						<?php echo _x( 'Show which Field?', 'Show which Field Label', 'edd-fields' ); ?>
                     </label>
 
                     <select name="<?php echo $this->get_field_name( 'field' ); ?>"
                             class="widefat edd-fields-widget-field" data-selected="<?php echo $saved_field; ?>">
                         <option value="0">
-							<?php echo _x( 'Select a Field', 'Field Select Default Option', EDD_Fields_ID ); ?>
+							<?php echo _x( 'Select a Field', 'Field Select Default Option', 'edd-fields' ); ?>
                         </option>
 
 						<?php if ( $saved_post_available_fields ) : ?>

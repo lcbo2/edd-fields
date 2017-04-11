@@ -85,7 +85,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			if ( defined( 'EDD_VERSION' ) 
 				&& ( version_compare( EDD_VERSION, '2.6.11' ) < 0 ) ) {
 				
-				$this->admin_errors[] = sprintf( _x( '%s requires v%s of %s or higher to be installed!', 'Outdated Dependency Error', EDD_Fields_ID ), '<strong>' . $this->plugin_data['Name'] . '</strong>', '2.6.11', '<a href="//wordpress.org/plugins/easy-digital-downloads/" target="_blank"><strong>Easy Digital Downloads</strong></a>' );
+				$this->admin_errors[] = sprintf( _x( '%s requires v%s of %s or higher to be installed!', 'Outdated Dependency Error', 'edd-fields' ), '<strong>' . $this->plugin_data['Name'] . '</strong>', '2.6.11', '<a href="//wordpress.org/plugins/easy-digital-downloads/" target="_blank"><strong>Easy Digital Downloads</strong></a>' );
 				
 				if ( ! has_action( 'admin_notices', array( $this, 'admin_errors' ) ) ) {
 					add_action( 'admin_notices', array( $this, 'admin_errors' ) );
@@ -161,25 +161,25 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			$lang_dir = apply_filters( 'EDD_Fields_languages_directory', $lang_dir );
 
 			// Traditional WordPress plugin locale filter
-			$locale = apply_filters( 'plugin_locale', get_locale(), EDD_Fields_ID );
-			$mofile = sprintf( '%1$s-%2$s.mo', EDD_Fields_ID, $locale );
+			$locale = apply_filters( 'plugin_locale', get_locale(), 'edd-fields');
+			$mofile = sprintf( '%1$s-%2$s.mo', 'edd-fields', $locale );
 
 			// Setup paths to current locale file
 			$mofile_local   = $lang_dir . $mofile;
-			$mofile_global  = WP_LANG_DIR . '/' . EDD_Fields_ID . '/' . $mofile;
+			$mofile_global  = WP_LANG_DIR . '/edd-fields/' . $mofile;
 
 			if ( file_exists( $mofile_global ) ) {
 				// Look in global /wp-content/languages/edd-fields/ folder
 				// This way translations can be overridden via the Theme/Child Theme
-				load_textdomain( EDD_Fields_ID, $mofile_global );
+				load_textdomain( 'edd-fields', $mofile_global );
 			}
 			else if ( file_exists( $mofile_local ) ) {
 				// Look in local /wp-content/plugins/edd-fields/languages/ folder
-				load_textdomain( EDD_Fields_ID, $mofile_local );
+				load_textdomain( 'edd-fields', $mofile_local );
 			}
 			else {
 				// Load the default language files
-				load_plugin_textdomain( EDD_Fields_ID, false, $lang_dir );
+				load_plugin_textdomain( 'edd-fields', false, $lang_dir );
 			}
 
 		}

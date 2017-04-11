@@ -22,28 +22,28 @@ class EDD_Fields_Utility {
 	public function get_default_templates() {
 		
 		$ebook = apply_filters( 'edd_fields_ebook_template_defaults', array(
-			'label' => _x( 'Ebook', 'Ebook Template', EDD_Fields_ID ),
+			'label' => _x( 'Ebook', 'Ebook Template', 'edd-fields' ),
 			'edd_fields_template_fields' => array(
 				array(
-					'label' => _x( 'Author', 'Ebook Template: Author', EDD_Fields_ID ),
+					'label' => _x( 'Author', 'Ebook Template: Author', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Number of Pages', 'Ebook Template: Number of Pages', EDD_Fields_ID ),
+					'label' => _x( 'Number of Pages', 'Ebook Template: Number of Pages', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Publisher', 'Ebook Template: Publisher', EDD_Fields_ID ),
+					'label' => _x( 'Publisher', 'Ebook Template: Publisher', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Format', 'Ebook Template: Format', EDD_Fields_ID ),
+					'label' => _x( 'Format', 'Ebook Template: Format', 'edd-fields' ),
 				),
 			),
 		) );
 		
 		$wp_plugin = apply_filters( 'edd_fields_wordpress_plugin_template_defaults', array(
-			'label' => _x( 'WordPress Plugin', 'WordPress Plugin Template', EDD_Fields_ID ),
+			'label' => _x( 'WordPress Plugin', 'WordPress Plugin Template', 'edd-fields' ),
 			'edd_fields_template_fields' => array(
 				array(
-					'label' => _x( 'Required WordPress Version', 'WordPress Plugin Template: Required WordPress Version', EDD_Fields_ID ),
+					'label' => _x( 'Required WordPress Version', 'WordPress Plugin Template: Required WordPress Version', 'edd-fields' ),
 					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
@@ -61,7 +61,7 @@ class EDD_Fields_Utility {
 					),
 				),
 				array(
-					'label' => _x( 'Required PHP Version', 'WordPress Plugin Template: Required PHP Version', EDD_Fields_ID ),
+					'label' => _x( 'Required PHP Version', 'WordPress Plugin Template: Required PHP Version', 'edd-fields' ),
 					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
@@ -76,19 +76,19 @@ class EDD_Fields_Utility {
 					),
 				),
 				array(
-					'label' => _x( 'Contributors', 'WordPress Plugin Template: Contributors', EDD_Fields_ID ),
+					'label' => _x( 'Contributors', 'WordPress Plugin Template: Contributors', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Supported Languages', 'WordPress Plugin Template: Supported Languages', EDD_Fields_ID ),
+					'label' => _x( 'Supported Languages', 'WordPress Plugin Template: Supported Languages', 'edd-fields' ),
 				),
 			),
 		) );
 		
 		$wp_theme = apply_filters( 'edd_fields_wordpress_theme_template_defaults', array(
-			'label' => _x( 'WordPress Theme', 'WordPress Theme Template', EDD_Fields_ID ),
+			'label' => _x( 'WordPress Theme', 'WordPress Theme Template', 'edd-fields' ),
 			'edd_fields_template_fields' => array(
 				array(
-					'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', EDD_Fields_ID ),
+					'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', 'edd-fields' ),
 					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
@@ -106,7 +106,7 @@ class EDD_Fields_Utility {
 					),
 				),
 				array(
-					'label' => _x( 'Required PHP Version', 'WordPress Theme Template: Required PHP Version', EDD_Fields_ID ),
+					'label' => _x( 'Required PHP Version', 'WordPress Theme Template: Required PHP Version', 'edd-fields' ),
 					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
@@ -121,20 +121,20 @@ class EDD_Fields_Utility {
 					),
 				),
 				array(
-					'label' => _x( 'Contributors', 'WordPress Theme Template: Contributors', EDD_Fields_ID ),
+					'label' => _x( 'Contributors', 'WordPress Theme Template: Contributors', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Supported Languages', 'WordPress Theme Template: Supported Languages', EDD_Fields_ID ),
+					'label' => _x( 'Supported Languages', 'WordPress Theme Template: Supported Languages', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Responsive', 'WordPress Theme Template: Responsive', EDD_Fields_ID ),
+					'label' => _x( 'Responsive', 'WordPress Theme Template: Responsive', 'edd-fields' ),
 					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
-							'value' => __( 'Yes', EDD_Fields_ID ),
+							'value' => __( 'Yes', 'edd-fields' ),
 						),
 						array(
-							'value' => __( 'No', EDD_Fields_ID ),
+							'value' => __( 'No', 'edd-fields' ),
 						),
 					),
 				),
@@ -142,29 +142,29 @@ class EDD_Fields_Utility {
 		) );
 
 		$music = apply_filters( 'edd_fields_music_template_defaults', array(
-			'label' => _x( 'Music', 'Music Template', EDD_Fields_ID ),
+			'label' => _x( 'Music', 'Music Template', 'edd-fields' ),
 			'edd_fields_template_fields' => array(
 				array(
-					'label' => _x( 'Artist', 'Music Template: Artist', EDD_Fields_ID ),
+					'label' => _x( 'Artist', 'Music Template: Artist', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Genre', 'Music Template: Genre', EDD_Fields_ID ),
+					'label' => _x( 'Genre', 'Music Template: Genre', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Length', 'Music Template: Length', EDD_Fields_ID ),
+					'label' => _x( 'Length', 'Music Template: Length', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Producer', 'Music Template: Producer', EDD_Fields_ID ),
+					'label' => _x( 'Producer', 'Music Template: Producer', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Explicit', 'Music Template: Explicit', EDD_Fields_ID ),
+					'label' => _x( 'Explicit', 'Music Template: Explicit', 'edd-fields' ),
 					'type' => 'select',
 					'edd_fields_options' => array(
 						array(
-							'value' => __( 'Yes', EDD_Fields_ID ),
+							'value' => __( 'Yes', 'edd-fields' ),
 						),
 						array(
-							'value' => __( 'No', EDD_Fields_ID ),
+							'value' => __( 'No', 'edd-fields' ),
 						),
 					),
 				),
@@ -172,34 +172,34 @@ class EDD_Fields_Utility {
 		) );
 
 		$software = apply_filters( 'edd_fields_software_template_defaults', array(
-			'label' => _x( 'Software', 'Software Template', EDD_Fields_ID ),
+			'label' => _x( 'Software', 'Software Template', 'edd-fields' ),
 			'edd_fields_template_fields' => array(
 				array(
-					'label' => _x( 'Operating System', 'Software Template: Operating System', EDD_Fields_ID ),
+					'label' => _x( 'Operating System', 'Software Template: Operating System', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'File Type', 'Software Template: File Type', EDD_Fields_ID ),
+					'label' => _x( 'File Type', 'Software Template: File Type', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Disk Space', 'Software Template: Disk Space', EDD_Fields_ID ),
+					'label' => _x( 'Disk Space', 'Software Template: Disk Space', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Required Memory', 'Software Template: Required Memory', EDD_Fields_ID ),
+					'label' => _x( 'Required Memory', 'Software Template: Required Memory', 'edd-fields' ),
 				),
 			),
 		) );
 		
 		$photography = apply_filters( 'edd_fields_photography_template_defaults', array(
-			'label' => _x( 'Photography', 'Photography Template', EDD_Fields_ID ),
+			'label' => _x( 'Photography', 'Photography Template', 'edd-fields' ),
 			'edd_fields_template_fields' => array(
 				array(
-					'label' => _x( 'License', 'Photography Template: License', EDD_Fields_ID ),
+					'label' => _x( 'License', 'Photography Template: License', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'File Type', 'Photography Template: File Type', EDD_Fields_ID ),
+					'label' => _x( 'File Type', 'Photography Template: File Type', 'edd-fields' ),
 				),
 				array(
-					'label' => _x( 'Dimensions', 'Photography Template: Dimensions', EDD_Fields_ID ),
+					'label' => _x( 'Dimensions', 'Photography Template: Dimensions', 'edd-fields' ),
 				),
 			),
 		) );
