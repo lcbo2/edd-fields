@@ -128,6 +128,9 @@ function edd_repeater_reindex_primary() {
 
     var edd_repeater_show = function () {
 
+        // Make sure selects aren't empty!
+        $(this).find('select option:eq(0)').prop('selected', true);
+
         // Hide current title for new item and show default title
         $(this).find('.repeater-header div.title').html($(this).find('.repeater-header div.title').data('repeater-default-title'));
 

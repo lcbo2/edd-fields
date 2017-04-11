@@ -194,12 +194,7 @@ class EDD_Fields_Admin {
                                          data-repeater-default-title="<?php echo $args['default_title']; ?>">
 
 										<?php if ( isset( $edd_option[ $index ] ) && reset( $edd_option[ $index ] ) !== '' ) :
-											// Surprisingly, this is the most efficient way to do this. http://stackoverflow.com/a/21219594
-											foreach ( $value as $key => $setting ) : ?>
-												<?php echo $setting; ?>
-												<?php
-												break;
-											endforeach;
+											echo $edd_option[ $index ]['label'];
 										else: ?>
 
 											<?php echo $args['default_title']; ?>
@@ -725,17 +720,9 @@ class EDD_Fields_Admin {
 			$index    = $_POST['index'];
 			$existing = $_POST['saved'];
 
-			// We don't want to save this data
-			unset( $_POST['index'] );
-			unset( $_POST['action'] );
-			unset( $_POST['saved'] );
-
-			// JavaScript likes to alphabetically arrange Object Members. We're forcing this to the end
 			$fields = $_POST['edd_fields_template_fields'];
-			unset( $_POST['edd_fields_template_fields'] );
-			$_POST['edd_fields_template_fields'] = $fields;
 
-			$edd_fields_options = edd_get_option( 'edd_fields_template_settings' );
+			$edd_fields_options = edd_fields_get_templates();
 
 			if ( $existing == 'true' ) {
 				$edd_fields_options[ $index ] = $_POST; // Overwrite an older entry
