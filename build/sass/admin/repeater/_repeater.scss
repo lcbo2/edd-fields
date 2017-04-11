@@ -1,119 +1,126 @@
 .edd_draghandle {
-	display: inline-block;
-	background-repeat: no-repeat;
-	vertical-align: middle;
-	top: -0.15em;
-	position: relative;
+  display: inline-block;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  top: -0.15em;
+  position: relative;
 }
 
 table.widefat {
 
-	background: transparent;
-	border: 0;
-	box-shadow: none;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 
-	thead {
+  thead {
 
-		tr {
+    tr {
 
-			display: block;
+      display: block;
 
-			th {
+      th {
 
-				display: inline-block;
-				max-width: none !important; // Plz no, EDD
-				overflow: visible;
+        display: inline-block;
+        max-width: none !important; // Plz no, EDD
+        overflow: visible;
 
-				div {
+        div {
 
-					display: inline-block;
-					vertical-align: middle;
+          display: inline-block;
+          vertical-align: middle;
 
-				}
+        }
 
-			}
+      }
 
-			.edd-rbm-repeater-controls {
-				text-align: right;
-			}
+      .edd-rbm-repeater-controls {
+        text-align: right;
+      }
 
-		}
+    }
 
-	}
+  }
 
 }
 
 .edd-repeater-defaults {
-	float: right;
+  float: right;
 }
 
 .button.button-danger {
-	background: #ff7151;
-	border-color: #c6573e;
-	color: #fff;
+  background: #ff7151;
+  border-color: #c6573e;
+  color: #fff;
 }
 
 & > .edd-rbm-repeater-list {
-	@include repeater-list;
+  @include repeater-list;
 }
 
 .edd-rbm-repeater-item {
 
-	background: #f5f5f5;
+  background: #f5f5f5;
 
-	.repeater-header {
+  &.deleting {
 
-		border: 1px #ddd;
-		border-top-style: solid;
-		border-bottom-style: solid;
-		padding: 20px 0px 20px 10px;
+    background: #e5e5e5;
+    color: #a6a6a6;
 
-		th {
-			vertical-align: middle;
-			width: 100%;
-			padding: 0;
-			border: none;
-		}
+  }
 
-		.status-indicator {
+  .repeater-header {
 
-			line-height: 1.2;
+    border: 1px #ddd;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    padding: 20px 0px 20px 10px;
 
-			&.active {
-				color: #4F8A10;
-			}
+    th {
+      vertical-align: middle;
+      width: 100%;
+      padding: 0;
+      border: none;
+    }
 
-			&.inactive {
-				color: #D8000C;
-			}
+    .status-indicator {
 
-		}
+      line-height: 1.2;
 
-		.edd-rbm-repeater-controls {
-			
-			text-align: right;
+      &.active {
+        color: #4F8A10;
+      }
 
-			@media #{$medium-up} {
-				float: right; // No floating on small screens, we use text-align instead
-				text-align: center;
-			}
-			
-			margin-right: 10px;
+      &.inactive {
+        color: #D8000C;
+      }
 
-		}
+    }
 
-	}
+    .edd-rbm-repeater-controls {
 
-	&:first-of-type {
-		.repeater-header {
-			border-top-style: none;
-		}
-	}
+      text-align: right;
 
-	&:last-of-type {
-		.repeater-header {
-			border-bottom-style: none;
-		}
-	}
+      @media #{$medium-up} {
+        float: right; // No floating on small screens, we use text-align instead
+        text-align: center;
+      }
+
+      margin-right: 10px;
+
+    }
+
+  }
+
+  &:first-of-type {
+    .repeater-header {
+      border-top-style: none;
+    }
+  }
+
+  &:last-of-type {
+    .repeater-header {
+      border-bottom-style: none;
+    }
+  }
 
 }

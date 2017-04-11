@@ -622,7 +622,7 @@ class EDD_Fields_Admin {
 			// If we're reseting to defaults
 			if ( isset( $_POST['edd_fields_template_reset_defaults'] ) ) {
 
-				edd_delete_option( 'edd_fields_template_settings' );
+				edd_update_option( 'edd_fields_template_settings', EDDFIELDS()->utility->get_default_templates() );
 
 				$this->admin_notices[] = array(
 					'edd-notices',
@@ -821,7 +821,9 @@ class EDD_Fields_Admin {
 
 				unset( $edd_fields_options[ $index ] );
 
-				$success = edd_update_option( 'edd_fields_template_settings', array_values( $edd_fields_options ) );
+				// If empty, be sure to set to -1
+				$success = edd_update_option( 'edd_fields_template_settings',
+					empty( $edd_fields_options ) ? - 1 : array_values( $edd_fields_options ) );
 
 			} else {
 				$success = true; // Deleting a non-saved Template always succeeds

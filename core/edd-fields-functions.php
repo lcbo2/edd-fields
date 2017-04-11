@@ -78,13 +78,13 @@ function edd_fields_get_templates() {
 
 	$templates = edd_get_option( 'edd_fields_template_settings', false );
 
-	if ( ! $templates ) {
-		$templates = EDDFIELDS()->utility->get_default_templates();
-		edd_update_option( 'edd_fields_template_settings', $templates );
+	// -1 is assumed empty
+	if ( $templates === -1 ) {
+
+		return array();
 	}
 
 	return $templates;
-
 }
 	
 /**

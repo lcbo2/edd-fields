@@ -23,37 +23,37 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 	class EDD_Fields {
 		
 		/**
-		 * @var		 	EDD_Fields $plugin_data Holds Plugin Header Info
+		 * @var		 	array $plugin_data Holds Plugin Header Info
 		 * @since		1.0.0
 		 */
 		private $plugin_data;
 		
 		/**
-		 * @var			EDD_Fields $utility Utility Functions
+		 * @var			EDD_Fields_Utility $utility Utility Functions
 		 * @since		1.0.0
 		 */
 		public $utility;
 		
 		/**
-		 * @var		 	EDD_Fields $admin Admin Settings
+		 * @var		 	EDD_Fields_Admin $admin Admin Settings
 		 * @since		1.0.0
 		 */
 		public $admin;
 		
 		/**
-		 * @var			EDD_Fields $post_edit Post Edit Screen Additions
+		 * @var			EDD_Fields_Post_Edit $post_edit Post Edit Screen Additions
 		 * @since		1.0.0
 		 */
 		public $post_edit;
 		
 		/**
-		 * @var			EDD_Fields $shortcodes Shortcodes
+		 * @var			EDD_Fields_Shortcodes $shortcodes Shortcodes
 		 * @since		1.0.0
 		 */
 		public $shortcodes;
 		
 		/**
-		 * @var			EDD_Fields $admin_errors Stores all our Admin Errors to fire at once
+		 * @var			array $admin_errors Stores all our Admin Errors to fire at once
 		 * @since		1.0.0
 		 */
 		private $admin_errors;
@@ -288,6 +288,8 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		}
 
 	}
+
+	register_activation_hook( __FILE__, array( 'EDD_Fields_Install', 'install' ) );
 
 } // End Class Exists Check
 
