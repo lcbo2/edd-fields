@@ -1,16 +1,13 @@
 .edd-rbm-repeater-content, .edd-fields-field-options {
 
 	margin-bottom: 32px; // Same Margin as the margin from the top
+	padding-top: 2rem;
 	overflow-x: hidden;
 	
 	max-width: 91%; // On Small screens this overflows to the right somewhat
 	
 	@media #{$medium-up} {
 		max-width: none;
-	}
-
-	.edd-rbm-repeater-form {
-		margin-top: 1rem;
 	}
 
 	table.widefat {
