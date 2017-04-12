@@ -684,14 +684,23 @@ class EDD_Fields_Admin {
 	public function localize_script( $localization ) {
 
 		$localization['i18n'] = array(
-			'activeText'         => _x( 'Active Template', 'Active Template Aria Label', 'edd-fields' ),
-			'inactiveText'       => _x( 'Inactive Template', 'Inactive Template Aria Label', 'edd-fields' ),
-			'confirmDeletion'    => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', 'edd-fields' ),
-			'requiredError'      => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', 'edd-fields' ),
-			'duplicateNameError' => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', 'edd-fields' ),
-			'noFields'           => __( 'No Fields', 'edd-fields' ),
-			'selectField'        => __( 'Select a Field', 'edd-fields' ),
-			'loading'            => __( 'Loading...', 'edd-fields' ),
+			'activeText'               => _x( 'Active Template', 'Active Template Aria Label', 'edd-fields' ),
+			'inactiveText'             => _x( 'Inactive Template', 'Inactive Template Aria Label', 'edd-fields' ),
+			'confirmDeletion'          => _x( 'Are you sure you want to delete this Field Template Group?', 'Confirm Template Deletion', 'edd-fields' ),
+			'requiredError'            => _x( 'This field is required', 'Required Field not filled out (Ancient/Bad Browsers Only)', 'edd-fields' ),
+			'duplicateNameError'       => _x( 'Two Field Template Groups cannot share a Name', 'Duplicate Template Name Error', 'edd-fields' ),
+			'noFields'                 => __( 'No Fields', 'edd-fields' ),
+			'selectField'              => __( 'Select a Field', 'edd-fields' ),
+			'loading'                  => __( 'Loading...', 'edd-fields' ),
+			'chooseFieldName'          => __( 'Choose a Field Name', 'edd-fields' ),
+			'eddFields'                => __( 'EDD Fields', 'edd-fields' ),
+			'createFieldsTable'        => __( 'Create Fields Table', 'edd-fields' ),
+			'usingThisPostsData'       => __( 'Using This Post\'s Data', 'edd-fields' ),
+			'wrapperClassOptional'     => __( 'Wrapper Class (Optional)', 'edd-fields' ),
+			'getFieldValue'            => __( 'Get Field Value', 'edd-fields' ),
+			'retrieveFieldValueByName' => __( 'Retrieve a Field\'s Value by Name', 'edd-fields' ),
+			'usingThisPostsData'       => __( 'Using This Post\'s Data', 'edd-fields' ),
+			'fieldName'                => __( 'Field Name', 'edd-fields' ),
 		);
 
 		$localization['showFieldsOptions'] = array(

@@ -53,7 +53,7 @@ function initModals() {
  * @since	  1.0.0
  * @return	  void
  */
-function openModal( uuid, row = undefined ) {
+function openModal( uuid, row ) {
 
 	// Handle newly created Rows
 	if ( uuid.type == 'edd-rbm-repeater-add' ) {
