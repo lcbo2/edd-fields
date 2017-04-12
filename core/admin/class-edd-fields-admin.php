@@ -86,6 +86,11 @@ class EDD_Fields_Admin {
 
 		$edd_fields_settings = array(
 			array(
+				'id'   => 'edd_fields_settings_title',
+				'type' => 'header',
+				'name' => '<h3>' . __( 'Fields Settings' ) . '</h3>',
+			),
+			array(
 				'id'            => 'edd_fields_table_inject',
 				'type'          => 'checkbox',
 				'name'          => _x( 'Fields Table Display', 'Fields Table Injection Global Label', 'edd-fields' ),
