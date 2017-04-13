@@ -29,7 +29,7 @@ gulp.task( 'uglify:front', function() {
         .pipe( $.plumber.stop() )
         .pipe( notify( {
             title: pkg.name,
-            message: 'Front SASS Complete',
+            message: 'Front JS Complete',
             onLast: true
         } ) );
 

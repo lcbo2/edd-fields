@@ -11,6 +11,7 @@
         }
 
         $template_select.change(submissionFormTemplateHandle);
+        $template_select.each(submissionFormTemplateHandle);
     }
 
     function submissionFormTemplateHandle() {
