@@ -7,7 +7,7 @@
  * Text Domain: edd-fields
  * Author: Real Big Plugins
  * Author URI: https://realbigplugins.com
- * Contributors: d4mation
+ * Contributors: d4mation, joelworsham
  */
 
 // Exit if accessed directly
