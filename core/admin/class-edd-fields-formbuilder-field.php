@@ -9,15 +9,15 @@ class EDD_Fields_FormBuilderField extends FES_Field {
 
 	/** @var array Supports are things that are the same for all fields of a field type. Like whether or not a field type supports jQuery Phoenix. Stored in obj, not db. */
 	public $supports = array(
-		'is_meta'     => true,  // in object as public (bool) $meta;
+		'is_meta'     => true,
 		'forms'       => array(
 			'submission' => true,
 		),
 		'position'    => 'extension',
 		'permissions' => array(
 			'can_remove_from_formbuilder' => true,
-			'can_change_meta_key'         => true,
 			'can_add_to_formbuilder'      => true,
+			'can_change_meta_key'         => false,
 		),
 		'template'    => 'edd_fields',
 		'title'       => 'EDD Fields',
@@ -49,7 +49,8 @@ class EDD_Fields_FormBuilderField extends FES_Field {
 
 	/** Returns the HTML to render a field in frontend */
 	public function render_field_frontend( $user_id = - 2, $readonly = - 2 ) {
-		if ( $user_id === - 2 ) {
+
+	    if ( $user_id === - 2 ) {
 			$user_id = get_current_user_id();
 		}
 
