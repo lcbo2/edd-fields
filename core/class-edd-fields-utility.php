@@ -26,15 +26,19 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Author', 'Ebook Template: Author', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Number of Pages', 'Ebook Template: Number of Pages', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Publisher', 'Ebook Template: Publisher', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Format', 'Ebook Template: Format', 'edd-fields' ),
+					'type' => 'text',
 				),
 			),
 		) );
@@ -77,9 +81,11 @@ class EDD_Fields_Utility {
 				),
 				array(
 					'label' => _x( 'Contributors', 'WordPress Plugin Template: Contributors', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Supported Languages', 'WordPress Plugin Template: Supported Languages', 'edd-fields' ),
+					'type' => 'text',
 				),
 			),
 		) );
@@ -122,9 +128,11 @@ class EDD_Fields_Utility {
 				),
 				array(
 					'label' => _x( 'Contributors', 'WordPress Theme Template: Contributors', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Supported Languages', 'WordPress Theme Template: Supported Languages', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Responsive', 'WordPress Theme Template: Responsive', 'edd-fields' ),
@@ -146,15 +154,19 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Artist', 'Music Template: Artist', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Genre', 'Music Template: Genre', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Length', 'Music Template: Length', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Producer', 'Music Template: Producer', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Explicit', 'Music Template: Explicit', 'edd-fields' ),
@@ -176,15 +188,19 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'Operating System', 'Software Template: Operating System', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'File Type', 'Software Template: File Type', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Disk Space', 'Software Template: Disk Space', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Required Memory', 'Software Template: Required Memory', 'edd-fields' ),
+					'type' => 'text',
 				),
 			),
 		) );
@@ -194,12 +210,15 @@ class EDD_Fields_Utility {
 			'edd_fields_template_fields' => array(
 				array(
 					'label' => _x( 'License', 'Photography Template: License', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'File Type', 'Photography Template: File Type', 'edd-fields' ),
+					'type' => 'text',
 				),
 				array(
 					'label' => _x( 'Dimensions', 'Photography Template: Dimensions', 'edd-fields' ),
+					'type' => 'text',
 				),
 			),
 		) );
