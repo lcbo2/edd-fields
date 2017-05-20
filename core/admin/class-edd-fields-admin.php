@@ -565,6 +565,7 @@ class EDD_Fields_Admin {
 					),
 					'type'               => array(
 						'type'          => 'select',
+						'multiple'		=> false,
 						'options'       => array(
 							'text'   => _x( 'Plain Text', 'Plain Text Field Type Label', 'edd-fields' ),
 							'select' => _x( 'Select', 'Select Field Type Label', 'edd-fields' ),
