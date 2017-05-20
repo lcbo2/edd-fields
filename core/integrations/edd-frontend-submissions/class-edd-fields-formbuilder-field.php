@@ -123,7 +123,6 @@ class EDD_Fields_FormBuilderField extends FES_Field {
 	public function render_formbuilder_field( $index = - 2, $insert = false ) {
 		$removable   = $this->can_remove_from_formbuilder();
 		$first_name  = sprintf( '%s[%d][first]', 'fes_input', $index );
-		$first_value = $this->characteristics['first'];
 		$help        = esc_attr( __( 'First element of the select dropdown. Leave this empty if you don\'t want to show this field', 'edd_fes' ) );
 
 		$fields_template_name  = sprintf( '%s[%d][fields_template]', 'fes_input', $index );
@@ -214,5 +213,5 @@ function edd_fields_fes_formbuilder_page( $screen ) {
 
 function edd_fields_fes_formbuilder_page_scripts() {
 
-	wp_enqueue_script( EDD_Fields_ID . '-fes' );
+	wp_enqueue_script( 'edd-fields-fes' );
 }

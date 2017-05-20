@@ -336,8 +336,8 @@ class EDD_Fields_Post_Edit {
 			) ) )
 		) {
 
-			wp_enqueue_style( EDD_Fields_ID . '-admin' );
-			wp_enqueue_script( EDD_Fields_ID . '-admin' );
+			wp_enqueue_style( 'edd-fields-admin' );
+			wp_enqueue_script( 'edd-fields-admin' );
 
 		}
 

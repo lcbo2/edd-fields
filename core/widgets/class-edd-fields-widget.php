@@ -319,9 +319,9 @@ class EDD_Fields_Widget extends WP_Widget {
 		);
 
 		// Enqueues our script automagically on both the Widgets page and the Customizer
-		wp_enqueue_script( EDD_Fields_ID . '-admin' );
+		wp_enqueue_script( 'edd-fields-admin' );
 
-		wp_enqueue_style( EDD_Fields_ID . '-admin' );
+		wp_enqueue_style( 'edd-fields-admin' );
 
 	}
 

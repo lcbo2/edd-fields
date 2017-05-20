@@ -128,11 +128,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			// Only call this once, accessible always
 			$this->plugin_data = get_plugin_data( __FILE__ );
 
-			if ( ! defined( 'EDD_Fields_ID' ) ) {
-				// Plugin Text Domain
-				define( 'EDD_Fields_ID', $this->plugin_data['TextDomain'] );
-			}
-
 			if ( ! defined( 'EDD_Fields_VER' ) ) {
 				// Plugin version
 				define( 'EDD_Fields_VER', $this->plugin_data['Version'] );
@@ -223,23 +218,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		}
 
 		/**
-		 * Adds custom formbuilder fields.
-		 *
-		 * @since {{VERSION}}
-		 * @access private
-		 *
-		 * @param array $fields
-		 */
-		static function add_formbuilder_fields( $fields ) {
-
-			require_once __DIR__ . '/core/admin/class-edd-fields-formbuilder-field.php';
-
-			$fields['edd_fields'] = 'EDD_Fields_FormBuilderField';
-
-			return $fields;
-		}
-
-		/**
 		 * Show admin errors.
 		 *
 		 * @access      public
@@ -268,21 +246,21 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		public function register_scripts() {
 
 			wp_register_style(
-				EDD_Fields_ID . '-front',
+				'edd-fields-front',
 				EDD_Fields_URL . 'assets/css/front.css',
 				null,
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
 			);
 
 			wp_register_style(
-				EDD_Fields_ID . '-admin',
+				'edd-fields-admin',
 				EDD_Fields_URL . 'assets/css/admin.css',
 				null,
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER
 			);
 
 			wp_register_script(
-				EDD_Fields_ID . '-front',
+				'edd-fields-front',
 				EDD_Fields_URL . 'assets/js/front.js',
 				array( 'jquery' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
@@ -290,7 +268,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			);
 
 			wp_register_script(
-				EDD_Fields_ID . '-admin',
+				'edd-fields-admin',
 				EDD_Fields_URL . 'assets/js/admin.js',
 				array( 'jquery', 'jquery-effects-core', 'jquery-effects-highlight', 'jquery-ui-tabs' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
@@ -298,7 +276,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			);
 
 			wp_register_script(
-				EDD_Fields_ID . '-fes',
+				'edd-fields-fes',
 				EDD_Fields_URL . 'assets/js/edd-fields-fes.js',
 				array( 'jquery' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : EDD_Fields_VER,
@@ -306,13 +284,13 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			);
 
 			wp_localize_script(
-				EDD_Fields_ID . '-admin',
+				'edd-fields-admin',
 				'eddFields',
 				apply_filters( 'edd_fields_localize_admin_script', array() )
 			);
 
 			wp_localize_script(
-				EDD_Fields_ID . '-fes',
+				'edd-fields-fes',
 				'eddFieldsFES',
 				array(
 					'i18n' => array(
@@ -331,8 +309,8 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		 */
 		function enqueue_scripts() {
 
-			wp_enqueue_style( EDD_Fields_ID . '-front' );
-			wp_enqueue_script( EDD_Fields_ID . '-front' );
+			wp_enqueue_style( 'edd-fields-front' );
+			wp_enqueue_script( 'edd-fields-front' );
 		}
 
 		/**
@@ -350,9 +328,15 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
 	}
 
-	add_filter( 'fes_load_fields_array', array( 'EDD_Fields', 'add_formbuilder_fields' ) );
-
 	register_activation_hook( __FILE__, array( 'EDD_Fields_Install', 'install' ) );
+	
+	// Due to load order issues, this must be done here.
+	// Otherwise the Filter for adding the Formbuilder Field will have already been ran.
+	if ( defined( 'fes_plugin_version' ) && version_compare( fes_plugin_version, '2.4.5' ) >= 0 ) {
+	
+		require_once __DIR__ . '/core/integrations/edd-frontend-submissions/class-edd-fields-frontend-submissions.php';
+		
+	}
 
 } // End Class Exists Check
 

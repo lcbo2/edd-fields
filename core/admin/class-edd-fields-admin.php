@@ -668,13 +668,13 @@ class EDD_Fields_Admin {
 	 */
 	public function admin_settings_scripts() {
 
-		wp_enqueue_style( EDD_Fields_ID . '-admin' );
+		wp_enqueue_style( 'edd-fields-admin' );
 
 		// Dependencies
 		wp_enqueue_script( 'jquery-effects-core' );
 		wp_enqueue_script( 'jquery-effects-highlight' );
 
-		wp_enqueue_script( EDD_Fields_ID . '-admin' );
+		wp_enqueue_script( 'edd-fields-admin' );
 
 	}
 
