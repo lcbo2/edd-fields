@@ -83,7 +83,8 @@ function edd_fields_get_templates() {
 	$templates = edd_get_option( 'edd_fields_template_settings', false );
 
 	// -1 is assumed empty
-	if ( $templates === - 1 ) {
+	if ( $templates === - 1 ||
+	   $templates === false ) {
 
 		return array();
 	}
