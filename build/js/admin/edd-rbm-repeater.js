@@ -75,7 +75,7 @@ function init_edd_rbm_repeater_required_fields(modal) {
         }
 
         // Fix Tab Ordering Bug
-        if ( jQuery(field).hasClass('edd-select-chosen') ) {
+        if ( jQuery(field).hasClass('edd-fields-chosen') ) {
 
             // Ensure the Chosen Container has been built
             jQuery(field).chosen();
