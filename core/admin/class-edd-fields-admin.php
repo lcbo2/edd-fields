@@ -623,7 +623,7 @@ class EDD_Fields_Admin {
 			// If we're reseting to defaults
 			if ( isset( $_POST['edd_fields_template_reset_defaults'] ) ) {
 
-				edd_update_option( 'edd_fields_template_settings', EDDFIELDS()->utility->get_default_templates() );
+				edd_update_option( 'edd_fields_template_settings', get_edd_fields_default_templates() );
 
 				$this->admin_notices[] = array(
 					'edd-notices',

@@ -37,8 +37,9 @@ class EDD_Fields_Install {
 		// -1 means they've been erased manually. False means they've never been set
 		if ( $saved_templates === false ) {
 
-			$default_templates = EDDFIELDS()->utility->get_default_templates();
+			$default_templates = get_edd_fields_default_templates();
 			edd_update_option( 'edd_fields_template_settings', $default_templates );
+			
 		}
 	}
 }
