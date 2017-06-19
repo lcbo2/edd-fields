@@ -327,8 +327,6 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		}
 
 	}
-
-	register_activation_hook( __FILE__, array( 'EDD_Fields_Install', 'install' ) );
 	
 	// Due to load order issues, this must be done here.
 	// Otherwise the Filter for adding the Formbuilder Field will have already been ran.
@@ -367,9 +365,14 @@ function EDD_Fields_load() {
 			'tinymce_shortcode_field_name_ajax'
 		) );
 
-		require_once __DIR__ . '/core/edd-fields-functions.php';
 		EDDFIELDS();
 
 	}
 
 }
+
+// Included outside of any Hook so that both the Singleton Instance creation can use it and the Install routine
+require_once __DIR__ . '/core/edd-fields-functions.php';
+
+require_once __DIR__ . '/core/class-edd-fields-install.php';
+register_activation_hook( __FILE__, array( 'EDD_Fields_Install', 'install' ) );

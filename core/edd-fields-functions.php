@@ -319,3 +319,224 @@ function edd_fields_output_fields_input_table( $template, $saved = array(), $hid
     </div>
 	<?php
 }
+
+/**
+ * Returns the Default Templates if none are saved. This overrides any default values for the Fields
+ * 
+ * @since		1.0.0
+ * @return		array Default Templates
+ */
+function get_edd_fields_default_templates() {
+
+	$ebook = apply_filters( 'edd_fields_ebook_template_defaults', array(
+		'label' => _x( 'Ebook', 'Ebook Template', 'edd-fields' ),
+		'edd_fields_template_fields' => array(
+			array(
+				'label' => _x( 'Author', 'Ebook Template: Author', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Number of Pages', 'Ebook Template: Number of Pages', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Publisher', 'Ebook Template: Publisher', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Format', 'Ebook Template: Format', 'edd-fields' ),
+				'type' => 'text',
+			),
+		),
+	) );
+
+	$wp_plugin = apply_filters( 'edd_fields_wordpress_plugin_template_defaults', array(
+		'label' => _x( 'WordPress Plugin', 'WordPress Plugin Template', 'edd-fields' ),
+		'edd_fields_template_fields' => array(
+			array(
+				'label' => _x( 'Required WordPress Version', 'WordPress Plugin Template: Required WordPress Version', 'edd-fields' ),
+				'type' => 'select',
+				'edd_fields_options' => array(
+					array(
+						'value' => '4.4',
+					),
+					array(
+						'value' => '4.5',
+					),
+					array(
+						'value' => '4.6',
+					),
+					array(
+						'value' => '4.7',
+					),
+				),
+			),
+			array(
+				'label' => _x( 'Required PHP Version', 'WordPress Plugin Template: Required PHP Version', 'edd-fields' ),
+				'type' => 'select',
+				'edd_fields_options' => array(
+					array(
+						'value' => '5.6',
+					),
+					array(
+						'value' => '7.0',
+					),
+					array(
+						'value' => '7.1',
+					),
+				),
+			),
+			array(
+				'label' => _x( 'Contributors', 'WordPress Plugin Template: Contributors', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Supported Languages', 'WordPress Plugin Template: Supported Languages', 'edd-fields' ),
+				'type' => 'text',
+			),
+		),
+	) );
+
+	$wp_theme = apply_filters( 'edd_fields_wordpress_theme_template_defaults', array(
+		'label' => _x( 'WordPress Theme', 'WordPress Theme Template', 'edd-fields' ),
+		'edd_fields_template_fields' => array(
+			array(
+				'label' => _x( 'Required WordPress Version', 'WordPress Theme Template: Required WordPress Version', 'edd-fields' ),
+				'type' => 'select',
+				'edd_fields_options' => array(
+					array(
+						'value' => '4.4',
+					),
+					array(
+						'value' => '4.5',
+					),
+					array(
+						'value' => '4.6',
+					),
+					array(
+						'value' => '4.7',
+					),
+				),
+			),
+			array(
+				'label' => _x( 'Required PHP Version', 'WordPress Theme Template: Required PHP Version', 'edd-fields' ),
+				'type' => 'select',
+				'edd_fields_options' => array(
+					array(
+						'value' => '5.6',
+					),
+					array(
+						'value' => '7.0',
+					),
+					array(
+						'value' => '7.1',
+					),
+				),
+			),
+			array(
+				'label' => _x( 'Contributors', 'WordPress Theme Template: Contributors', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Supported Languages', 'WordPress Theme Template: Supported Languages', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Responsive', 'WordPress Theme Template: Responsive', 'edd-fields' ),
+				'type' => 'select',
+				'edd_fields_options' => array(
+					array(
+						'value' => __( 'Yes', 'edd-fields' ),
+					),
+					array(
+						'value' => __( 'No', 'edd-fields' ),
+					),
+				),
+			),
+		),
+	) );
+
+	$music = apply_filters( 'edd_fields_music_template_defaults', array(
+		'label' => _x( 'Music', 'Music Template', 'edd-fields' ),
+		'edd_fields_template_fields' => array(
+			array(
+				'label' => _x( 'Artist', 'Music Template: Artist', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Genre', 'Music Template: Genre', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Length', 'Music Template: Length', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Producer', 'Music Template: Producer', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Explicit', 'Music Template: Explicit', 'edd-fields' ),
+				'type' => 'select',
+				'edd_fields_options' => array(
+					array(
+						'value' => __( 'Yes', 'edd-fields' ),
+					),
+					array(
+						'value' => __( 'No', 'edd-fields' ),
+					),
+				),
+			),
+		),
+	) );
+
+	$software = apply_filters( 'edd_fields_software_template_defaults', array(
+		'label' => _x( 'Software', 'Software Template', 'edd-fields' ),
+		'edd_fields_template_fields' => array(
+			array(
+				'label' => _x( 'Operating System', 'Software Template: Operating System', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'File Type', 'Software Template: File Type', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Disk Space', 'Software Template: Disk Space', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Required Memory', 'Software Template: Required Memory', 'edd-fields' ),
+				'type' => 'text',
+			),
+		),
+	) );
+
+	$photography = apply_filters( 'edd_fields_photography_template_defaults', array(
+		'label' => _x( 'Photography', 'Photography Template', 'edd-fields' ),
+		'edd_fields_template_fields' => array(
+			array(
+				'label' => _x( 'License', 'Photography Template: License', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'File Type', 'Photography Template: File Type', 'edd-fields' ),
+				'type' => 'text',
+			),
+			array(
+				'label' => _x( 'Dimensions', 'Photography Template: Dimensions', 'edd-fields' ),
+				'type' => 'text',
+			),
+		),
+	) );
+
+	return apply_filters( 'edd_fields_template_defaults', array_merge( 
+		array( $ebook ),
+		array( $wp_plugin ),
+		array( $wp_theme ),
+		array( $music ),
+		array( $software ),
+		array( $photography )
+	) );
+
+}
