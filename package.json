@@ -1,6 +1,6 @@
 {
 	"name": "EDD_Fields",
-	"version": "0.6.3",
+	"version": "1.0.0b",
 	"main": "gulpfile.js",
 	"dependencies": {},
 	"devDependencies": {

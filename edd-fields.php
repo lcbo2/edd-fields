@@ -3,7 +3,7 @@
  * Plugin Name: Easy Digital Downloads - Fields
  * Plugin URL: https://easydigitaldownloads.com/downloads/fields
  * Description: Easily create custom attributes or meta for your Downloads
- * Version: 0.6.3
+ * Version: 1.0.0b
  * Text Domain: edd-fields
  * Author: Real Big Plugins
  * Author URI: https://realbigplugins.com
