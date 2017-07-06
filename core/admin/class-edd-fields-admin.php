@@ -707,6 +707,7 @@ class EDD_Fields_Admin {
 			'retrieveFieldValueByName' => __( 'Retrieve a Field\'s Value by Name', 'edd-fields' ),
 			'usingThisPostsData'       => __( 'Using This Post\'s Data', 'edd-fields' ),
 			'fieldName'                => __( 'Field Name', 'edd-fields' ),
+			'RBMSelectError'		   => __( 'TinyMCE already has a Select Control Type called "RBMSelect" that is taking precedence over the one included in EDD Fields. This may cause issues.', 'edd-fields' ),
 		);
 
 		$localization['showFieldsOptions'] = array(

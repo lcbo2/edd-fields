@@ -106,5 +106,9 @@ if ( tinymce.ui.RBMSelect === undefined ) {
 	
 }
 else {
-	console.warn( 'TinyMCE already has a Select Control Type called "RBMSelect" that is taking precedence over the one included in EDD Fields. This may cause issues.' );
+	
+	var i18n = eddFields.i18n || {};
+	
+	console.warn( i18n['RBMSelectError'] );
+	
 }
