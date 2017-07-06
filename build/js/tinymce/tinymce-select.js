@@ -1,6 +1,6 @@
-if ( tinymce.ui.Select === undefined ) {
+if ( tinymce.ui.RBMSelect === undefined ) {
 
-	tinymce.ui.Select = tinymce.ui.TextBox.extend( {
+	tinymce.ui.RBMSelect = tinymce.ui.TextBox.extend( {
 
 		init: function(settings) {
 
@@ -102,9 +102,9 @@ if ( tinymce.ui.Select === undefined ) {
 
 	} );
 	
-	tinymce.ui.Factory.add( 'Select', tinymce.ui.Select );
+	tinymce.ui.Factory.add( 'RBMSelect', tinymce.ui.RBMSelect );
 	
 }
 else {
-	console.warn( 'TinyMCE already has a Select Control that is taking precedence over the one included in EDD Fields. This may cause issues.' );
+	console.warn( 'TinyMCE already has a Select Control Type called "RBMSelect" that is taking precedence over the one included in EDD Fields. This may cause issues.' );
 }

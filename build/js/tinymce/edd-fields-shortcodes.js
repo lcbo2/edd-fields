@@ -160,7 +160,7 @@
                                 title: 'Add Fields Table',
                                 body: [
                                     {
-                                        type: 'select',
+                                        type: 'rbmselect',
                                         name: 'id',
                                         label: i18n['usingThisPostsData'] + ':',
                                         classes: 'edd-fields-posts edd-select edd-select-chosen',
@@ -200,14 +200,14 @@
                                 title: i18n['retrieveFieldValueByName'],
                                 body: [
                                     {
-                                        type: 'select',
+                                        type: 'rbmselect',
                                         name: 'id',
                                         label: i18n['usingThisPostsData'] + ':',
                                         classes: 'edd-select edd-select-chosen edd-fields-posts edd-fields-get-names',
                                         values: edd_fields_get_posts(),
                                     },
                                     {
-                                        type: 'select',
+                                        type: 'rbmselect',
                                         name: 'name',
                                         label: i18n['fieldName'],
                                         classes: 'tinymce-edd-fields-names',
