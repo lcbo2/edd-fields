@@ -303,7 +303,7 @@ function edd_repeater_reindex_primary() {
                     edd_repeater_reindex_primary();
 
                     // Grab all data with their new indexes to save
-                    var data = [];
+                    var data = {};
 					data.templates = [];
                     $('[data-edd-rbm-repeater] .edd-rbm-repeater-item').each(function (index, row) {
 
