@@ -800,7 +800,7 @@ class EDD_Fields_Admin {
 		}
 
 		return wp_send_json_error( array(
-			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', 'edd-fields' ),
+			'error' => _x( 'Access Denied', 'Current User Cannot Sort Templates Error', 'edd-fields' ),
 		) );
 
 	}

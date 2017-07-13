@@ -303,7 +303,8 @@ function edd_repeater_reindex_primary() {
                     edd_repeater_reindex_primary();
 
                     // Grab all data with their new indexes to save
-                    var data = [];
+                    var data = {};
+					data.templates = [];
                     $('[data-edd-rbm-repeater] .edd-rbm-repeater-item').each(function (index, row) {
 
                         // Skip if we're not saved
@@ -312,9 +313,25 @@ function edd_repeater_reindex_primary() {
                         var uuid   = $(row).find('[data-repeater-edit]').data('open'),
                             $modal = $('[data-reveal="' + uuid + '"]');
 
-                        data.push(get_edd_fields_form($modal[0]));
+                        data.templates.push(get_edd_fields_form($modal[0]));
 
                     });
+					
+					data.action = 'sort_edd_fields_templates';
+					
+					$.ajax({
+						'type': 'POST',
+						'url': eddFields.ajax,
+						'data': data,
+						success: function (response) {
+
+							$repeater.trigger( 'edd-rbm-repeater-sorted' );
+
+						},
+						error: function (request, status, error) {
+
+						}
+					});
 
                 } else {
 
