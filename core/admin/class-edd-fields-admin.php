@@ -193,7 +193,7 @@ class EDD_Fields_Admin {
                             <tr>
                                 <th scope="col">
 
-                                    <span class="edd_draghandle" data-repeater-item-handle></span>
+                                    <span class="edd-fields-draghandle-anchor dashicons dashicons-move" data-repeater-item-handle></span>
 
                                     <div class="title"
                                          data-repeater-default-title="<?php echo $args['default_title']; ?>">
@@ -356,7 +356,7 @@ class EDD_Fields_Admin {
                             class="edd-rbm-repeater-item edd-fields-field">
 
                             <td>
-                                <span class="edd_draghandle" data-repeater-item-handle></span>
+                                <span class="edd-fields-draghandle-anchor" data-repeater-item-handle></span>
                             </td>
 
 							<?php foreach ( $args['fields'] as $field_id => $field ) :
@@ -464,7 +464,7 @@ class EDD_Fields_Admin {
                             class="edd-rbm-repeater-item">
 
                             <td>
-                                <span class="edd_draghandle" data-repeater-item-handle></span>
+                                <span class="edd-fields-draghandle-anchor" data-repeater-item-handle></span>
                             </td>
 
 							<?php foreach ( $args['fields'] as $field_id => $field ) :

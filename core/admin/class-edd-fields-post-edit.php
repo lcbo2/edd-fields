@@ -158,31 +158,35 @@ class EDD_Fields_Post_Edit {
                         <th scope="col"></th>
                     </tr>
                     </thead>
+					
+					<tbody class="edd-repeatables-wrap">
 
-					<?php if ( ! empty( $fields ) ) :
+						<?php if ( ! empty( $fields ) ) :
 
-						foreach ( $fields['custom'] as $key => $value ) :
+							foreach ( $fields['custom'] as $key => $value ) :
 
-							$name  = isset( $value['key'] ) ? $value['key'] : '';
-							$value = isset( $value['value'] ) ? $value['value'] : '';
-							$args  = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
+								$name  = isset( $value['key'] ) ? $value['key'] : '';
+								$value = isset( $value['value'] ) ? $value['value'] : '';
+								$args  = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
 
-							do_action( 'edd_fields_render_row', $key, $args );
+								do_action( 'edd_fields_render_row', $key, $args );
 
-						endforeach;
+							endforeach;
 
-					else :
+						else :
 
-						do_action( 'edd_fields_render_row', 0, array() );
+							do_action( 'edd_fields_render_row', 0, array() );
 
-					endif; ?>
+						endif; ?>
 
-                    <tr>
-                        <td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
-                            <button class="button-secondary edd_add_repeatable"
-                                    style="margin: 6px 0;"><?php _e( 'Add Field', 'edd-fields' ); ?></button>
-                        </td>
-                    </tr>
+						<tr>
+							<td class="submit" colspan="4" style="float: none; clear:both; background:#fff;">
+								<button class="button-secondary edd_add_repeatable"
+										style="margin: 6px 0;"><?php _e( 'Add Field', 'edd-fields' ); ?></button>
+							</td>
+						</tr>
+						
+					</tbody>
 
                 </table>
 
@@ -229,7 +233,7 @@ class EDD_Fields_Post_Edit {
 
         <tr class="edd_variable_prices_wrapper edd_repeatable_row" data-key="<?php echo esc_attr( $key ); ?>">
             <td>
-                <span class="edd_draghandle"></span>
+                <span class="edd_draghandle edd-draghandle-anchor edd-fields-draghandle-anchor<?php echo ( version_compare( EDD_VERSION, '2.8' ) >= 0 ) ? ' dashicons dashicons-move' : ''; ?>"></span>
             </td>
             <td class="edd-fields-key">
 				<?php echo EDD()->html->text( array(

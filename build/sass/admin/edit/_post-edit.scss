@@ -41,9 +41,18 @@
 
 		}
 
-		.edd_draghandle {
+		.edd-fields-draghandle-anchor {
 			margin-top: 0;
+			display: inline-block;
 			background-repeat: no-repeat;
+			vertical-align: middle;
+			top: -0.15em;
+			position: relative;
+			margin: 4px 0 0 0;
+			width: 20px;
+			height: 20px;
+			cursor: move;
+			color: #c2c1c1;
 		}
 
 		input.regular-text {
