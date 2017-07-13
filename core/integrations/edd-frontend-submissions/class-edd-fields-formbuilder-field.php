@@ -91,7 +91,7 @@ class EDD_Fields_FormBuilderField extends FES_Field {
                 <input type="hidden" name="edd_fields_template" id="edd_fields_template"
                        value="<?php echo esc_attr( $field_template ); ?>"/>
 
-				<?php edd_fields_output_fields_input_table( $template ); ?>
+				<?php edd_fields_output_fields_input_table( $template, $value ); ?>
 
 			<?php else : ?>
 
