@@ -162,16 +162,25 @@ class EDD_Fields_Post_Edit {
 					<tbody class="edd-repeatables-wrap">
 
 						<?php if ( ! empty( $fields ) ) :
+		
+							if ( isset( $fields['custom'] ) &&
+							   ! empty( $fields['custom'] ) ) : 
 
-							foreach ( $fields['custom'] as $key => $value ) :
+								foreach ( $fields['custom'] as $key => $value ) :
 
-								$name  = isset( $value['key'] ) ? $value['key'] : '';
-								$value = isset( $value['value'] ) ? $value['value'] : '';
-								$args  = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
+									$name  = isset( $value['key'] ) ? $value['key'] : '';
+									$value = isset( $value['value'] ) ? $value['value'] : '';
+									$args  = apply_filters( 'edd_fields_row_args', compact( 'name', 'value' ), $post->ID );
 
-								do_action( 'edd_fields_render_row', $key, $args );
+									do_action( 'edd_fields_render_row', $key, $args );
 
-							endforeach;
+								endforeach;
+
+							else : 
+
+									do_action( 'edd_fields_render_row', 0, array() );
+
+							endif;
 
 						else :
 
