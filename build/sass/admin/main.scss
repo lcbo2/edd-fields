@@ -24,6 +24,9 @@
 // While it has to do with the Repeater logically, it does not fall under the same selector
 @import "repeater/modal.scss";
 
+// Again, falls under a different selector based on the Admin theme
+@import "repeater/themes";
+
 @import "edit/post-edit.scss";
 
 @import "customizer/widget-controls.scss";

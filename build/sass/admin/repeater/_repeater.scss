@@ -53,9 +53,15 @@ table.widefat {
 }
 
 .button.button-danger {
-  background: #ff7151;
-  border-color: #c6573e;
-  color: #fff;
+		
+	background: #ff7151;
+	border-color: #c6573e;
+	color: #fff;
+
+	&:hover {
+		border-color: darken( #c6573e, 15% );
+	}
+
 }
 
 & > .edd-rbm-repeater-list {
