@@ -367,7 +367,7 @@ class EDD_Fields_Admin {
                             class="edd-rbm-repeater-item edd-fields-field">
 
                             <td>
-                                <span class="edd-fields-draghandle-anchor" data-repeater-item-handle></span>
+                                <span class="edd-fields-draghandle-anchor dashicons dashicons-move" data-repeater-item-handle></span>
                             </td>
 
 							<?php foreach ( $args['fields'] as $field_id => $field ) :
@@ -480,7 +480,7 @@ class EDD_Fields_Admin {
                             class="edd-rbm-repeater-item">
 
                             <td>
-                                <span class="edd-fields-draghandle-anchor" data-repeater-item-handle></span>
+                                <span class="edd-fields-draghandle-anchor dashicons dashicons-move" data-repeater-item-handle></span>
                             </td>
 
 							<?php foreach ( $args['fields'] as $field_id => $field ) :
