@@ -254,6 +254,17 @@ class EDD_Fields_Admin {
 												if ( $field['type'] !== 'hook' ) : ?>
 
                                                     <td>
+														
+														<label for="edd_settings[<?php echo $field['id']; ?>]">
+															<?php echo wp_kses_post( $field['label'] ); ?>
+														</label>
+
+														<?php if ( ! empty( $field['label_tooltip_title'] ) &&
+																  ! empty( $field['label_tooltip_desc'] ) ) : ?>
+
+															<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<strong><?php echo $field['label_tooltip_title']; ?></strong>: <?php echo $field['label_tooltip_desc']; ?>"></span>
+
+														<?php endif; ?>
 
 														<?php call_user_func( "edd_{$field['type']}_callback", $field ); ?>
 
@@ -365,15 +376,26 @@ class EDD_Fields_Admin {
 
 									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
 									$field['id']  = $field_id;
-									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std']; ?>
 
-									echo '<td>';
+									<td>
+		
+										<label for="edd_settings[<?php echo $field['id']; ?>]">
+											<?php echo wp_kses_post( $field['label'] ); ?>
+										</label>
 
-									call_user_func( "edd_{$field['type']}_callback", $field );
+										<?php if ( ! empty( $field['label_tooltip_title'] ) &&
+												  ! empty( $field['label_tooltip_desc'] ) ) : ?>
 
-									echo '</td>';
+											<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<strong><?php echo $field['label_tooltip_title']; ?></strong>: <?php echo $field['label_tooltip_desc']; ?>"></span>
 
-								endif;
+										<?php endif;
+
+										call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+
+									</td>
+
+								<?php endif;
 
 							endforeach; ?>
 
@@ -420,6 +442,8 @@ class EDD_Fields_Admin {
 			'input_name'       => false,
 			'tooltip_title'    => false,
 			'tooltip_desc'     => false,
+			'label_tooltip_title'    => false,
+			'label_tooltip_desc'     => false,
 		) );
 
 		// We need to grab values this way to ensure Nested Repeaters work
@@ -437,14 +461,6 @@ class EDD_Fields_Admin {
 		?>
 
         <input data-options-repeater-edit type="button" class="button" value="<?php echo $args['edit_item_text']; ?>"/>
-
-        <label for="<?php echo $name; ?>"
-               style="display: inline-block;"><?php echo wp_kses_post( $args['desc'] ); ?></label>
-
-		<?php if ( ! empty( $args['tooltip_title'] ) && ! empty( $args['tooltip_desc'] ) ) : ?>
-            <span alt="f223" class="edd-help-tip dashicons dashicons-editor-help"
-                  title="<strong><?php echo $args['tooltip_title']; ?></strong>: <?php echo $args['tooltip_desc']; ?>"></span>
-		<?php endif; ?>
 
         <div class="edd-fields-field-options reveal" data-reveal data-v-offset="64">
 
@@ -473,15 +489,26 @@ class EDD_Fields_Admin {
 
 									// EDD Generates the Name Attr based on ID, so this nasty workaround is necessary
 									$field['id']  = $field_id;
-									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std'];
+									$field['std'] = ( isset( $value[ $field_id ] ) ) ? $value[ $field_id ] : $field['std']; ?>
 
-									echo '<td>';
+									<td>
+										
+										<label for="edd_settings[<?php echo $field['id']; ?>]">
+											<?php echo wp_kses_post( $field['label'] ); ?>
+										</label>
 
-									call_user_func( "edd_{$field['type']}_callback", $field );
+										<?php if ( ! empty( $field['label_tooltip_title'] ) &&
+												  ! empty( $field['label_tooltip_desc'] ) ) : ?>
 
-									echo '</td>';
+											<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<strong><?php echo $field['label_tooltip_title']; ?></strong>: <?php echo $field['label_tooltip_desc']; ?>"></span>
 
-								endif;
+										<?php endif;
+										
+										call_user_func( "edd_{$field['type']}_callback", $field ); ?>
+
+									</td>
+
+								<?php endif;
 
 							endforeach; ?>
 
@@ -535,7 +562,8 @@ class EDD_Fields_Admin {
 		$fields = apply_filters( 'edd_fields_template_fields', array(
 			'label'                      => array(
 				'type'          => 'text',
-				'desc'          => _x( 'Template Name', 'Template Name Label', 'edd-fields' ),
+				'label'          => _x( 'Template Name', 'Template Name Label', 'edd-fields' ),
+				'desc' => '',
 				'field_class'   => array(
 					'edd-fields-template-name',
 					'edd-fields-field',
@@ -543,25 +571,27 @@ class EDD_Fields_Admin {
 				'placeholder'   => __( 'New Field Template Group', 'edd-fields' ),
 				'readonly'      => false,
 				'std'           => '',
-				'tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', 'edd-fields' ),
-				'tooltip_desc'  => sprintf( _x( 'Controls the title shown when selecting a Field Template Group on the %s Edit Screen.', 'Template Icon Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
+				'label_tooltip_title' => _x( 'Template Name', 'Template Name Tooltip Title', 'edd-fields' ),
+				'label_tooltip_desc'  => sprintf( _x( 'Controls the title shown when selecting a Field Template Group on the %s Edit Screen.', 'Template Icon Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
 			),
 			'edd_fields_template_fields' => array(
 				'type'             => 'hook',
-				'desc'             => _x( 'Fields', 'Field Nested Repeater Label', 'edd-fields' ),
+				'label'             => _x( 'Fields', 'Field Nested Repeater Label', 'edd-fields' ),
+				'desc' => '',
 				'add_item_text'    => __( 'Add Field', 'edd-fields' ),
 				'delete_item_text' => __( 'Remove Field', 'edd-fields' ),
 				'std'              => '',
 				'fields'           => array(
 					'label'              => array(
 						'type'          => 'text',
-						'desc'          => _x( 'Field Name', 'Field Name Label', 'edd-fields' ),
+						'label'          => _x( 'Field Name', 'Field Name Label', 'edd-fields' ),
+						'desc' => '',
 						'placeholder'   => '',
 						'field_class'   => '',
 						'readonly'      => false,
 						'std'           => '',
-						'tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', 'edd-fields' ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s.', 'Field Name Tooltip Text', 'edd-fields' ), edd_get_label_singular(), edd_get_label_singular() ),
+						'label_tooltip_title' => _x( 'Field Name', 'Field Name Tooltip Title', 'edd-fields' ),
+						'label_tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s.', 'Field Name Tooltip Text', 'edd-fields' ), edd_get_label_singular(), edd_get_label_singular() ),
 					),
 					'type'               => array(
 						'type'          => 'select',
@@ -573,9 +603,10 @@ class EDD_Fields_Admin {
 						),
 						'std'           => 'text',
 						'field_class'   => 'edd-fields-type',
-						'desc'          => _x( 'Field Type', 'Field Type Label', 'edd-fields' ),
-						'tooltip_title' => _x( 'Field Type', 'Field Type Tooltip Title', 'edd-fields' ),
-						'tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen.', 'Field Type Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
+						'label'          => _x( 'Field Type', 'Field Type Label', 'edd-fields' ),
+						'desc' => '',
+						'label_tooltip_title' => _x( 'Field Type', 'Field Type Tooltip Title', 'edd-fields' ),
+						'label_tooltip_desc'  => sprintf( _x( 'Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen.', 'Field Type Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
 					),
 					'edd_fields_options' => array(
 						'type'             => 'hook',
@@ -584,19 +615,21 @@ class EDD_Fields_Admin {
 						'save_item_text'   => __( 'Save Options', 'edd-fields' ),
 						'delete_item_text' => __( 'Remove Option', 'edd-fields' ),
 						'std'              => '',
-						'desc'             => _x( 'Field Options', 'Field Options Label', 'edd-fields' ),
-						'tooltip_title'    => _x( 'Field Options', 'Field Options Tooltip Title', 'edd-fields' ),
-						'tooltip_desc'     => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', 'edd-fields' ),
+						'label'             => _x( 'Field Options', 'Field Options Label', 'edd-fields' ),
+						'desc' => '',
+						'label_tooltip_title'    => _x( 'Field Options', 'Field Options Tooltip Title', 'edd-fields' ),
+						'label_tooltip_desc'     => _x( 'If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button.', 'Field Options Tooltip Text', 'edd-fields' ),
 						'fields'           => array(
 							'value' => array(
 								'type'          => 'text',
-								'desc'          => _x( 'Value', 'Value Label', 'edd-fields' ),
+								'label'          => _x( 'Value', 'Value Label', 'edd-fields' ),
+								'desc' => '',
 								'placeholder'   => '',
 								'field_class'   => '',
 								'readonly'      => false,
 								'std'           => '',
-								'tooltip_title' => _x( 'Value', 'Value Tooltip Title', 'edd-fields' ),
-								'tooltip_desc'  => sprintf( _x( 'Adds Values for the Dropdown on the %s Edit Screen.', 'Field Option Value Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
+								'label_tooltip_title' => _x( 'Value', 'Value Tooltip Title', 'edd-fields' ),
+								'label_tooltip_desc'  => sprintf( _x( 'Adds Values for the Dropdown on the %s Edit Screen.', 'Field Option Value Tooltip Text', 'edd-fields' ), edd_get_label_singular() ),
 							),
 						),
 					),
