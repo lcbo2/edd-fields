@@ -110,11 +110,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
 			// Include and init any Widgets
 			add_action( 'widgets_init', array( $this, 'init_widgets' ) );
-
-			// Handle licensing
-			if ( class_exists( 'EDD_License' ) ) {
-				$license = new EDD_License( __FILE__, $this->plugin_data['Name'], EDD_Fields_VER, $this->plugin_data['Author'] );
-			}
+			
 		}
 
 		/**
