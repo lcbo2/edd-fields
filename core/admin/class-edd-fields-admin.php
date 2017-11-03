@@ -30,6 +30,12 @@ class EDD_Fields_Admin {
 
 		// Register Settings
 		add_filter( 'edd_settings_extensions', array( $this, 'settings' ) );
+		
+		// Licensing and Support
+		add_action( 'edd_fields_support', array( $this, 'licensing_and_support' ) );
+
+		// Support Form Scripts
+		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'support_form_scripts' ) );
 
 		// Enqueue CSS/JS on our Admin Settings Tab
 		add_action( 'edd_settings_tab_top_extensions_edd-fields-settings', array( $this, 'admin_settings_scripts' ) );
@@ -117,6 +123,11 @@ class EDD_Fields_Admin {
 			),
 			array(
 				'id'   => 'fields_reset_defaults',
+				'type' => 'hook',
+			),
+			array(
+				'id' => 'fields_support',
+				'name' => __( 'Licensing and Support', 'edd-fields' ),
 				'type' => 'hook',
 			),
 		);
@@ -876,6 +887,33 @@ class EDD_Fields_Admin {
 		return wp_send_json_error( array(
 			'error' => _x( 'Access Denied', 'Current User Cannot Delete Templates Error', 'edd-fields' ),
 		) );
+
+	}
+	
+	/**
+	 * Outputs Licensing and Support on Settings Page
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		void
+	 */
+	public function licensing_and_support() {
+
+		EDDFIELDS()->support->licensing_fields();
+		EDDFIELDS()->support->support_form();
+
+	}
+
+	/**
+	 * Enqueue Styles and Scripts for the Support Form
+	 * 
+	 * @access		public
+	 * @since		1.0.0
+	 * @return		void
+	 */
+	public function support_form_scripts() {
+
+		EDDFIELDS()->support->enqueue_all_scripts();
 
 	}
 

@@ -59,6 +59,12 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		 * @since        1.0.0
 		 */
 		private $admin_errors;
+		
+		/**
+		 * @var			RBP_Support $support RBP Support module
+		 * @since		1.0.0
+		 */
+		public $support;
 
 		/**
 		 * Get active instance
@@ -142,6 +148,11 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 				// Plugin URL
 				define( 'EDD_Fields_URL', plugin_dir_url( __FILE__ ) );
 			}
+			
+			if ( ! defined( 'EDD_Fields_FILE' ) ) {
+				// Plugin File
+				define( 'EDD_Fields_FILE', __FILE__ );
+			}
 
 		}
 
@@ -191,6 +202,14 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
 			require_once EDD_Fields_DIR . '/core/class-edd-fields-utility.php';
 			$this->utility = new EDD_Fields_Utility();
+			
+			// Override Settings Error key to appease EDD
+			// You must call this before creating the Object as the Filter is in the Constructor
+			add_filter( 'edd_fields_settings_error', array( $this, 'settings_error' ) );
+			
+			// Support Module
+			require_once __DIR__ . '/includes/rbp-support/rbp-support.php';
+			$this->support = new RBP_Support( EDD_Fields_FILE );
 
 			if ( is_admin() ) {
 
@@ -324,6 +343,19 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 
 			require_once EDD_Fields_DIR . '/core/widgets/class-edd-fields-widget.php';
 
+		}
+		
+		/**
+		 * Overrides the Settings Error key in the RBP Support module to make EDD Happy
+		 * 
+		 * @access		public
+		 * @since		1.0.0
+		 * @return		string Settings Error key
+		 */
+		public function settings_error() {
+			
+			return 'edd-notices';
+			
 		}
 
 	}
