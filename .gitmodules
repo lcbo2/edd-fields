@@ -1,0 +1,3 @@
+[submodule "includes/rbp-support"]
+	path = includes/rbp-support
+	url = https://github.com/realbigplugins/rbp-support.git
