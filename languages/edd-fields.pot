@@ -14,302 +14,315 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/admin/class-edd-fields-admin.php:69
+#: core/admin/class-edd-fields-admin.php:75
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:96
+#: core/admin/class-edd-fields-admin.php:102
 msgctxt "Fields Table Injection Global Label"
 msgid "Fields Table Display"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:97
+#: core/admin/class-edd-fields-admin.php:103
 msgctxt "Fields Table Injection Global Checkbox Label"
 msgid "Disable Automatic Display of Fields Table on the %s Page"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:98
+#: core/admin/class-edd-fields-admin.php:104
 msgctxt "Fields Table Injection Global Tooltip Title"
 msgid "Fields Table Display"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:99
+#: core/admin/class-edd-fields-admin.php:105
 msgctxt "Fields Table Injection Global Tooltip Text"
 msgid "By Default, Fields data will automatically be displayed above the purchase button on the %s page. If you don't want the Fields to display or are manually outputting them through your own methods, you should check this box. This can also be overridden on individual %s."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:104
+#: core/admin/class-edd-fields-admin.php:110
 msgid "Field Template Groups"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:107
+#: core/admin/class-edd-fields-admin.php:113
 msgid "Add Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:108
+#: core/admin/class-edd-fields-admin.php:114
 msgid "Edit Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:109
+#: core/admin/class-edd-fields-admin.php:115
 msgid "Remove Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:110
+#: core/admin/class-edd-fields-admin.php:116
 msgid "Save Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:112
+#: core/admin/class-edd-fields-admin.php:118
 msgctxt "Reset Field Template Groups to Defaults"
 msgid "Reset to Defaults"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:113
+#: core/admin/class-edd-fields-admin.php:119
 msgctxt "Reset Field Template Groups Confirmation Dialog"
 msgid "Are you sure? You will lose all changes made to the Field Template Groups."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:114, core/admin/class-edd-fields-admin.php:543
+#: core/admin/class-edd-fields-admin.php:120, core/admin/class-edd-fields-admin.php:582
 msgid "New Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:152, core/admin/class-edd-fields-admin.php:322, core/admin/class-edd-fields-admin.php:416
+#: core/admin/class-edd-fields-admin.php:130
+msgid "Licensing and Support"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:163, core/admin/class-edd-fields-admin.php:344, core/admin/class-edd-fields-admin.php:449
 msgid "Add Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:153, core/admin/class-edd-fields-admin.php:417
+#: core/admin/class-edd-fields-admin.php:164, core/admin/class-edd-fields-admin.php:450
 msgid "Edit Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:154, core/admin/class-edd-fields-admin.php:418
+#: core/admin/class-edd-fields-admin.php:165, core/admin/class-edd-fields-admin.php:451
 msgid "Save Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:155, core/admin/class-edd-fields-admin.php:419
+#: core/admin/class-edd-fields-admin.php:166, core/admin/class-edd-fields-admin.php:452
 msgid "Delete Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:156
+#: core/admin/class-edd-fields-admin.php:167
 msgid "New Row"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:159
+#: core/admin/class-edd-fields-admin.php:170
 msgctxt "Reset Repeater to Defaults"
 msgid "Reset to Defaults"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:160
+#: core/admin/class-edd-fields-admin.php:171
 msgctxt "Reset Repeater Confirmation Dialog"
 msgid "Are you sure? You will lose all changes made to the Repeater."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:285, core/admin/class-edd-fields-admin.php:513
+#: core/admin/class-edd-fields-admin.php:307, core/admin/class-edd-fields-admin.php:551
 msgctxt "Close Fields Notification Modal"
 msgid "Close Notification Editor"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:538
+#: core/admin/class-edd-fields-admin.php:576
 msgctxt "Template Name Label"
 msgid "Template Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:546
+#: core/admin/class-edd-fields-admin.php:585
 msgctxt "Template Name Tooltip Title"
 msgid "Template Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:547
+#: core/admin/class-edd-fields-admin.php:586
 msgctxt "Template Icon Tooltip Text"
 msgid "Controls the title shown when selecting a Field Template Group on the %s Edit Screen."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:551
+#: core/admin/class-edd-fields-admin.php:590
 msgctxt "Field Nested Repeater Label"
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:552, core/admin/class-edd-fields-post-edit.php:183
+#: core/admin/class-edd-fields-admin.php:592, core/admin/class-edd-fields-post-edit.php:194
 msgid "Add Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:553, core/admin/class-edd-fields-post-edit.php:249
+#: core/admin/class-edd-fields-admin.php:593, core/admin/class-edd-fields-post-edit.php:262
 msgid "Remove Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:558
+#: core/admin/class-edd-fields-admin.php:598
 msgctxt "Field Name Label"
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:563
+#: core/admin/class-edd-fields-admin.php:604
 msgctxt "Field Name Tooltip Title"
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:564
+#: core/admin/class-edd-fields-admin.php:605
 msgctxt "Field Name Tooltip Text"
 msgid "Controls the &ldquo;Name&rdquo; shown for the Field. &ldquo;Value&rdquo; is defined on the %s Edit Screen per %s."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:570
+#: core/admin/class-edd-fields-admin.php:611
 msgctxt "Plain Text Field Type Label"
 msgid "Plain Text"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:571
+#: core/admin/class-edd-fields-admin.php:612
 msgctxt "Select Field Type Label"
 msgid "Select"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:572
+#: core/admin/class-edd-fields-admin.php:613
 msgctxt "Downloads Field Type Label"
 msgid "%s List"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:572
+#: core/admin/class-edd-fields-admin.php:613
 msgid "Posts"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:576
+#: core/admin/class-edd-fields-admin.php:617
 msgctxt "Field Type Label"
 msgid "Field Type"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:577
+#: core/admin/class-edd-fields-admin.php:619
 msgctxt "Field Type Tooltip Title"
 msgid "Field Type"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:578
+#: core/admin/class-edd-fields-admin.php:620
 msgctxt "Field Type Tooltip Text"
 msgid "Controls the &ldquo;Type&rdquo; of the Field. This allows for things like predefined choices on the %s Edit Screen."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:582
+#: core/admin/class-edd-fields-admin.php:624
 msgid "Edit Options"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:583
+#: core/admin/class-edd-fields-admin.php:625
 msgid "Add Option"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:584
+#: core/admin/class-edd-fields-admin.php:626
 msgid "Save Options"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:585
+#: core/admin/class-edd-fields-admin.php:627
 msgid "Remove Option"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:587
+#: core/admin/class-edd-fields-admin.php:629
 msgctxt "Field Options Label"
 msgid "Field Options"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:588
+#: core/admin/class-edd-fields-admin.php:631
 msgctxt "Field Options Tooltip Title"
 msgid "Field Options"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:589
+#: core/admin/class-edd-fields-admin.php:632
 msgctxt "Field Options Tooltip Text"
 msgid "If an applicable Field Type is chosen, Options for the Field can be set by clicking this Button."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:593
+#: core/admin/class-edd-fields-admin.php:636
 msgctxt "Value Label"
 msgid "Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:598
+#: core/admin/class-edd-fields-admin.php:642
 msgctxt "Value Tooltip Title"
 msgid "Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:599
+#: core/admin/class-edd-fields-admin.php:643
 msgctxt "Field Option Value Tooltip Text"
 msgid "Adds Values for the Dropdown on the %s Edit Screen."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:631
+#: core/admin/class-edd-fields-admin.php:675
 msgctxt "Field Template Groups Reset to Defaults Successful"
 msgid "Field Template Groups Reset to Defaults."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:693
+#: core/admin/class-edd-fields-admin.php:737
 msgctxt "Active Template Aria Label"
 msgid "Active Template"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:694
+#: core/admin/class-edd-fields-admin.php:738
 msgctxt "Inactive Template Aria Label"
 msgid "Inactive Template"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:695
+#: core/admin/class-edd-fields-admin.php:739
 msgctxt "Confirm Template Deletion"
 msgid "Are you sure you want to delete this Field Template Group?"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:696
+#: core/admin/class-edd-fields-admin.php:740
 msgctxt "Required Field not filled out (Ancient/Bad Browsers Only)"
 msgid "This field is required"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:697
+#: core/admin/class-edd-fields-admin.php:741
 msgctxt "Duplicate Template Name Error"
 msgid "Two Field Template Groups cannot share a Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:698
+#: core/admin/class-edd-fields-admin.php:742
 msgid "No Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:699
+#: core/admin/class-edd-fields-admin.php:743
 msgid "Select a Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:700
+#: core/admin/class-edd-fields-admin.php:744
 msgid "Loading..."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:701, core/admin/class-edd-fields-post-edit.php:480
+#: core/admin/class-edd-fields-admin.php:745, core/admin/class-edd-fields-post-edit.php:493
 msgid "Choose a Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:702
+#: core/admin/class-edd-fields-admin.php:746
 msgid "EDD Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:703
+#: core/admin/class-edd-fields-admin.php:747
 msgid "Create Fields Table"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:704, core/admin/class-edd-fields-admin.php:708
+#: core/admin/class-edd-fields-admin.php:748, core/admin/class-edd-fields-admin.php:752
 msgid "Using This Post's Data"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:705
+#: core/admin/class-edd-fields-admin.php:749
 msgid "Wrapper Class (Optional)"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:706
+#: core/admin/class-edd-fields-admin.php:750
 msgid "Get Field Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:707
+#: core/admin/class-edd-fields-admin.php:751
 msgid "Retrieve a Field's Value by Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:709
+#: core/admin/class-edd-fields-admin.php:753
 msgid "Field Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:762
+#: core/admin/class-edd-fields-admin.php:754
+msgid "TinyMCE already has a Select Control Type called \"RBMSelect\" that is taking precedence over the one included in EDD Fields. This may cause issues."
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:807
 msgctxt "Current User Cannot Insert Templates Error"
 msgid "Access Denied"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:802, core/admin/class-edd-fields-admin.php:843
+#: core/admin/class-edd-fields-admin.php:847
+msgctxt "Current User Cannot Sort Templates Error"
+msgid "Access Denied"
+msgstr ""
+
+#: core/admin/class-edd-fields-admin.php:888
 msgctxt "Current User Cannot Delete Templates Error"
 msgid "Access Denied"
 msgstr ""
@@ -351,7 +364,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:417, core/edd-fields-functions.php:165, core/widgets/class-edd-fields-widget.php:148
+#: core/admin/class-edd-fields-post-edit.php:430, core/edd-fields-functions.php:165, core/widgets/class-edd-fields-widget.php:148
 msgid "Current %s"
 msgstr ""
 
@@ -594,11 +607,11 @@ msgctxt "Field Select Default Option"
 msgid "Select a Field"
 msgstr ""
 
-#: edd-fields.php:91
+#: edd-fields.php:97
 msgctxt "Outdated Dependency Error"
 msgid "%s requires v%s of %s or higher to be installed!"
 msgstr ""
 
-#: edd-fields.php:297
+#: edd-fields.php:316
 msgid "You already have Download Fields in the form."
 msgstr ""
