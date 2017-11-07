@@ -58,18 +58,21 @@
 
     }
 
-    var initializeChosenFields = function ($widget) {
+    var initializeChosenFields = function ($widget, event) {
 
         var $field = $widget.find('.edd-fields-widget-post-id');
 
-        if ( !$field.length ) {
-
+        if ( typeof $field == 'undefined' || 
+			! $field.length ) {
             return;
         }
+		
+		$field.filter( 'div' ).remove();
 
-        $field.chosen({
+        $field.filter( 'select' ).chosen({
             inherit_select_classes: true,
         });
+		
     }
 
     // When the Shortcode type changes
@@ -131,12 +134,12 @@
     $(document).on('widget-updated widget-added', function (e, $widget) {
 
         // Make sure it's the EDD Fields widget
-        if (!$widget.filter(widget_selector).length) {
-
+        if ( ! $widget.filter( widget_selector ).length ) {
             return;
         }
-
-        initializeChosenFields($widget);
+		
+		initializeChosenFields($widget, e.type);
+		
     });
 
     // Initialize the widgets on page load
