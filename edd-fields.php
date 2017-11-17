@@ -319,7 +319,7 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 		/**
 		 * Enqueues front-end assets.
 		 *
-		 * @since {{VERSION}}
+		 * @since 1.0.0
 		 * @access private
 		 */
 		function enqueue_scripts() {

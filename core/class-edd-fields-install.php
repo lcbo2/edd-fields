@@ -2,7 +2,7 @@
 /**
  * Installer class
  *
- * @since {{VERSION}}
+ * @since 1.0.0
  *
  * @package EDD_Fields
  * @subpackage EDD_Fields/core
@@ -15,7 +15,7 @@ class EDD_Fields_Install {
 	/**
 	 * Installs the plugin. Fires on plugin activation.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access private
 	 */
 	static function install() {
@@ -26,7 +26,7 @@ class EDD_Fields_Install {
 	/**
 	 * Saves default settings to the database.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access private
 	 */
 	private static function set_default_settings() {

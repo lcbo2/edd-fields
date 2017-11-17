@@ -96,7 +96,7 @@ function edd_fields_get_templates() {
  * Grabs a specific template.
  *
  * @access public
- * @since  {{VERSION}}
+ * @since  1.0.0
  *
  * @param string $which The template to grab (by label).
  *
@@ -137,7 +137,7 @@ function edd_fields_sanitize_key( $key ) {
 /**
  * Gets the posts select options.
  *
- * @since {{VERSION}}
+ * @since 1.0.0
  *
  * @return array
  */

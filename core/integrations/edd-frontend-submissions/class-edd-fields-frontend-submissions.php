@@ -26,7 +26,7 @@ class EDD_Fields_Frontend_Submissions {
 	/**
 	 * Adds custom formbuilder fields.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 *
 	 * @param array $fields
