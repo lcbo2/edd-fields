@@ -612,6 +612,6 @@ msgctxt "Outdated Dependency Error"
 msgid "%s requires v%s of %s or higher to be installed!"
 msgstr ""
 
-#: edd-fields.php:316
+#: edd-fields.php:312
 msgid "You already have Download Fields in the form."
 msgstr ""
