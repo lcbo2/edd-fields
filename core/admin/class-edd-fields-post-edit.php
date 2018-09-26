@@ -104,7 +104,7 @@ class EDD_Fields_Post_Edit {
 
 			<?php
 
-			$fields    = get_post_meta( $post->ID, 'edd_fields', true );
+			$fields    = edd_fields_get_all_saved_fields( $post->ID );
 			$templates = edd_fields_get_templates();
 
 			$templates_select = array();
@@ -118,9 +118,7 @@ class EDD_Fields_Post_Edit {
 			// Place an option for "Custom" right at the top
 			$templates_select = array( 'custom' => _x( 'Custom (No Template)', 'Custom Template Label', 'edd-fields' ) ) + $templates_select;
 
-			if ( ! $active_template = get_post_meta( $post->ID, 'edd_fields_template', true ) ) {
-				$active_template = 'custom';
-			}
+			$active_template = edd_fields_get_chosen_template( $post->ID );
 
 			?>
 
@@ -485,9 +483,9 @@ class EDD_Fields_Post_Edit {
 
 		$post_id = $_POST['post_id'];
 
-		$template = get_post_meta( $post_id, 'edd_fields_template', true );
+		$template = edd_fields_get_chosen_template( $post_id );
 
-		$fields = get_post_meta( $post_id, 'edd_fields', true );
+		$fields = edd_fields_get_all_saved_fields( $post_id );
 
 		$result = array(
 			array( 'text' => sprintf( __( 'Choose a Field Name', 'edd-fields' ), $singular ), 'value' => '' )

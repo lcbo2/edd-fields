@@ -51,9 +51,9 @@ class EDD_Fields_Shortcodes {
 
 		ob_start();
 
-		$template = get_post_meta( $atts['post_id'], 'edd_fields_template', true );
+		$template = edd_fields_get_chosen_template( $atts['post_id'] );
 
-		$fields = get_post_meta( $atts['post_id'], 'edd_fields', true );
+		$fields = edd_fields_get_all_saved_fields( $atts['post_id'] );
 
 		$show = false;
 		if ( $fields && isset( $fields[ $template ] ) && ! empty( $fields[ $template ] ) ) {

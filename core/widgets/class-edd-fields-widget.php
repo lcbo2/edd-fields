@@ -66,13 +66,13 @@ class EDD_Fields_Widget extends WP_Widget {
 		} else {
 
 			$field_name = $instance['field'];
-			$fields     = get_post_meta( $post_id, 'edd_fields', true );
+			$fields     = edd_fields_get_all_saved_fields( $post_id );
 			$prefix     = '';
 
 			// If there's no Fields saved, don't bother continuing
 			if ( $fields ) {
 
-				$template = get_post_meta( $post_id, 'edd_fields_template', true );
+				$template = edd_fields_get_chosen_template( $post_id );
 
 				if ( isset( $fields[ $template ] ) ) {
 
@@ -189,9 +189,9 @@ class EDD_Fields_Widget extends WP_Widget {
 
 		if ( $saved_post_id ) {
 
-			$template = get_post_meta( $saved_post_id, 'edd_fields_template', true );
+			$template = edd_fields_get_chosen_template( $saved_post_id );
 
-			$fields = get_post_meta( $saved_post_id, 'edd_fields', true );
+			$fields = edd_fields_get_all_saved_fields( $saved_post_id );
 
 			if ( $fields && isset( $fields[ $template ] ) ) {
 
@@ -354,12 +354,8 @@ class EDD_Fields_Widget extends WP_Widget {
 
 		if ( (int) $_POST['post_id'] !== 0 ) {
 
-			$saved_fields      = get_post_meta( $_POST['post_id'], 'edd_fields', true );
-			$selected_template = get_post_meta( $_POST['post_id'], 'edd_fields_template', true );
-
-			if ( ! $selected_template ) {
-				$selected_template = 'custom';
-			}
+			$saved_fields      = edd_fields_get_all_saved_fields( $_POST['post_id'] );
+			$selected_template = edd_fields_get_chosen_template( $_POST['post_id'] );
 
 			foreach ( $saved_fields[ $selected_template ] as $field ) {
 				$fields[] = $field['key'];

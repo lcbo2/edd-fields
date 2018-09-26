@@ -56,10 +56,10 @@ function edd_fields_get( $name, $post_id = null, $template = null ) {
 	}
 
 	if ( $template === null ) {
-		$template = get_post_meta( $post_id, 'edd_fields_template', true );
+		$template = edd_fields_get_chosen_template( $post_id );
 	}
 
-	$fields = get_post_meta( $post_id, 'edd_fields', true );
+	$fields = edd_fields_get_all_saved_fields( $post_id );
 
 	if ( ! $fields || ! isset( $fields[ $template ] ) ) {
 		return false;
@@ -69,6 +69,43 @@ function edd_fields_get( $name, $post_id = null, $template = null ) {
 
 	return $fields[ $template ][ array_search( edd_fields_sanitize_key( $name ), $key_list ) ]['value'];
 
+}
+
+/**
+ * Get all Saved Fields for a Post
+ * 
+ * @param		integer $post_id Post ID
+ *      
+ * @since		{{VERSION}}
+ * @return		array   Saved Fields for that Post
+ */
+function edd_fields_get_all_saved_fields( $post_id ) {
+	
+	$fields = get_post_meta( $post_id, 'edd_fields', true );
+	
+	return apply_filters( 'edd_fields_get_all_saved_fields', $fields, $post_id );
+	
+}
+
+/**
+ * Get the chosen Fields Template for a Post
+ * 
+ * @param		integer $post_id Post ID
+ *                               
+ * @since		{{VERSION}}
+ * @return		string  Chosen Fields Template
+ */
+function edd_fields_get_chosen_template( $post_id ) {
+	
+	$template = get_post_meta( $post_id, 'edd_fields_template', true );
+	
+	// Fallback to Custom
+	if ( ! $template ) {
+		$template = 'custom';
+	}
+	
+	return apply_filters( 'edd_fields_get_chosen_template', $template, $post_id );
+	
 }
 
 /**
