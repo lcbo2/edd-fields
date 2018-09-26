@@ -898,8 +898,17 @@ class EDD_Fields_Admin {
 	 * @return		void
 	 */
 	public function licensing_and_support() {
+		
+		?>
 
-		EDDFIELDS()->support->licensing_fields();
+		<div class="edd-fields-licensing">
+			
+			<?php EDDFIELDS()->support->licensing_fields(); ?>
+			
+		</div>
+
+		<?php 
+		
 		EDDFIELDS()->support->support_form();
 
 	}

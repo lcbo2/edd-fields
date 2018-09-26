@@ -205,7 +205,60 @@ if ( ! class_exists( 'EDD_Fields' ) ) {
 			
 			// Support Module
 			require_once __DIR__ . '/includes/rbp-support/rbp-support.php';
-			$this->support = new RBP_Support( EDD_Fields_FILE );
+			$this->support = new RBP_Support( EDD_Fields_FILE, array(
+				'support_form' => array(
+					'enabled' => array(
+						'title' => _x( 'Need some help with %s?', '%s is the Plugin Name', 'edd-fields' ),
+						'subject_label' => __( 'Subject', 'edd-fields' ),
+						'message_label' => __( 'Message', 'edd-fields' ),
+						'send_button' => __( 'Send', 'edd-fields' ),
+						'subscribe_text' => _x( 'We make other cool plugins and share updates and special offers to anyone who %ssubscribes here%s.', 'Both %s are used to place HTML for the <a> in the message', 'edd-fields' ),
+						'validationError' => _x( 'This field is required', 'Only used by legacy browsers for JavaScript Form Validation', 'edd-fields' ),
+						'success' => __( 'Support message succesfully sent!', 'edd-fields' ),
+						'error' => __( 'Could not send support message.', 'edd-fields' ),
+					),
+					'disabled' => array(
+						'title' => _x( 'Need some help with %s?', '%s is the Plugin Name', 'edd-fields' ),
+						'disabled_message' => __( 'Premium support is disabled. Please register your product and activate your license for this website to enable.', 'edd-fields' )
+					),
+				),
+				'licensing_fields' => array(
+					'title' => _x( '%s License', '%s is the Plugin Name', 'edd-fields' ),
+					'deactivate_button' => __( 'Deactivate', 'edd-fields' ),
+					'activate_button' => __( 'Activate', 'edd-fields' ),
+					'delete_deactivate_button' => __( 'Delete and Deactivate', 'edd-fields' ),
+					'delete_button' => __( 'Delete', 'edd-fields' ),
+					'license_active_label' => __( 'License Active', 'edd-fields' ),
+					'license_inactive_label' => __( 'License Inactive', 'edd-fields' ),
+					'save_activate_button' => __( 'Save and Activate', 'edd-fields' ),
+				),
+				'license_nag' => array(
+					'register_message' => _x( 'Register your copy of %s now to receive automatic updates and support.', '%s is the Plugin Name', 'edd-fields' ),
+					'purchase_message' => _x( 'If you do not have a license key, you can %1$spurchase one%2$s.', 'Both %s are used to place HTML for the <a> in the message', 'edd-fields' ),
+				),
+				'license_activation' => _x( '%s license successfully activated.', '%s is the Plugin Name', 'edd-fields' ),
+				'license_deletion' => _x( '%s license successfully deleted.', '%s is the Plugin Name', 'edd-fields' ),
+				'license_deactivation' => array(
+					'error' => _x( 'Error: could not deactivate the license for %s', '%s is the Plugin Name', 'edd-fields' ),
+					'success' => _x( '%s license successfully deactivated.', '%s is the Plugin Name', 'edd-fields' ),
+				),
+				'license_error_messages' => array(
+					'expired' => _x( 'Your license key expired on %s.', '%s is a localized timestamp', 'edd-fields' ),
+					'revoked' => __( 'Your license key has been disabled.', 'edd-fields' ),
+					'missing' => __( 'Invalid license.', 'edd-fields' ),
+					'site_inactive' => __( 'Your license is not active for this URL.', 'edd-fields' ),
+					'item_name_mismatch' => _x( 'This appears to be an invalid license key for %s.', '%s is the Plugin Name', 'edd-fields' ),
+					'no_activations_left' => __( 'Your license key has reached its activation limit.', 'edd-fields' ),
+					'no_connection' => _x( '%s cannot communicate with %s for License Key Validation. Please check your server configuration settings.', '%s is the Plugin Name followed by the Store URL', 'edd-fields' ),
+					'default' => __( 'An error occurred, please try again.', 'edd-fields' ),
+				),
+				'beta_checkbox' => array(
+					'label' => __( 'Enable Beta Releases', 'edd-fields' ),
+					'disclaimer' => __( 'Beta Releases should not be considered as Stable. Enabling this on your Production Site is done at your own risk.', 'edd-fields' ),
+					'enabled_message' => _x( 'Beta Releases for %s enabled.', '%s is the Plugin Name', 'edd-fields' ),
+					'disabled_message' => _x( 'Beta Releases for %s disabled.', '%s is the Plugin Name', 'edd-fields' ),
+				),
+			) );
 
 			if ( is_admin() ) {
 
