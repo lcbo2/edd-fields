@@ -1,4 +1,4 @@
-# Copyright (C) 2017 EDD_Fields
+# Copyright (C) 2018 EDD_Fields
 # This file is distributed under the same license as the EDD_Fields package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -131,11 +131,11 @@ msgctxt "Field Nested Repeater Label"
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:592, core/admin/class-edd-fields-post-edit.php:194
+#: core/admin/class-edd-fields-admin.php:592, core/admin/class-edd-fields-post-edit.php:192
 msgid "Add Field"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:593, core/admin/class-edd-fields-post-edit.php:262
+#: core/admin/class-edd-fields-admin.php:593, core/admin/class-edd-fields-post-edit.php:260
 msgid "Remove Field"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:745, core/admin/class-edd-fields-post-edit.php:493
+#: core/admin/class-edd-fields-admin.php:745, core/admin/class-edd-fields-post-edit.php:491
 msgid "Choose a Field Name"
 msgstr ""
 
@@ -346,192 +346,192 @@ msgctxt "Custom Template Label"
 msgid "Custom (No Template)"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:129
+#: core/admin/class-edd-fields-post-edit.php:127
 msgctxt "Fields Template Label"
 msgid "Select a Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:132
+#: core/admin/class-edd-fields-post-edit.php:130
 msgctxt "Select a Field Template Group Tooltip"
 msgid "<strong>Select a Field Template Group</strong>: You can choose a Template created on the EDD Fields Settings Page, or use the Custom setting."
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:156, core/edd-fields-functions.php:296
+#: core/admin/class-edd-fields-post-edit.php:154, core/edd-fields-functions.php:333
 msgid "Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:157, core/edd-fields-functions.php:297
+#: core/admin/class-edd-fields-post-edit.php:155, core/edd-fields-functions.php:334
 msgid "Value"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:430, core/edd-fields-functions.php:165, core/widgets/class-edd-fields-widget.php:148
+#: core/admin/class-edd-fields-post-edit.php:428, core/edd-fields-functions.php:202, core/widgets/class-edd-fields-widget.php:148
 msgid "Current %s"
 msgstr ""
 
-#: core/edd-fields-functions.php:160, core/widgets/class-edd-fields-widget.php:144
+#: core/edd-fields-functions.php:197, core/widgets/class-edd-fields-widget.php:144
 msgctxt "Current Item Replacement Text for Widget"
 msgid "Item"
 msgstr ""
 
-#: core/edd-fields-functions.php:332
+#: core/edd-fields-functions.php:369
 msgctxt "Ebook Template"
 msgid "Ebook"
 msgstr ""
 
-#: core/edd-fields-functions.php:335
+#: core/edd-fields-functions.php:372
 msgctxt "Ebook Template: Author"
 msgid "Author"
 msgstr ""
 
-#: core/edd-fields-functions.php:339
+#: core/edd-fields-functions.php:376
 msgctxt "Ebook Template: Number of Pages"
 msgid "Number of Pages"
 msgstr ""
 
-#: core/edd-fields-functions.php:343
+#: core/edd-fields-functions.php:380
 msgctxt "Ebook Template: Publisher"
 msgid "Publisher"
 msgstr ""
 
-#: core/edd-fields-functions.php:347
+#: core/edd-fields-functions.php:384
 msgctxt "Ebook Template: Format"
 msgid "Format"
 msgstr ""
 
-#: core/edd-fields-functions.php:354
+#: core/edd-fields-functions.php:391
 msgctxt "WordPress Plugin Template"
 msgid "WordPress Plugin"
 msgstr ""
 
-#: core/edd-fields-functions.php:357
+#: core/edd-fields-functions.php:394
 msgctxt "WordPress Plugin Template: Required WordPress Version"
 msgid "Required WordPress Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:375
+#: core/edd-fields-functions.php:412
 msgctxt "WordPress Plugin Template: Required PHP Version"
 msgid "Required PHP Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:390
+#: core/edd-fields-functions.php:427
 msgctxt "WordPress Plugin Template: Contributors"
 msgid "Contributors"
 msgstr ""
 
-#: core/edd-fields-functions.php:394
+#: core/edd-fields-functions.php:431
 msgctxt "WordPress Plugin Template: Supported Languages"
 msgid "Supported Languages"
 msgstr ""
 
-#: core/edd-fields-functions.php:401
+#: core/edd-fields-functions.php:438
 msgctxt "WordPress Theme Template"
 msgid "WordPress Theme"
 msgstr ""
 
-#: core/edd-fields-functions.php:404
+#: core/edd-fields-functions.php:441
 msgctxt "WordPress Theme Template: Required WordPress Version"
 msgid "Required WordPress Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:422
+#: core/edd-fields-functions.php:459
 msgctxt "WordPress Theme Template: Required PHP Version"
 msgid "Required PHP Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:437
+#: core/edd-fields-functions.php:474
 msgctxt "WordPress Theme Template: Contributors"
 msgid "Contributors"
 msgstr ""
 
-#: core/edd-fields-functions.php:441
+#: core/edd-fields-functions.php:478
 msgctxt "WordPress Theme Template: Supported Languages"
 msgid "Supported Languages"
 msgstr ""
 
-#: core/edd-fields-functions.php:445
+#: core/edd-fields-functions.php:482
 msgctxt "WordPress Theme Template: Responsive"
 msgid "Responsive"
 msgstr ""
 
-#: core/edd-fields-functions.php:449, core/edd-fields-functions.php:483
+#: core/edd-fields-functions.php:486, core/edd-fields-functions.php:520
 msgid "Yes"
 msgstr ""
 
-#: core/edd-fields-functions.php:452, core/edd-fields-functions.php:486
+#: core/edd-fields-functions.php:489, core/edd-fields-functions.php:523
 msgid "No"
 msgstr ""
 
-#: core/edd-fields-functions.php:460
+#: core/edd-fields-functions.php:497
 msgctxt "Music Template"
 msgid "Music"
 msgstr ""
 
-#: core/edd-fields-functions.php:463
+#: core/edd-fields-functions.php:500
 msgctxt "Music Template: Artist"
 msgid "Artist"
 msgstr ""
 
-#: core/edd-fields-functions.php:467
+#: core/edd-fields-functions.php:504
 msgctxt "Music Template: Genre"
 msgid "Genre"
 msgstr ""
 
-#: core/edd-fields-functions.php:471
+#: core/edd-fields-functions.php:508
 msgctxt "Music Template: Length"
 msgid "Length"
 msgstr ""
 
-#: core/edd-fields-functions.php:475
+#: core/edd-fields-functions.php:512
 msgctxt "Music Template: Producer"
 msgid "Producer"
 msgstr ""
 
-#: core/edd-fields-functions.php:479
+#: core/edd-fields-functions.php:516
 msgctxt "Music Template: Explicit"
 msgid "Explicit"
 msgstr ""
 
-#: core/edd-fields-functions.php:494
+#: core/edd-fields-functions.php:531
 msgctxt "Software Template"
 msgid "Software"
 msgstr ""
 
-#: core/edd-fields-functions.php:497
+#: core/edd-fields-functions.php:534
 msgctxt "Software Template: Operating System"
 msgid "Operating System"
 msgstr ""
 
-#: core/edd-fields-functions.php:501
+#: core/edd-fields-functions.php:538
 msgctxt "Software Template: File Type"
 msgid "File Type"
 msgstr ""
 
-#: core/edd-fields-functions.php:505
+#: core/edd-fields-functions.php:542
 msgctxt "Software Template: Disk Space"
 msgid "Disk Space"
 msgstr ""
 
-#: core/edd-fields-functions.php:509
+#: core/edd-fields-functions.php:546
 msgctxt "Software Template: Required Memory"
 msgid "Required Memory"
 msgstr ""
 
-#: core/edd-fields-functions.php:516
+#: core/edd-fields-functions.php:553
 msgctxt "Photography Template"
 msgid "Photography"
 msgstr ""
 
-#: core/edd-fields-functions.php:519
+#: core/edd-fields-functions.php:556
 msgctxt "Photography Template: License"
 msgid "License"
 msgstr ""
 
-#: core/edd-fields-functions.php:523
+#: core/edd-fields-functions.php:560
 msgctxt "Photography Template: File Type"
 msgid "File Type"
 msgstr ""
 
-#: core/edd-fields-functions.php:527
+#: core/edd-fields-functions.php:564
 msgctxt "Photography Template: Dimensions"
 msgid "Dimensions"
 msgstr ""
@@ -612,6 +612,161 @@ msgctxt "Outdated Dependency Error"
 msgid "%s requires v%s of %s or higher to be installed!"
 msgstr ""
 
-#: edd-fields.php:312
+#: edd-fields.php:211, edd-fields.php:221
+msgctxt "%s is the Plugin Name"
+msgid "Need some help with %s?"
+msgstr ""
+
+#: edd-fields.php:212
+msgid "Subject"
+msgstr ""
+
+#: edd-fields.php:213
+msgid "Message"
+msgstr ""
+
+#: edd-fields.php:214
+msgid "Send"
+msgstr ""
+
+#: edd-fields.php:215
+msgctxt "Both %s are used to place HTML for the <a> in the message"
+msgid "We make other cool plugins and share updates and special offers to anyone who %ssubscribes here%s."
+msgstr ""
+
+#: edd-fields.php:216
+msgctxt "Only used by legacy browsers for JavaScript Form Validation"
+msgid "This field is required"
+msgstr ""
+
+#: edd-fields.php:217
+msgid "Support message succesfully sent!"
+msgstr ""
+
+#: edd-fields.php:218
+msgid "Could not send support message."
+msgstr ""
+
+#: edd-fields.php:222
+msgid "Premium support is disabled. Please register your product and activate your license for this website to enable."
+msgstr ""
+
+#: edd-fields.php:226
+msgctxt "%s is the Plugin Name"
+msgid "%s License"
+msgstr ""
+
+#: edd-fields.php:227
+msgid "Deactivate"
+msgstr ""
+
+#: edd-fields.php:228
+msgid "Activate"
+msgstr ""
+
+#: edd-fields.php:229
+msgid "Delete and Deactivate"
+msgstr ""
+
+#: edd-fields.php:230
+msgid "Delete"
+msgstr ""
+
+#: edd-fields.php:231
+msgid "License Active"
+msgstr ""
+
+#: edd-fields.php:232
+msgid "License Inactive"
+msgstr ""
+
+#: edd-fields.php:233
+msgid "Save and Activate"
+msgstr ""
+
+#: edd-fields.php:236
+msgctxt "%s is the Plugin Name"
+msgid "Register your copy of %s now to receive automatic updates and support."
+msgstr ""
+
+#: edd-fields.php:237
+msgctxt "Both %s are used to place HTML for the <a> in the message"
+msgid "If you do not have a license key, you can %1$spurchase one%2$s."
+msgstr ""
+
+#: edd-fields.php:239
+msgctxt "%s is the Plugin Name"
+msgid "%s license successfully activated."
+msgstr ""
+
+#: edd-fields.php:240
+msgctxt "%s is the Plugin Name"
+msgid "%s license successfully deleted."
+msgstr ""
+
+#: edd-fields.php:242
+msgctxt "%s is the Plugin Name"
+msgid "Error: could not deactivate the license for %s"
+msgstr ""
+
+#: edd-fields.php:243
+msgctxt "%s is the Plugin Name"
+msgid "%s license successfully deactivated."
+msgstr ""
+
+#: edd-fields.php:246
+msgctxt "%s is a localized timestamp"
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: edd-fields.php:247
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: edd-fields.php:248
+msgid "Invalid license."
+msgstr ""
+
+#: edd-fields.php:249
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: edd-fields.php:250
+msgctxt "%s is the Plugin Name"
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: edd-fields.php:251
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: edd-fields.php:252
+msgctxt "%s is the Plugin Name followed by the Store URL"
+msgid "%s cannot communicate with %s for License Key Validation. Please check your server configuration settings."
+msgstr ""
+
+#: edd-fields.php:253
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: edd-fields.php:256
+msgid "Enable Beta Releases"
+msgstr ""
+
+#: edd-fields.php:257
+msgid "Beta Releases should not be considered as Stable. Enabling this on your Production Site is done at your own risk."
+msgstr ""
+
+#: edd-fields.php:258
+msgctxt "%s is the Plugin Name"
+msgid "Beta Releases for %s enabled."
+msgstr ""
+
+#: edd-fields.php:259
+msgctxt "%s is the Plugin Name"
+msgid "Beta Releases for %s disabled."
+msgstr ""
+
+#: edd-fields.php:365
 msgid "You already have Download Fields in the form."
 msgstr ""
