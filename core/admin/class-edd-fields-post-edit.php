@@ -139,6 +139,10 @@ class EDD_Fields_Post_Edit {
 					'show_option_all'  => false,
 					'show_option_none' => false,
 				) ); ?>
+				
+				<a href="<?php echo admin_url( 'edit.php?post_type=download&page=edd-settings&tab=extensions&section=edd-fields-settings'); ?>">
+					<?php _e( 'Manage Field Template Groups Here', 'edd-fields' ); ?>
+				</a>
 
             </p>
 
