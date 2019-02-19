@@ -201,6 +201,10 @@ function edd_fields_get_posts_select_options() {
 	$posts = array(
 		0 => sprintf( __( 'Current %s', 'edd-fields' ), $singular ),
 	);
+	
+	global $post;
+	
+	$original_post = $post;
 
 	// This is only used for Fields with their Type set to "posts", but running it here ensures we only do this query once
 	foreach ( $post_types as $post_type ) {
@@ -222,8 +226,6 @@ function edd_fields_get_posts_select_options() {
 
 			endwhile;
 
-			wp_reset_postdata();
-
 			if ( count( $post_types ) > 1 ) {
 
 				if ( $post_type == 'download' ) {
@@ -239,8 +241,13 @@ function edd_fields_get_posts_select_options() {
 			}
 
 		endif;
+		
+		wp_reset_postdata();
 
 	}
+	
+	// Somehow wp_reset_postdata() isn't sufficient here
+	$post = $original_post;
 
 	return $posts;
 }
@@ -290,7 +297,7 @@ function edd_fields_output_field_input( $field, $template, $saved = array(), $i 
 
 							<?php foreach ( $value as $post_id => $post_title ) : ?>
 
-                                <option value="<?php echo $post_id; ?>"<?php echo ( $post_id == $template[ edd_fields_sanitize_key( $template['label'] ) ][ $i ]['value'] ) ? ' selected' : ''; ?>>
+                                <option value="<?php echo $post_id; ?>"<?php echo ( $post_id == $saved[ edd_fields_sanitize_key( $template['label'] ) ][ $i ]['value'] ) ? ' selected' : ''; ?>>
 									<?php echo $post_title; ?>
                                 </option>
 
@@ -300,7 +307,7 @@ function edd_fields_output_field_input( $field, $template, $saved = array(), $i 
 
 					<?php else : ?>
 
-                        <option value="<?php echo $key; ?>"<?php echo ( $key == $template[ edd_fields_sanitize_key( $template['label'] ) ][ $i ]['value'] ) ? ' selected' : ''; ?>>
+                        <option value="<?php echo $key; ?>"<?php echo ( $key == $saved[ edd_fields_sanitize_key( $template['label'] ) ][ $i ]['value'] ) ? ' selected' : ''; ?>>
 							<?php echo $value; ?>
                         </option>
 

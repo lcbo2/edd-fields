@@ -76,9 +76,7 @@ class EDD_Fields_Post_Edit {
 	 * @return      void
 	 */
 	public function fields( $post ) {
-
-		ob_start();
-
+		
 		?>
 
         <div class="edd-fields-meta-box">
@@ -215,9 +213,7 @@ class EDD_Fields_Post_Edit {
 
         </div>
 
-		<?php wp_nonce_field( basename( __FILE__ ), 'edd_fields_meta_box_nonce' ); ?>
-
-		<?php echo ob_get_clean();
+		<?php wp_nonce_field( basename( __FILE__ ), 'edd_fields_meta_box_nonce' );
 
 	}
 
