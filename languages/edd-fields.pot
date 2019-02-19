@@ -1,4 +1,4 @@
-# Copyright (C) 2018 EDD_Fields
+# Copyright (C) 2019 EDD_Fields
 # This file is distributed under the same license as the EDD_Fields package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -131,7 +131,7 @@ msgctxt "Field Nested Repeater Label"
 msgid "Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-admin.php:592, core/admin/class-edd-fields-post-edit.php:192
+#: core/admin/class-edd-fields-admin.php:592, core/admin/class-edd-fields-post-edit.php:194
 msgid "Add Field"
 msgstr ""
 
@@ -331,36 +331,40 @@ msgstr ""
 msgid "%1$s Fields"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:97
+#: core/admin/class-edd-fields-post-edit.php:95
 msgctxt "Fields Table Inject Checkbox Label"
 msgid "Show Fields Table?"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:99
+#: core/admin/class-edd-fields-post-edit.php:97
 msgctxt "Fields Table Inject Tooltip"
 msgid "<strong>Show Fields Table</strong>: Automatically include the [edd_fields_table] shortcode above the Purchase Button."
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:119
+#: core/admin/class-edd-fields-post-edit.php:117
 msgctxt "Custom Template Label"
 msgid "Custom (No Template)"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:127
+#: core/admin/class-edd-fields-post-edit.php:125
 msgctxt "Fields Template Label"
 msgid "Select a Field Template Group"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:130
+#: core/admin/class-edd-fields-post-edit.php:128
 msgctxt "Select a Field Template Group Tooltip"
 msgid "<strong>Select a Field Template Group</strong>: You can choose a Template created on the EDD Fields Settings Page, or use the Custom setting."
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:154, core/edd-fields-functions.php:333
+#: core/admin/class-edd-fields-post-edit.php:142
+msgid "Manage Field Template Groups Here"
+msgstr ""
+
+#: core/admin/class-edd-fields-post-edit.php:156, core/edd-fields-functions.php:340
 msgid "Name"
 msgstr ""
 
-#: core/admin/class-edd-fields-post-edit.php:155, core/edd-fields-functions.php:334
+#: core/admin/class-edd-fields-post-edit.php:157, core/edd-fields-functions.php:341
 msgid "Value"
 msgstr ""
 
@@ -373,170 +377,170 @@ msgctxt "Current Item Replacement Text for Widget"
 msgid "Item"
 msgstr ""
 
-#: core/edd-fields-functions.php:369
+#: core/edd-fields-functions.php:376
 msgctxt "Ebook Template"
 msgid "Ebook"
 msgstr ""
 
-#: core/edd-fields-functions.php:372
+#: core/edd-fields-functions.php:379
 msgctxt "Ebook Template: Author"
 msgid "Author"
 msgstr ""
 
-#: core/edd-fields-functions.php:376
+#: core/edd-fields-functions.php:383
 msgctxt "Ebook Template: Number of Pages"
 msgid "Number of Pages"
 msgstr ""
 
-#: core/edd-fields-functions.php:380
+#: core/edd-fields-functions.php:387
 msgctxt "Ebook Template: Publisher"
 msgid "Publisher"
 msgstr ""
 
-#: core/edd-fields-functions.php:384
+#: core/edd-fields-functions.php:391
 msgctxt "Ebook Template: Format"
 msgid "Format"
 msgstr ""
 
-#: core/edd-fields-functions.php:391
+#: core/edd-fields-functions.php:398
 msgctxt "WordPress Plugin Template"
 msgid "WordPress Plugin"
 msgstr ""
 
-#: core/edd-fields-functions.php:394
+#: core/edd-fields-functions.php:401
 msgctxt "WordPress Plugin Template: Required WordPress Version"
 msgid "Required WordPress Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:412
+#: core/edd-fields-functions.php:419
 msgctxt "WordPress Plugin Template: Required PHP Version"
 msgid "Required PHP Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:427
+#: core/edd-fields-functions.php:434
 msgctxt "WordPress Plugin Template: Contributors"
 msgid "Contributors"
 msgstr ""
 
-#: core/edd-fields-functions.php:431
+#: core/edd-fields-functions.php:438
 msgctxt "WordPress Plugin Template: Supported Languages"
 msgid "Supported Languages"
 msgstr ""
 
-#: core/edd-fields-functions.php:438
+#: core/edd-fields-functions.php:445
 msgctxt "WordPress Theme Template"
 msgid "WordPress Theme"
 msgstr ""
 
-#: core/edd-fields-functions.php:441
+#: core/edd-fields-functions.php:448
 msgctxt "WordPress Theme Template: Required WordPress Version"
 msgid "Required WordPress Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:459
+#: core/edd-fields-functions.php:466
 msgctxt "WordPress Theme Template: Required PHP Version"
 msgid "Required PHP Version"
 msgstr ""
 
-#: core/edd-fields-functions.php:474
+#: core/edd-fields-functions.php:481
 msgctxt "WordPress Theme Template: Contributors"
 msgid "Contributors"
 msgstr ""
 
-#: core/edd-fields-functions.php:478
+#: core/edd-fields-functions.php:485
 msgctxt "WordPress Theme Template: Supported Languages"
 msgid "Supported Languages"
 msgstr ""
 
-#: core/edd-fields-functions.php:482
+#: core/edd-fields-functions.php:489
 msgctxt "WordPress Theme Template: Responsive"
 msgid "Responsive"
 msgstr ""
 
-#: core/edd-fields-functions.php:486, core/edd-fields-functions.php:520
+#: core/edd-fields-functions.php:493, core/edd-fields-functions.php:527
 msgid "Yes"
 msgstr ""
 
-#: core/edd-fields-functions.php:489, core/edd-fields-functions.php:523
+#: core/edd-fields-functions.php:496, core/edd-fields-functions.php:530
 msgid "No"
 msgstr ""
 
-#: core/edd-fields-functions.php:497
+#: core/edd-fields-functions.php:504
 msgctxt "Music Template"
 msgid "Music"
 msgstr ""
 
-#: core/edd-fields-functions.php:500
+#: core/edd-fields-functions.php:507
 msgctxt "Music Template: Artist"
 msgid "Artist"
 msgstr ""
 
-#: core/edd-fields-functions.php:504
+#: core/edd-fields-functions.php:511
 msgctxt "Music Template: Genre"
 msgid "Genre"
 msgstr ""
 
-#: core/edd-fields-functions.php:508
+#: core/edd-fields-functions.php:515
 msgctxt "Music Template: Length"
 msgid "Length"
 msgstr ""
 
-#: core/edd-fields-functions.php:512
+#: core/edd-fields-functions.php:519
 msgctxt "Music Template: Producer"
 msgid "Producer"
 msgstr ""
 
-#: core/edd-fields-functions.php:516
+#: core/edd-fields-functions.php:523
 msgctxt "Music Template: Explicit"
 msgid "Explicit"
 msgstr ""
 
-#: core/edd-fields-functions.php:531
+#: core/edd-fields-functions.php:538
 msgctxt "Software Template"
 msgid "Software"
 msgstr ""
 
-#: core/edd-fields-functions.php:534
+#: core/edd-fields-functions.php:541
 msgctxt "Software Template: Operating System"
 msgid "Operating System"
 msgstr ""
 
-#: core/edd-fields-functions.php:538
+#: core/edd-fields-functions.php:545
 msgctxt "Software Template: File Type"
 msgid "File Type"
 msgstr ""
 
-#: core/edd-fields-functions.php:542
+#: core/edd-fields-functions.php:549
 msgctxt "Software Template: Disk Space"
 msgid "Disk Space"
 msgstr ""
 
-#: core/edd-fields-functions.php:546
+#: core/edd-fields-functions.php:553
 msgctxt "Software Template: Required Memory"
 msgid "Required Memory"
 msgstr ""
 
-#: core/edd-fields-functions.php:553
+#: core/edd-fields-functions.php:560
 msgctxt "Photography Template"
 msgid "Photography"
 msgstr ""
 
-#: core/edd-fields-functions.php:556
+#: core/edd-fields-functions.php:563
 msgctxt "Photography Template: License"
 msgid "License"
 msgstr ""
 
-#: core/edd-fields-functions.php:560
+#: core/edd-fields-functions.php:567
 msgctxt "Photography Template: File Type"
 msgid "File Type"
 msgstr ""
 
-#: core/edd-fields-functions.php:564
+#: core/edd-fields-functions.php:571
 msgctxt "Photography Template: Dimensions"
 msgid "Dimensions"
 msgstr ""
 
-#: core/front/class-edd-fields-shortcodes.php:125
+#: core/front/class-edd-fields-shortcodes.php:123
 msgid "You must specify a Field Name. Example: [edd_field name=\"test\"]"
 msgstr ""
 
