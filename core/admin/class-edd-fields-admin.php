@@ -465,7 +465,7 @@ class EDD_Fields_Admin {
 		}
 
 		// Ensure Dummy Field is created
-		$field_count = ( count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
+		$field_count = ( is_array( $edd_option ) && count( $edd_option ) >= 1 ) ? count( $edd_option ) : 1;
 
 		$name = $args['input_name'] !== false ? $args['input_name'] : 'edd_settings[' . esc_attr( $args['id'] ) . ']';
 
